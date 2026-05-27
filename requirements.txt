@@ -8,7 +8,7 @@ orjson==3.10.12
 nltk==3.9.1
 spacy==3.8.3
 scikit-learn==1.6.0
-multi-rake==0.0.4
+multi-rake==0.0.2
 pytextrank==3.3.1
 
 # NLP — advanced (Week 2)
