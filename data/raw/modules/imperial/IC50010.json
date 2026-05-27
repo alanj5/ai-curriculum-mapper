@@ -1,0 +1,31 @@
+{
+  "code": "IC50010",
+  "title": "Designing for Real People",
+  "level": 2,
+  "credits": 8,
+  "prerequisites": [
+    "IC40009"
+  ],
+  "description": "Students apply software engineering techniques to develop a substantial web-based or mobile application addressing authentic problems. The coursework emphasises Human Centred Design (HCD) principles alongside relevant legal frameworks governing computing applications.",
+  "learning_objectives": [
+    "Describe and discuss the concepts involved in Human-Centred Design and agile software development",
+    "Conduct research into a real-world problem following HCD principles",
+    "Design, engineer and deploy a web-based or mobile-based application to solve a real-world problem",
+    "Work effectively as part of a small group to deliver software iteratively using agile methods",
+    "Report, present and demonstrate a solution and its value proposition to an interdisciplinary audience",
+    "Recall relevant Computer Laws and act in a manner that demonstrates awareness and conformity"
+  ],
+  "topics": [
+    "Human-Centred Design",
+    "Agile software development",
+    "User research methods",
+    "Prototyping and iterative design",
+    "Usability testing",
+    "Multi-user web application design and implementation",
+    "Mobile application development",
+    "Copyright and Data Protection law",
+    "GDPR",
+    "User interface design"
+  ],
+  "source": "imperial"
+}

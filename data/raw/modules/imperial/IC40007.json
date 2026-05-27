@@ -1,0 +1,30 @@
+{
+  "code": "IC40007",
+  "title": "Introduction to Databases",
+  "level": 1,
+  "credits": 8,
+  "prerequisites": [],
+  "description": "This module covers modern database system structures, relational database modelling, normalisation, SQL query design, and contemporary database technologies. Students understand the separation of physical and logical models and transaction management.",
+  "learning_objectives": [
+    "Compare and contrast different database models and supporting architectures",
+    "Model information in a relational system",
+    "Optimise a relational schema and demonstrate correctness of optimisations",
+    "Design relational queries and write SQL queries",
+    "Set up a database, implement a schema as well as the queries",
+    "Explain the benefits of separating physical and logical models"
+  ],
+  "topics": [
+    "Database systems",
+    "Relational model",
+    "Database design",
+    "Entity-relationship modelling",
+    "Functional dependencies, keys and normal forms",
+    "Relational database languages",
+    "Relational algebra",
+    "SQL",
+    "Views integrity and security",
+    "Transaction management and concurrency",
+    "Normalisation"
+  ],
+  "source": "imperial"
+}

@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software in your research or teaching, please cite it as below."
+title: "AI Curriculum Mapper: Automated alignment of Computing module descriptors to ACM/IEEE CS2023 Knowledge Areas"
+abstract: >
+  An end-to-end system for automated curriculum mapping. Combines a
+  five-extractor NLP ensemble (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic) with
+  Sentence-BERT canonicalisation and a hybrid lexical-semantic aligner to map
+  undergraduate Computing module descriptors to the 18 ACM/IEEE CS2023
+  Knowledge Areas. Includes a FastAPI backend, a Cytoscape.js web interface
+  for human-in-the-loop validation, and a graph-analytics layer for gap,
+  redundancy, and community detection.
+authors:
+  - family-names: "Jiang"
+    given-names: "Alan"
+    affiliation: "Department of Computing, Imperial College London"
+type: software
+version: "1.0.0"
+date-released: 2026-05-28
+license: MIT
+repository-code: "https://github.com/alanj5/ai-curriculum-mapper"
+url: "https://github.com/alanj5/ai-curriculum-mapper"
+keywords:
+  - natural-language-processing
+  - curriculum-mapping
+  - sentence-bert
+  - knowledge-areas
+  - cs2023
+  - computing-education
+  - fastapi
+preferred-citation:
+  type: thesis
+  title: "AI-Driven Curriculum Mapping for Computing Education"
+  authors:
+    - family-names: "Jiang"
+      given-names: "Alan"
+      affiliation: "Department of Computing, Imperial College London"
+  thesis-type: "BEng dissertation"
+  institution:
+    name: "Imperial College London"
+    address: "London, United Kingdom"
+  year: 2026
+  month: 5

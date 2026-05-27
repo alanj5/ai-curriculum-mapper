@@ -1,0 +1,35 @@
+{
+  "code": "IC40008",
+  "title": "Graphs and Algorithms",
+  "level": 1,
+  "credits": 8,
+  "prerequisites": [],
+  "description": "This module offers students opportunities to prove mathematical properties of graphs, explore classical algorithms for graphs and trees, design sorting and searching algorithms, determine algorithm time complexity, and study the complexity classes P and NP along with NP-completeness.",
+  "learning_objectives": [
+    "Prove basic properties of graphs",
+    "Describe and establish the correctness of fundamental algorithms in computing",
+    "Analyse the time complexity of an algorithm",
+    "Explain the complexity classes P and NP and the P=NP problem",
+    "Determine to which complexity class a computational problem belongs"
+  ],
+  "topics": [
+    "Graphs and graph representations",
+    "Graph traversal algorithms",
+    "Breadth-first search",
+    "Depth-first search",
+    "Minimum spanning trees",
+    "Shortest paths",
+    "Dijkstra's algorithm",
+    "Dynamic programming",
+    "Divide and conquer",
+    "Searching and sorting algorithms",
+    "Algorithm analysis",
+    "Time complexity",
+    "Recurrence relations",
+    "Master Theorem",
+    "Decision trees",
+    "Complexity classes P and NP",
+    "NP-completeness"
+  ],
+  "source": "imperial"
+}

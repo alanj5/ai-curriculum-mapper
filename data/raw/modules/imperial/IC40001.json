@@ -1,0 +1,31 @@
+{
+  "code": "IC40001",
+  "title": "Introduction to Computer Systems",
+  "level": 1,
+  "credits": 8,
+  "prerequisites": [],
+  "description": "This module examines fundamental principles and devices used in the design of digital computers, and the way in which primitive control logic can be organised to construct a programmable machine. Students study number representations, Boolean algebra, combinatorial and sequential logic, and progress to ALU and CPU design.",
+  "learning_objectives": [
+    "Explain combinatorial circuit design and synchronous sequential circuit design",
+    "Design a CPU using Boolean algebra and functional design",
+    "Describe basic CPU architecture, its components, and hardware control mapping",
+    "Compare and use different number representations"
+  ],
+  "topics": [
+    "Number representations and computer arithmetic",
+    "Boolean algebra",
+    "Combinatorial logic functions",
+    "Principles of semiconductor devices and logic gates",
+    "Adders, subtractors, and multipliers",
+    "Bistable storage devices",
+    "Flip-flop design",
+    "Registers",
+    "Multiplexers and decoders",
+    "Counters",
+    "Finite state machines",
+    "Static and dynamic RAM",
+    "Register transfer descriptions",
+    "ALU and CPU design"
+  ],
+  "source": "imperial"
+}

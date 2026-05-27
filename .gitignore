@@ -1,0 +1,49 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+*.egg-info/
+dist/
+build/
+.python-version
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Data — raw module documents may be sensitive; pipeline artefacts are regenerable
+data/raw/modules/*.pdf
+data/raw/modules/*.docx
+data/cache/
+data/curriculum.db
+data/processed/*.png
+data/processed/*.json
+data/processed/*.txt
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

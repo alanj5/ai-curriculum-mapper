@@ -1,0 +1,30 @@
+{
+  "code": "IC50001",
+  "title": "Algorithm Design and Analysis",
+  "level": 2,
+  "credits": 8,
+  "prerequisites": [
+    "IC40008"
+  ],
+  "description": "This module explores foundational algorithmic design paradigms and their practical applications. Students engage with quantitative algorithm analysis, apply techniques to novel problems, and develop structured approaches to computational problem-solving through mathematical abstraction and implementation.",
+  "learning_objectives": [
+    "Compare, characterise and evaluate different implementations of basic algorithms",
+    "Analyse algorithms using quantitative evaluation",
+    "Formulate algorithmic abstractions of computational problems",
+    "Design and implement efficient algorithms for practical and unseen problems",
+    "Specify which algorithms can be applied to which classes of problems"
+  ],
+  "topics": [
+    "Quantitative analysis of algorithms and growth order",
+    "Asymptotic notation",
+    "Divide and conquer",
+    "Dynamic programming",
+    "Greedy algorithms",
+    "Randomised algorithms",
+    "Advanced graph algorithms",
+    "Network flow",
+    "String processing algorithms",
+    "Algorithm correctness and invariants"
+  ],
+  "source": "imperial"
+}

@@ -1,0 +1,35 @@
+{
+  "code": "IC50009",
+  "title": "Symbolic Reasoning",
+  "level": 2,
+  "credits": 8,
+  "prerequisites": [
+    "IC40012"
+  ],
+  "description": "This module covers the foundations of symbolic reasoning: SAT solving, logic programming, answer set programming, and SMT solving. Students develop practical skills to solve real-world problems in program reasoning and symbolic artificial intelligence.",
+  "learning_objectives": [
+    "Describe theoretical foundations of Boolean Satisfiability (SAT) and SMT solving",
+    "Implement algorithms for SAT solving",
+    "Encode problems in SMT form and solve them using state-of-the-art SMT solvers",
+    "Explain the theoretical foundations of logic programming",
+    "Apply resolution as an inference system for logic programming",
+    "Encode problems using Answer Set Programming and solve them using ASP solvers"
+  ],
+  "topics": [
+    "Boolean Satisfiability (SAT)",
+    "NP-completeness of SAT",
+    "DPLL algorithm",
+    "Conflict-driven clause learning (CDCL)",
+    "Knowledge representation",
+    "Logic programming",
+    "Herbrand models",
+    "Answer Set Programming (ASP)",
+    "SLD resolution",
+    "SLDNF resolution",
+    "Satisfiability Modulo Theories (SMT)",
+    "First-order theories",
+    "Decidability",
+    "Formal verification"
+  ],
+  "source": "imperial"
+}

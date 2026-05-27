@@ -1,0 +1,36 @@
+{
+  "code": "IC40018",
+  "title": "Discrete Mathematics, Logic and Reasoning",
+  "level": 1,
+  "credits": 8,
+  "prerequisites": [],
+  "description": "This module demonstrates how discrete mathematics and logic can be used to describe and reason about computational structures and systems. It establishes foundations for computing topics including hardware design, algorithm analysis, and program verification, with emphasis on proof techniques for verifying program and system specifications.",
+  "learning_objectives": [
+    "Construct various mathematical proofs using informal and formal reasoning",
+    "Define properties of fundamental discrete structures like sets, relations, and functions",
+    "Read, parse, and evaluate logical formulas",
+    "Formalise English statements into logic",
+    "Use logic to specify desired system, program, or algorithm properties",
+    "Apply induction to reason about recursive program and data structure correctness",
+    "Provide suitable pre-, post-, and mid-conditions and invariants for imperative programs",
+    "Use logic to reason about imperative program correctness"
+  ],
+  "topics": [
+    "Logical connectives",
+    "Proof methods",
+    "Sets, relations and functions",
+    "Countability",
+    "Orderings",
+    "Induction",
+    "Inductive reasoning for recursive programs and data types",
+    "Logic formalization syntax and semantics",
+    "Validity and satisfiability",
+    "Equivalence",
+    "Logical proof systems",
+    "Soundness and completeness",
+    "Pre-conditions, post-conditions, and mid-conditions",
+    "Loop invariants and variants",
+    "Logical reasoning applied to imperative programs"
+  ],
+  "source": "imperial"
+}

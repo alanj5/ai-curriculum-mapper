@@ -1,0 +1,22 @@
+services:
+  api:
+    build: .
+    image: ai-curriculum-mapper:latest
+    container_name: curriculum-mapper
+    ports:
+      - "8000:8000"
+    environment:
+      # CORS origins comma-separated; default allows localhost dev
+      CORS_ORIGINS: "http://localhost:5173,http://127.0.0.1:5173,http://localhost:8000,http://127.0.0.1:8000"
+      API_HOST: "0.0.0.0"
+      API_PORT: "8000"
+    volumes:
+      # Persist the SQLite database and pipeline artefacts between runs
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s

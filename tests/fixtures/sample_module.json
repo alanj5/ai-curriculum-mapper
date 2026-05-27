@@ -1,0 +1,21 @@
+{
+  "code": "TEST101",
+  "title": "Introduction to Algorithms and Data Structures",
+  "level": 2,
+  "credits": 12,
+  "prerequisites": [],
+  "description": "This module introduces fundamental algorithms and data structures. Topics include sorting algorithms such as merge sort, quicksort, and heapsort. Students study graph algorithms including breadth-first search, depth-first search, Dijkstra shortest path algorithm, and minimum spanning trees. Dynamic programming and greedy algorithms are covered with examples. Students analyse time and space complexity using asymptotic notation including Big-O, Big-Theta and Big-Omega.",
+  "ilos": [
+    {"text": "Implement and analyse sorting algorithms including merge sort and quicksort"},
+    {"text": "Apply graph algorithms to solve shortest path and spanning tree problems"},
+    {"text": "Use dynamic programming to solve optimisation problems"},
+    {"text": "Analyse the time and space complexity of algorithms using Big-O notation"},
+    {"text": "Design and implement hash tables, binary search trees and priority queues"}
+  ],
+  "topics": [
+    "Sorting algorithms", "Graph algorithms", "Dynamic programming",
+    "Complexity analysis", "Hash tables", "Binary search trees"
+  ],
+  "source": "institutional",
+  "source_file": "TEST101.json"
+}

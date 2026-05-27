@@ -1,0 +1,38 @@
+{
+  "code": "IC40017",
+  "title": "Linear Algebra",
+  "level": 1,
+  "credits": 8,
+  "prerequisites": [],
+  "description": "This module covers linear algebra which underpins many applications of computing involving analysis of aggregated data in vector or matrix form. Applications span graphics, robotics, performance engineering, operations research, and statistical machine learning.",
+  "learning_objectives": [
+    "Solve systems of linear equations using Gaussian elimination",
+    "Determine matrices representing linear mappings",
+    "Compute matrix rank",
+    "Compute eigenvalues and eigenvectors for simple matrices and explain their application",
+    "Define projections and rotations in matrix form",
+    "Find the spectral decomposition of real symmetric matrices"
+  ],
+  "topics": [
+    "Vectors and matrices",
+    "Solution of linear systems of equations",
+    "Gaussian elimination",
+    "Vector spaces",
+    "Linear transformations and matrix representation",
+    "Change of basis",
+    "Orthonormal bases and Gram-Schmidt",
+    "Rank and Nullity Theorem",
+    "Scalar products",
+    "Orthogonal subspaces",
+    "Introduction to linear regression",
+    "Eigenvalue and eigenvector problem",
+    "Determinants and their properties",
+    "Diagonalisability of matrices",
+    "Cayley-Hamilton theorem",
+    "Projections",
+    "Rotation matrices",
+    "Symmetric matrices",
+    "Spectral decomposition"
+  ],
+  "source": "imperial"
+}

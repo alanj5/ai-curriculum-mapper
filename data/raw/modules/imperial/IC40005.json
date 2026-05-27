@@ -1,0 +1,35 @@
+{
+  "code": "IC40005",
+  "title": "Introduction to Computer Architecture",
+  "level": 1,
+  "credits": 8,
+  "prerequisites": [
+    "IC40001"
+  ],
+  "description": "Students develop a fundamental understanding of the organisation and operation of a computer system with emphasis on how high-level language programs are represented and executed at an architectural level. Topics include ISA design, CISC vs RISC, assembler programming, and the memory hierarchy.",
+  "learning_objectives": [
+    "Describe the basic organisation of a computer",
+    "Explain different representations used for instructions, numbers and text",
+    "Show how machine code instructions are executed by a computer",
+    "Compare different implementations of a computer's control unit",
+    "Explain program behaviour by reading the binary representation of machine code",
+    "Translate high-level program fragments into assembler code",
+    "Explain the effect that memory hierarchy has on a program's execution time",
+    "Estimate the performance of a program on a given computer"
+  ],
+  "topics": [
+    "Basic organisation of a computer",
+    "Representations for instructions, numbers and text",
+    "Translation of high-level programs into instructions",
+    "Instruction execution",
+    "Implementation choices of the control unit",
+    "CISC and RISC Instruction Set Architecture",
+    "Assembler programming",
+    "Memory organisation and concepts of spatial and temporal locality",
+    "Memory hierarchy",
+    "Cache memory",
+    "Performance estimation",
+    "Amdahl's Law"
+  ],
+  "source": "imperial"
+}

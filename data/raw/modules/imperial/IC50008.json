@@ -1,0 +1,32 @@
+{
+  "code": "IC50008",
+  "title": "Probability and Statistics",
+  "level": 2,
+  "credits": 8,
+  "prerequisites": [
+    "IC40016"
+  ],
+  "description": "This module develops probability theory for modelling uncertainty and designing probabilistic models for prediction. It emphasises mathematical foundations combined with practical application. Topics include random variables, hypothesis testing, confidence intervals, and Markov chains.",
+  "learning_objectives": [
+    "Describe probability notions in terms of sample spaces",
+    "Define and use random variables",
+    "Design simple probability models and estimate parameters from data",
+    "Construct confidence intervals",
+    "Perform hypothesis tests and draw scientific conclusions",
+    "Apply estimation and testing procedures"
+  ],
+  "topics": [
+    "Foundations of probability theory",
+    "Discrete random variables and their probability distributions",
+    "Poisson processes",
+    "Continuous random variables and their probability distributions",
+    "Central Limit Theorem",
+    "Joint random variables",
+    "Estimation",
+    "Fundamentals of simulation",
+    "Markov chains",
+    "Hypothesis testing",
+    "Confidence intervals"
+  ],
+  "source": "imperial"
+}

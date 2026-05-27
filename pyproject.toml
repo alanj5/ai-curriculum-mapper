@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "curriculum_mapper"
+version = "1.0.0"
+description = "AI-driven curriculum mapping: extract concepts from Computing module descriptors and align them to ACM/IEEE CS2023 Knowledge Areas via an NLP ensemble + hybrid semantic aligner."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [
+    { name = "Alan Jiang" },
+]
+keywords = ["nlp", "curriculum-mapping", "education", "sbert", "fastapi", "computing-education"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Education",
+]
+
+[project.urls]
+Homepage = "https://github.com/alanj5/ai-curriculum-mapper"
+Repository = "https://github.com/alanj5/ai-curriculum-mapper"
+Issues = "https://github.com/alanj5/ai-curriculum-mapper/issues"
+
+[tool.setuptools.packages.find]
+include = ["curriculum_mapper*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["curriculum_mapper"]
+omit = ["tests/*", "scripts/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true

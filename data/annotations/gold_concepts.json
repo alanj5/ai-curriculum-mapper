@@ -1,0 +1,113 @@
+{
+  "_metadata": {
+    "annotator": "Primary researcher",
+    "annotation_date": "2026-05-25",
+    "methodology": "Expert annotation — concepts identified by reading Imperial College module descriptor pages and ILOs, then cross-referenced against ACM CS2023 body of knowledge. Concepts are the key computing topics a student should know after completing the module.",
+    "matching_note": "Evaluation uses SBERT cosine similarity >= 0.75 for partial credit (handles surface form variation e.g. 'quicksort' vs 'quick sort algorithm')",
+    "source_url": "https://www.imperial.ac.uk/engineering/departments/computing/current-students/courses/",
+    "modules_annotated": ["IC50001", "IC50004", "IC40008", "IC40007", "IC50003"],
+    "ka_annotation_note": "Each concept is annotated with the primary ACM/IEEE CS2023 Knowledge Area code. Used for aligner accuracy evaluation."
+  },
+  "IC50001": {
+    "module_title": "Algorithm Design and Analysis",
+    "concepts": [
+      {"term": "algorithm design", "ka": "AL"},
+      {"term": "asymptotic notation", "ka": "AL"},
+      {"term": "Big-O notation", "ka": "AL"},
+      {"term": "time complexity", "ka": "AL"},
+      {"term": "divide and conquer", "ka": "AL"},
+      {"term": "dynamic programming", "ka": "AL"},
+      {"term": "greedy algorithms", "ka": "AL"},
+      {"term": "randomised algorithms", "ka": "AL"},
+      {"term": "graph algorithms", "ka": "AL"},
+      {"term": "network flow", "ka": "AL"},
+      {"term": "string algorithms", "ka": "AL"},
+      {"term": "algorithm correctness", "ka": "AL"},
+      {"term": "recurrence relations", "ka": "AL"},
+      {"term": "algorithm analysis", "ka": "AL"},
+      {"term": "computational complexity", "ka": "AL"}
+    ]
+  },
+  "IC50004": {
+    "module_title": "Operating Systems",
+    "concepts": [
+      {"term": "operating system kernel", "ka": "OS"},
+      {"term": "processes", "ka": "OS"},
+      {"term": "threads", "ka": "OS"},
+      {"term": "process abstraction", "ka": "OS"},
+      {"term": "CPU scheduling", "ka": "OS"},
+      {"term": "round-robin scheduling", "ka": "OS"},
+      {"term": "priority scheduling", "ka": "OS"},
+      {"term": "virtual memory", "ka": "OS"},
+      {"term": "paging", "ka": "OS"},
+      {"term": "page replacement", "ka": "OS"},
+      {"term": "demand paging", "ka": "OS"},
+      {"term": "file systems", "ka": "OS"},
+      {"term": "journaling", "ka": "OS"},
+      {"term": "synchronisation", "ka": "OS"},
+      {"term": "semaphores", "ka": "OS"},
+      {"term": "mutexes", "ka": "OS"},
+      {"term": "deadlock", "ka": "OS"},
+      {"term": "race conditions", "ka": "OS"},
+      {"term": "memory management", "ka": "OS"},
+      {"term": "inter-process communication", "ka": "OS"},
+      {"term": "concurrency control", "ka": "OS"},
+      {"term": "operating system security", "ka": "IAS"}
+    ]
+  },
+  "IC40008": {
+    "module_title": "Graphs and Algorithms",
+    "concepts": [
+      {"term": "graph theory", "ka": "DS"},
+      {"term": "graph traversal", "ka": "AL"},
+      {"term": "breadth-first search", "ka": "AL"},
+      {"term": "depth-first search", "ka": "AL"},
+      {"term": "minimum spanning trees", "ka": "AL"},
+      {"term": "shortest path algorithms", "ka": "AL"},
+      {"term": "Dijkstra algorithm", "ka": "AL"},
+      {"term": "dynamic programming", "ka": "AL"},
+      {"term": "divide and conquer", "ka": "AL"},
+      {"term": "sorting algorithms", "ka": "AL"},
+      {"term": "algorithm time complexity", "ka": "AL"},
+      {"term": "recurrence relations", "ka": "AL"},
+      {"term": "Master Theorem", "ka": "AL"},
+      {"term": "NP-completeness", "ka": "AL"},
+      {"term": "complexity classes P and NP", "ka": "AL"},
+      {"term": "decision trees", "ka": "IS"}
+    ]
+  },
+  "IC40007": {
+    "module_title": "Introduction to Databases",
+    "concepts": [
+      {"term": "relational model", "ka": "IM"},
+      {"term": "entity-relationship modelling", "ka": "IM"},
+      {"term": "SQL", "ka": "IM"},
+      {"term": "relational algebra", "ka": "IM"},
+      {"term": "normalisation", "ka": "IM"},
+      {"term": "functional dependencies", "ka": "IM"},
+      {"term": "database design", "ka": "IM"},
+      {"term": "transaction management", "ka": "IM"},
+      {"term": "concurrency control", "ka": "IM"},
+      {"term": "database security", "ka": "IAS"},
+      {"term": "views", "ka": "IM"},
+      {"term": "query optimisation", "ka": "IM"}
+    ]
+  },
+  "IC50003": {
+    "module_title": "Models of Computation",
+    "concepts": [
+      {"term": "operational semantics", "ka": "PL"},
+      {"term": "programming language semantics", "ka": "PL"},
+      {"term": "Turing machines", "ka": "AL"},
+      {"term": "lambda calculus", "ka": "PL"},
+      {"term": "register machines", "ka": "AR"},
+      {"term": "halting problem", "ka": "AL"},
+      {"term": "computability", "ka": "AL"},
+      {"term": "computable functions", "ka": "AL"},
+      {"term": "Church-Turing thesis", "ka": "AL"},
+      {"term": "formal language theory", "ka": "AL"},
+      {"term": "decidability", "ka": "AL"},
+      {"term": "inductive proofs", "ka": "DS"}
+    ]
+  }
+}

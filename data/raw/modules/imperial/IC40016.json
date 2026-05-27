@@ -1,0 +1,38 @@
+{
+  "code": "IC40016",
+  "title": "Calculus",
+  "level": 1,
+  "credits": 8,
+  "prerequisites": [],
+  "description": "This module covers the calculus needed for many applications of computing such as graphics, vision, robotics, operations research and statistical machine learning. Topics include sequences and series convergence, multivariate calculus, and optimisation.",
+  "learning_objectives": [
+    "Establish convergence or divergence of sequences and series and determine limit values",
+    "Derive Maclaurin and Taylor series and determine radius of convergence",
+    "Find approximations from below and above to the value of an integral",
+    "Find the minima, maxima and saddle points of multivariate functions",
+    "Find approximations to roots of multivariate functions",
+    "Compute integrals with respect to cylindrical and spherical coordinate systems"
+  ],
+  "topics": [
+    "Ordering and supremum of real numbers",
+    "Sequences, series and convergence",
+    "Limits of functions and continuity",
+    "Intermediate value theorem",
+    "Differentiation and its properties",
+    "Mean value theorem",
+    "Riemann integral",
+    "Trapezium rule",
+    "Uniform convergence and power series",
+    "Metric spaces",
+    "Contraction mapping theorem",
+    "Multivariate differential calculus",
+    "Partial derivatives",
+    "Hessian and Taylor series",
+    "Extrema of scalar fields",
+    "Newton's method",
+    "Vector valued functions",
+    "Jacobian matrix",
+    "Cylindrical and spherical coordinate systems"
+  ],
+  "source": "imperial"
+}

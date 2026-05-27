@@ -1,0 +1,35 @@
+{
+  "code": "IC60007",
+  "title": "Theory and Practice of Concurrent Programming",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC40009",
+    "IC50003",
+    "IC50004"
+  ],
+  "description": "This course introduces contemporary concurrent programming models and addresses the complexities involved in writing correct concurrent systems. It comprises practical application of shared memory concurrency in modern languages and foundational theory including hardware memory models and synchronisation mechanisms.",
+  "learning_objectives": [
+    "Write correct and efficient concurrent software in modern programming languages",
+    "Evaluate the differences between and strengths and weaknesses of a variety of concurrency models",
+    "Explain the architectural mechanisms for supporting shared memory concurrency",
+    "Formalise the semantics of shared memory concurrency",
+    "Specify, test and verify properties of concurrent systems using formal methods"
+  ],
+  "topics": [
+    "Shared memory concurrent programming in C++",
+    "Synchronisation using locks and atomic operations",
+    "Implementation of synchronisation primitives",
+    "Functional programming and concurrency",
+    "Dynamic data race detection",
+    "Strong and weak memory models",
+    "Races, deadlocks, livelocks, and progress guarantees",
+    "Design patterns for synchronisation",
+    "Concurrent objects",
+    "Linearisability",
+    "Transactional memory",
+    "Actor model",
+    "Message passing concurrency"
+  ],
+  "source": "imperial"
+}

@@ -1,0 +1,39 @@
+{
+  "code": "IC60001",
+  "title": "Advanced Computer Architecture",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC40005"
+  ],
+  "description": "This module addresses the design of general-purpose and special-purpose processors and of parallel computer systems, spanning embedded systems through to supercomputers. Students develop understanding of high-performance and energy-efficient architecture, software performance optimisation, and contemporary architectural security.",
+  "learning_objectives": [
+    "Justify current processor designs at various architectural levels from microarchitecture to large-scale parallel systems",
+    "Evaluate design alternatives considering power and performance tradeoffs",
+    "Identify architectural security hazards and vulnerabilities plus mitigation strategies",
+    "Optimise application kernels to exploit architectural capabilities effectively"
+  ],
+  "topics": [
+    "Pipelining and hazards",
+    "Instruction-level parallelism",
+    "Locality and caching",
+    "Dynamic scheduling",
+    "Tomasulo's algorithm",
+    "Register renaming",
+    "Software instruction scheduling",
+    "Software pipelining",
+    "Superscalar architectures",
+    "Very long instruction word (VLIW) architectures",
+    "Branch prediction",
+    "Speculative execution",
+    "Simultaneous multithreading",
+    "Vector instruction execution",
+    "Cache coherency",
+    "Memory systems",
+    "Compiler optimisations",
+    "Graphics processors and manycore architectures",
+    "Security vulnerabilities and mitigation",
+    "Meltdown and Spectre"
+  ],
+  "source": "imperial"
+}

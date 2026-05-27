@@ -1,0 +1,31 @@
+{
+  "code": "IC50003",
+  "title": "Models of Computation",
+  "level": 2,
+  "credits": 8,
+  "prerequisites": [
+    "IC40012"
+  ],
+  "description": "This module concentrates on formal descriptions of computational behaviour covering operational semantics of programming languages and foundational definitions of algorithms. Topics include Turing machines, lambda calculus, register machines, the halting problem, and the Church-Turing thesis.",
+  "learning_objectives": [
+    "Provide formal descriptions of programming language behaviour across multiple styles",
+    "Prove properties of such languages",
+    "Supply several formal definitions of algorithm",
+    "Connect algorithmic definitions with computable functions"
+  ],
+  "topics": [
+    "Operational semantics for WHILE language",
+    "Programming language properties: confluence, totality",
+    "Inductive proofs for language extensions",
+    "Featherweight semantics for alternative programming styles",
+    "Register machines and universal register machines",
+    "Computable functions",
+    "Halting problem",
+    "Turing machines",
+    "Lambda calculus",
+    "Church-Turing thesis",
+    "Computability theory",
+    "Formal language theory"
+  ],
+  "source": "imperial"
+}

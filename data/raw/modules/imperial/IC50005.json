@@ -1,0 +1,31 @@
+{
+  "code": "IC50005",
+  "title": "Networks and Communications",
+  "level": 2,
+  "credits": 8,
+  "prerequisites": [],
+  "description": "This module examines foundational networking principles, OSI and TCP/IP architectural models, network design methodologies based on specific requirements, and basic computer security concepts. Students learn to calculate network metrics and analyse security risks.",
+  "learning_objectives": [
+    "Define and classify major concepts in computer networking",
+    "Design a computer network based on given requirements",
+    "Calculate important network metrics",
+    "Identify and analyse potential security risks"
+  ],
+  "topics": [
+    "Introduction to networking concepts",
+    "OSI model",
+    "TCP/IP protocol stack",
+    "Application layer protocols",
+    "Transport layer",
+    "TCP and UDP",
+    "Network layer",
+    "IP addressing and routing",
+    "Data link layer",
+    "Physical layer",
+    "Network security",
+    "Cryptography basics",
+    "Client/server programming",
+    "Network design"
+  ],
+  "source": "imperial"
+}

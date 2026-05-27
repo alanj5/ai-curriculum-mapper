@@ -1,0 +1,25 @@
+{
+  "AL": {
+    "name": "Algorithms and Complexity",
+    "topics": [
+      "Sorting algorithms", "Binary search", "Graph algorithms",
+      "Dynamic programming", "Greedy algorithms", "NP-completeness",
+      "Big-O notation", "Asymptotic notation", "Hash tables",
+      "Binary search trees", "Priority queues"
+    ]
+  },
+  "OS": {
+    "name": "Operating Systems",
+    "topics": [
+      "Processes", "Threads", "Virtual memory", "Scheduling",
+      "Deadlock", "File systems", "Semaphores"
+    ]
+  },
+  "IS": {
+    "name": "Intelligent Systems",
+    "topics": [
+      "Machine learning", "Neural networks", "Decision trees",
+      "Clustering", "Natural language processing", "Reinforcement learning"
+    ]
+  }
+}
