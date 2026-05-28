@@ -34,7 +34,13 @@ include = ["curriculum_mapper*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning:click.parser",
+    "ignore::DeprecationWarning:pydantic",
+    "ignore::pyparsing.PyparsingDeprecationWarning",
+]
 
 [tool.coverage.run]
 source = ["curriculum_mapper"]

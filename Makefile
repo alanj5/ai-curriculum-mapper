@@ -10,9 +10,10 @@ setup:
 	.venv/bin/python -c "import nltk; nltk.download(['stopwords','wordnet','punkt','averaged_perceptron_tagger','punkt_tab'])"
 
 pipeline:
-	.venv/bin/python scripts/download_mit_ocw.py
 	.venv/bin/python scripts/ingest_modules.py
-	.venv/bin/python scripts/run_nlp_pipeline.py
+	.venv/bin/python scripts/run_nlp_pipeline.py --week2
+	.venv/bin/python scripts/run_alignment.py
+	.venv/bin/python scripts/build_graph.py
 
 evaluate:
 	.venv/bin/python scripts/run_evaluation.py

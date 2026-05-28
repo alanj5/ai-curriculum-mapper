@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Check out repository
@@ -20,6 +20,28 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
+
+      - name: Cache spaCy + NLTK data
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/nltk_data
+            ~/.cache/spacy
+          key: ${{ runner.os }}-nlp-data-v1
+
+      - name: Cache HuggingFace / SBERT models
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/huggingface
+            ~/.cache/torch
+          key: ${{ runner.os }}-sbert-${{ hashFiles('curriculum_mapper/config.py') }}
+
+      - name: Cache pipeline embeddings
+        uses: actions/cache@v4
+        with:
+          path: data/cache
+          key: ${{ runner.os }}-embeddings-${{ hashFiles('data/raw/**', 'curriculum_mapper/nlp/**', 'curriculum_mapper/config.py') }}
 
       - name: Install Python dependencies
         run: |
@@ -38,6 +60,13 @@ jobs:
 
       - name: Run unit tests with coverage
         run: pytest tests/unit/ --cov=curriculum_mapper --cov-report=term-missing -q
+
+      - name: Build pipeline (DB + graph artefacts) for integration tests
+        run: |
+          python scripts/ingest_modules.py
+          python scripts/run_nlp_pipeline.py --week2
+          python scripts/run_alignment.py
+          python scripts/build_graph.py
 
       - name: Run integration tests
         run: pytest tests/integration/ -q
