@@ -84,6 +84,11 @@ def _build_ka_coverage_data(graph_stats_path: Path) -> dict:
     with open(graph_stats_path) as f:
         gs = json.load(f)
     coverage = gs.get("coverage", {})
+    # build_graph writes per-KA fractions under "ka_coverage"; older runs used
+    # "per_ka" (dict of {fraction: ...}). Support both for robustness.
+    ka_cov = coverage.get("ka_coverage")
+    if ka_cov:
+        return dict(ka_cov)
     per_ka = coverage.get("per_ka", {})
     if not per_ka:
         return {}
@@ -133,6 +138,12 @@ def main() -> None:
     if not args.quick and not args.no_threshold_sweep:
         logger.info("Running SBERT threshold sensitivity sweep…")
         results["threshold_sweep"] = runner.run_threshold_sweep()
+
+    if not args.quick:
+        logger.info("Running aligner weight sweep (lexical/semantic split)…")
+        results["aligner_weight_sweep"] = runner.run_aligner_weight_sweep()
+        logger.info("Running canonicalisation ablation…")
+        results["canonicalisation_ablation"] = runner.run_canonicalisation_ablation()
 
     # Attach graph stats
     graph_stats_path = PROCESSED_DIR / "graph_stats.json"

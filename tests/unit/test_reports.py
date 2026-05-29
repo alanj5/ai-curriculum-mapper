@@ -213,3 +213,80 @@ class TestGenerateFigures:
                     assert isinstance(saved, list)
                 except Exception:
                     pass  # acceptable if matplotlib import path differs
+
+
+# ── New ablation sections (weight sweep + canonicalisation) ────────────────────
+
+ABLATION_RESULTS = {
+    "aligner_weight_sweep": {
+        "0.0": {"semantic_weight": 0.0, "lexical_weight": 1.0,
+                "top1_accuracy": 0.636, "top3_accuracy": 0.805, "mrr": 0.717},
+        "0.65": {"semantic_weight": 0.65, "lexical_weight": 0.35,
+                 "top1_accuracy": 0.675, "top3_accuracy": 0.831, "mrr": 0.745},
+        "1.0": {"semantic_weight": 1.0, "lexical_weight": 0.0,
+                "top1_accuracy": 0.714, "top3_accuracy": 0.844, "mrr": 0.777},
+    },
+    "canonicalisation_ablation": {
+        "with_canonicalisation": {"macro": {"F1@10": 0.138, "MAP": 0.097}, "n_concepts": 658},
+        "without_canonicalisation": {"macro": {"F1@10": 0.138, "MAP": 0.091}, "n_concepts": 704},
+    },
+}
+
+
+class TestAblationReporting:
+    def test_text_report_includes_weight_sweep(self, tmp_path):
+        path = generate_text_report(ABLATION_RESULTS, path=tmp_path / "r.txt")
+        text = path.read_text()
+        assert "WEIGHT SWEEP" in text.upper()
+        assert "CANONICALISATION ABLATION" in text.upper()
+
+    def test_weight_sweep_figure_saved(self, tmp_path):
+        with patch("curriculum_mapper.evaluation.reports.FIGURES_DIR", tmp_path):
+            saved = generate_figures(ABLATION_RESULTS)
+        names = [p.name for p in saved]
+        assert "aligner_weight_sweep.png" in names
+
+
+FULL_RESULTS = {
+    **SAMPLE_RESULTS,
+    "extraction_per_extractor": {
+        "tfidf": {"macro": {"F1@5": 0.0, "F1@10": 0.02, "F1@20": 0.03, "MAP": 0.003}},
+        "rake": {"macro": {"F1@5": 0.1, "F1@10": 0.14, "F1@20": 0.23, "MAP": 0.088}},
+        "ensemble": {"macro": {"F1@5": 0.13, "F1@10": 0.14, "F1@20": 0.14, "MAP": 0.097}},
+    },
+    "aligner_comparison": {
+        "lexical": {"top1_accuracy": 0.636, "top3_accuracy": 0.805, "mrr": 0.717},
+        "semantic": {"top1_accuracy": 0.727, "top3_accuracy": 0.844, "mrr": 0.789},
+        "hybrid": {"top1_accuracy": 0.675, "top3_accuracy": 0.831, "mrr": 0.745},
+    },
+    "threshold_sweep": {
+        0.60: {"F1@10": 0.37, "MAP": 0.49}, 0.75: {"F1@10": 0.14, "MAP": 0.10},
+        0.85: {"F1@10": 0.05, "MAP": 0.03},
+    },
+    "ka_coverage": {"GV": 0.43, "OS": 0.48, "IS": 1.0, "SDF": 1.0},
+    "score_distribution": [0.4, 0.5, 0.6, 0.7, 0.8],
+    "ka_heatmap": {"modules": ["IC50001", "IC50004"], "kas": ["AL", "OS"],
+                   "matrix": [[1, 0], [0, 1]]},
+    "graph": {"mm_nodes": 21, "mm_edges": 146, "n_communities": 4,
+              "covered_kas": 18, "total_kas": 18, "coverage_fraction": 1.0,
+              "critical_gap_count": 0, "warning_gap_count": 0},
+    **ABLATION_RESULTS,
+}
+
+
+class TestFullReportCoverage:
+    def test_text_report_all_sections(self, tmp_path):
+        text = generate_text_report(FULL_RESULTS, path=tmp_path / "r.txt").read_text()
+        for marker in ["PER-EXTRACTOR", "ALIGNER COMPARISON", "THRESHOLD SENSITIVITY",
+                       "GRAPH ANALYTICS", "WEIGHT SWEEP", "CANONICALISATION ABLATION"]:
+            assert marker in text.upper()
+
+    def test_all_figures_generated(self, tmp_path):
+        with patch("curriculum_mapper.evaluation.reports.FIGURES_DIR", tmp_path):
+            saved = generate_figures(FULL_RESULTS)
+        names = {p.name for p in saved}
+        for fig in ["extraction_per_extractor.png", "aligner_comparison.png",
+                    "alignment_score_distribution.png", "ka_coverage_bar.png",
+                    "threshold_sensitivity.png", "aligner_weight_sweep.png",
+                    "ka_module_heatmap.png"]:
+            assert fig in names

@@ -92,13 +92,23 @@ def get_gaps(
     ]
 
 
+def _redundancies(storage: StorageManager) -> list[dict]:
+    """Redundancies from cached graph stats if present, else computed live.
+
+    Preferring the build-time stats keeps the API consistent with the pipeline
+    artefacts and robust to runtime configuration differences.
+    """
+    stats = get_graph_stats()
+    if stats and "coverage" in stats and stats["coverage"].get("redundancies"):
+        return stats["coverage"]["redundancies"]
+    return detect_redundancies(storage.get_all_concepts())
+
+
 @router.get("/redundancies", response_model=list[RedundancyItem])
 def get_redundancies(
     storage: StorageManager = Depends(get_storage),
 ) -> list[RedundancyItem]:
     """Concepts appearing in too many modules."""
-    concepts = storage.get_all_concepts()
-    redundancies = detect_redundancies(concepts)
     return [
         RedundancyItem(
             concept=r["concept"],
@@ -106,7 +116,7 @@ def get_redundancies(
             modules=r["modules"],
             confidence=r["confidence"],
         )
-        for r in redundancies
+        for r in _redundancies(storage)
     ]
 
 
@@ -140,7 +150,7 @@ def get_summary(
     coverage_fraction = covered_kas / total_kas if total_kas else 0.0
 
     gaps = detect_gaps(ka_coverage, ka_data)
-    redundancies = detect_redundancies(concepts)
+    redundancies = _redundancies(storage)
 
     critical_gaps = [g for g in gaps if g["severity"] == "critical"]
 

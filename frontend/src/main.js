@@ -1,5 +1,5 @@
 import { api } from './api.js';
-import { initGraph, highlightNode, fitGraph, rerunLayout, applyEdgeFilter, switchGraphView, setSelectedModuleForGraph } from './components/GraphView.js';
+import { initGraph, highlightNode, fitGraph, rerunLayout, applyGraphFilter, switchGraphView, setSelectedModuleForGraph } from './components/GraphView.js';
 import { initModulePanel, selectModule, showModuleDetail } from './components/ModulePanel.js';
 import { initAlignmentTable } from './components/AlignmentTable.js';
 import { initValidationWidget } from './components/ValidationWidget.js';
@@ -85,7 +85,7 @@ async function main() {
     slider.addEventListener('input', () => {
       const v = parseFloat(slider.value);
       sliderVal.textContent = v.toFixed(2);
-      applyEdgeFilter(v);
+      applyGraphFilter(v);
     });
 
     const viewSelect = document.getElementById('graph-view-select');

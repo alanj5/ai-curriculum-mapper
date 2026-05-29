@@ -18,7 +18,7 @@ export async function initGapReport() {
     ]);
 
     container.innerHTML = buildHTML(summary, coverage, gaps, redundancies);
-    renderCoverageChart(coverage);
+    renderCoverageChart(coverage, summary.total_modules);
   } catch (e) {
     container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load: ${e.message}</p>`;
   }
@@ -56,9 +56,16 @@ function buildHTML(summary, coverage, gaps, redundancies) {
     </div>
 
     <div class="gap-section">
-      <h2>KA Coverage Heatmap</h2>
-      <div class="chart-container" style="max-height:400px; overflow:hidden">
-        <canvas id="coverage-chart" height="380"></canvas>
+      <h2>Knowledge Area Coverage</h2>
+      <p class="section-sub">
+        For each of the 18 CS2023 Knowledge Areas, the share of the ${summary.total_modules} modules
+        that teach at least one concept aligned to it (its <em>breadth</em> across the curriculum).
+        <span class="cov-key"><span class="sev-dot sev-good"></span>≥50% well covered</span>
+        <span class="cov-key"><span class="sev-dot sev-warning"></span>10–49% thin</span>
+        <span class="cov-key"><span class="sev-dot sev-critical"></span>&lt;10% gap</span>
+      </p>
+      <div class="chart-container" style="max-height:420px; overflow:hidden">
+        <canvas id="coverage-chart" height="400"></canvas>
       </div>
     </div>
 
@@ -95,7 +102,7 @@ function buildHTML(summary, coverage, gaps, redundancies) {
   `;
 }
 
-function renderCoverageChart(coverage) {
+function renderCoverageChart(coverage, nModules) {
   const canvas = document.getElementById('coverage-chart');
   if (!canvas) return;
 
@@ -129,9 +136,14 @@ function renderCoverageChart(coverage) {
         legend: { display: false },
         tooltip: {
           callbacks: {
+            title: (items) => {
+              const item = coverage[items[0].dataIndex];
+              return `${item.ka_code} — ${item.ka_name}`;
+            },
             label: (ctx) => {
               const item = coverage[ctx.dataIndex];
-              return ` ${ctx.raw}% — ${item.ka_name}`;
+              const mc = item.module_count ?? Math.round((item.coverage || 0) * (nModules || 0));
+              return ` ${ctx.raw}% of modules (${mc}/${nModules})`;
             },
           },
         },
@@ -139,6 +151,7 @@ function renderCoverageChart(coverage) {
       scales: {
         x: {
           min: 0, max: 100,
+          title: { display: true, text: '% of modules covering the Knowledge Area', color: '#64748b', font: { size: 11 } },
           ticks: { color: '#64748b', callback: v => `${v}%` },
           grid: { color: '#2e3350' },
         },

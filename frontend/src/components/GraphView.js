@@ -31,6 +31,23 @@ let _allEdgeData = [];   // original edge list, kept for filter resets
 let _currentView = 'module-module';
 let _selectedModule = null;
 let _onNodeClick = null;
+let _confMin = 0;        // confidence range of the current bipartite concept set
+let _confMax = 1;
+
+// Normalise a confidence value to [0,1] over the current concept set so the
+// size/colour encoding uses the full visual range even when scores cluster.
+function _normConf(c) {
+  if (_confMax <= _confMin) return 0.5;
+  return Math.max(0, Math.min(1, ((c ?? 0) - _confMin) / (_confMax - _confMin)));
+}
+
+// Interpolate dim-grey (low confidence) → accent-blue (high confidence).
+function _confColor(c) {
+  const t = _normConf(c);
+  const a = [71, 85, 105], b = [91, 141, 238];
+  const ch = (i) => Math.round(a[i] + (b[i] - a[i]) * t);
+  return `rgb(${ch(0)},${ch(1)},${ch(2)})`;
+}
 
 export async function initGraph(container, onNodeClick) {
   _onNodeClick = onNodeClick;
@@ -57,13 +74,21 @@ async function _loadView(container, view, moduleCode) {
       return null;
     }
     data = await api.bipartiteGraph(moduleCode);
+    // Confidence range of this module's concepts drives the size/colour scale.
+    const confs = data.nodes
+      .filter(n => (n.data.type || 'concept') === 'concept')
+      .map(n => n.data.confidence ?? 0);
+    _confMin = confs.length ? Math.min(...confs) : 0;
+    _confMax = confs.length ? Math.max(...confs) : 1;
     elements = buildBipartiteElements(data);
     style = buildBipartiteStyle();
-    if (hint) hint.textContent = `Showing concepts for ${moduleCode} — click a module node to switch`;
-    if (thresholdLabel) thresholdLabel.style.display = 'none';
+    if (hint) hint.textContent = `Showing concepts for ${moduleCode} — bigger, brighter = higher confidence`;
+    if (thresholdLabel) thresholdLabel.style.display = '';
+    _calibrateConfidenceSlider();
     if (legend) legend.innerHTML =
       '<div class="legend-item"><div class="legend-dot" style="background:#5b8dee"></div><span>Module</span></div>' +
-      '<div class="legend-item"><div class="legend-dot" style="background:#64748b"></div><span>Concept</span></div>';
+      '<div class="legend-item"><div class="legend-dot" style="background:#475569"></div><span>Low conf.</span></div>' +
+      '<div class="legend-item"><div class="legend-dot" style="background:#5b8dee"></div><span>High conf.</span></div>';
   } else {
     data = await api.moduleModuleGraph({ include_centrality: true, include_communities: true });
     _allEdgeData = data.edges;
@@ -71,12 +96,17 @@ async function _loadView(container, view, moduleCode) {
     style = buildStyle();
     if (hint) hint.textContent = 'Raise slider to hide weak connections and reveal clusters';
     if (thresholdLabel) thresholdLabel.style.display = '';
+    _calibrateEdgeSlider(data.edges);
     buildLegend(data.nodes);
   }
 
   if (_cy) _cy.destroy();
+  // Clear any placeholder text in the container before Cytoscape takes over,
+  // otherwise the "Select a module…" hint can remain visible behind the canvas.
+  const cyEl = container || document.getElementById('cy');
+  if (cyEl) cyEl.innerHTML = '';
   _cy = cytoscape({
-    container: container || document.getElementById('cy'),
+    container: cyEl,
     elements,
     style,
     layout: { ...LAYOUT_OPTS, randomize: true },
@@ -161,9 +191,73 @@ export function highlightNode(moduleCode) {
 
 // ── Internal ─────────────────────────────────────────────────────
 
+// Set the edge-strength slider range to the actual data so it is not mostly
+// dead space: module-module similarities are Jaccard values that rarely exceed
+// ~0.1, whereas the default slider ran to 0.9.
+function _calibrateEdgeSlider(edges) {
+  const slider = document.getElementById('edge-threshold');
+  const valLabel = document.getElementById('edge-threshold-val');
+  const text = document.getElementById('edge-threshold-text');
+  if (!slider) return;
+  if (text) text.textContent = 'Min edge strength';
+  const sims = (edges || [])
+    .map(e => (e.data.type === 'prerequisite' ? (e.data.similarity ?? 0) : (e.data.weight ?? 0)))
+    .filter(s => s != null);
+  const maxSim = sims.length ? Math.max(...sims) : 0.1;
+  // Round the ceiling up to a tidy step; keep a sensible minimum span.
+  const ceil = Math.max(0.05, Math.ceil(maxSim * 20) / 20);
+  slider.max = String(ceil);
+  slider.step = String(Math.max(0.005, +(ceil / 20).toFixed(3)));
+  slider.value = '0';
+  if (valLabel) valLabel.textContent = '0.00';
+  _edgeThreshold = 0;
+}
+
+// Calibrate the shared slider to act as a min-confidence filter in the
+// bipartite (module ↔ concepts) view, spanning the concept confidence range.
+function _calibrateConfidenceSlider() {
+  const slider = document.getElementById('edge-threshold');
+  const valLabel = document.getElementById('edge-threshold-val');
+  const text = document.getElementById('edge-threshold-text');
+  if (!slider) return;
+  if (text) text.textContent = 'Min concept confidence';
+  const ceil = Math.max(0.1, Math.ceil(_confMax * 20) / 20);
+  slider.max = String(ceil);
+  slider.step = '0.01';
+  slider.value = '0';
+  if (valLabel) valLabel.textContent = '0.00';
+}
+
+// View-aware slider handler: edge-strength filter in module-similarity view,
+// concept-confidence filter in the bipartite view.
+export function applyGraphFilter(threshold) {
+  if (_currentView === 'bipartite') _applyConfidenceFilter(threshold);
+  else applyEdgeFilter(threshold);
+}
+
+function _applyConfidenceFilter(threshold) {
+  if (!_cy) return;
+  _cy.nodes('[nodeType = "concept"]').forEach(node => {
+    if ((node.data('confidence') ?? 0) < threshold) node.addClass('filtered');
+    else node.removeClass('filtered');
+  });
+  // Hide edges whose concept endpoint is filtered out. Positions are left
+  // stable (no re-layout) so the user can see which concepts drop away.
+  _cy.edges().forEach(edge => {
+    if (edge.target().hasClass('filtered') || edge.source().hasClass('filtered')) {
+      edge.addClass('filtered');
+    } else {
+      edge.removeClass('filtered');
+    }
+  });
+}
+
 function _setupInteractions(onNodeClick) {
   _cy.on('tap', 'node', (evt) => {
     const node = evt.target;
+    // Concept nodes (bipartite view) are not modules — ignore clicks so we do
+    // not fire a /modules/<concept-uuid> request (which 404s).
+    if (node.data('nodeType') === 'concept') return;
     highlightNode(node.data('id'));
     onNodeClick(node.data('id'));
   });
@@ -183,14 +277,23 @@ function _setupTooltip() {
 
   _cy.on('mouseover', 'node', (evt) => {
     const d = evt.target.data();
-    tooltip.innerHTML = `
-      <div class="tt-code">${d.id}</div>
-      <div class="tt-title">${d.title || ''}</div>
-      <div class="tt-meta">Level ${d.level ?? '?'} · ${d.credits ?? '?'} credits</div>
-      ${d.topConcepts && d.topConcepts.length
-        ? `<div class="tt-concepts"><strong>Top concepts:</strong> ${d.topConcepts.join(', ')}</div>`
-        : ''}
-    `;
+    if (d.nodeType === 'concept') {
+      // Concept node: show the term and extraction confidence, not module fields.
+      const conf = d.confidence != null ? `${(d.confidence * 100).toFixed(0)}%` : '—';
+      tooltip.innerHTML = `
+        <div class="tt-title">${d.title || d.label || 'concept'}</div>
+        <div class="tt-meta">Extracted concept · confidence ${conf}</div>
+      `;
+    } else {
+      tooltip.innerHTML = `
+        <div class="tt-code">${d.id}</div>
+        <div class="tt-title">${d.title || ''}</div>
+        <div class="tt-meta">Level ${d.level ?? '?'}${d.credits != null ? ` · ${d.credits} credits` : ''}</div>
+        ${d.topConcepts && d.topConcepts.length
+          ? `<div class="tt-concepts"><strong>Top concepts:</strong> ${d.topConcepts.join(', ')}</div>`
+          : ''}
+      `;
+    }
     tooltip.classList.remove('hidden');
     _positionTooltip(evt.originalEvent, tooltip);
   });
@@ -205,15 +308,26 @@ function _setupTooltip() {
 
   _cy.on('mouseover', 'edge', (evt) => {
     const d = evt.target.data();
-    const isPre = d.type === 'prerequisite';
-    const simLine = d.displaySim != null
-      ? `<div class="tt-meta">Concept overlap: <strong>${d.displaySim.toFixed(3)}</strong>${d.sharedCount ? ` (${d.sharedCount} shared)` : ''}</div>`
-      : '';
-    tooltip.innerHTML = `
-      <div class="tt-meta">${d.source} ↔ ${d.target}</div>
-      <div class="tt-meta">${isPre ? '🔗 Prerequisite' : '~ Similarity'}</div>
-      ${simLine}
-    `;
+    // Resolve endpoint labels (module code or concept term) so we never show
+    // raw concept UUIDs in the bipartite view.
+    const srcLabel = _cy.getElementById(d.source).data('label') || d.source;
+    const tgtLabel = _cy.getElementById(d.target).data('label') || d.target;
+    if (_currentView === 'bipartite') {
+      tooltip.innerHTML = `
+        <div class="tt-meta"><strong>${srcLabel}</strong> teaches</div>
+        <div class="tt-title">${tgtLabel}</div>
+      `;
+    } else {
+      const isPre = d.type === 'prerequisite';
+      const simLine = d.displaySim != null
+        ? `<div class="tt-meta">Concept overlap: <strong>${d.displaySim.toFixed(3)}</strong>${d.sharedCount ? ` (${d.sharedCount} shared)` : ''}</div>`
+        : '';
+      tooltip.innerHTML = `
+        <div class="tt-meta">${srcLabel} ↔ ${tgtLabel}</div>
+        <div class="tt-meta">${isPre ? '🔗 Prerequisite' : '~ Similarity'}</div>
+        ${simLine}
+      `;
+    }
     tooltip.classList.remove('hidden');
     _positionTooltip(evt.originalEvent, tooltip);
   });
@@ -267,26 +381,30 @@ function buildBipartiteStyle() {
       selector: 'node[nodeType = "module"]',
       style: {
         'background-color': '#5b8dee',
-        'width': 36, 'height': 36,
+        'width': 48, 'height': 48,
         'label': 'data(label)',
-        'font-size': '10px', 'font-weight': 700,
+        'font-size': '14px', 'font-weight': 700,
         'color': '#e2e8f0',
         'text-valign': 'center', 'text-halign': 'center',
         'text-outline-color': '#0f1117', 'text-outline-width': 2,
         'cursor': 'pointer',
+        'z-index': 10,
       },
     },
     {
       selector: 'node[nodeType = "concept"]',
       style: {
-        'background-color': '#22263a',
+        // Size and colour both encode extraction confidence (bigger/brighter = higher).
+        'background-color': (ele) => _confColor(ele.data('confidence')),
         'border-width': 1, 'border-color': '#64748b',
-        'width': 14, 'height': 14,
+        'width': (ele) => 12 + _normConf(ele.data('confidence')) * 26,
+        'height': (ele) => 12 + _normConf(ele.data('confidence')) * 26,
         'label': 'data(label)',
-        'font-size': '8px',
-        'color': '#94a3b8',
+        'font-size': '11px',
+        'color': '#cbd5e1',
         'text-valign': 'bottom', 'text-halign': 'center',
         'text-margin-y': 4,
+        'text-outline-color': '#0f1117', 'text-outline-width': 1,
         'cursor': 'default',
       },
     },
@@ -298,6 +416,10 @@ function buildBipartiteStyle() {
         'opacity': 0.5,
         'curve-style': 'haystack',
       },
+    },
+    {
+      selector: '.filtered',
+      style: { 'display': 'none' },
     },
   ];
 }

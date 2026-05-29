@@ -288,6 +288,23 @@ class TestAlignmentsEndpoints:
         )
         assert r.status_code == 422
 
+    async def test_validate_alignment_reassign_updates_row(self, client):
+        # Reassigning should change the alignment's KA and mark it accepted,
+        # so the change is visible when the row is re-fetched.
+        r_list = await client.get("/api/v1/alignments/?limit=5&rank=1")
+        target = r_list.json()[0]
+        new_ka = "GV" if target["ka_code"] != "GV" else "OS"
+        r = await client.patch(
+            f"/api/v1/alignments/{target['id']}/validate",
+            json={"action": "reassign", "new_ka_code": new_ka},
+        )
+        assert r.status_code == 200
+        refetched = await client.get(f"/api/v1/alignments/?ka={new_ka}&rank=1&limit=500")
+        match = [a for a in refetched.json() if a["id"] == target["id"]]
+        assert match, "reassigned alignment should now appear under the new KA"
+        assert match[0]["ka_code"] == new_ka
+        assert match[0]["validated"] is True
+
 
 # ── Graph ─────────────────────────────────────────────────────────────────────
 

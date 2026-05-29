@@ -68,7 +68,10 @@ LEXICAL_THRESHOLD = 0.30
 
 # ── Graph Hyperparameters ──────────────────────────────────────────────────────
 SHARED_CONCEPT_EDGE_MIN = 2   # minimum shared concepts for module-module edge
-REDUNDANCY_THRESHOLD = 5      # concepts appearing in >N modules flagged redundant
+REDUNDANCY_THRESHOLD = 5      # concepts appearing in >=N modules flagged redundant
+# Redundancy is defined by cross-module frequency, not extraction certainty;
+# this is only a light noise floor to exclude near-zero-confidence fragments.
+REDUNDANCY_MIN_CONFIDENCE = 0.25
 GAP_COVERAGE_THRESHOLD = 0.10  # KA coverage below 10% = gap
 
 # ── API ────────────────────────────────────────────────────────────────────────
@@ -148,3 +151,40 @@ DOMAIN_STOP_WORDS: list[str] = [
     "roles", "example", "examples", "case", "cases", "process",
     "processes", "step", "steps", "result", "results", "value", "values",
 ]
+
+# ── Generic concept terms (specificity filter) ─────────────────────────────────
+# Academic / meta / process vocabulary that carries no computing-domain signal.
+# A candidate concept is rejected only when *every* one of its tokens is generic
+# (i.e. in DOMAIN_STOP_WORDS, here, or a function word). This removes artefacts
+# such as "analysis", "design", "research" and sentence fragments like
+# "capabilities effectively evaluate" while preserving genuine single-word CS
+# concepts (e.g. "graph", "heap", "boolean", "complexity") that are NOT listed.
+GENERIC_CONCEPT_TERMS: frozenset[str] = frozenset({
+    "analysis", "evaluation", "application", "applications", "approach",
+    "approaches", "research", "study", "studies", "principle", "principles",
+    "suitability", "capability", "capabilities", "awareness", "benefit",
+    "benefits", "area", "areas", "difference", "differences", "importance",
+    "consideration", "considerations", "aspect", "aspects", "range", "number",
+    "variety", "emphasis", "focus", "detail", "details", "understanding",
+    "ability", "abilities", "insight", "insights", "main", "general", "common",
+    "core", "key", "effective", "effectively", "characteristic",
+    "characteristics", "contemporary", "classical", "additional", "major",
+    "first", "second", "third", "characterise", "characterize", "appraise",
+    "conduct", "explores", "examines", "addresses", "act", "form", "group",
+    "part", "parts", "type", "types", "kind", "kinds", "level", "levels",
+    "wide", "deep", "broad", "different", "various", "important", "appropriate",
+})
+
+# Legitimate single-word computing concepts that happen to appear in the
+# stop-word / generic lists above (those lists were tuned for extractor
+# stop-wording, not concept filtering). These are never treated as generic.
+CONCEPT_ALLOWLIST: frozenset[str] = frozenset({
+    "process", "processes", "value", "values", "type", "types",
+})
+
+# Short function words treated as generic for the specificity filter.
+_FUNCTION_WORDS: frozenset[str] = frozenset({
+    "and", "or", "of", "the", "a", "an", "to", "in", "on", "for", "with",
+    "by", "as", "at", "from", "into", "via", "such", "their", "its", "this",
+    "that", "these", "those", "which", "who", "whose",
+})

@@ -97,6 +97,97 @@ class TestBenchmarkRunnerInit:
         assert runner.em is em
 
 
+def _make_flexible_em(dim: int = 4) -> MagicMock:
+    """Mock EmbeddingManager whose encode() returns one unit vector per input."""
+    em = MagicMock()
+
+    def _encode(texts, **kwargs):
+        rng = np.random.default_rng(abs(hash(tuple(texts))) % (2**32))
+        mat = rng.standard_normal((len(texts), dim)).astype(np.float32)
+        mat /= np.linalg.norm(mat, axis=1, keepdims=True) + 1e-9
+        return mat
+
+    em.encode.side_effect = _encode
+    return em
+
+
+# ── run_canonicalisation_ablation ──────────────────────────────────────────────
+
+class TestCanonicalisationAblation:
+    def test_returns_empty_when_no_concepts(self, gold_file):
+        runner = BenchmarkRunner(_make_storage(concepts=[]), _make_flexible_em(), gold_path=gold_file)
+        assert runner.run_canonicalisation_ablation() == {}
+
+    def test_raw_has_more_surface_forms_than_canonical(self, gold_file):
+        c1 = Concept(term="sorting algorithms", variants=["sort algorithm", "sorting"],
+                     confidence=0.9, extractors=["tfidf"], module_codes=["MOD001"])
+        c2 = Concept(term="virtual memory", variants=["vm"],
+                     confidence=0.8, extractors=["rake"], module_codes=["MOD002"])
+        runner = BenchmarkRunner(_make_storage(concepts=[c1, c2]),
+                                 _make_flexible_em(), gold_path=gold_file)
+        out = runner.run_canonicalisation_ablation(ks=[5, 10])
+        assert "with_canonicalisation" in out and "without_canonicalisation" in out
+        assert out["with_canonicalisation"]["n_concepts"] == 2
+        # 2 canonical terms + 3 variants = 5 surface forms
+        assert out["without_canonicalisation"]["n_concepts"] == 5
+        assert "macro" in out["with_canonicalisation"]
+
+
+GOLD_WITH_KA = {
+    "_metadata": {"annotator": "test"},
+    "MOD001": {"module_title": "Algorithms",
+               "concepts": [{"term": "dynamic programming", "ka": "AL"},
+                            {"term": "binary search", "ka": "AL"}]},
+}
+
+
+@pytest.fixture
+def gold_ka_file(tmp_path: Path) -> Path:
+    p = tmp_path / "gold_ka.json"
+    p.write_text(json.dumps(GOLD_WITH_KA))
+    return p
+
+
+# ── run_aligner_weight_sweep ───────────────────────────────────────────────────
+
+class TestAlignerWeightSweep:
+    def test_empty_without_ka_labels(self, gold_file):
+        runner = BenchmarkRunner(_make_storage(), _make_flexible_em(), gold_path=gold_file)
+        assert runner.run_aligner_weight_sweep() == {}
+
+    def test_sweep_structure_and_determinism(self, gold_ka_file, monkeypatch):
+        # Mock the three aligner imports used inside the method.
+        from curriculum_mapper.alignment import aligner as aligner_mod
+        from curriculum_mapper.alignment import lexical as lexical_mod
+        from curriculum_mapper.alignment import semantic as semantic_mod
+
+        monkeypatch.setattr(aligner_mod, "load_ka_data", lambda: {})
+
+        class _Lex:
+            def __init__(self, *a, **k): ...
+            def align(self, term):
+                return [{"ka_code": "AL", "ka_topic": "t", "score": 0.9}]
+
+        class _Sem:
+            def __init__(self, *a, **k): ...
+            def align(self, emb):
+                return [{"ka_code": "AL", "ka_topic": "t", "score": 0.8}]
+
+        monkeypatch.setattr(lexical_mod, "LexicalAligner", _Lex)
+        monkeypatch.setattr(semantic_mod, "SemanticAligner", _Sem)
+
+        runner = BenchmarkRunner(_make_storage(), _make_flexible_em(), gold_path=gold_ka_file)
+        out = runner.run_aligner_weight_sweep(semantic_weights=[0.0, 0.65, 1.0])
+        assert set(out.keys()) == {0.0, 0.65, 1.0}
+        for w, r in out.items():
+            assert {"top1_accuracy", "top3_accuracy", "mrr", "semantic_weight"} <= set(r)
+        # AL is the only KA and matches gold -> perfect accuracy at all weights.
+        assert out[1.0]["top1_accuracy"] == 1.0
+        # Determinism: identical on a second call.
+        out2 = runner.run_aligner_weight_sweep(semantic_weights=[0.0, 0.65, 1.0])
+        assert out == out2
+
+
 # ── run_extraction_benchmark ───────────────────────────────────────────────────
 
 class TestRunExtractionBenchmark:

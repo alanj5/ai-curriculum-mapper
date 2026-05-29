@@ -385,6 +385,142 @@ class BenchmarkRunner:
 
         return results
 
+    # ── Aligner weight sweep ───────────────────────────────────────────────────
+
+    def run_aligner_weight_sweep(
+        self,
+        semantic_weights: list[float] | None = None,
+    ) -> dict[float, dict]:
+        """Sweep the hybrid lexical/semantic weight on gold concept→KA pairs.
+
+        For each semantic weight ``w`` (lexical weight = ``1 - w``) the hybrid
+        score is recomputed per KA from the same underlying lexical and semantic
+        component scores, then Top-1/Top-3/MRR are measured against the gold KA.
+        ``w = 1.0`` is semantic-only; ``w = 0.0`` is lexical-only. This turns the
+        fixed 35/65 split into an empirically justified choice.
+
+        Returns {semantic_weight: {top1, top3, mrr}}.
+        """
+        from curriculum_mapper.alignment.aligner import load_ka_data
+        from curriculum_mapper.alignment.lexical import LexicalAligner
+        from curriculum_mapper.alignment.semantic import SemanticAligner
+        from curriculum_mapper.config import SIMILARITY_THRESHOLD, TOP_K_ALIGNMENTS
+
+        if semantic_weights is None:
+            semantic_weights = [0.0, 0.25, 0.35, 0.5, 0.65, 0.75, 1.0]
+
+        ka_data = load_ka_data()
+        lex = LexicalAligner(ka_data)
+        sem = SemanticAligner(ka_data, self.em)
+
+        all_pairs: list[tuple[str, str]] = []
+        for concept_ka_map in self.gold_with_ka.values():
+            for term, ka in concept_ka_map.items():
+                all_pairs.append((term, ka))
+        if not all_pairs:
+            logger.warning("No gold KA annotations found — update gold_concepts.json.")
+            return {}
+
+        # Pre-compute lexical and semantic component scores per (term, ka_code).
+        # Each component is deduped to its best-scoring topic per KA (as hybrid does).
+        def _best_per_ka(aligned: list[dict]) -> dict[str, float]:
+            best: dict[str, float] = {}
+            for r in aligned:
+                code = r["ka_code"]
+                if r["score"] > best.get(code, 0.0):
+                    best[code] = r["score"]
+            return best
+
+        components: list[tuple[str, dict[str, float], dict[str, float]]] = []
+        for term, gold_ka in all_pairs:
+            lex_scores = _best_per_ka(lex.align(term))
+            emb = self.em.encode([term])[0]
+            sem_scores = _best_per_ka(sem.align(emb))
+            components.append((gold_ka, lex_scores, sem_scores))
+
+        results: dict[float, dict] = {}
+        for w in semantic_weights:
+            hits1 = hits3 = 0
+            rrs: list[float] = []
+            for gold_ka, lex_scores, sem_scores in components:
+                combined: dict[str, float] = {}
+                for code in sorted(set(lex_scores) | set(sem_scores)):
+                    score = (1 - w) * lex_scores.get(code, 0.0) + w * sem_scores.get(code, 0.0)
+                    if score >= SIMILARITY_THRESHOLD:
+                        combined[code] = score
+                # Deterministic ordering: by score desc, then KA code asc (ties).
+                ranked = [c for c, _ in sorted(combined.items(), key=lambda kv: (-kv[1], kv[0]))]
+                ranked = ranked[:TOP_K_ALIGNMENTS]
+                if gold_ka in ranked[:1]:
+                    hits1 += 1
+                if gold_ka in ranked[:3]:
+                    hits3 += 1
+                rrs.append(1.0 / (ranked.index(gold_ka) + 1) if gold_ka in ranked else 0.0)
+            total = len(components)
+            results[w] = {
+                "semantic_weight": w,
+                "lexical_weight": round(1 - w, 2),
+                "top1_accuracy": round(hits1 / total, 4),
+                "top3_accuracy": round(hits3 / total, 4),
+                "mrr": round(float(np.mean(rrs)), 4),
+            }
+            logger.info(
+                f"  sem={w:.2f}/lex={1 - w:.2f}: Top-1={results[w]['top1_accuracy']:.4f}, "
+                f"Top-3={results[w]['top3_accuracy']:.4f}, MRR={results[w]['mrr']:.4f}"
+            )
+        return results
+
+    # ── Canonicalisation ablation ──────────────────────────────────────────────
+
+    def run_canonicalisation_ablation(self, ks: list[int] | None = None) -> dict:
+        """Compare extraction metrics with vs without SBERT canonicalisation.
+
+        The DB currently holds canonicalised concepts (the production setting).
+        The "raw" arm reconstructs the pre-canonicalisation candidate set by
+        expanding each concept into its surface variants, giving an
+        upper bound on the un-merged concept count and its effect on F1@K/MAP.
+        Returns {"with_canonicalisation": {...}, "without_canonicalisation": {...}}.
+        """
+        if ks is None:
+            ks = [5, 10, 20]
+
+        concepts = self.storage.get_all_concepts()
+        if not concepts:
+            logger.error("No concepts in DB.")
+            return {}
+
+        # With canonicalisation: canonical terms only.
+        mc_canon: dict[str, list[str]] = defaultdict(list)
+        n_canon = 0
+        for c in sorted(concepts, key=lambda x: -x.confidence):
+            n_canon += 1
+            for mc in c.module_codes:
+                mc_canon[mc].append(c.term)
+
+        # Without canonicalisation: canonical term + all variants (un-merged).
+        mc_raw: dict[str, list[str]] = defaultdict(list)
+        n_raw = 0
+        for c in sorted(concepts, key=lambda x: -x.confidence):
+            surface_forms = [c.term, *(c.variants or [])]
+            n_raw += len(surface_forms)
+            for mc in c.module_codes:
+                mc_raw[mc].extend(surface_forms)
+
+        with_canon = self._run_metrics_for_module_concepts(dict(mc_canon), ks)
+        without_canon = self._run_metrics_for_module_concepts(dict(mc_raw), ks)
+        with_canon["n_concepts"] = n_canon
+        without_canon["n_concepts"] = n_raw
+        logger.info(
+            f"Canonicalisation ablation: with={n_canon} concepts "
+            f"(F1@10={with_canon['macro'].get('F1@10', 0):.4f}), "
+            f"without={n_raw} surface forms "
+            f"(F1@10={without_canon['macro'].get('F1@10', 0):.4f})"
+        )
+        return {
+            "with_canonicalisation": with_canon,
+            "without_canonicalisation": without_canon,
+        }
+
     # ── Full run ───────────────────────────────────────────────────────────────
 
     # ── SBERT threshold sensitivity sweep ─────────────────────────────────────

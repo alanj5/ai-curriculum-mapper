@@ -17,6 +17,10 @@ import logging
 from collections import defaultdict
 
 from curriculum_mapper.config import (
+    _FUNCTION_WORDS,
+    CONCEPT_ALLOWLIST,
+    DOMAIN_STOP_WORDS,
+    GENERIC_CONCEPT_TERMS,
     MAX_CONCEPTS_PER_MODULE,
     TFIDF_TOP_N,
 )
@@ -44,6 +48,30 @@ def _normalise_scores(scores: list[float]) -> list[float]:
 
 
 _VERB_POS = {"VERB", "AUX", "ADP", "DET", "PART"}
+
+# Combined vocabulary with no computing-domain signal, used by the specificity
+# filter. A candidate is rejected only when *all* of its tokens are generic.
+# Legitimate single-word concepts (CONCEPT_ALLOWLIST) are removed from this set
+# so they are never treated as generic (e.g. "process", "value", "type").
+_GENERIC_TOKENS = (
+    ({w.lower() for w in DOMAIN_STOP_WORDS} | set(GENERIC_CONCEPT_TERMS) | set(_FUNCTION_WORDS))
+    - set(CONCEPT_ALLOWLIST)
+)
+
+
+def _is_generic_candidate(term: str) -> bool:
+    """True if every alphabetic token in ``term`` is generic (no domain signal).
+
+    Single-word computing concepts (e.g. "graph", "heap", "boolean") are NOT in
+    the generic vocabulary, so they survive; purely generic terms such as
+    "analysis", "design", "research" and sentence fragments such as
+    "capabilities effectively evaluate" are dropped.
+    """
+    tokens = [t.strip(".,;:()[]'\"") for t in term.lower().split()]
+    tokens = [t for t in tokens if t]
+    if not tokens:
+        return True
+    return all(t in _GENERIC_TOKENS or len(t) <= 2 for t in tokens)
 
 
 class NLPPipeline:
@@ -122,8 +150,13 @@ class NLPPipeline:
             for word in bertopic_results.get(i, []):
                 candidates[word.lower()].setdefault("bertopic", 1.0)
 
-            # Filter out very short terms, then remove verb-headed phrases
-            length_filtered = {t: s for t, s in candidates.items() if len(t) >= 3}
+            # Filter: (1) very short terms, (2) all-generic terms with no domain
+            # signal (specificity filter), then (3) verb-headed phrases.
+            length_filtered = {
+                t: s
+                for t, s in candidates.items()
+                if len(t) >= 3 and not _is_generic_candidate(t)
+            }
             all_candidates[module.code] = self._filter_noun_headed(length_filtered)
 
         # ── Canonicalize ──────────────────────────────────────────────────────

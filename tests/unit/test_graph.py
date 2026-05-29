@@ -303,10 +303,18 @@ class TestDetectRedundancies:
         assert result[0]["concept"] == "sorting"
         assert result[0]["module_count"] == 5
 
-    def test_low_confidence_not_redundant(self):
-        concept = _make_concept("sorting", ["M1", "M2", "M3", "M4", "M5"], confidence=0.3)
+    def test_below_noise_floor_not_redundant(self):
+        # Below REDUNDANCY_MIN_CONFIDENCE (0.25): treated as extraction noise.
+        concept = _make_concept("sorting", ["M1", "M2", "M3", "M4", "M5"], confidence=0.2)
         result = detect_redundancies([concept])
         assert result == []
+
+    def test_moderate_confidence_cross_cutting_redundant(self):
+        # Cross-cutting concepts legitimately have moderate confidence; redundancy
+        # is defined by cross-module frequency, not extraction certainty.
+        concept = _make_concept("software", ["M1", "M2", "M3", "M4", "M5"], confidence=0.35)
+        result = detect_redundancies([concept])
+        assert len(result) == 1
 
 
 class TestGenerateCoverageReport:

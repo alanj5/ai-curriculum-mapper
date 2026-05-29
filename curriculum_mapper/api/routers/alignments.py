@@ -6,7 +6,7 @@ from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from curriculum_mapper.api.dependencies import get_storage
+from curriculum_mapper.api.dependencies import get_ka_data, get_storage
 from curriculum_mapper.api.schemas import AlignmentStatsOut, ValidateRequest
 from curriculum_mapper.ingestion.storage import StorageManager, get_connection
 
@@ -89,18 +89,29 @@ def validate_alignment(
                 detail=f"Alignment '{alignment_id}' not found",
             )
 
-        validated_value = 1 if body.action == "accept" else (0 if body.action == "reject" else None)
+        now = datetime.now(UTC).isoformat()
+        by = body.validated_by or "user"
 
-        conn.execute(
-            """UPDATE alignments SET validated=?, validated_by=?, validated_at=?
-               WHERE id=?""",
-            (
-                validated_value,
-                body.validated_by or "user",
-                datetime.now(UTC).isoformat(),
-                alignment_id,
-            ),
-        )
+        if body.action == "reassign":
+            # A reassignment is an expert correction: point the alignment at the
+            # new KA, mark it accepted, and flag it as no longer ambiguous so the
+            # change is visible in the table.
+            new_ka = body.new_ka_code.upper()
+            ka_name = get_ka_data().get(new_ka, {}).get("name", new_ka)
+            conn.execute(
+                """UPDATE alignments
+                   SET ka_code=?, ka_topic=?, validated=1, is_ambiguous=0,
+                       validated_by=?, validated_at=?
+                   WHERE id=?""",
+                (new_ka, f"{ka_name} (reassigned)", by, now, alignment_id),
+            )
+        else:
+            validated_value = 1 if body.action == "accept" else 0
+            conn.execute(
+                """UPDATE alignments SET validated=?, validated_by=?, validated_at=?
+                   WHERE id=?""",
+                (validated_value, by, now, alignment_id),
+            )
 
         # Write to user_feedback table
         import uuid

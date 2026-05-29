@@ -33,7 +33,6 @@
           <option value="1">Level 1</option>
           <option value="2">Level 2</option>
           <option value="3">Level 3</option>
-          <option value="4">Level 4</option>
         </select>
       </div>
       <div class="module-list" id="module-list">
@@ -49,11 +48,11 @@
             <option value="module-module">Module similarity</option>
             <option value="bipartite">Module ↔ Concepts</option>
           </select>
-          <button id="graph-fit-btn" class="graph-ctrl-btn" title="Fit graph to screen">⊡ Fit</button>
-          <button id="graph-layout-btn" class="graph-ctrl-btn" title="Re-run layout">↻ Layout</button>
-          <label class="graph-ctrl-label" id="edge-threshold-label">
-            Min edge strength
-            <input type="range" id="edge-threshold" min="0" max="0.9" step="0.05" value="0" />
+          <button id="graph-fit-btn" class="graph-ctrl-btn" title="Zoom to fit the whole graph in view">⊡ Fit</button>
+          <button id="graph-layout-btn" class="graph-ctrl-btn" title="Re-arrange the nodes by re-running the force-directed layout">↻ Re-arrange</button>
+          <label class="graph-ctrl-label" id="edge-threshold-label" title="Hide weak connections (module similarity) or low-confidence concepts (module ↔ concepts)">
+            <span id="edge-threshold-text">Min edge strength</span>
+            <input type="range" id="edge-threshold" min="0" max="0.2" step="0.01" value="0" />
             <span id="edge-threshold-val">0.00</span>
           </label>
           <span class="graph-ctrl-hint" id="graph-hint">Raise slider to hide weak connections and reveal clusters</span>

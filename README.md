@@ -3,7 +3,7 @@
 [![Tests](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml/badge.svg)](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Coverage](https://img.shields.io/badge/coverage-84%25-brightgreen.svg)](#test-coverage-summary-v100)
+[![Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](#test-coverage-summary-v100)
 
 Automated extraction, alignment, and visualisation of Computing curriculum content against ACM/IEEE CS2023 Knowledge Areas.
 
@@ -14,7 +14,7 @@ Automated extraction, alignment, and visualisation of Computing curriculum conte
 
 ## Overview
 
-The system ingests 21 Imperial College Computing module descriptors, extracts ~963 key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner, constructs a module-module similarity graph, and exposes all results through an interactive web interface.
+The system ingests 21 Imperial College Computing module descriptors, extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield 658 unique concepts, aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner, constructs a module-module similarity graph, and exposes all results through an interactive web interface.
 
 ### Architecture
 
@@ -39,7 +39,7 @@ flowchart LR
     style K fill:#fff4e1,stroke:#A50000
 ```
 
-**Numbers (from a complete pipeline run on the 21-module corpus):** 21 modules → 1,065 raw concept candidates → 963 canonicalised concepts → 1,341 alignments (380 ambiguous, 39.5%) → 153 module-module edges across 4 Louvain communities.
+**Numbers (from a complete pipeline run on the 21-module corpus):** 21 modules → 658 canonical concepts (after the specificity filter and SBERT canonicalisation) → 1,030 alignment records (152 ambiguous concepts, 23.1%) → 146 module-module edges across 4 Louvain communities (modularity Q = 0.46).
 
 ---
 
@@ -99,7 +99,7 @@ source .venv/bin/activate
 # Step 1: Ingest module descriptors → populates modules, ilos, prerequisites tables
 python scripts/ingest_modules.py
 
-# Step 2: Run NLP extraction → populates concepts table (963 concepts, ~3–5 min)
+# Step 2: Run NLP extraction → populates concepts table (658 concepts, ~3–5 min)
 python scripts/run_nlp_pipeline.py --week2
 
 # Step 3: Align concepts to CS2023 KAs → populates alignments table (~1–2 min)
@@ -177,7 +177,7 @@ Interactive docs (Swagger UI): **http://127.0.0.1:8000/docs**
 ```bash
 # 1. Check the system is up
 curl http://127.0.0.1:8000/health
-# → {"status":"ok","modules":21,"concepts":963,"alignments":1341}
+# → {"status":"ok","modules":21,"concepts":658,"alignments":1030}
 
 # 2. List all Year 2 modules
 curl 'http://127.0.0.1:8000/api/v1/modules/?level=2'
@@ -229,7 +229,7 @@ build path described in **Starting the Web Application → Option B**.
 ```bash
 source .venv/bin/activate
 python -m pytest tests/ -q
-# Expected: 344 passed in ~14 s
+# Expected: 385 passed in ~14 s
 ```
 
 ### With coverage report
@@ -237,14 +237,14 @@ python -m pytest tests/ -q
 ```bash
 python -m pytest --cov=curriculum_mapper --cov-report=html -q
 # Opens htmlcov/index.html for line-level coverage details
-# Current coverage: 84%
+# Current coverage: 83% (full suite)
 ```
 
 ### Unit tests only (fast, no DB required for most)
 
 ```bash
 python -m pytest tests/unit/ -q
-# ~278 tests, ~12 s
+# ~318 tests, ~12 s
 ```
 
 ### Integration tests only (requires populated DB)
@@ -280,17 +280,19 @@ python -m black --check curriculum_mapper/ tests/  # Formatting check
 | Module | Coverage |
 |---|---|
 | `evaluation/metrics.py` | 100% |
-| `evaluation/reports.py` | 100% |
-| `evaluation/benchmarks.py` | 99% |
+| `evaluation/reports.py` | 98% |
+| `evaluation/benchmarks.py` | 69%\* |
 | `alignment/ambiguity.py` | 100% |
-| `alignment/hybrid.py` | 92% |
+| `alignment/hybrid.py` | 100% |
 | `alignment/aligner.py` | 100% |
 | `nlp/canonicalizer.py` | 92% |
 | `nlp/extractors/keybert_extractor.py` | 100% |
 | `nlp/extractors/tfidf_extractor.py` | 100% |
 | `ingestion/storage.py` | 97% |
 | `api/schemas.py` | 100% |
-| **TOTAL** | **84%** |
+| **TOTAL** | **83%** |
+
+\*`benchmarks.py` includes CLI-only extended ablations (aligner weight sweep, per-extractor comparison) that are exercised end-to-end by `scripts/run_evaluation.py` rather than in unit tests.
 
 ---
 
@@ -324,7 +326,7 @@ ai-curriculum-mapper/
 │   └── integration/            # 66 integration tests (real DB, ASGI transport)
 ├── data/
 │   ├── raw/modules/            # Imperial College JSON module descriptors
-│   ├── raw/standards/          # cs2023_ka.json (18 KAs, ~200 topic strings)
+│   ├── raw/standards/          # cs2023_ka.json (18 KAs, 974 topic strings)
 │   ├── annotations/            # Gold-annotated concepts (5 modules, 77 concepts)
 │   ├── cache/                  # Embedding cache (.npy) + graph pickles (.pkl)
 │   └── processed/              # Evaluation outputs + figures

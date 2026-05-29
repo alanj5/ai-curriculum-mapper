@@ -57,13 +57,22 @@ function renderTable(alignments, ka, ambiguousVal, validatedVal) {
   };
 
   container.innerHTML = `
+    <p class="table-caption">
+      Each row is the top-ranked CS2023 Knowledge-Area alignment for one extracted concept,
+      scored by the hybrid lexical+semantic aligner.
+      <strong>Status:</strong>
+      <span class="badge badge-pending">pending</span> not yet reviewed ·
+      <span class="badge badge-accepted">accepted</span> confirmed correct ·
+      <span class="badge badge-rejected">rejected</span> marked incorrect ·
+      <span class="badge badge-ambiguous">ambiguous</span> top-two KA scores within 0.08 (needs a human decision).
+      Use <strong>✓ / ✗ / ↩</strong> to accept, reject, or reassign.
+    </p>
     <table class="align-table">
       <thead>
         <tr>
           ${colHeader('concept_term', 'Concept')}
           ${colHeader('ka_code', 'KA')}
           <th>Topic</th>
-          ${colHeader('method', 'Method')}
           ${colHeader('score', 'Score')}
           <th>Status</th>
           <th>Actions</th>
@@ -117,7 +126,6 @@ function renderRow(a) {
       <td><strong>${a.ka_code}</strong></td>
       <td style="font-size:11px; color:#64748b; max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap"
           title="${escHtml(a.ka_topic || '')}">${escHtml(a.ka_topic || '—')}</td>
-      <td style="font-size:11px">${a.method}</td>
       <td class="conf-bar-cell">
         <div class="conf-bar-wrap">
           <div class="conf-bar" style="width:${barWidth}px; max-width:100px"></div>

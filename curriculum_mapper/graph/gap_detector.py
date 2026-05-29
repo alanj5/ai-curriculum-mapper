@@ -9,7 +9,11 @@ confidence — may indicate over-taught topics worth consolidating.
 
 from __future__ import annotations
 
-from curriculum_mapper.config import GAP_COVERAGE_THRESHOLD, REDUNDANCY_THRESHOLD
+from curriculum_mapper.config import (
+    GAP_COVERAGE_THRESHOLD,
+    REDUNDANCY_MIN_CONFIDENCE,
+    REDUNDANCY_THRESHOLD,
+)
 from curriculum_mapper.ingestion.schema import Concept
 
 
@@ -34,7 +38,7 @@ def detect_redundancies(concepts: list[Concept]) -> list[dict]:
     """Return concepts appearing in >= REDUNDANCY_THRESHOLD modules."""
     redundant = []
     for c in concepts:
-        if len(c.module_codes) >= REDUNDANCY_THRESHOLD and c.confidence > 0.5:
+        if len(c.module_codes) >= REDUNDANCY_THRESHOLD and c.confidence > REDUNDANCY_MIN_CONFIDENCE:
             redundant.append({
                 "concept": c.term,
                 "module_count": len(c.module_codes),

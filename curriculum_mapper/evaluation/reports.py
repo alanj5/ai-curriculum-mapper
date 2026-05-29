@@ -143,6 +143,40 @@ def generate_text_report(results: dict, path: Path | None = None) -> Path:
             )
         lines.append("")
 
+    # ── Aligner weight sweep ───────────────────────────────────────────────────
+    wsweep = results.get("aligner_weight_sweep", {})
+    if wsweep:
+        lines += [
+            "ALIGNER WEIGHT SWEEP (semantic/lexical split on gold concept→KA pairs)",
+            "-" * 70,
+            f"  {'Sem wt':>8} {'Lex wt':>8} {'Top-1':>8} {'Top-3':>8} {'MRR':>8}",
+        ]
+        for w in sorted(wsweep.keys(), key=float):
+            r = wsweep[w]
+            lines.append(
+                f"  {r.get('semantic_weight', 0):>8.2f} {r.get('lexical_weight', 0):>8.2f} "
+                f"{r.get('top1_accuracy', 0):>8.4f} {r.get('top3_accuracy', 0):>8.4f} "
+                f"{r.get('mrr', 0):>8.4f}"
+            )
+        lines.append("")
+
+    # ── Canonicalisation ablation ──────────────────────────────────────────────
+    canon = results.get("canonicalisation_ablation", {})
+    if canon:
+        with_c = canon.get("with_canonicalisation", {})
+        without_c = canon.get("without_canonicalisation", {})
+        wm, om = with_c.get("macro", {}), without_c.get("macro", {})
+        lines += [
+            "CANONICALISATION ABLATION (with vs without SBERT/WordNet merging)",
+            "-" * 70,
+            f"  {'Setting':<22} {'#Concepts':>10} {'F1@10':>8} {'MAP':>8}",
+            f"  {'with canonicalisation':<22} {with_c.get('n_concepts', '?'):>10} "
+            f"{wm.get('F1@10', 0):>8.4f} {wm.get('MAP', 0):>8.4f}",
+            f"  {'without (raw variants)':<22} {without_c.get('n_concepts', '?'):>10} "
+            f"{om.get('F1@10', 0):>8.4f} {om.get('MAP', 0):>8.4f}",
+            "",
+        ]
+
     # ── Graph stats ────────────────────────────────────────────────────────────
     graph = results.get("graph", {})
     if graph:
@@ -403,6 +437,37 @@ def generate_figures(results: dict) -> list[Path]:
             logger.info(f"Saved figure: {path}")
         except Exception as e:
             logger.warning(f"Threshold sensitivity figure failed: {e}")
+
+    # ── Figure 8b: Aligner weight sweep ──────────────────────────────────────
+    wsweep = results.get("aligner_weight_sweep", {})
+    if wsweep:
+        try:
+            ws = sorted(wsweep.keys(), key=float)
+            sem_w = [float(w) for w in ws]
+            top1 = [wsweep[w]["top1_accuracy"] for w in ws]
+            top3 = [wsweep[w]["top3_accuracy"] for w in ws]
+            mrr_vals = [wsweep[w]["mrr"] for w in ws]
+
+            fig, ax = plt.subplots(figsize=(7, 4))
+            ax.plot(sem_w, top1, "o-", color="#2196F3", label="Top-1 Accuracy")
+            ax.plot(sem_w, top3, "s-", color="#FF5722", label="Top-3 Accuracy")
+            ax.plot(sem_w, mrr_vals, "^--", color="#4CAF50", label="MRR")
+            ax.axvline(x=0.65, color="#9C27B0", linestyle=":", alpha=0.8,
+                       label="Production split (0.65)")
+            ax.set_xlabel("Semantic weight (lexical weight = 1 − semantic)")
+            ax.set_ylabel("Score")
+            ax.set_title("Aligner Performance vs Lexical/Semantic Weight")
+            ax.set_ylim(0, 1)
+            ax.legend(fontsize=8)
+            ax.grid(True, alpha=0.3)
+            fig.tight_layout()
+            path = FIGURES_DIR / "aligner_weight_sweep.png"
+            fig.savefig(path, dpi=150)
+            plt.close(fig)
+            saved.append(path)
+            logger.info(f"Saved figure: {path}")
+        except Exception as e:
+            logger.warning(f"Aligner weight sweep figure failed: {e}")
 
     # ── Figure 9: Module × KA heatmap ────────────────────────────────────────
     ka_heatmap_data = results.get("ka_heatmap", {})
