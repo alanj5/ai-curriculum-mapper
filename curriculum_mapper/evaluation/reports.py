@@ -177,6 +177,24 @@ def generate_text_report(results: dict, path: Path | None = None) -> Path:
             "",
         ]
 
+    # ── Perturbation robustness ────────────────────────────────────────────────
+    perturb = results.get("perturbation", {})
+    if perturb:
+        lines += [
+            "PERTURBATION ROBUSTNESS (drop lowest-confidence concepts)",
+            "-" * 70,
+            f"  {'%Rem':>5} {'Concepts':>9} {'MMedges':>8} {'Comm':>5} "
+            f"{'CoveredKA':>10} {'Coverage':>9} {'Redund':>7}",
+        ]
+        for f in sorted(perturb.keys(), key=float):
+            r = perturb[f]
+            lines.append(
+                f"  {int(float(f) * 100):>4d}% {r['n_concepts']:>9} {r['mm_edges']:>8} "
+                f"{r['n_communities']:>5} {r['covered_kas']:>4}/{r['total_kas']:<5} "
+                f"{r['coverage_fraction']:>9.3f} {r['redundancy_count']:>7}"
+            )
+        lines.append("")
+
     # ── Graph stats ────────────────────────────────────────────────────────────
     graph = results.get("graph", {})
     if graph:
@@ -468,6 +486,39 @@ def generate_figures(results: dict) -> list[Path]:
             logger.info(f"Saved figure: {path}")
         except Exception as e:
             logger.warning(f"Aligner weight sweep figure failed: {e}")
+
+    # ── Figure 8c: Perturbation robustness ───────────────────────────────────
+    perturb = results.get("perturbation", {})
+    if perturb:
+        try:
+            fr = sorted(perturb.keys(), key=float)
+            x = [float(f) * 100 for f in fr]
+            base = perturb[fr[0]]
+
+            def _pct(key):
+                b = base[key] or 1
+                return [100.0 * perturb[f][key] / b for f in fr]
+
+            fig, ax = plt.subplots(figsize=(7, 4))
+            ax.plot(x, _pct("mm_edges"), "o-", color="#2196F3", label="Module–module edges")
+            ax.plot(x, _pct("covered_kas"), "s-", color="#4CAF50", label="Covered KAs")
+            ax.plot(x, _pct("redundancy_count"), "^--", color="#FF5722", label="Redundancies")
+            ax.plot(x, _pct("n_communities"), "d:", color="#9C27B0", label="Communities")
+            ax.set_xlabel("Lowest-confidence concepts removed (%)")
+            ax.set_ylabel("Retained, % of full-pipeline value")
+            ax.set_title("Curriculum-Diagnostic Robustness to Concept Pruning")
+            ax.set_ylim(0, 110)
+            ax.axhline(100, color="#475569", linewidth=0.8, alpha=0.5)
+            ax.legend(fontsize=8)
+            ax.grid(True, alpha=0.3)
+            fig.tight_layout()
+            path = FIGURES_DIR / "perturbation_robustness.png"
+            fig.savefig(path, dpi=150)
+            plt.close(fig)
+            saved.append(path)
+            logger.info(f"Saved figure: {path}")
+        except Exception as e:
+            logger.warning(f"Perturbation robustness figure failed: {e}")
 
     # ── Figure 9: Module × KA heatmap ────────────────────────────────────────
     ka_heatmap_data = results.get("ka_heatmap", {})

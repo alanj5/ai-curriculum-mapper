@@ -144,6 +144,10 @@ def main() -> None:
         results["aligner_weight_sweep"] = runner.run_aligner_weight_sweep()
         logger.info("Running canonicalisation ablation…")
         results["canonicalisation_ablation"] = runner.run_canonicalisation_ablation()
+        logger.info("Running perturbation-robustness analysis…")
+        from curriculum_mapper.alignment.aligner import load_ka_data
+        from curriculum_mapper.evaluation.robustness import run_perturbation_robustness
+        results["perturbation"] = run_perturbation_robustness(storage, load_ka_data())
 
     # Attach graph stats
     graph_stats_path = PROCESSED_DIR / "graph_stats.json"
