@@ -96,10 +96,10 @@ export async function showModuleDetail(code) {
         `).join('')}
       </ul>
 
-      <h3>Top Concepts</h3>
+      <h3>Top Concepts <span style="font-weight:400; color:#64748b; font-size:11px">(click to explore)</span></h3>
       <div style="margin-top:4px">
         ${topConcepts.map(c => `
-          <span class="concept-chip" title="confidence: ${c.confidence.toFixed(3)}">${c.term}</span>
+          <span class="concept-chip concept-chip-clickable" data-concept-id="${c.id}" title="confidence: ${c.confidence.toFixed(3)} — click to explore">${esc(c.term)}</span>
         `).join('')}
         ${concepts.length > 12 ? `<span class="concept-chip" style="color:#64748b">+${concepts.length - 12} more</span>` : ''}
       </div>
@@ -111,7 +111,98 @@ export async function showModuleDetail(code) {
         </div>
       ` : ''}
     `;
+
+    container.querySelectorAll('.concept-chip-clickable').forEach(chip => {
+      chip.addEventListener('click', () => showConceptDetail(chip.dataset.conceptId, code));
+    });
   } catch (e) {
     container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load: ${e.message}</p>`;
   }
+}
+
+// ── Concept detail (click a concept chip to explore its mapping) ──────
+// Shows the concept's CS2023 alignment, synonym variants, and every module
+// that teaches it, ordered by level so progression (introduced → reinforced)
+// is visible — delivering the concept-centric exploration promised for
+// students in the interim report.
+export async function showConceptDetail(conceptId, fromModule = null) {
+  const container = document.getElementById('module-detail-content');
+  container.innerHTML = '<p class="placeholder">Loading…</p>';
+
+  try {
+    const [concept, alignments] = await Promise.all([
+      api.concept(conceptId),
+      api.conceptAlignments(conceptId),
+    ]);
+
+    // Resolve the modules that teach this concept, ordered by level.
+    const byCode = new Map(_allModules.map(m => [m.code, m]));
+    const teaching = (concept.module_codes || [])
+      .map(c => byCode.get(c) || { code: c, title: '', level: null })
+      .sort((a, b) => (a.level ?? 99) - (b.level ?? 99) || a.code.localeCompare(b.code));
+    const introLevel = teaching.length ? teaching[0].level : null;
+
+    const top = alignments.find(a => a.rank === 1) || alignments[0];
+    const statusBadge = (a) => {
+      if (!a) return '';
+      if (a.validated === true) return '<span class="badge badge-accepted">accepted</span>';
+      if (a.validated === false) return '<span class="badge badge-rejected">rejected</span>';
+      if (a.is_ambiguous) return '<span class="badge badge-ambiguous">ambiguous</span>';
+      return '<span class="badge badge-pending">pending</span>';
+    };
+
+    const backLink = fromModule
+      ? `<a class="back-link" data-back="${fromModule}">← Back to ${fromModule}</a>`
+      : '';
+
+    container.innerHTML = `
+      ${backLink}
+      <h2>${esc(concept.term)}</h2>
+      <p style="font-size:12.5px; color:#94a3b8; margin-bottom:8px">Extracted concept</p>
+      <div class="detail-stat">
+        <span>confidence ${(concept.confidence * 100).toFixed(0)}%</span>·
+        <span>${concept.module_codes.length} module${concept.module_codes.length === 1 ? '' : 's'}</span>
+      </div>
+
+      <h3>CS2023 Alignment</h3>
+      ${top ? `
+        <div class="concept-align-row">
+          <span class="align-ka">${top.ka_code}</span>
+          <span class="align-topic">${esc(top.ka_topic || '')}</span>
+          <span class="align-score">${top.score.toFixed(3)}</span>
+          ${statusBadge(top)}
+        </div>
+        <p style="font-size:11px; color:#64748b; margin-top:4px">Suggested mapping — review in the Alignments tab.</p>
+      ` : '<p class="placeholder">No alignment recorded.</p>'}
+
+      ${concept.variants && concept.variants.length > 1 ? `
+        <h3>Variants merged</h3>
+        <div style="margin-top:4px">
+          ${concept.variants.map(v => `<span class="concept-chip">${esc(v)}</span>`).join('')}
+        </div>
+      ` : ''}
+
+      <h3>Taught in ${teaching.length} module${teaching.length === 1 ? '' : 's'} <span style="font-weight:400; color:#64748b; font-size:11px">(by level)</span></h3>
+      <div class="concept-modules">
+        ${teaching.map(m => `
+          <div class="concept-mod-card" data-code="${m.code}">
+            <div><span class="code">${m.code}</span> <span class="cm-title">${esc(m.title || '')}</span></div>
+            <div class="cm-meta">${m.level != null ? `Level ${m.level}` : ''}${m.level === introLevel && m.level != null ? ' · introduced here' : ''}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    const back = container.querySelector('.back-link');
+    if (back) back.addEventListener('click', () => showModuleDetail(back.dataset.back));
+    container.querySelectorAll('.concept-mod-card').forEach(card => {
+      card.addEventListener('click', () => selectModule(card.dataset.code));
+    });
+  } catch (e) {
+    container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load concept: ${e.message}</p>`;
+  }
+}
+
+function esc(str) {
+  return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
