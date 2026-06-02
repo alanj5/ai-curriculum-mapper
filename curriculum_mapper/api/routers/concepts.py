@@ -94,6 +94,7 @@ def get_concept_alignments(
             "id": a.id,
             "concept_id": a.concept_id,
             "concept_term": concept.term,
+            "source_modules": concept.module_codes,
             "ka_code": a.ka_code,
             "ka_topic": a.ka_topic,
             "method": a.method,

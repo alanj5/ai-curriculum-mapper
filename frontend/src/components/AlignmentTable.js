@@ -71,6 +71,7 @@ function renderTable(alignments, ka, ambiguousVal, validatedVal) {
       <thead>
         <tr>
           ${colHeader('concept_term', 'Concept')}
+          <th title="Module(s) the concept was extracted from — trace each suggestion to its source">Source</th>
           ${colHeader('ka_code', 'KA')}
           <th>Topic</th>
           ${colHeader('score', 'Score')}
@@ -120,9 +121,15 @@ function renderRow(a) {
   else if (a.validated === false) valBadge = '<span class="badge badge-rejected">rejected</span>';
   else valBadge = '<span class="badge badge-pending">pending</span>';
 
+  const mods = a.source_modules || [];
+  const srcCell = mods.length
+    ? `<span class="src-mod" title="Extracted from: ${escHtml(mods.join(', '))}">${escHtml(mods[0])}${mods.length > 1 ? ` +${mods.length - 1}` : ''}</span>`
+    : '<span style="color:#475569">—</span>';
+
   return `
     <tr>
       <td>${escHtml(a.concept_term)}</td>
+      <td style="font-size:11px; color:#94a3b8">${srcCell}</td>
       <td><strong>${a.ka_code}</strong></td>
       <td style="font-size:11px; color:#64748b; max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap"
           title="${escHtml(a.ka_topic || '')}">${escHtml(a.ka_topic || '—')}</td>

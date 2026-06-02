@@ -179,6 +179,11 @@ table.align-table tr:hover td { background: var(--surface2); }
 .badge-accepted  { background: #064e3b; color: var(--success); }
 .badge-rejected  { background: #450a0a; color: var(--danger); }
 .badge-pending   { background: var(--surface2); color: var(--muted); }
+.src-mod {
+  display: inline-block; padding: 1px 6px; border-radius: 3px;
+  background: var(--surface2); color: var(--accent);
+  font-weight: 600; font-size: 10.5px; cursor: default;
+}
 .btn {
   border: none; border-radius: var(--radius); cursor: pointer;
   padding: 4px 10px; font-size: 12px; font-weight: 600; transition: opacity .15s;

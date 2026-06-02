@@ -26,7 +26,9 @@ def list_alignments(
 ) -> list[dict]:
     """List alignments with optional filters."""
     alignments = storage.get_all_alignments()
-    concepts = {c.id: c.term for c in storage.get_all_concepts()}
+    all_concepts = storage.get_all_concepts()
+    concept_terms = {c.id: c.term for c in all_concepts}
+    concept_modules = {c.id: c.module_codes for c in all_concepts}
 
     if ka:
         alignments = [a for a in alignments if a.ka_code == ka.upper()]
@@ -46,7 +48,8 @@ def list_alignments(
         {
             "id": a.id,
             "concept_id": a.concept_id,
-            "concept_term": concepts.get(a.concept_id, ""),
+            "concept_term": concept_terms.get(a.concept_id, ""),
+            "source_modules": concept_modules.get(a.concept_id, []),
             "ka_code": a.ka_code,
             "ka_topic": a.ka_topic,
             "method": a.method,
