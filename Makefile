@@ -1,4 +1,4 @@
-.PHONY: setup install-nlp pipeline evaluate serve test lint format check
+.PHONY: setup install-nlp pipeline pipeline-llm evaluate serve serve-llm test lint format check
 
 setup:
 	python3 -m venv .venv
@@ -20,6 +20,18 @@ evaluate:
 
 serve:
 	.venv/bin/uvicorn curriculum_mapper.api.main:app --reload --host 127.0.0.1 --port 8000
+
+# Build the LLM-augmented pipeline into a separate DB (canonical DB untouched).
+pipeline-llm:
+	CURRICULUM_DB_PATH=data/curriculum_llm.db LLM_EXTRACTOR_ENABLED=1 .venv/bin/python scripts/ingest_modules.py
+	CURRICULUM_DB_PATH=data/curriculum_llm.db LLM_EXTRACTOR_ENABLED=1 .venv/bin/python scripts/run_nlp_pipeline.py --week2 --llm
+	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/run_alignment.py
+	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/build_graph.py
+
+# Demo: serve the LLM-augmented data (865 concepts). Caches are DB-namespaced,
+# so this does not affect the canonical `make serve`.
+serve-llm:
+	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/uvicorn curriculum_mapper.api.main:app --host 127.0.0.1 --port 8000
 
 test:
 	.venv/bin/pytest --cov=curriculum_mapper --cov-report=html --cov-report=term-missing -v

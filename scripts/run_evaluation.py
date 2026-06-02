@@ -27,7 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from curriculum_mapper.config import PROCESSED_DIR
+from curriculum_mapper.config import GRAPH_STATS_PATH
 from curriculum_mapper.evaluation.benchmarks import BenchmarkRunner
 from curriculum_mapper.evaluation.reports import (
     generate_figures,
@@ -157,7 +157,11 @@ def main() -> None:
         from curriculum_mapper.nlp.extractors.llm_extractor import LLMExtractor
         probe = LLMExtractor()
         if probe.is_available and probe.ping():
-            models = ["llama3.1:8b", "qwen2.5:7b"] if args.llm_compare else [LLM_MODEL]
+            # Candidate models for selection; unavailable ones are skipped.
+            models = (
+                ["llama3.1:8b", "qwen2.5:7b", "gemma3:12b"]
+                if args.llm_compare else [LLM_MODEL]
+            )
             logger.info(f"Running LLM extraction benchmark for: {models}")
             comp = runner.run_llm_model_comparison(models)
             if comp:
@@ -172,7 +176,7 @@ def main() -> None:
             logger.warning("LLM requested but Ollama server unreachable; skipping LLM benchmark.")
 
     # Attach graph stats
-    graph_stats_path = PROCESSED_DIR / "graph_stats.json"
+    graph_stats_path = GRAPH_STATS_PATH
     if graph_stats_path.exists():
         with open(graph_stats_path) as f:
             gs = json.load(f)

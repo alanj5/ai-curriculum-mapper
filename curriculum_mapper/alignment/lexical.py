@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 import re
+from typing import cast
 
 from curriculum_mapper.config import LEXICAL_THRESHOLD, TOP_K_ALIGNMENTS
 
@@ -68,5 +69,5 @@ class LexicalAligner:
                     "score": round(score, 4),
                     "method": "lexical",
                 })
-        results.sort(key=lambda r: -r["score"])
+        results.sort(key=lambda r: -cast(float, r["score"]))
         return results[:TOP_K_ALIGNMENTS]

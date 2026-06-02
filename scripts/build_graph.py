@@ -26,7 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from curriculum_mapper.config import PROCESSED_DIR, STANDARDS_DIR
+from curriculum_mapper.config import GRAPH_STATS_PATH, PROCESSED_DIR, STANDARDS_DIR
 from curriculum_mapper.graph.analytics import (
     compute_centrality,
     compute_ka_coverage_full,
@@ -160,7 +160,7 @@ def main() -> None:
         "communities": {str(k): v for k, v in communities.items()},
     }
 
-    stats_path = PROCESSED_DIR / "graph_stats.json"
+    stats_path = GRAPH_STATS_PATH
     with open(stats_path, "w") as f:
         json.dump(graph_stats, f, indent=2)
     logger.info(f"  Graph stats saved to {stats_path}")

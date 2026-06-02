@@ -147,7 +147,14 @@ CURRICULUM_DB_PATH=data/curriculum_llm.db python scripts/run_evaluation.py
 
 The model is queried at temperature 0 and responses are cached, so reported LLM
 numbers reproduce without re-running the model. Configure via `LLM_MODEL`,
-`LLM_ENDPOINT`, `LLM_TIMEOUT` (see `config.py`).
+`LLM_ENDPOINT`, `LLM_TIMEOUT` (see `config.py`). Graph caches are namespaced by
+database, so the augmented run never clobbers the canonical artefacts.
+
+```bash
+# Build the augmented pipeline + serve it (demo; canonical `make serve` unaffected)
+make pipeline-llm        # 865 concepts into data/curriculum_llm.db
+make serve-llm           # serves the augmented data at http://127.0.0.1:8000
+```
 
 ---
 

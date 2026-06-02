@@ -395,3 +395,14 @@ class TestInferPrerequisites:
         if len(inferred) >= 2:
             scores = [s for _, _, s in inferred]
             assert scores[0] >= scores[1]
+
+
+class TestCacheNamespacing:
+    def test_cache_path_namespaced_by_db_stem(self):
+        from curriculum_mapper.config import DB_PATH
+        from curriculum_mapper.graph.builder import _cache_path
+        p = _cache_path("module_module")
+        # Pickle lives under a directory named after the DB stem, isolating
+        # canonical and LLM-augmented graphs.
+        assert p.parent.name == DB_PATH.stem
+        assert p.name == "module_module.pkl"

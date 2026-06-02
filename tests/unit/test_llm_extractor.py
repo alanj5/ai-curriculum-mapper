@@ -106,3 +106,44 @@ class TestLLMCache:
         assert [t for t, _ in out1] == ["hash table", "b tree"]
         assert out1 == out2
         assert client.calls == 1  # second call served from cache
+
+
+class _PingClient:
+    def __init__(self, ok=True):
+        self._ok = ok
+
+    def list(self):
+        if not self._ok:
+            raise RuntimeError("server down")
+        return {"models": []}
+
+    def chat(self, *a, **k):
+        return {"message": {"content": "[]"}}
+
+
+class _ObjResp:
+    """Mimics ollama's object-style response (resp.message.content)."""
+    class _M:
+        content = '["b tree", "red black tree"]'
+    message = _M()
+
+
+class TestLLMExtractorBranches:
+    def test_ping_true_and_false(self):
+        assert LLMExtractor(client=_PingClient(ok=True)).ping() is True
+        assert LLMExtractor(client=_PingClient(ok=False)).ping() is False
+
+    def test_object_style_response(self):
+        class _C:
+            def chat(self, *a, **k):
+                return _ObjResp()
+        out = LLMExtractor(client=_C(), use_cache=False).extract("trees module", top_n=10)
+        assert [t for t, _ in out] == ["b tree", "red black tree"]
+
+    def test_corrupt_cache_falls_back(self, tmp_path, monkeypatch):
+        import curriculum_mapper.nlp.extractors.llm_extractor as mod
+        monkeypatch.setattr(mod, "LLM_CACHE", tmp_path)
+        ex = mod.LLMExtractor(client=_FakeClient('["hashing"]'), use_cache=True)
+        # Pre-write a corrupt cache file for this text → should ignore and re-query.
+        ex._cache_path("xyz").write_text("{not json")
+        assert [t for t, _ in ex.extract("xyz", top_n=5)] == ["hashing"]

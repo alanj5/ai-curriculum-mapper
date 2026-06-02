@@ -78,8 +78,13 @@ def _is_generic_candidate(term: str) -> bool:
 class NLPPipeline:
     """Full five-extractor NLP pipeline with canonicalization."""
 
-    def __init__(self, enable_llm: bool | None = None) -> None:
+    def __init__(
+        self,
+        enable_llm: bool | None = None,
+        apply_specificity_filter: bool = True,
+    ) -> None:
         logger.info("Initialising NLP pipeline…")
+        self.apply_specificity_filter = apply_specificity_filter
         self.storage = StorageManager()
         self.em = EmbeddingManager()
         self.tfidf = TFIDFExtractor()
@@ -171,7 +176,8 @@ class NLPPipeline:
             length_filtered = {
                 t: s
                 for t, s in candidates.items()
-                if len(t) >= 3 and not _is_generic_candidate(t)
+                if len(t) >= 3
+                and (not self.apply_specificity_filter or not _is_generic_candidate(t))
             }
             all_candidates[module.code] = self._filter_noun_headed(length_filtered)
 

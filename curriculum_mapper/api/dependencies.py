@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import json
-import pickle
 from functools import lru_cache
 
-from curriculum_mapper.config import GRAPH_CACHE, PROCESSED_DIR, STANDARDS_DIR
+from curriculum_mapper.config import GRAPH_STATS_PATH, STANDARDS_DIR
+from curriculum_mapper.graph.builder import load_graph
 from curriculum_mapper.ingestion.storage import StorageManager
 
 
@@ -23,33 +23,25 @@ def get_ka_data() -> dict:
 
 
 def get_graph_module_module():
-    """Load cached module-module NetworkX graph (None if not built yet)."""
-    p = GRAPH_CACHE / "module_module.pkl"
-    if not p.exists():
-        return None
-    with open(p, "rb") as f:
-        return pickle.load(f)
+    """Load cached module-module NetworkX graph (None if not built yet).
+
+    Uses the DB-namespaced cache via ``builder.load_graph`` so the API and the
+    build step always agree on the location.
+    """
+    return load_graph("module_module")
 
 
 def get_graph_bipartite():
-    p = GRAPH_CACHE / "bipartite.pkl"
-    if not p.exists():
-        return None
-    with open(p, "rb") as f:
-        return pickle.load(f)
+    return load_graph("bipartite")
 
 
 def get_graph_concept_acm():
-    p = GRAPH_CACHE / "concept_acm.pkl"
-    if not p.exists():
-        return None
-    with open(p, "rb") as f:
-        return pickle.load(f)
+    return load_graph("concept_acm")
 
 
 def get_graph_stats() -> dict | None:
     """Load pre-computed graph stats (built by build_graph.py)."""
-    p = PROCESSED_DIR / "graph_stats.json"
+    p = GRAPH_STATS_PATH
     if not p.exists():
         return None
     with open(p) as f:

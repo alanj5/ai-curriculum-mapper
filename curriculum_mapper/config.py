@@ -21,6 +21,10 @@ LLM_CACHE = CACHE_DIR / "llm"
 PROCESSED_DIR = DATA_DIR / "processed"
 ANNOTATIONS_DIR = DATA_DIR / "annotations"
 FIGURES_DIR = PROCESSED_DIR / "figures"
+# Graph statistics are namespaced by the database stem so that running the
+# pipeline on a different DB (e.g. the LLM-augmented one) does not overwrite the
+# canonical stats consumed by the API.
+GRAPH_STATS_PATH = PROCESSED_DIR / f"graph_stats_{DB_PATH.stem}.json"
 
 # Ensure critical dirs exist at import time
 for _d in [DATA_DIR, CACHE_DIR, EMBEDDING_CACHE, GRAPH_CACHE, LLM_CACHE, PROCESSED_DIR,

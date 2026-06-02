@@ -26,6 +26,7 @@ from pathlib import Path
 import networkx as nx
 
 from curriculum_mapper.config import (
+    DB_PATH,
     GRAPH_CACHE,
     SHARED_CONCEPT_EDGE_MIN,
 )
@@ -39,7 +40,12 @@ logger = logging.getLogger(__name__)
 
 
 def _cache_path(name: str) -> Path:
-    return GRAPH_CACHE / f"{name}.pkl"
+    # Namespace the cache by the database stem so that running the pipeline on a
+    # different database (e.g. the LLM-augmented curriculum_llm.db) does not
+    # clobber the canonical graph pickles.
+    cache_dir = GRAPH_CACHE / DB_PATH.stem
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    return cache_dir / f"{name}.pkl"
 
 
 def _save_graph(G: nx.Graph, name: str) -> None:

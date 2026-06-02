@@ -165,12 +165,14 @@ def load_from_pdf(path: Path) -> Optional[ModuleDescriptor]:
     prereqs = [p.strip() for p in re.split(r"[,;]", prereq_text) if p.strip()] if prereq_text else []
 
     try:
-        level = int(re.search(r"\d", level_str).group()) if re.search(r"\d", level_str) else 1
+        _m = re.search(r"\d", level_str)
+        level = int(_m.group()) if _m else 1
     except Exception:
         level = 1
 
     try:
-        credits = int(re.search(r"\d+", credits_str).group()) if re.search(r"\d+", credits_str) else 0
+        _mc = re.search(r"\d+", credits_str)
+        credits = int(_mc.group()) if _mc else 0
     except Exception:
         credits = 0
 

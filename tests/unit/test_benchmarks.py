@@ -343,3 +343,30 @@ class TestRunAll:
         result = runner.run_all()
         assert "extraction" in result
         assert "alignment" in result
+
+
+class TestLLMModelComparison:
+    def test_skips_unavailable_and_runs_available(self, gold_file, monkeypatch):
+        import curriculum_mapper.nlp.extractors.llm_extractor as llm_mod
+        from curriculum_mapper.ingestion.schema import ModuleDescriptor
+
+        class _FakeLLMEx:
+            def __init__(self, model="m", **k):
+                self.model = model
+                self.is_available = model != "down:model"
+
+            def ping(self):
+                return self.is_available
+
+            def extract(self, text, top_n=20):
+                return [("sorting algorithms", 1.0), ("binary search", 0.8)]
+
+        monkeypatch.setattr(llm_mod, "LLMExtractor", _FakeLLMEx)
+        mod = ModuleDescriptor(code="MOD001", title="Algorithms", level=2, credits=8,
+                               prerequisites=[], description="sorting and search", ilos=[],
+                               topics=[], source="institutional", source_file="MOD001.json")
+        storage = _make_storage()
+        storage.get_all_modules.return_value = [mod]
+        runner = BenchmarkRunner(storage, _make_flexible_em(), gold_path=gold_file)
+        out = runner.run_llm_model_comparison(["good:model", "down:model"], ks=[5, 10])
+        assert "good:model" in out and "down:model" not in out

@@ -96,7 +96,7 @@ def validate_alignment(
             # A reassignment is an expert correction: point the alignment at the
             # new KA, mark it accepted, and flag it as no longer ambiguous so the
             # change is visible in the table.
-            new_ka = body.new_ka_code.upper()
+            new_ka = (body.new_ka_code or "").upper()  # guaranteed non-empty above
             ka_name = get_ka_data().get(new_ka, {}).get("name", new_ka)
             conn.execute(
                 """UPDATE alignments

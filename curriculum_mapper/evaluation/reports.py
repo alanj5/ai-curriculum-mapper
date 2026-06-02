@@ -561,7 +561,7 @@ def generate_figures(results: dict) -> list[Path]:
     if perturb:
         try:
             fr = sorted(perturb.keys(), key=float)
-            x = [float(f) * 100 for f in fr]
+            xpct = [float(f) * 100 for f in fr]
             base = perturb[fr[0]]
 
             def _pct(key):
@@ -569,10 +569,10 @@ def generate_figures(results: dict) -> list[Path]:
                 return [100.0 * perturb[f][key] / b for f in fr]
 
             fig, ax = plt.subplots(figsize=(7, 4))
-            ax.plot(x, _pct("mm_edges"), "o-", color="#2196F3", label="Module–module edges")
-            ax.plot(x, _pct("covered_kas"), "s-", color="#4CAF50", label="Covered KAs")
-            ax.plot(x, _pct("redundancy_count"), "^--", color="#FF5722", label="Redundancies")
-            ax.plot(x, _pct("n_communities"), "d:", color="#9C27B0", label="Communities")
+            ax.plot(xpct, _pct("mm_edges"), "o-", color="#2196F3", label="Module–module edges")
+            ax.plot(xpct, _pct("covered_kas"), "s-", color="#4CAF50", label="Covered KAs")
+            ax.plot(xpct, _pct("redundancy_count"), "^--", color="#FF5722", label="Redundancies")
+            ax.plot(xpct, _pct("n_communities"), "d:", color="#9C27B0", label="Communities")
             ax.set_xlabel("Lowest-confidence concepts removed (%)")
             ax.set_ylabel("Retained, % of full-pipeline value")
             ax.set_title("Curriculum-Diagnostic Robustness to Concept Pruning")
