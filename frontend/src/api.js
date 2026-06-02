@@ -38,6 +38,7 @@ export const api = {
   // Concepts
   concepts: (params = {}) => _get('/concepts/', params),
   concept: (id) => _get(`/concepts/${id}`),
+  conceptAlignments: (id) => _get(`/concepts/${id}/alignments`),
 
   // Alignments
   alignments: (params = {}) => _get('/alignments/', params),

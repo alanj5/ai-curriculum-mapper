@@ -119,6 +119,7 @@ def get_module_alignments(
 
     concepts = [c for c in storage.get_all_concepts() if code in c.module_codes]
     concept_id_to_term = {c.id: c.term for c in concepts}
+    concept_id_to_modules = {c.id: c.module_codes for c in concepts}
     concept_ids = set(concept_id_to_term.keys())
 
     alignments = [
@@ -131,6 +132,7 @@ def get_module_alignments(
             "id": a.id,
             "concept_id": a.concept_id,
             "concept_term": concept_id_to_term.get(a.concept_id, ""),
+            "source_modules": concept_id_to_modules.get(a.concept_id, []),
             "ka_code": a.ka_code,
             "ka_topic": a.ka_topic,
             "method": a.method,
