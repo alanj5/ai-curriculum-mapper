@@ -122,10 +122,13 @@ def run_pipeline(top_n: int = 20) -> dict:
     return results
 
 
-def run_week2_pipeline(top_n: int = 20) -> dict:
-    """Full Week-2 pipeline: 5 extractors + SBERT canonicalization."""
+def run_week2_pipeline(top_n: int = 20, enable_llm: bool = False) -> dict:
+    """Full Week-2 pipeline: 5 extractors + SBERT canonicalization.
+
+    With ``enable_llm`` a sixth local-LLM extractor is added (requires Ollama).
+    """
     from curriculum_mapper.nlp.pipeline import NLPPipeline
-    pipeline = NLPPipeline()
+    pipeline = NLPPipeline(enable_llm=enable_llm)
     return pipeline.run(top_n=top_n)
 
 
@@ -133,6 +136,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run NLP concept extraction pipeline")
     parser.add_argument("--week2", action="store_true",
                         help="Use full Week-2 pipeline (KeyBERT+BERTopic+canonicalization)")
+    parser.add_argument("--llm", action="store_true",
+                        help="Add the optional local-LLM extractor (requires Ollama)")
     parser.add_argument("--top-n", type=int, default=20, help="Top-N per extractor")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
@@ -142,7 +147,7 @@ def main() -> None:
 
     if args.week2:
         logger.info("Running Week-2 pipeline (all 5 extractors + canonicalization)…")
-        results = run_week2_pipeline(top_n=args.top_n)
+        results = run_week2_pipeline(top_n=args.top_n, enable_llm=args.llm)
     else:
         logger.info("Running Week-1 baseline pipeline (TF-IDF + RAKE + TextRank)…")
         results = run_pipeline(top_n=args.top_n)

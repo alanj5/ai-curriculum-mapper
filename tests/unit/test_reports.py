@@ -290,3 +290,23 @@ class TestFullReportCoverage:
                     "threshold_sensitivity.png", "aligner_weight_sweep.png",
                     "ka_module_heatmap.png"]:
             assert fig in names
+
+
+LLM_RESULTS = {
+    **FULL_RESULTS,
+    "llm_model_comparison": {
+        "llama3.1:8b": {"macro": {"F1@5": 0.35, "F1@10": 0.41, "F1@20": 0.45, "MAP": 0.41}},
+        "qwen2.5:7b": {"macro": {"F1@5": 0.39, "F1@10": 0.41, "F1@20": 0.29, "MAP": 0.31}},
+    },
+}
+
+
+class TestLLMReporting:
+    def test_text_report_includes_llm_section(self, tmp_path):
+        text = generate_text_report(LLM_RESULTS, path=tmp_path / "r.txt").read_text()
+        assert "LLM-AUGMENTED EXTRACTION" in text.upper()
+
+    def test_llm_figure_saved(self, tmp_path):
+        with patch("curriculum_mapper.evaluation.reports.FIGURES_DIR", tmp_path):
+            saved = generate_figures(LLM_RESULTS)
+        assert "llm_vs_ensemble.png" in {p.name for p in saved}

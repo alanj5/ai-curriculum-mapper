@@ -109,6 +109,8 @@ def main() -> None:
                         help="Skip per-extractor and aligner comparison (faster)")
     parser.add_argument("--no-threshold-sweep", action="store_true",
                         help="Skip SBERT threshold sensitivity sweep")
+    parser.add_argument("--llm-compare", action="store_true",
+                        help="Compare candidate local-LLM extractors on the gold set (needs Ollama)")
     args = parser.parse_args()
 
     if args.verbose:
@@ -148,6 +150,26 @@ def main() -> None:
         from curriculum_mapper.alignment.aligner import load_ka_data
         from curriculum_mapper.evaluation.robustness import run_perturbation_robustness
         results["perturbation"] = run_perturbation_robustness(storage, load_ka_data())
+
+    # ── Optional: local-LLM extractor benchmark / model comparison ─────────────
+    from curriculum_mapper.config import LLM_EXTRACTOR_ENABLED, LLM_MODEL
+    if args.llm_compare or LLM_EXTRACTOR_ENABLED:
+        from curriculum_mapper.nlp.extractors.llm_extractor import LLMExtractor
+        probe = LLMExtractor()
+        if probe.is_available and probe.ping():
+            models = ["llama3.1:8b", "qwen2.5:7b"] if args.llm_compare else [LLM_MODEL]
+            logger.info(f"Running LLM extraction benchmark for: {models}")
+            comp = runner.run_llm_model_comparison(models)
+            if comp:
+                results["llm_model_comparison"] = comp
+                # Headline LLM slot = best model by MAP.
+                best_name, best_res = max(
+                    comp.items(), key=lambda kv: kv[1].get("macro", {}).get("MAP", 0)
+                )
+                results["llm_extraction"] = best_res
+                logger.info(f"Best LLM extractor by MAP: {best_name}")
+        else:
+            logger.warning("LLM requested but Ollama server unreachable; skipping LLM benchmark.")
 
     # Attach graph stats
     graph_stats_path = PROCESSED_DIR / "graph_stats.json"

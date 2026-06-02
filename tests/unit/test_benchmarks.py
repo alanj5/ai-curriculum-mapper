@@ -188,6 +188,33 @@ class TestAlignerWeightSweep:
         assert out == out2
 
 
+# ── run_llm_extraction_benchmark ───────────────────────────────────────────────
+
+class _FakeLLM:
+    model = "fake-llm"
+
+    def extract(self, text, top_n=20):
+        # Return the gold terms so the benchmark scores a perfect-ish match.
+        return [("sorting algorithms", 1.0), ("binary search", 0.8), ("dynamic programming", 0.6)]
+
+
+class TestLLMExtractionBenchmark:
+    def test_returns_metrics(self, gold_file):
+        from curriculum_mapper.ingestion.schema import ModuleDescriptor
+        mod = ModuleDescriptor(
+            code="MOD001", title="Algorithms", level=2, credits=8, prerequisites=[],
+            description="sorting algorithms and binary search", ilos=[], topics=[],
+            source="institutional", source_file="MOD001.json",
+        )
+        storage = _make_storage()
+        storage.get_all_modules.return_value = [mod]
+        runner = BenchmarkRunner(storage, _make_flexible_em(), gold_path=gold_file)
+        result = runner.run_llm_extraction_benchmark(_FakeLLM(), ks=[5, 10])
+        assert "macro" in result and "model" in result
+        assert result["model"] == "fake-llm"
+        assert "F1@10" in result["macro"]
+
+
 # ── run_extraction_benchmark ───────────────────────────────────────────────────
 
 class TestRunExtractionBenchmark:

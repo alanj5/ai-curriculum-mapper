@@ -3,7 +3,7 @@
 [![Tests](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml/badge.svg)](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](#test-coverage-summary-v100)
+[![Coverage](https://img.shields.io/badge/coverage-82%25-brightgreen.svg)](#test-coverage-summary-v100)
 
 Automated extraction, alignment, and visualisation of Computing curriculum content against ACM/IEEE CS2023 Knowledge Areas.
 
@@ -113,6 +113,41 @@ python scripts/run_evaluation.py
 ```
 
 All steps are **idempotent** — safe to re-run. The DB uses `INSERT OR REPLACE`.
+
+---
+
+## Optional: LLM-augmented extraction
+
+An optional sixth concept extractor uses a **local** LLM via [Ollama](https://ollama.com)
+(no external API; preserves the project's privacy-local design). It is **off by
+default**, so the standard pipeline, the reported figures, and CI are unchanged and
+require no Ollama.
+
+```bash
+# 1. Install Ollama and a model (≈5 GB). qwen2.5:7b / llama3.1:8b suit a 16 GB Mac.
+brew install ollama
+ollama serve &                 # start the local server
+ollama pull qwen2.5:7b
+
+# 2. Install the Python client (deliberately not in requirements.txt)
+.venv/bin/pip install ollama
+
+# 3. Compare candidate LLM extractors against the ensemble on the gold set
+#    (no DB writes; outputs are cached under data/cache/llm/ for reproducibility)
+LLM_EXTRACTOR_ENABLED=1 .venv/bin/python scripts/run_evaluation.py --llm-compare
+
+# 4. (Optional) End-to-end: add the LLM as a 6th extractor into a SEPARATE DB,
+#    leaving the canonical curriculum.db untouched, then evaluate the augmented run
+CURRICULUM_DB_PATH=data/curriculum_llm.db LLM_EXTRACTOR_ENABLED=1 \
+  python scripts/run_nlp_pipeline.py --week2 --llm
+CURRICULUM_DB_PATH=data/curriculum_llm.db python scripts/run_alignment.py
+CURRICULUM_DB_PATH=data/curriculum_llm.db python scripts/build_graph.py
+CURRICULUM_DB_PATH=data/curriculum_llm.db python scripts/run_evaluation.py
+```
+
+The model is queried at temperature 0 and responses are cached, so reported LLM
+numbers reproduce without re-running the model. Configure via `LLM_MODEL`,
+`LLM_ENDPOINT`, `LLM_TIMEOUT` (see `config.py`).
 
 ---
 
@@ -229,7 +264,7 @@ build path described in **Starting the Web Application → Option B**.
 ```bash
 source .venv/bin/activate
 python -m pytest tests/ -q
-# Expected: 385 passed in ~14 s
+# Expected: 407 passed in ~14 s
 ```
 
 ### With coverage report
@@ -237,14 +272,14 @@ python -m pytest tests/ -q
 ```bash
 python -m pytest --cov=curriculum_mapper --cov-report=html -q
 # Opens htmlcov/index.html for line-level coverage details
-# Current coverage: 83% (full suite)
+# Current coverage: 82% (full suite)
 ```
 
 ### Unit tests only (fast, no DB required for most)
 
 ```bash
 python -m pytest tests/unit/ -q
-# ~318 tests, ~12 s
+# ~340 tests, ~12 s
 ```
 
 ### Integration tests only (requires populated DB)
@@ -290,7 +325,7 @@ python -m black --check curriculum_mapper/ tests/  # Formatting check
 | `nlp/extractors/tfidf_extractor.py` | 100% |
 | `ingestion/storage.py` | 97% |
 | `api/schemas.py` | 100% |
-| **TOTAL** | **83%** |
+| **TOTAL** | **82%** |
 
 \*`benchmarks.py` includes CLI-only extended ablations (aligner weight sweep, per-extractor comparison) that are exercised end-to-end by `scripts/run_evaluation.py` rather than in unit tests.
 

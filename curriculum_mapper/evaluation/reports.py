@@ -177,6 +177,34 @@ def generate_text_report(results: dict, path: Path | None = None) -> Path:
             "",
         ]
 
+    # ── LLM extractor comparison ───────────────────────────────────────────────
+    llm_comp = results.get("llm_model_comparison", {})
+    if llm_comp:
+        ens = results.get("extraction", {}).get("macro", {})
+        rake = results.get("extraction_per_extractor", {}).get("rake", {}).get("macro", {})
+        lines += [
+            "LLM-AUGMENTED EXTRACTION (local Ollama models vs ensemble, gold set)",
+            "-" * 70,
+            f"  {'Extractor':<16} {'F1@5':>8} {'F1@10':>8} {'F1@20':>8} {'MAP':>8}",
+        ]
+        for name in sorted(llm_comp.keys()):
+            m = llm_comp[name].get("macro", {})
+            lines.append(
+                f"  {name:<16} {m.get('F1@5', 0):>8.4f} {m.get('F1@10', 0):>8.4f} "
+                f"{m.get('F1@20', 0):>8.4f} {m.get('MAP', 0):>8.4f}"
+            )
+        if rake:
+            lines.append(
+                f"  {'rake (best 1)':<16} {rake.get('F1@5', 0):>8.4f} {rake.get('F1@10', 0):>8.4f} "
+                f"{rake.get('F1@20', 0):>8.4f} {rake.get('MAP', 0):>8.4f}"
+            )
+        if ens:
+            lines.append(
+                f"  {'ensemble (5)':<16} {ens.get('F1@5', 0):>8.4f} {ens.get('F1@10', 0):>8.4f} "
+                f"{ens.get('F1@20', 0):>8.4f} {ens.get('MAP', 0):>8.4f}"
+            )
+        lines.append("")
+
     # ── Perturbation robustness ────────────────────────────────────────────────
     perturb = results.get("perturbation", {})
     if perturb:
@@ -486,6 +514,47 @@ def generate_figures(results: dict) -> list[Path]:
             logger.info(f"Saved figure: {path}")
         except Exception as e:
             logger.warning(f"Aligner weight sweep figure failed: {e}")
+
+    # ── Figure 8d: LLM vs ensemble extraction ────────────────────────────────
+    llm_comp = results.get("llm_model_comparison", {})
+    if llm_comp:
+        try:
+            ens = results.get("extraction", {}).get("macro", {})
+            rake = results.get("extraction_per_extractor", {}).get("rake", {}).get("macro", {})
+            labels, f1s, maps = [], [], []
+            for name in sorted(llm_comp.keys()):
+                m = llm_comp[name].get("macro", {})
+                labels.append(name.replace(":", "\n"))
+                f1s.append(m.get("F1@10", 0))
+                maps.append(m.get("MAP", 0))
+            if rake:
+                labels.append("RAKE\n(best 1)")
+                f1s.append(rake.get("F1@10", 0))
+                maps.append(rake.get("MAP", 0))
+            if ens:
+                labels.append("Ensemble\n(5)")
+                f1s.append(ens.get("F1@10", 0))
+                maps.append(ens.get("MAP", 0))
+
+            x = range(len(labels))
+            width = 0.38
+            fig, ax = plt.subplots(figsize=(8, 4.5))
+            ax.bar([xi - width / 2 for xi in x], f1s, width=width, label="F1@10", color="#2196F3")
+            ax.bar([xi + width / 2 for xi in x], maps, width=width, label="MAP", color="#4CAF50")
+            ax.set_xticks(list(x))
+            ax.set_xticklabels(labels, fontsize=8)
+            ax.set_ylabel("Score (macro average)")
+            ax.set_title("Concept Extraction: Local-LLM Extractors vs Ensemble (gold set)")
+            ax.legend()
+            ax.grid(True, alpha=0.3, axis="y")
+            fig.tight_layout()
+            path = FIGURES_DIR / "llm_vs_ensemble.png"
+            fig.savefig(path, dpi=150)
+            plt.close(fig)
+            saved.append(path)
+            logger.info(f"Saved figure: {path}")
+        except Exception as e:
+            logger.warning(f"LLM comparison figure failed: {e}")
 
     # ── Figure 8c: Perturbation robustness ───────────────────────────────────
     perturb = results.get("perturbation", {})

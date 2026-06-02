@@ -17,12 +17,13 @@ MODULES_DIR = DATA_DIR / "raw" / "modules"
 CACHE_DIR = DATA_DIR / "cache"
 EMBEDDING_CACHE = CACHE_DIR / "embeddings"
 GRAPH_CACHE = CACHE_DIR / "graphs"
+LLM_CACHE = CACHE_DIR / "llm"
 PROCESSED_DIR = DATA_DIR / "processed"
 ANNOTATIONS_DIR = DATA_DIR / "annotations"
 FIGURES_DIR = PROCESSED_DIR / "figures"
 
 # Ensure critical dirs exist at import time
-for _d in [DATA_DIR, CACHE_DIR, EMBEDDING_CACHE, GRAPH_CACHE, PROCESSED_DIR,
+for _d in [DATA_DIR, CACHE_DIR, EMBEDDING_CACHE, GRAPH_CACHE, LLM_CACHE, PROCESSED_DIR,
            ANNOTATIONS_DIR, FIGURES_DIR]:
     _d.mkdir(parents=True, exist_ok=True)
 
@@ -31,6 +32,18 @@ for _d in [DATA_DIR, CACHE_DIR, EMBEDDING_CACHE, GRAPH_CACHE, PROCESSED_DIR,
 # Chosen per Green AI principle (Wang et al., 2020); quality gap ~5% on STS.
 SBERT_MODEL = "all-MiniLM-L6-v2"
 SPACY_MODEL = "en_core_web_sm"
+
+# ── Optional LLM-augmented extractor (off by default) ──────────────────────────
+# A local Ollama model used as a sixth, optional concept extractor. Disabled by
+# default so the production pipeline, the reported figures, and CI are unchanged
+# and require no Ollama. Enable with LLM_EXTRACTOR_ENABLED=1 (needs a running
+# Ollama server and `pip install ollama`). Outputs are cached (LLM_CACHE) and the
+# model is queried at temperature 0 for reproducibility.
+LLM_EXTRACTOR_ENABLED = os.environ.get("LLM_EXTRACTOR_ENABLED", "0").lower() in ("1", "true", "yes")
+LLM_MODEL = os.environ.get("LLM_MODEL", "llama3.1:8b")  # selected on gold set (best MAP)
+LLM_ENDPOINT = os.environ.get("LLM_ENDPOINT", "http://localhost:11434")
+LLM_TIMEOUT = float(os.environ.get("LLM_TIMEOUT", "120"))
+LLM_TOP_N = 20
 
 # ── NLP Hyperparameters ────────────────────────────────────────────────────────
 MAX_CONCEPTS_PER_MODULE = 50
@@ -49,13 +62,18 @@ SYNONYM_SIM_THRESHOLD = 0.92  # SBERT cosine above which two terms are merged
 WORDNET_SIM_THRESHOLD = 0.85  # WordNet path_similarity threshold
 SBERT_MATCH_THRESHOLD = 0.75  # partial-credit cosine threshold for evaluation metrics
 
-# Extractor confidence weights (sum to 1.0; KeyBERT highest = contextual)
+# Extractor confidence weights. The five core extractors define the production
+# ensemble and sum to 1.0. "llm" is the optional sixth extractor; it is only
+# consulted when LLM_EXTRACTOR_ENABLED, and the canonicaliser normalises
+# confidence by the weights of extractors *present on each concept*, so this
+# entry is inert when the LLM is disabled (the 658-concept result is unchanged).
 EXTRACTOR_WEIGHTS: dict[str, float] = {
     "tfidf": 0.15,
     "rake": 0.15,
     "textrank": 0.20,
     "keybert": 0.30,
     "bertopic": 0.20,
+    "llm": 0.30,  # optional; contributes only when the LLM extractor is enabled
 }
 
 # ── Alignment Hyperparameters ──────────────────────────────────────────────────

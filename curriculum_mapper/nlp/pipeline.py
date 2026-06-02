@@ -21,6 +21,7 @@ from curriculum_mapper.config import (
     CONCEPT_ALLOWLIST,
     DOMAIN_STOP_WORDS,
     GENERIC_CONCEPT_TERMS,
+    LLM_EXTRACTOR_ENABLED,
     MAX_CONCEPTS_PER_MODULE,
     TFIDF_TOP_N,
 )
@@ -77,7 +78,7 @@ def _is_generic_candidate(term: str) -> bool:
 class NLPPipeline:
     """Full five-extractor NLP pipeline with canonicalization."""
 
-    def __init__(self) -> None:
+    def __init__(self, enable_llm: bool | None = None) -> None:
         logger.info("Initialising NLP pipeline…")
         self.storage = StorageManager()
         self.em = EmbeddingManager()
@@ -88,6 +89,16 @@ class NLPPipeline:
         self.bertopic = BERTopicExtractor(self.em)
         self.canonicalizer = Canonicalizer(self.em)
         self.preprocessor = Preprocessor()
+
+        # Optional sixth extractor (local LLM). Off by default; instantiated only
+        # when explicitly enabled, so the default pipeline is byte-for-byte unchanged.
+        enable_llm = LLM_EXTRACTOR_ENABLED if enable_llm is None else enable_llm
+        self.llm = None
+        if enable_llm:
+            from curriculum_mapper.nlp.extractors.llm_extractor import LLMExtractor
+            self.llm = LLMExtractor()
+            logger.info(f"LLM extractor enabled (available={self.llm.is_available}).")
+
         logger.info(
             f"Pipeline ready. KeyBERT={self.keybert.is_available}, "
             f"BERTopic={self.bertopic.is_available}, "
@@ -149,6 +160,11 @@ class NLPPipeline:
 
             for word in bertopic_results.get(i, []):
                 candidates[word.lower()].setdefault("bertopic", 1.0)
+
+            # Optional sixth extractor: local LLM (only when enabled + available).
+            if self.llm is not None and self.llm.is_available:
+                for term, score in self.llm.extract(text, top_n=top_n):
+                    candidates[term.lower()]["llm"] = score
 
             # Filter: (1) very short terms, (2) all-generic terms with no domain
             # signal (specificity filter), then (3) verb-headed phrases.

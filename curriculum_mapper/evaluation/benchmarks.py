@@ -521,6 +521,53 @@ class BenchmarkRunner:
             "without_canonicalisation": without_canon,
         }
 
+    # ── LLM-augmented extraction ───────────────────────────────────────────────
+
+    def run_llm_extraction_benchmark(self, llm_extractor, ks: list[int] | None = None) -> dict:
+        """Evaluate a local-LLM extractor on the gold modules (no DB writes).
+
+        Runs the LLM extractor live on each gold module's text and scores its
+        concepts against gold with the same partial-credit metrics as the
+        ensemble (reusing ``_run_metrics_for_module_concepts``).
+        """
+        if ks is None:
+            ks = [5, 10, 20]
+        module_text = {
+            m.code: (m.full_text_clean or m.full_text)
+            for m in self.storage.get_all_modules()
+        }
+        mc: dict[str, list[str]] = {}
+        for code in self.gold:
+            terms = [t for t, _ in llm_extractor.extract(module_text.get(code, ""))]
+            mc[code] = terms
+        result = self._run_metrics_for_module_concepts(mc, ks)
+        macro = result.get("macro", {})
+        result["model"] = getattr(llm_extractor, "model", "llm")
+        logger.info(
+            f"  LLM extraction [{result['model']}]: F1@10={macro.get('F1@10', 0):.4f}, "
+            f"MAP={macro.get('MAP', 0):.4f}"
+        )
+        return result
+
+    def run_llm_model_comparison(
+        self, models: list[str], ks: list[int] | None = None
+    ) -> dict[str, dict]:
+        """Compare several local-LLM models as extractors on the gold set.
+
+        Returns {model_name: extraction-metrics}. Models whose Ollama server is
+        unreachable are skipped (with a warning), so the call degrades gracefully.
+        """
+        from curriculum_mapper.nlp.extractors.llm_extractor import LLMExtractor
+
+        out: dict[str, dict] = {}
+        for name in models:
+            ex = LLMExtractor(model=name)
+            if not ex.is_available or not ex.ping():
+                logger.warning(f"LLM model '{name}' unavailable (no Ollama server); skipping.")
+                continue
+            out[name] = self.run_llm_extraction_benchmark(ex, ks)
+        return out
+
     # ── Full run ───────────────────────────────────────────────────────────────
 
     # ── SBERT threshold sensitivity sweep ─────────────────────────────────────
