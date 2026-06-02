@@ -386,3 +386,9 @@ class StorageManager:
             conn.execute("DELETE FROM alignments")
             conn.execute("DELETE FROM concept_variants")
             conn.execute("DELETE FROM concepts")
+
+    def clear_alignments(self) -> None:
+        """Remove all alignments (so re-running alignment alone is idempotent)."""
+        with get_connection(self.db_path) as conn:
+            conn.execute("DELETE FROM user_feedback")
+            conn.execute("DELETE FROM alignments")

@@ -60,7 +60,9 @@ class HybridAligner:
             if h_score >= SIMILARITY_THRESHOLD:
                 hybrid.append({"ka_code": key[0], "ka_topic": key[1], "score": h_score})
 
-        hybrid.sort(key=lambda r: -r["score"])
+        # Deterministic ordering: by score desc, then KA code and topic asc, so
+        # score ties are broken reproducibly (not by hash-randomised set order).
+        hybrid.sort(key=lambda r: (-r["score"], r["ka_code"], r["ka_topic"]))
 
         # Dedup: keep best topic per KA
         seen_ka: set[str] = set()

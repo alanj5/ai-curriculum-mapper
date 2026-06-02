@@ -96,3 +96,17 @@ class TestStorageManager:
         temp_db.clear_concepts()
         assert temp_db.count_concepts() == 0
         assert temp_db.count_alignments() == 0
+
+
+def test_clear_alignments_is_idempotent(tmp_path):
+    """run_alignment should be re-runnable without duplicating rows."""
+    from curriculum_mapper.ingestion.schema import AlignmentResult, Concept
+    from curriculum_mapper.ingestion.storage import StorageManager
+    s = StorageManager(db_path=tmp_path / "t.db")
+    c = Concept(term="sorting", confidence=0.9, extractors=["tfidf"], module_codes=["M1"])
+    s.insert_concept(c)
+    a = AlignmentResult(concept_id=c.id, ka_code="AL", ka_topic="t", method="hybrid", score=0.9, rank=1)
+    s.insert_alignment(a)
+    assert s.count_alignments() == 1
+    s.clear_alignments()
+    assert s.count_alignments() == 0

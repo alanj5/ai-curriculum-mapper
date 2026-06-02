@@ -30,6 +30,7 @@ def run_alignment(
         ka_data = load_ka_data()
 
     aligner = HybridAligner(ka_data, em)
+    storage.clear_alignments()  # idempotent: avoid duplicating rows on re-run
     concepts = storage.get_all_concepts()
     logger.info(f"Aligning {len(concepts)} concepts to {sum(len(v['topics']) for v in ka_data.values())} KA topics…")
 

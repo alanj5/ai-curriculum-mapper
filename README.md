@@ -3,7 +3,7 @@
 [![Tests](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml/badge.svg)](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Coverage](https://img.shields.io/badge/coverage-82%25-brightgreen.svg)](#test-coverage-summary-v100)
+[![Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](#test-coverage-summary-v100)
 
 Automated extraction, alignment, and visualisation of Computing curriculum content against ACM/IEEE CS2023 Knowledge Areas.
 
@@ -271,7 +271,7 @@ build path described in **Starting the Web Application → Option B**.
 ```bash
 source .venv/bin/activate
 python -m pytest tests/ -q
-# Expected: 424 passed in ~14 s
+# Expected: 429 passed in ~14 s
 ```
 
 ### With coverage report
@@ -279,14 +279,14 @@ python -m pytest tests/ -q
 ```bash
 python -m pytest --cov=curriculum_mapper --cov-report=html -q
 # Opens htmlcov/index.html for line-level coverage details
-# Current coverage: 82% (full suite)
+# Current coverage: 83% (full suite)
 ```
 
 ### Unit tests only (fast, no DB required for most)
 
 ```bash
 python -m pytest tests/unit/ -q
-# ~357 tests, ~12 s
+# ~362 tests, ~12 s
 ```
 
 ### Integration tests only (requires populated DB)
@@ -332,7 +332,7 @@ python -m black --check curriculum_mapper/ tests/  # Formatting check
 | `nlp/extractors/tfidf_extractor.py` | 100% |
 | `ingestion/storage.py` | 97% |
 | `api/schemas.py` | 100% |
-| **TOTAL** | **82%** |
+| **TOTAL** | **83%** |
 
 \*`benchmarks.py` includes CLI-only extended ablations (aligner weight sweep, per-extractor comparison) that are exercised end-to-end by `scripts/run_evaluation.py` rather than in unit tests.
 
