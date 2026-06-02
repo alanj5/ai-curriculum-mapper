@@ -3,6 +3,7 @@ import { api } from '../api.js';
 let _allModules = [];
 let _selectedCode = null;
 let _onSelect = null;
+let _searchMode = 'modules';   // 'modules' | 'concepts'
 
 export async function initModulePanel(onSelect) {
   _onSelect = onSelect;
@@ -18,9 +19,24 @@ export async function initModulePanel(onSelect) {
     debounceTimer = setTimeout(() => applyFilters(), 200);
   });
   levelFilter.addEventListener('change', () => applyFilters());
+
+  // Modules ↔ Concepts search-mode toggle
+  document.querySelectorAll('#search-mode .sm-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      _searchMode = btn.dataset.mode;
+      document.querySelectorAll('#search-mode .sm-btn')
+        .forEach(b => b.classList.toggle('active', b.dataset.mode === _searchMode));
+      const concepts = _searchMode === 'concepts';
+      searchInput.placeholder = concepts ? 'Search concepts…' : 'Search modules…';
+      levelFilter.style.display = concepts ? 'none' : '';
+      applyFilters();
+    });
+  });
 }
 
 function applyFilters() {
+  if (_searchMode === 'concepts') return applyConceptSearch();
+
   const q = document.getElementById('module-search').value.toLowerCase().trim();
   const level = document.getElementById('level-filter').value;
 
@@ -34,6 +50,36 @@ function applyFilters() {
     );
   }
   renderList(filtered);
+}
+
+async function applyConceptSearch() {
+  const q = document.getElementById('module-search').value.trim();
+  const el = document.getElementById('module-list');
+  el.innerHTML = '<p class="placeholder">Searching…</p>';
+  try {
+    const concepts = await api.concepts({ search: q, limit: 60 });
+    renderConceptList(concepts);
+  } catch (e) {
+    el.innerHTML = `<p class="placeholder" style="color:#f87171">Search failed: ${e.message}</p>`;
+  }
+}
+
+function renderConceptList(concepts) {
+  const el = document.getElementById('module-list');
+  if (concepts.length === 0) {
+    el.innerHTML = '<p class="placeholder">No concepts match.</p>';
+    return;
+  }
+  el.innerHTML = concepts.map(c => `
+    <div class="module-card concept-result" data-concept-id="${c.id}">
+      <div class="title">${esc(c.term)}</div>
+      <div class="meta">conf ${(c.confidence * 100).toFixed(0)}% · ${c.module_codes.length} module${c.module_codes.length === 1 ? '' : 's'}</div>
+    </div>
+  `).join('');
+
+  el.querySelectorAll('.concept-result').forEach(card => {
+    card.addEventListener('click', () => showConceptDetail(card.dataset.conceptId));
+  });
 }
 
 function renderList(modules) {

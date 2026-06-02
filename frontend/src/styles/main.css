@@ -78,6 +78,14 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   border-radius: var(--radius); color: var(--text); padding: 6px 8px; font-size: 12.5px;
 }
 .search-bar input:focus, .search-bar select:focus { outline: none; border-color: var(--accent); }
+.search-mode { display: flex; gap: 4px; }
+.sm-btn {
+  flex: 1; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--muted); cursor: pointer;
+  padding: 4px 0; font-size: 11.5px; transition: color .12s, border-color .12s;
+}
+.sm-btn:hover { color: var(--text); }
+.sm-btn.active { color: var(--accent); border-color: var(--accent); }
 .module-list { flex: 1; overflow-y: auto; padding: 6px 0; }
 .module-card {
   padding: 8px 12px; cursor: pointer; border-left: 3px solid transparent;
