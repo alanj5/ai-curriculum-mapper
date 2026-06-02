@@ -131,3 +131,26 @@ def average_precision(
             hits += 1
             precision_sum += hits / (i + 1)
     return round(precision_sum / len(gold), 4) if gold else 0.0
+
+
+def cohens_kappa(labels_a: list, labels_b: list) -> float:
+    """Cohen's kappa for two annotators' categorical labels (e.g. KA codes).
+
+    kappa = (p_o - p_e) / (1 - p_e), where p_o is observed agreement and p_e is
+    the agreement expected by chance. Returns a value in [-1, 1]; 1.0 = perfect,
+    0 = chance-level. Used to quantify inter-annotator agreement on the gold set.
+    """
+    from collections import Counter
+
+    if len(labels_a) != len(labels_b):
+        raise ValueError("label lists must be the same length")
+    n = len(labels_a)
+    if n == 0:
+        return 0.0
+    p_o = sum(1 for a, b in zip(labels_a, labels_b) if a == b) / n
+    ca, cb = Counter(labels_a), Counter(labels_b)
+    categories = set(ca) | set(cb)
+    p_e = sum((ca.get(k, 0) / n) * (cb.get(k, 0) / n) for k in categories)
+    if p_e >= 1.0:
+        return 1.0
+    return round((p_o - p_e) / (1 - p_e), 4)

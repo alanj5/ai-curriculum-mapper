@@ -264,7 +264,7 @@ build path described in **Starting the Web Application → Option B**.
 ```bash
 source .venv/bin/activate
 python -m pytest tests/ -q
-# Expected: 407 passed in ~14 s
+# Expected: 424 passed in ~14 s
 ```
 
 ### With coverage report
@@ -279,7 +279,7 @@ python -m pytest --cov=curriculum_mapper --cov-report=html -q
 
 ```bash
 python -m pytest tests/unit/ -q
-# ~340 tests, ~12 s
+# ~357 tests, ~12 s
 ```
 
 ### Integration tests only (requires populated DB)
