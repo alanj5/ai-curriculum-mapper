@@ -206,6 +206,9 @@ table.align-table tr:hover td { background: var(--surface2); }
   background: var(--surface2); color: var(--accent);
   font-weight: 600; font-size: 10.5px; cursor: default;
 }
+/* Concept search results: distinguish from module cards with a purple accent. */
+.module-card.concept-result { border-left: 2px solid var(--accent2); }
+.module-card.concept-result .title { color: var(--text); font-weight: 500; }
 .btn {
   border: none; border-radius: var(--radius); cursor: pointer;
   padding: 4px 10px; font-size: 12px; font-weight: 600; transition: opacity .15s;

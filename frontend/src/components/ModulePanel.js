@@ -66,6 +66,7 @@ async function applyConceptSearch() {
 
 function renderConceptList(concepts) {
   const el = document.getElementById('module-list');
+  concepts = _cleanConcepts(concepts);
   if (concepts.length === 0) {
     el.innerHTML = '<p class="placeholder">No concepts match.</p>';
     return;
@@ -123,15 +124,15 @@ export async function showModuleDetail(code) {
       api.moduleConcepts(code),
     ]);
 
-    const topConcepts = concepts.slice(0, 12);
+    const cleaned = _cleanConcepts(concepts);
+    const topConcepts = cleaned.slice(0, 12);
 
     container.innerHTML = `
       <h2>${detail.code}</h2>
       <p style="font-size:12.5px; color:#94a3b8; margin-bottom:8px">${detail.title}</p>
       <div class="detail-stat">
         <span>Level ${detail.level}</span>·
-        <span>${detail.credits} credits</span>·
-        <span>${detail.ects_credits} ECTS</span>
+        <span>${detail.credits} ECTS credits</span>
       </div>
       ${detail.description ? `<p style="font-size:12px; color:#64748b; margin-bottom:10px">${detail.description}</p>` : ''}
 
@@ -147,7 +148,7 @@ export async function showModuleDetail(code) {
         ${topConcepts.map(c => `
           <span class="concept-chip concept-chip-clickable" data-concept-id="${c.id}" title="confidence: ${c.confidence.toFixed(3)} — click to explore">${esc(c.term)}</span>
         `).join('')}
-        ${concepts.length > 12 ? `<span class="concept-chip" style="color:#64748b">+${concepts.length - 12} more</span>` : ''}
+        ${cleaned.length > 12 ? `<span class="concept-chip" style="color:#64748b">+${cleaned.length - 12} more</span>` : ''}
       </div>
 
       ${detail.prerequisites && detail.prerequisites.length > 0 ? `
@@ -247,6 +248,53 @@ export async function showConceptDetail(conceptId, fromModule = null) {
   } catch (e) {
     container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load concept: ${e.message}</p>`;
   }
+}
+
+// ── Display-only concept cleanup ──────────────────────────────────────
+// Some ILO sentence-fragments survive extraction (e.g. "algorithms formulate
+// algorithmic abstractions"). We suppress them from the concept chips and the
+// concept search for readability ONLY; the underlying extracted data, the
+// database, and all reported figures are unchanged. The heuristic is
+// deliberately conservative: a term is hidden only when it has 3+ words AND
+// contains a clear ILO action-verb, so noun-phrase concepts ("design patterns",
+// "abstract data types", "dynamic programming") are always kept.
+// Clear ILO action verbs. Deliberately excludes words that double as concept
+// nouns — processing, learning, sorting, searching, programming, computing,
+// modelling, mapping, testing, reasoning, design, control, analysis — so real
+// concepts ("image processing", "machine learning", "sorting algorithms",
+// "automated reasoning") are never hidden.
+const _FRAGMENT_VERBS = new Set([
+  'study', 'studying', 'formulate', 'formulating', 'formalise', 'formalize',
+  'formalising', 'formalizing', 'develop', 'developing', 'connect', 'connecting',
+  'evaluate', 'evaluating', 'demonstrate', 'demonstrating', 'apply', 'applying',
+  'implement', 'implementing', 'describe', 'describing', 'explain', 'explaining',
+  'understand', 'understanding', 'identify', 'identifying', 'construct', 'constructing',
+  'derive', 'deriving', 'illustrate', 'illustrating', 'compare', 'comparing',
+  'assess', 'assessing', 'discuss', 'discussing', 'examine', 'examining',
+  'investigate', 'investigating', 'produce', 'producing', 'enable', 'enabling',
+  'provide', 'providing', 'recognise', 'recognize', 'perform', 'performing',
+  'analyse', 'analyze', 'create', 'creating', 'characterise', 'characterize',
+  'manipulate', 'calculate', 'calculating', 'solve', 'solving', 'determine',
+  'select', 'selecting', 'choose', 'summarise', 'summarize', 'interpret',
+  'modify', 'classify', 'explore', 'exploring', 'prove', 'simulate', 'write',
+  'present', 'outline', 'predict', 'estimate', 'validate', 'verify', 'define',
+  'defining', 'distinguish', 'employ', 'utilise', 'utilize', 'justify',
+  'critique', 'synthesise', 'synthesize', 'generalise', 'generalize',
+  'deduce', 'infer', 'acquire', 'master', 'appreciate', 'gain',
+  'use', 'using', 'uses',
+]);
+
+function _isLikelyFragment(term) {
+  const tokens = String(term).toLowerCase().split(/\s+/).filter(Boolean);
+  if (tokens.length < 3) return false;
+  return tokens.some(t => _FRAGMENT_VERBS.has(t));
+}
+
+// Filter out fragments, but never blank the view: if everything looks like a
+// fragment, fall back to the original list.
+function _cleanConcepts(list) {
+  const filtered = list.filter(c => !_isLikelyFragment(c.term));
+  return filtered.length ? filtered : list;
 }
 
 function esc(str) {

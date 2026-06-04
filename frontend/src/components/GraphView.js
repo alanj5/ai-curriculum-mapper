@@ -9,6 +9,9 @@ const COMMUNITY_COLORS = [
   '#60a5fa', '#a78bfa', '#6ee7b7', '#fcd34d', '#fca5a5',
 ];
 
+// Distinct colours for the level-progression view (indexed by level − 1).
+const LEVEL_COLORS = ['#5b8dee', '#7c6af6', '#34d399', '#fbbf24'];
+
 const LAYOUT_OPTS = {
   name: 'fcose',
   randomize: true,
@@ -33,6 +36,7 @@ let _selectedModule = null;
 let _onNodeClick = null;
 let _confMin = 0;        // confidence range of the current bipartite concept set
 let _confMax = 1;
+let _levelPositions = {}; // module-code → {x,y} for the level-progression preset layout
 
 // Normalise a confidence value to [0,1] over the current concept set so the
 // size/colour encoding uses the full visual range even when scores cluster.
@@ -59,6 +63,7 @@ async function _loadView(container, view, moduleCode) {
   const hint = document.getElementById('graph-hint');
   const thresholdLabel = document.getElementById('edge-threshold-label');
   const legend = document.getElementById('graph-legend');
+  const edgeLegend = document.getElementById('edge-legend');
 
   let data, elements, style;
 
@@ -67,6 +72,7 @@ async function _loadView(container, view, moduleCode) {
       if (hint) hint.textContent = 'Select a module from the list to see its concepts';
       if (thresholdLabel) thresholdLabel.style.display = 'none';
       if (legend) legend.innerHTML = '';
+      if (edgeLegend) edgeLegend.style.display = 'none';
       if (_cy) _cy.destroy();
       _cy = null;
       const cy = document.getElementById('cy');
@@ -89,6 +95,19 @@ async function _loadView(container, view, moduleCode) {
       '<div class="legend-item"><div class="legend-dot" style="background:#5b8dee"></div><span>Module</span></div>' +
       '<div class="legend-item"><div class="legend-dot" style="background:#475569"></div><span>Low conf.</span></div>' +
       '<div class="legend-item"><div class="legend-dot" style="background:#5b8dee"></div><span>High conf.</span></div>';
+    // Bipartite edges mean "module teaches concept", so the similarity/prerequisite
+    // edge legend does not apply here.
+    if (edgeLegend) edgeLegend.style.display = 'none';
+  } else if (view === 'level') {
+    data = await api.moduleModuleGraph({ include_centrality: true, include_communities: true });
+    _allEdgeData = data.edges;
+    elements = buildLevelElements(data);
+    style = buildStyle('level');
+    if (hint) hint.textContent = 'Columns are Levels 1→3 left to right — prerequisite edges (dashed) flow forward through the degree. Raise slider to hide weak links.';
+    if (thresholdLabel) thresholdLabel.style.display = '';
+    _calibrateEdgeSlider(data.edges);
+    buildLevelLegend(data.nodes);
+    if (edgeLegend) edgeLegend.style.display = '';
   } else {
     data = await api.moduleModuleGraph({ include_centrality: true, include_communities: true });
     _allEdgeData = data.edges;
@@ -98,6 +117,7 @@ async function _loadView(container, view, moduleCode) {
     if (thresholdLabel) thresholdLabel.style.display = '';
     _calibrateEdgeSlider(data.edges);
     buildLegend(data.nodes);
+    if (edgeLegend) edgeLegend.style.display = '';
   }
 
   if (_cy) _cy.destroy();
@@ -105,11 +125,14 @@ async function _loadView(container, view, moduleCode) {
   // otherwise the "Select a module…" hint can remain visible behind the canvas.
   const cyEl = container || document.getElementById('cy');
   if (cyEl) cyEl.innerHTML = '';
+  const layout = view === 'level'
+    ? { name: 'preset', positions: _levelPositions, fit: true, padding: 50, animate: false }
+    : { ...LAYOUT_OPTS, randomize: true };
   _cy = cytoscape({
     container: cyEl,
     elements,
     style,
-    layout: { ...LAYOUT_OPTS, randomize: true },
+    layout,
     wheelSensitivity: 0.3,
     minZoom: 0.2,
     maxZoom: 4,
@@ -143,10 +166,15 @@ export function fitGraph() {
 
 export function rerunLayout() {
   if (!_cy) return;
+  if (_currentView === 'level') {
+    // Restore the fixed level columns rather than re-running force-directed layout.
+    _cy.layout({ name: 'preset', positions: _levelPositions, fit: true, padding: 50, animate: true, animationDuration: 400 }).run();
+    return;
+  }
   _cy.layout({ ...LAYOUT_OPTS, animate: true, animationDuration: 600 }).run();
 }
 
-export function applyEdgeFilter(threshold) {
+export function applyEdgeFilter(threshold, relayout = true) {
   if (!_cy) return;
   _edgeThreshold = threshold;
 
@@ -159,6 +187,9 @@ export function applyEdgeFilter(threshold) {
       edge.removeClass('filtered');
     }
   });
+
+  // The level view uses a fixed preset layout, so only hide edges there.
+  if (!relayout) return;
 
   // Re-run a quick layout using only visible edges so clusters tighten
   const visibleElements = _cy.elements().not('.filtered');
@@ -232,7 +263,7 @@ function _calibrateConfidenceSlider() {
 // concept-confidence filter in the bipartite view.
 export function applyGraphFilter(threshold) {
   if (_currentView === 'bipartite') _applyConfidenceFilter(threshold);
-  else applyEdgeFilter(threshold);
+  else applyEdgeFilter(threshold, _currentView !== 'level');
 }
 
 function _applyConfidenceFilter(threshold) {
@@ -463,12 +494,66 @@ function buildElements(data) {
   return [...nodes, ...edges];
 }
 
-function buildStyle() {
+// Build module nodes laid out in columns by level (year), so the graph reads as
+// a left-to-right progression through the degree. Edges are unchanged from the
+// module-module view; positions are stored in _levelPositions for the preset layout.
+function buildLevelElements(data) {
+  const byLevel = new Map();
+  for (const n of data.nodes) {
+    const lvl = n.data.level ?? 0;
+    if (!byLevel.has(lvl)) byLevel.set(lvl, []);
+    byLevel.get(lvl).push(n);
+  }
+  const levels = [...byLevel.keys()].sort((a, b) => a - b);
+  const COL_W = 360, ROW_H = 120;
+  _levelPositions = {};
+  levels.forEach((lvl, ci) => {
+    const group = byLevel.get(lvl).sort((a, b) => String(a.data.id).localeCompare(String(b.data.id)));
+    group.forEach((node, ri) => {
+      _levelPositions[node.data.id] = { x: ci * COL_W, y: (ri - (group.length - 1) / 2) * ROW_H };
+    });
+  });
+
+  const nodes = data.nodes.map(n => ({
+    data: {
+      id: n.data.id,
+      label: n.data.id,
+      level: n.data.level ?? null,
+      degree: n.data.degree ?? 0,
+      title: n.data.title ?? '',
+      credits: n.data.credits ?? null,
+      topConcepts: n.data.top_concepts ?? [],
+    },
+  }));
+
+  const edges = data.edges.map(e => {
+    const d = e.data;
+    const displaySim = d.type === 'prerequisite' ? (d.similarity ?? null) : (d.weight ?? 0);
+    return {
+      data: {
+        id: d.id,
+        source: d.source,
+        target: d.target,
+        weight: d.weight ?? 0,
+        displaySim,
+        type: d.type ?? 'similarity',
+        sharedCount: d.shared_count ?? 0,
+      },
+    };
+  });
+
+  return [...nodes, ...edges];
+}
+
+function buildStyle(colorBy = 'community') {
+  const nodeColor = colorBy === 'level'
+    ? (ele) => LEVEL_COLORS[(((ele.data('level') ?? 1) - 1) % LEVEL_COLORS.length + LEVEL_COLORS.length) % LEVEL_COLORS.length]
+    : (ele) => COMMUNITY_COLORS[ele.data('community') % COMMUNITY_COLORS.length];
   return [
     {
       selector: 'node',
       style: {
-        'background-color': (ele) => COMMUNITY_COLORS[ele.data('community') % COMMUNITY_COLORS.length],
+        'background-color': nodeColor,
         'width':  (ele) => 18 + ele.data('degree') * 38,
         'height': (ele) => 18 + ele.data('degree') * 38,
         'label': 'data(label)',
@@ -560,6 +645,28 @@ function buildLegend(nodes) {
       return `<div class="legend-item">
         <div class="legend-dot" style="background:${color}"></div>
         <span>Cluster ${c + 1} (${mods.length})</span>
+      </div>`;
+    })
+    .join('');
+}
+
+function buildLevelLegend(nodes) {
+  const legendEl = document.getElementById('graph-legend');
+  if (!legendEl) return;
+
+  const counts = new Map();
+  for (const n of nodes) {
+    const l = n.data.level ?? 0;
+    counts.set(l, (counts.get(l) || 0) + 1);
+  }
+
+  legendEl.innerHTML = [...counts.entries()]
+    .sort(([a], [b]) => a - b)
+    .map(([l, n]) => {
+      const color = LEVEL_COLORS[(l - 1 + LEVEL_COLORS.length) % LEVEL_COLORS.length];
+      return `<div class="legend-item">
+        <div class="legend-dot" style="background:${color}"></div>
+        <span>Level ${l} (${n})</span>
       </div>`;
     })
     .join('');
