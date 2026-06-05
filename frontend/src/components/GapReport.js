@@ -1,24 +1,34 @@
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { api } from '../api.js';
+import { selectModule } from './ModulePanel.js';
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 let _coverageChart = null;
+let _allModules = [];   // full module set (for the "not covered" side of a drill-down)
+let _coverage = [];     // last-loaded coverage rows (for KA names in the drill-down)
 
 export async function initGapReport() {
   const container = document.getElementById('gap-report-container');
   container.innerHTML = '<p class="placeholder">Loading gap report…</p>';
 
   try {
-    const [summary, coverage, gaps, redundancies] = await Promise.all([
+    const [summary, coverage, gaps, redundancies, modules] = await Promise.all([
       api.summary(),
       api.coverage(),
       api.gaps(),
       api.redundancies(),
+      api.modules({ limit: 100 }),
     ]);
+    _allModules = modules;
+    _coverage = coverage;
 
     container.innerHTML = buildHTML(summary, coverage, gaps, redundancies);
     renderCoverageChart(coverage, summary.total_modules);
+
+    // Any KA (a chart bar or a gap row) drills down to which modules cover it.
+    container.querySelectorAll('.gap-item[data-ka]').forEach(el =>
+      el.addEventListener('click', () => showDrilldown(el.dataset.ka)));
   } catch (e) {
     container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load: ${e.message}</p>`;
   }
@@ -67,6 +77,8 @@ function buildHTML(summary, coverage, gaps, redundancies) {
       <div class="chart-container" style="max-height:420px; overflow:hidden">
         <canvas id="coverage-chart" height="400"></canvas>
       </div>
+      <p class="section-sub" style="margin-top:6px">Click any bar to see which modules cover it.</p>
+      <div id="ka-drilldown" class="ka-drilldown hidden"></div>
     </div>
 
     <div class="gap-section">
@@ -75,7 +87,7 @@ function buildHTML(summary, coverage, gaps, redundancies) {
         ${gaps.length === 0
           ? '<p class="placeholder">No gaps — great curriculum coverage!</p>'
           : gaps.map(g => `
-            <div class="gap-item">
+            <div class="gap-item gap-item-click" data-ka="${g.ka_code}" title="See which modules cover ${g.ka_code}">
               <div class="sev sev-${g.severity}"></div>
               <span class="ka-code">${g.ka_code}</span>
               <span class="ka-name">${g.ka_name}</span>
@@ -132,6 +144,12 @@ function renderCoverageChart(coverage, nModules) {
       indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
+      onClick: (_evt, elements) => {
+        if (elements.length) showDrilldown(coverage[elements[0].index].ka_code);
+      },
+      onHover: (evt, elements) => {
+        if (evt.native) evt.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -162,4 +180,61 @@ function renderCoverageChart(coverage, nModules) {
       },
     },
   });
+}
+
+// Drill-down: for one Knowledge Area, list the modules that cover it (a concept
+// primarily aligned to it) vs the modules that do not — turning the coverage bar
+// into an actionable "where is this taught / where is it missing" view. Module
+// chips are clickable and open that module in the persistent detail panel.
+async function showDrilldown(kaCode) {
+  const panel = document.getElementById('ka-drilldown');
+  if (!panel) return;
+  panel.classList.remove('hidden');
+  panel.innerHTML = `<p class="placeholder">Loading ${escAttr(kaCode)}…</p>`;
+
+  const cov = _coverage.find(c => c.ka_code === kaCode);
+  const kaName = cov ? cov.ka_name : kaCode;
+
+  let aligns;
+  try {
+    aligns = await api.alignments({ ka: kaCode, rank: 1, limit: 500 });
+  } catch (e) {
+    panel.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load ${escAttr(kaCode)}: ${e.message}</p>`;
+    return;
+  }
+
+  const covering = new Set();
+  for (const a of aligns) (a.source_modules || []).forEach(m => covering.add(m));
+  const titleOf = Object.fromEntries(_allModules.map(m => [m.code, m.title]));
+  const allCodes = _allModules.map(m => m.code);
+  const covered = allCodes.filter(c => covering.has(c)).sort();
+  const missing = allCodes.filter(c => !covering.has(c)).sort();
+
+  const chip = (c) => `<span class="dd-mod" data-code="${escAttr(c)}" title="${escAttr(titleOf[c] || c)} — open">${escAttr(c)}</span>`;
+
+  panel.innerHTML = `
+    <div class="dd-head">
+      <span><strong>${escAttr(kaCode)}</strong> — ${escAttr(kaName)}</span>
+      <span class="dd-count">${covered.length}/${allCodes.length} modules</span>
+      <button class="dd-close" id="dd-close" title="Close">✕</button>
+    </div>
+    <div class="dd-cols">
+      <div class="dd-col">
+        <h4 class="dd-col-h dd-cover">Covered by ${covered.length}</h4>
+        <div class="dd-chips">${covered.length ? covered.map(chip).join('') : '<span class="dd-empty">— none —</span>'}</div>
+      </div>
+      <div class="dd-col">
+        <h4 class="dd-col-h dd-miss">Not covered (${missing.length})</h4>
+        <div class="dd-chips">${missing.length ? missing.map(chip).join('') : '<span class="dd-empty">— every module covers this —</span>'}</div>
+      </div>
+    </div>
+  `;
+  panel.querySelector('#dd-close').addEventListener('click', () => panel.classList.add('hidden'));
+  panel.querySelectorAll('.dd-mod').forEach(el =>
+    el.addEventListener('click', () => selectModule(el.dataset.code)));
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function escAttr(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }

@@ -1,12 +1,16 @@
 import { api } from '../api.js';
+import { isLikelyFragment } from '../util/concepts.js';
+import { reviewModuleAlignments } from './AlignmentTable.js';
 
 let _allModules = [];
 let _selectedCode = null;
 let _onSelect = null;
 let _searchMode = 'modules';   // 'modules' | 'concepts'
+let _kaNames = {};             // ka_code → full Knowledge-Area name
 
-export async function initModulePanel(onSelect) {
+export async function initModulePanel(onSelect, kaOptions) {
   _onSelect = onSelect;
+  if (kaOptions) _kaNames = Object.fromEntries(kaOptions.map(k => [k.code, k.name]));
   _allModules = await api.modules({ limit: 100 });
   renderList(_allModules);
 
@@ -119,13 +123,24 @@ export async function showModuleDetail(code) {
   container.innerHTML = '<p class="placeholder">Loading…</p>';
 
   try {
-    const [detail, concepts] = await Promise.all([
+    const [detail, concepts, alignments] = await Promise.all([
       api.module(code),
       api.moduleConcepts(code),
+      api.moduleAlignments(code),
     ]);
 
     const cleaned = _cleanConcepts(concepts);
     const topConcepts = cleaned.slice(0, 12);
+
+    // CS2023 coverage profile: the Knowledge Areas this module's concepts map to
+    // (primary, rank-1 alignments), most-covered first — the curriculum mapping
+    // made concrete for this module.
+    const kaCounts = {};
+    for (const a of alignments) {
+      if (a.rank === 1) kaCounts[a.ka_code] = (kaCounts[a.ka_code] || 0) + 1;
+    }
+    const kaList = Object.entries(kaCounts).sort((a, b) => b[1] - a[1]);
+    const nMappings = alignments.filter(a => a.rank === 1).length;
 
     container.innerHTML = `
       <h2>${detail.code}</h2>
@@ -135,6 +150,13 @@ export async function showModuleDetail(code) {
         <span>${detail.credits} ECTS credits</span>
       </div>
       ${detail.description ? `<p style="font-size:12px; color:#64748b; margin-bottom:10px">${detail.description}</p>` : ''}
+
+      ${kaList.length ? `
+        <h3>CS2023 Coverage <span style="font-weight:400; color:#64748b; font-size:11px">(${kaList.length} Knowledge Area${kaList.length === 1 ? '' : 's'})</span></h3>
+        <div class="ka-profile">
+          ${kaList.map(([ka, n]) => `<span class="ka-chip" title="${esc(_kaNames[ka] || ka)} — ${n} concept${n === 1 ? '' : 's'} map here">${ka}<span class="ka-chip-n">${n}</span></span>`).join('')}
+        </div>
+      ` : ''}
 
       <h3>ILOs (${detail.ilos.length})</h3>
       <ul class="ilo-list">
@@ -154,14 +176,24 @@ export async function showModuleDetail(code) {
       ${detail.prerequisites && detail.prerequisites.length > 0 ? `
         <h3>Prerequisites</h3>
         <div style="margin-top:4px">
-          ${detail.prerequisites.map(p => `<span class="concept-chip">${p}</span>`).join('')}
+          ${detail.prerequisites.map(p => `<span class="concept-chip prereq-chip" data-prereq="${esc(p)}" title="Go to ${esc(p)}">${esc(p)}</span>`).join('')}
         </div>
       ` : ''}
+
+      ${nMappings ? `<button class="btn btn-review" id="review-aligns" data-code="${detail.code}">Review this module's ${nMappings} mappings →</button>` : ''}
     `;
 
     container.querySelectorAll('.concept-chip-clickable').forEach(chip => {
       chip.addEventListener('click', () => showConceptDetail(chip.dataset.conceptId, code));
     });
+    container.querySelectorAll('.prereq-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const c = chip.dataset.prereq;
+        if (_allModules.some(m => m.code === c)) selectModule(c);
+      });
+    });
+    const reviewBtn = container.querySelector('#review-aligns');
+    if (reviewBtn) reviewBtn.addEventListener('click', () => reviewModuleAlignments(reviewBtn.dataset.code));
   } catch (e) {
     container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load: ${e.message}</p>`;
   }
@@ -251,49 +283,11 @@ export async function showConceptDetail(conceptId, fromModule = null) {
 }
 
 // ── Display-only concept cleanup ──────────────────────────────────────
-// Some ILO sentence-fragments survive extraction (e.g. "algorithms formulate
-// algorithmic abstractions"). We suppress them from the concept chips and the
-// concept search for readability ONLY; the underlying extracted data, the
-// database, and all reported figures are unchanged. The heuristic is
-// deliberately conservative: a term is hidden only when it has 3+ words AND
-// contains a clear ILO action-verb, so noun-phrase concepts ("design patterns",
-// "abstract data types", "dynamic programming") are always kept.
-// Clear ILO action verbs. Deliberately excludes words that double as concept
-// nouns — processing, learning, sorting, searching, programming, computing,
-// modelling, mapping, testing, reasoning, design, control, analysis — so real
-// concepts ("image processing", "machine learning", "sorting algorithms",
-// "automated reasoning") are never hidden.
-const _FRAGMENT_VERBS = new Set([
-  'study', 'studying', 'formulate', 'formulating', 'formalise', 'formalize',
-  'formalising', 'formalizing', 'develop', 'developing', 'connect', 'connecting',
-  'evaluate', 'evaluating', 'demonstrate', 'demonstrating', 'apply', 'applying',
-  'implement', 'implementing', 'describe', 'describing', 'explain', 'explaining',
-  'understand', 'understanding', 'identify', 'identifying', 'construct', 'constructing',
-  'derive', 'deriving', 'illustrate', 'illustrating', 'compare', 'comparing',
-  'assess', 'assessing', 'discuss', 'discussing', 'examine', 'examining',
-  'investigate', 'investigating', 'produce', 'producing', 'enable', 'enabling',
-  'provide', 'providing', 'recognise', 'recognize', 'perform', 'performing',
-  'analyse', 'analyze', 'create', 'creating', 'characterise', 'characterize',
-  'manipulate', 'calculate', 'calculating', 'solve', 'solving', 'determine',
-  'select', 'selecting', 'choose', 'summarise', 'summarize', 'interpret',
-  'modify', 'classify', 'explore', 'exploring', 'prove', 'simulate', 'write',
-  'present', 'outline', 'predict', 'estimate', 'validate', 'verify', 'define',
-  'defining', 'distinguish', 'employ', 'utilise', 'utilize', 'justify',
-  'critique', 'synthesise', 'synthesize', 'generalise', 'generalize',
-  'deduce', 'infer', 'acquire', 'master', 'appreciate', 'gain',
-  'use', 'using', 'uses',
-]);
-
-function _isLikelyFragment(term) {
-  const tokens = String(term).toLowerCase().split(/\s+/).filter(Boolean);
-  if (tokens.length < 3) return false;
-  return tokens.some(t => _FRAGMENT_VERBS.has(t));
-}
-
-// Filter out fragments, but never blank the view: if everything looks like a
-// fragment, fall back to the original list.
+// Suppress ILO sentence-fragments from the concept chips and search for
+// readability only (shared heuristic, see util/concepts.js). Never blank the
+// view: fall back to the original list if everything looks like a fragment.
 function _cleanConcepts(list) {
-  const filtered = list.filter(c => !_isLikelyFragment(c.term));
+  const filtered = list.filter(c => !isLikelyFragment(c.term));
   return filtered.length ? filtered : list;
 }
 

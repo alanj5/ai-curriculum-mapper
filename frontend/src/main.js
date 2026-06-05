@@ -57,11 +57,9 @@ async function main() {
     btn.addEventListener('click', () => activateTab(btn.dataset.tab));
   });
 
-  // Parallel init of module panel + KA data
-  const [, kaOptions] = await Promise.all([
-    initModulePanel(onModuleSelect),
-    getKaOptions(),
-  ]);
+  // KA names first (used for the per-module CS2023 coverage tooltips), then panel
+  const kaOptions = await getKaOptions();
+  await initModulePanel(onModuleSelect, kaOptions);
 
   // Validation widget (modal, shared by alignment table)
   initValidationWidget(kaOptions);

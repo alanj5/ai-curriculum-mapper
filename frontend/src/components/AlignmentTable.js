@@ -3,8 +3,11 @@ import { acceptAlignment, rejectAlignment, openReassignModal } from './Validatio
 
 let _sortCol = 'score';
 let _sortDir = -1; // -1 = desc
+let _moduleFilter = null;  // when set, only show alignments whose concept came from this module
+let _initialised = false;
 
 export async function initAlignmentTable(kaOptions) {
+  _initialised = true;
   // Populate KA filter dropdown
   const kaFilter = document.getElementById('ka-filter');
   kaFilter.innerHTML = '<option value="">All KAs</option>' +
@@ -17,18 +20,43 @@ export async function initAlignmentTable(kaOptions) {
   await loadTable();
 }
 
+// Open the Alignments tab scoped to one module — the natural unit of curriculum
+// review (an educator validates a whole course's mappings at once). Called from
+// the module detail panel.
+export function reviewModuleAlignments(code) {
+  _moduleFilter = code;
+  const wasInit = _initialised;            // capture before the click may lazy-init the table
+  document.querySelector('.tab-btn[data-tab="alignments"]').click();
+  if (wasInit) loadTable();                // already built → re-filter now (else init's loadTable does it)
+}
+
+function clearModuleFilter() {
+  _moduleFilter = null;
+  loadTable();
+}
+
 async function loadTable() {
   const ka = document.getElementById('ka-filter').value;
   const ambiguousVal = document.getElementById('ambiguous-filter').value;
   const validatedVal = document.getElementById('validated-filter').value;
 
-  const params = { limit: 500, rank: 1 };
-  if (ka) params.ka = ka;
-  if (ambiguousVal) params.ambiguous = ambiguousVal;
+  let alignments;
+  if (_moduleFilter) {
+    // module scope: pull exactly this module's primary mappings straight from the
+    // module endpoint — no global 500-row cap, so the count matches the "Review N
+    // mappings" button — then apply the KA / ambiguity filters client-side.
+    alignments = (await api.moduleAlignments(_moduleFilter)).filter(a => a.rank === 1);
+    if (ka) alignments = alignments.filter(a => a.ka_code === ka);
+    if (ambiguousVal === 'true') alignments = alignments.filter(a => a.is_ambiguous === true);
+    else if (ambiguousVal === 'false') alignments = alignments.filter(a => a.is_ambiguous === false);
+  } else {
+    const params = { limit: 500, rank: 1 };
+    if (ka) params.ka = ka;
+    if (ambiguousVal) params.ambiguous = ambiguousVal;
+    alignments = await api.alignments(params);
+  }
 
   // validated filter: "null" means unvalidated (filter client-side)
-  let alignments = await api.alignments(params);
-
   if (validatedVal === 'true') alignments = alignments.filter(a => a.validated === true);
   else if (validatedVal === 'false') alignments = alignments.filter(a => a.validated === false);
   else if (validatedVal === 'null') alignments = alignments.filter(a => a.validated === null);
@@ -39,8 +67,17 @@ async function loadTable() {
 function renderTable(alignments, ka, ambiguousVal, validatedVal) {
   const container = document.getElementById('alignment-table-container');
 
+  const scopeBanner = _moduleFilter
+    ? `<div class="scope-banner">Reviewing <strong>${escHtml(_moduleFilter)}</strong> — ${alignments.length} mapping${alignments.length === 1 ? '' : 's'}<button class="scope-clear" id="scope-clear">Show all ✕</button></div>`
+    : '';
+  const wireClear = () => {
+    const b = container.querySelector('#scope-clear');
+    if (b) b.addEventListener('click', clearModuleFilter);
+  };
+
   if (alignments.length === 0) {
-    container.innerHTML = '<p class="placeholder">No alignments match the current filters.</p>';
+    container.innerHTML = scopeBanner + '<p class="placeholder">No alignments match the current filters.</p>';
+    wireClear();
     return;
   }
 
@@ -56,7 +93,7 @@ function renderTable(alignments, ka, ambiguousVal, validatedVal) {
     return `<th data-col="${col}">${label}${arrow}</th>`;
   };
 
-  container.innerHTML = `
+  container.innerHTML = scopeBanner + `
     <p class="table-caption">
       Each row is the top-ranked CS2023 Knowledge-Area alignment for one extracted concept,
       scored by the hybrid lexical+semantic aligner.
@@ -84,6 +121,8 @@ function renderTable(alignments, ka, ambiguousVal, validatedVal) {
       </tbody>
     </table>
   `;
+
+  wireClear();
 
   // Sort click
   container.querySelectorAll('th[data-col]').forEach(th => {
