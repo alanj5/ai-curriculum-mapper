@@ -1,6 +1,7 @@
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import { api } from '../api.js';
+import { isLikelyFragment } from '../util/concepts.js';
 
 cytoscape.use(fcose);
 
@@ -37,6 +38,7 @@ let _onNodeClick = null;
 let _confMin = 0;        // confidence range of the current bipartite concept set
 let _confMax = 1;
 let _levelPositions = {}; // module-code → {x,y} for the level-progression preset layout
+let _pinnedId = null;     // module pinned by click (focus persists on mouse-out)
 
 // Normalise a confidence value to [0,1] over the current concept set so the
 // size/colour encoding uses the full visual range even when scores cluster.
@@ -202,22 +204,27 @@ export function applyEdgeFilter(threshold, relayout = true) {
   }).run();
 }
 
-export function highlightNode(moduleCode) {
+// Focus a module's neighbourhood: dim everything else and highlight its incident
+// edges. `pinned` adds the white selection ring (click); hover-focus omits it.
+function _applyFocus(id, pinned) {
   if (!_cy) return;
   _cy.nodes().removeClass('selected dimmed');
   _cy.edges().removeClass('highlighted dimmed');
-  if (!moduleCode) return;
-
-  const node = _cy.getElementById(moduleCode);
+  if (!id) return;
+  const node = _cy.getElementById(id);
   if (node.length === 0) return;
-  node.addClass('selected');
+  if (pinned) node.addClass('selected');
 
   const neighborNodes = node.neighborhood('node');
   const incidentEdges = node.connectedEdges();
-
   _cy.nodes().not(node).not(neighborNodes).addClass('dimmed');
   _cy.edges().not(incidentEdges).addClass('dimmed');
   incidentEdges.not('.filtered').addClass('highlighted');
+}
+
+export function highlightNode(moduleCode) {
+  _pinnedId = moduleCode || null;
+  _applyFocus(moduleCode, true);
 }
 
 // ── Internal ─────────────────────────────────────────────────────
@@ -289,14 +296,28 @@ function _setupInteractions(onNodeClick) {
     // Concept nodes (bipartite view) are not modules — ignore clicks so we do
     // not fire a /modules/<concept-uuid> request (which 404s).
     if (node.data('nodeType') === 'concept') return;
-    highlightNode(node.data('id'));
+    _pinnedId = node.data('id');
+    _applyFocus(_pinnedId, true);
     onNodeClick(node.data('id'));
+  });
+
+  // Hover-to-focus: spotlight a module's neighbourhood (dim the rest) as the
+  // pointer moves, so a dense graph stays readable without committing a click.
+  _cy.on('mouseover', 'node', (evt) => {
+    const node = evt.target;
+    if (node.data('nodeType') === 'concept') return;
+    if (_pinnedId === node.data('id')) return;
+    _applyFocus(node.data('id'), false);
+  });
+  _cy.on('mouseout', 'node', (evt) => {
+    if (evt.target.data('nodeType') === 'concept') return;
+    _applyFocus(_pinnedId, true);   // restore the pinned focus, or clear if none
   });
 
   _cy.on('tap', (evt) => {
     if (evt.target === _cy) {
-      _cy.nodes().removeClass('selected dimmed');
-      _cy.edges().removeClass('highlighted dimmed');
+      _pinnedId = null;
+      _applyFocus(null);
       onNodeClick(null);
     }
   });
@@ -385,7 +406,20 @@ function _positionTooltip(mouseEvent, tooltip) {
 }
 
 function buildBipartiteElements(data) {
-  const nodes = data.nodes.map(n => ({
+  // Hide obvious ILO-fragment "concepts" (shared heuristic, see util/concepts.js)
+  // so the star graph stays readable; keep the module node and all clean
+  // concepts. Never blank the view: if everything looks like a fragment, keep
+  // the original set.
+  const moduleNode = data.nodes.find(n => n.data.type === 'module');
+  let conceptNodes = data.nodes.filter(n => (n.data.type || 'concept') === 'concept');
+  const cleaned = conceptNodes.filter(n => !isLikelyFragment(n.data.term || ''));
+  if (cleaned.length) conceptNodes = cleaned;
+  const keep = new Set([
+    ...(moduleNode ? [moduleNode.data.id] : []),
+    ...conceptNodes.map(n => n.data.id),
+  ]);
+
+  const nodes = [...(moduleNode ? [moduleNode] : []), ...conceptNodes].map(n => ({
     data: {
       id: n.data.id,
       label: n.data.type === 'module' ? n.data.id : (n.data.term || n.data.id).slice(0, 22),
@@ -395,14 +429,16 @@ function buildBipartiteElements(data) {
       confidence: n.data.confidence ?? null,
     },
   }));
-  const edges = data.edges.map((e, i) => ({
-    data: {
-      id: `e${i}`,
-      source: e.data.source,
-      target: e.data.target,
-      weight: e.data.weight ?? 1,
-    },
-  }));
+  const edges = data.edges
+    .filter(e => keep.has(e.data.source) && keep.has(e.data.target))
+    .map((e, i) => ({
+      data: {
+        id: `e${i}`,
+        source: e.data.source,
+        target: e.data.target,
+        weight: e.data.weight ?? 1,
+      },
+    }));
   return [...nodes, ...edges];
 }
 
@@ -505,7 +541,9 @@ function buildLevelElements(data) {
     byLevel.get(lvl).push(n);
   }
   const levels = [...byLevel.keys()].sort((a, b) => a - b);
-  const COL_W = 360, ROW_H = 120;
+  // Wide columns (clear Level 1→3 separation) but compact rows so all modules
+  // fit on screen without shrinking labels to illegibility.
+  const COL_W = 440, ROW_H = 56;
   _levelPositions = {};
   levels.forEach((lvl, ci) => {
     const group = byLevel.get(lvl).sort((a, b) => String(a.data.id).localeCompare(String(b.data.id)));
@@ -546,18 +584,32 @@ function buildLevelElements(data) {
 }
 
 function buildStyle(colorBy = 'community') {
-  const nodeColor = colorBy === 'level'
+  const isLevel = colorBy === 'level';
+  const nodeColor = isLevel
     ? (ele) => LEVEL_COLORS[(((ele.data('level') ?? 1) - 1) % LEVEL_COLORS.length + LEVEL_COLORS.length) % LEVEL_COLORS.length]
     : (ele) => COMMUNITY_COLORS[ele.data('community') % COMMUNITY_COLORS.length];
+
+  // Level view uses fixed, readable nodes (the columns are dense); module
+  // similarity sizes by degree so hubs stand out.
+  const nodeSize = isLevel ? 30 : (ele) => 18 + ele.data('degree') * 38;
+
+  // Resting edge opacity. Module similarity: scale by Jaccard so strong links
+  // stay visible while the weak long tail recedes — a calmer default hairball
+  // that the hover-focus then makes fully legible. Level view: similarity edges
+  // are kept but faded right back so the prerequisite progression dominates.
+  const simOpacity = isLevel
+    ? 0.05
+    : (ele) => { const s = ele.data('displaySim'); return s != null ? Math.min(0.5, 0.1 + s * 3) : 0.22; };
+
   return [
     {
       selector: 'node',
       style: {
         'background-color': nodeColor,
-        'width':  (ele) => 18 + ele.data('degree') * 38,
-        'height': (ele) => 18 + ele.data('degree') * 38,
+        'width': nodeSize,
+        'height': nodeSize,
         'label': 'data(label)',
-        'font-size': '9px',
+        'font-size': isLevel ? '11px' : '9px',
         'color': '#e2e8f0',
         'text-valign': 'center',
         'text-halign': 'center',
@@ -579,7 +631,7 @@ function buildStyle(colorBy = 'community') {
     },
     {
       selector: 'node.dimmed',
-      style: { 'opacity': 0.2 },
+      style: { 'opacity': 0.12 },
     },
     {
       selector: 'edge',
@@ -589,7 +641,7 @@ function buildStyle(colorBy = 'community') {
           const s = ele.data('displaySim');
           return s != null ? 0.8 + s * 4 : 1.2;
         },
-        'opacity': 0.45,
+        'opacity': simOpacity,
         'curve-style': 'bezier',
         'transition-property': 'opacity line-color width',
         'transition-duration': '0.12s',
@@ -600,25 +652,26 @@ function buildStyle(colorBy = 'community') {
       style: {
         'line-style': 'dashed',
         'line-dash-pattern': [6, 4],
-        'line-color': '#7c6af6',
-        'opacity': 0.55,
+        'line-color': '#a78bfa',
+        'opacity': isLevel ? 0.7 : 0.55,
+        'width': isLevel ? 2 : 1.5,
       },
     },
     {
       selector: 'edge.highlighted',
       style: {
         'line-color': '#5b8dee',
-        'opacity': 0.9,
+        'opacity': 0.95,
         'width': (ele) => {
           const s = ele.data('displaySim');
-          return s != null ? 2 + s * 5 : 2;
+          return s != null ? 2 + s * 5 : 2.5;
         },
         'z-index': 100,
       },
     },
     {
       selector: 'edge.dimmed',
-      style: { 'opacity': 0.04 },
+      style: { 'opacity': 0.03 },
     },
     {
       selector: 'edge.filtered',
