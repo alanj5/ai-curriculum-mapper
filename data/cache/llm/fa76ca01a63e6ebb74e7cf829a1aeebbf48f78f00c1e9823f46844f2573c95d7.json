@@ -1,0 +1,1 @@
+["compiler pipeline", "lexical analysis", "parsing", "semantic analysis", "intermediate representation", "optimisation", "code generation", "register allocation", "symbol tables", "type checking", "lexical scanning", "syntax analysis", "parser generators", "abstract syntax trees", "three-address code", "dead code elimination", "constant folding", "peephole optimisation"]
