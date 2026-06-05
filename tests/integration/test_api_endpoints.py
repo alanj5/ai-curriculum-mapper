@@ -62,7 +62,7 @@ class TestModulesEndpoints:
 
     async def test_list_modules_count_matches_db(self, client):
         r = await client.get("/api/v1/modules/")
-        assert len(r.json()) == 21  # 21 Imperial modules
+        assert len(r.json()) == 34  # 34 Imperial modules
 
     async def test_list_modules_has_expected_fields(self, client):
         r = await client.get("/api/v1/modules/")
@@ -318,7 +318,7 @@ class TestGraphEndpoints:
         data = r.json()
         assert "nodes" in data
         assert "edges" in data
-        assert len(data["nodes"]) == 21
+        assert len(data["nodes"]) == 34
         assert len(data["edges"]) > 0
 
     async def test_module_module_graph_node_has_community(self, client):
@@ -359,7 +359,7 @@ class TestGraphEndpoints:
         data = r.json()
         assert "communities" in data
         assert isinstance(data["communities"], dict)
-        assert len(data["communities"]) == 21
+        assert len(data["communities"]) == 34
 
     async def test_centrality_endpoint(self, client):
         r = await client.get("/api/v1/graph/centrality")
@@ -421,7 +421,7 @@ class TestReportsEndpoints:
     async def test_summary_totals_correct(self, client):
         r = await client.get("/api/v1/reports/summary")
         data = r.json()
-        assert data["total_modules"] == 21
+        assert data["total_modules"] == 34
         assert data["total_concepts"] > 0
         assert data["total_alignments"] > 0
         assert 0.0 <= data["ka_coverage_fraction"] <= 1.0
@@ -440,14 +440,14 @@ class TestReportsEndpoints:
     async def test_export_summary_counts(self, client):
         r = await client.get("/api/v1/reports/export")
         data = r.json()
-        assert data["summary"]["total_modules"] == 21
+        assert data["summary"]["total_modules"] == 34
         assert data["summary"]["total_concepts"] > 0
         assert data["summary"]["total_alignments"] > 0
 
     async def test_export_modules_list(self, client):
         r = await client.get("/api/v1/reports/export")
         data = r.json()
-        assert len(data["modules"]) == 21
+        assert len(data["modules"]) == 34
         assert all("code" in m and "title" in m and "level" in m for m in data["modules"])
 
     async def test_export_alignments_have_score(self, client):

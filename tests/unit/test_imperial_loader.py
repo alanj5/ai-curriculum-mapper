@@ -120,10 +120,10 @@ class TestImperialJsonFormat:
     reason="Imperial module files not present (run create_imperial_modules.py first)",
 )
 class TestImperialFilesLoad:
-    def test_all_21_imperial_files_present(self):
+    def test_all_imperial_files_present(self):
         json_files = list(IMPERIAL_DIR.glob("*.json"))
-        assert len(json_files) == 21, (
-            f"Expected 21 Imperial module files, found {len(json_files)}"
+        assert len(json_files) == 34, (
+            f"Expected 34 Imperial module files, found {len(json_files)}"
         )
 
     def test_all_imperial_modules_load_without_error(self):
@@ -238,9 +238,9 @@ class TestImperialFilesLoad:
     reason="Imperial module files not present",
 )
 class TestLoadAllImperialModules:
-    def test_load_all_returns_21_modules(self):
+    def test_load_all_returns_all_modules(self):
         modules = load_all_modules(IMPERIAL_DIR)
-        assert len(modules) == 21
+        assert len(modules) == 34
 
     def test_no_duplicate_codes(self):
         modules = load_all_modules(IMPERIAL_DIR)
@@ -249,7 +249,9 @@ class TestLoadAllImperialModules:
 
     def test_all_sources_are_imperial(self):
         modules = load_all_modules(IMPERIAL_DIR)
-        non_imperial = [m.code for m in modules if m.source != "imperial"]
+        # One module (IC60036) carries a provenance note appended to "imperial"
+        # because its descriptor page was unavailable; accept the prefix.
+        non_imperial = [m.code for m in modules if not m.source.startswith("imperial")]
         assert not non_imperial, f"Non-imperial sources: {non_imperial}"
 
     def test_full_text_property_non_empty(self):
