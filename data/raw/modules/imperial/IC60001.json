@@ -6,34 +6,25 @@
   "prerequisites": [
     "IC40005"
   ],
-  "description": "This module addresses the design of general-purpose and special-purpose processors and of parallel computer systems, spanning embedded systems through to supercomputers. Students develop understanding of high-performance and energy-efficient architecture, software performance optimisation, and contemporary architectural security.",
+  "description": "The design of general-purpose and special-purpose processors and parallel computer systems, covering high-performance and energy-efficient architecture and current trends in processor design.",
   "learning_objectives": [
-    "Justify current processor designs at various architectural levels from microarchitecture to large-scale parallel systems",
-    "Evaluate design alternatives considering power and performance tradeoffs",
-    "Identify architectural security hazards and vulnerabilities plus mitigation strategies",
-    "Optimise application kernels to exploit architectural capabilities effectively"
+    "Justify the design of leading-edge processor products from microarchitecture to large-scale parallel systems",
+    "Evaluate architecture design alternatives and tradeoffs in terms of power and performance",
+    "Identify architectural security hazards and attack vulnerabilities and explain how they can be mitigated",
+    "Optimise application software kernels to exploit architectural capabilities effectively"
   ],
   "topics": [
-    "Pipelining and hazards",
-    "Instruction-level parallelism",
+    "Pipelines, hazards and instruction-level parallelism",
     "Locality and caching",
-    "Dynamic scheduling",
-    "Tomasulo's algorithm",
-    "Register renaming",
-    "Software instruction scheduling",
-    "Software pipelining",
-    "Superscalar architectures",
-    "Very long instruction word (VLIW) architectures",
-    "Branch prediction",
-    "Speculative execution",
+    "Dynamic scheduling, Tomasulo's algorithm and register renaming",
+    "Software instruction scheduling and software pipelining",
+    "Superscalar and long-instruction-word architectures",
+    "Branch prediction and speculative execution",
     "Simultaneous multithreading",
     "Vector instruction execution",
-    "Cache coherency",
-    "Memory systems",
-    "Compiler optimisations",
+    "Cache coherency, memory systems and address translation",
     "Graphics processors and manycore architectures",
-    "Security vulnerabilities and mitigation",
-    "Meltdown and Spectre"
+    "Security vulnerabilities and their mitigation"
   ],
   "source": "imperial"
 }

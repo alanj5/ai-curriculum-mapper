@@ -4,39 +4,26 @@
   "level": 2,
   "credits": 8,
   "prerequisites": [
-    "IC40001",
     "IC40005"
   ],
-  "description": "This module develops understanding of core operating system abstractions and explores implementation trade-offs across modern operating system subsystems. Students investigate mechanisms and policies for resource management, process isolation, scheduling, virtual memory, and file systems.",
+  "description": "Develop an understanding of the main operating system abstractions, explore trade-offs in their implementation, and investigate mechanisms for resource management in modern operating systems.",
   "learning_objectives": [
     "Distinguish between different styles of operating system design",
-    "Explain main principles behind resource abstraction and resource management",
-    "Explain principles behind process isolation and process and thread models",
-    "Explain scheduling problems and inter-process communication mechanisms",
-    "Identify concurrency-related problems and explain synchronisation mechanisms",
-    "Evaluate security risks and the OS role in establishing security"
+    "Explain the main principles behind resource abstraction and resource management",
+    "Explain the main principles behind process isolation and process and thread models",
+    "Explain scheduling and the mechanisms behind inter-process communication",
+    "Identify the main problems related to concurrency and explain synchronisation mechanisms",
+    "Evaluate security risks in operating systems and the role operating systems play in security"
   ],
   "topics": [
     "Operating system kernel organisation",
-    "Processes and threads",
     "Process and thread abstractions",
     "Inter-process synchronisation mechanisms",
-    "Semaphores and mutexes",
-    "Concurrency control",
-    "Scheduling algorithms",
-    "Round-robin scheduling",
-    "Priority scheduling",
-    "Virtual memory",
-    "Paging",
-    "Demand paging",
-    "Page replacement",
+    "Concurrency control and scheduling algorithms",
+    "Virtual memory abstractions and on-demand paging",
     "Device and disk management",
-    "File system abstractions",
-    "Journaling file systems",
-    "Deadlock",
-    "Race conditions",
-    "Memory management",
-    "Basic security concepts"
+    "I/O APIs and file system abstractions",
+    "Basic security concepts and attacks"
   ],
   "source": "imperial"
 }

@@ -6,11 +6,11 @@
   "prerequisites": [
     "IC40016"
   ],
-  "description": "This module develops probability theory for modelling uncertainty and designing probabilistic models for prediction. It emphasises mathematical foundations combined with practical application. Topics include random variables, hypothesis testing, confidence intervals, and Markov chains.",
+  "description": "Use probability theory to model uncertainty, design simple probabilistic models that facilitate prediction, conduct sound scientific analysis of data, and study the foundations of probabilistic modelling with Markov chains and simulation.",
   "learning_objectives": [
-    "Describe probability notions in terms of sample spaces",
+    "Describe notions of probability in terms of sample spaces",
     "Define and use random variables",
-    "Design simple probability models and estimate parameters from data",
+    "Design simple probability models and estimate their parameters from data",
     "Construct confidence intervals",
     "Perform hypothesis tests and draw scientific conclusions",
     "Apply estimation and testing procedures"
@@ -24,9 +24,7 @@
     "Joint random variables",
     "Estimation",
     "Fundamentals of simulation",
-    "Markov chains",
-    "Hypothesis testing",
-    "Confidence intervals"
+    "Markov chains"
   ],
   "source": "imperial"
 }

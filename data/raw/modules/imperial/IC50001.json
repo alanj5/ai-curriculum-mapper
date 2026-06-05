@@ -6,7 +6,7 @@
   "prerequisites": [
     "IC40008"
   ],
-  "description": "This module explores foundational algorithmic design paradigms and their practical applications. Students engage with quantitative algorithm analysis, apply techniques to novel problems, and develop structured approaches to computational problem-solving through mathematical abstraction and implementation.",
+  "description": "Explore the main algorithmic design paradigms, apply algorithmic techniques to practical and unseen problems, quantitatively analyse the performance of algorithms, and model the mathematical structure of computational tasks.",
   "learning_objectives": [
     "Compare, characterise and evaluate different implementations of basic algorithms",
     "Analyse algorithms using quantitative evaluation",
@@ -16,15 +16,12 @@
   ],
   "topics": [
     "Quantitative analysis of algorithms and growth order",
-    "Asymptotic notation",
     "Divide and conquer",
     "Dynamic programming",
     "Greedy algorithms",
     "Randomised algorithms",
     "Advanced graph algorithms",
-    "Network flow",
-    "String processing algorithms",
-    "Algorithm correctness and invariants"
+    "String processing algorithms"
   ],
   "source": "imperial"
 }

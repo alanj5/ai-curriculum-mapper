@@ -4,28 +4,23 @@
   "level": 2,
   "credits": 8,
   "prerequisites": [],
-  "description": "This module examines foundational networking principles, OSI and TCP/IP architectural models, network design methodologies based on specific requirements, and basic computer security concepts. Students learn to calculate network metrics and analyse security risks.",
+  "description": "Study the principles of computer networking, analyse the OSI and TCP/IP models, design a network from requirements, and become familiar with the basic principles of computer security.",
   "learning_objectives": [
-    "Define and classify major concepts in computer networking",
+    "Define and classify the major concepts of computer networking",
     "Design a computer network based on given requirements",
     "Calculate important network metrics",
     "Identify and analyse potential security risks"
   ],
   "topics": [
     "Introduction to networking concepts",
-    "OSI model",
-    "TCP/IP protocol stack",
-    "Application layer protocols",
-    "Transport layer",
-    "TCP and UDP",
-    "Network layer",
-    "IP addressing and routing",
-    "Data link layer",
-    "Physical layer",
+    "The application, presentation and session layers",
+    "The transport layer",
     "Network security",
-    "Cryptography basics",
+    "The network layer",
+    "The data link layer",
+    "The physical layer",
     "Client/server programming",
-    "Network design"
+    "Future directions"
   ],
   "source": "imperial"
 }

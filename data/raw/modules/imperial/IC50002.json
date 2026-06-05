@@ -3,17 +3,15 @@
   "title": "Software Engineering Design",
   "level": 2,
   "credits": 8,
-  "prerequisites": [
-    "IC40009"
-  ],
-  "description": "This module examines design decision impacts on software system flexibility, maintainability, and costs. Students practice refactoring techniques, automated testing, design pattern selection, and architectural approaches suitable for various problems. The course emphasises technical practices within iterative software delivery contexts.",
+  "prerequisites": [],
+  "description": "Examine the effects of design choices on flexibility, maintainability and cost; practise refactoring and automated testing; select appropriate design patterns; and reflect on technical practices within iterative delivery.",
   "learning_objectives": [
-    "Identify and describe design patterns, their addressed problems, and trade-offs",
-    "Make informed engineering decisions to minimise change costs",
-    "Implement common design structures for software applications",
-    "Construct automated tests through test-driven development",
-    "Perform refactoring operations using appropriate tools",
-    "Critique design qualities of existing codebases"
+    "Identify and describe various design patterns, the problems they address, and trade-offs involved",
+    "Make informed engineering decisions to minimise the cost of change",
+    "Implement common design structures for various common software application types",
+    "Construct automated tests for code through test-driven development",
+    "Perform refactoring operations on a codebase using appropriate tools",
+    "Consider and critique the qualities of the design of a given codebase"
   ],
   "topics": [
     "Test-driven development",
@@ -27,8 +25,7 @@
     "Interactive GUI applications",
     "Patterns for system integration",
     "Patterns for distribution",
-    "Web applications, REST and web services",
-    "Agile development practices"
+    "Web applications, REST and web services"
   ],
   "source": "imperial"
 }

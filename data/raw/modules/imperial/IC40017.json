@@ -4,7 +4,7 @@
   "level": 1,
   "credits": 8,
   "prerequisites": [],
-  "description": "This module covers linear algebra which underpins many applications of computing involving analysis of aggregated data in vector or matrix form. Applications span graphics, robotics, performance engineering, operations research, and statistical machine learning.",
+  "description": "Study linear algebra, which underpins many applications of Computing involving analysis of aggregated data in vector or matrix form.",
   "learning_objectives": [
     "Solve systems of linear equations using Gaussian elimination",
     "Determine matrices representing linear mappings",
@@ -21,7 +21,7 @@
     "Linear transformations and matrix representation",
     "Change of basis",
     "Orthonormal bases and Gram-Schmidt",
-    "Rank and Nullity Theorem",
+    "Rank and nullity theorem",
     "Scalar products",
     "Orthogonal subspaces",
     "Introduction to linear regression",
@@ -31,8 +31,7 @@
     "Cayley-Hamilton theorem",
     "Projections",
     "Rotation matrices",
-    "Symmetric matrices",
-    "Spectral decomposition"
+    "Symmetric matrices and spectral decomposition"
   ],
   "source": "imperial"
 }

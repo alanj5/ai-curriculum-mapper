@@ -6,7 +6,7 @@
   "prerequisites": [
     "IC40001"
   ],
-  "description": "Students develop a fundamental understanding of the organisation and operation of a computer system with emphasis on how high-level language programs are represented and executed at an architectural level. Topics include ISA design, CISC vs RISC, assembler programming, and the memory hierarchy.",
+  "description": "Develop a fundamental understanding of the organisation and operation of a computer system, from machine instructions to memory hierarchy and performance.",
   "learning_objectives": [
     "Describe the basic organisation of a computer",
     "Explain different representations used for instructions, numbers and text",
@@ -23,13 +23,10 @@
     "Translation of high-level programs into instructions",
     "Instruction execution",
     "Implementation choices of the control unit",
-    "CISC and RISC Instruction Set Architecture",
+    "CISC and RISC instruction set architecture",
     "Assembler programming",
-    "Memory organisation and concepts of spatial and temporal locality",
-    "Memory hierarchy",
-    "Cache memory",
-    "Performance estimation",
-    "Amdahl's Law"
+    "Memory organisation and spatial and temporal locality",
+    "Performance estimation and Amdahl's Law"
   ],
   "source": "imperial"
 }

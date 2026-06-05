@@ -2,18 +2,18 @@
   "code": "IC40009",
   "title": "Computing Practical 1",
   "level": 1,
-  "credits": 16,
+  "credits": 8,
   "prerequisites": [],
-  "description": "This module develops practical programming skills across multiple paradigms including functional, object-oriented, procedural, and systems programming. Students build web development skills, use version control, conduct basic research into computing topics including ethics, and develop technical communication and presentation abilities.",
+  "description": "Develop practical skills including programming across major paradigms, web development, basic academic research, and written and oral communication, as important attributes of a professional software engineer.",
   "learning_objectives": [
-    "Demonstrate proficiency in programming languages from three of the major paradigms",
+    "Demonstrate proficiency in using programming languages from three of the major paradigms",
     "Develop working solutions to well-specified programming problems of small to medium size",
     "Create a website that meets stakeholder needs",
-    "Use core software development tools effectively including those for version control",
-    "Undertake basic research into computing topics including those related to computing ethics",
+    "Use core software development tools effectively, including those for version control",
+    "Undertake basic research into Computing topics, including Computing ethics",
     "Write short technical documentation demonstrating proficiency in scientific communication",
     "Deliver short oral presentations summarising practical project work and research findings",
-    "Operate effectively as a member of a group to produce deliverables that meet set criteria"
+    "Operate effectively as a member of a group to produce deliverables"
   ],
   "topics": [
     "Functional programming in Haskell",
@@ -23,10 +23,9 @@
     "Programming in C",
     "Web development using HTML, CSS and JavaScript",
     "Computer systems project",
-    "Version control",
     "Introduction to research methods",
-    "Ethics in computing",
-    "Academic writing",
+    "Introduction to ethics in Computing",
+    "Introduction to academic writing",
     "Oral presentation skills"
   ],
   "source": "imperial"

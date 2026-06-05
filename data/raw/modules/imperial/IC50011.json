@@ -1,38 +1,32 @@
 {
   "code": "IC50011",
   "title": "Computational Techniques",
-  "level": 3,
+  "level": 2,
   "credits": 8,
   "prerequisites": [
-    "IC40016",
-    "IC40017"
+    "IC40017",
+    "IC40016"
   ],
-  "description": "This module covers additional mathematical topics that form prerequisites for third and fourth year modules in areas such as computer graphics, machine learning, and computational finance. Topics include advanced linear algebra, numerical methods, and optimisation techniques.",
+  "description": "Additional mathematical topics that form prerequisites for later modules in computer graphics, machine learning and computational finance, focusing on how mathematical methods apply to complex computational problems.",
   "learning_objectives": [
-    "Apply advanced linear algebra topics to machine learning and deep learning problems",
-    "Understand and implement mathematical methods in image processing, graphics, and computational finance",
+    "Apply advanced topics in linear algebra to problems in machine learning and deep learning",
+    "Understand and implement mathematical methods in image processing, graphics and computational finance",
     "Use vector calculus to solve computational optimisation problems"
   ],
   "topics": [
     "Vector and matrix norms",
-    "Generalised eigenvectors",
-    "Jordan normal form",
-    "Singular value decomposition (SVD)",
+    "Generalised eigenvectors and Jordan normal form",
+    "Singular value decomposition",
     "Dimensionality reduction",
-    "Positive definite matrices",
-    "Cholesky factorization",
-    "Normal equations and least squares",
-    "QR decomposition",
-    "Householder transform",
+    "Positive definite matrices and Cholesky factorisation",
+    "Normal equations and the least squares method",
+    "QR decomposition and Householder transform",
     "LU decomposition",
-    "Matrix conditioning",
-    "Algorithm stability",
-    "Iterative linear system solutions",
-    "Jacobi and Gauss-Seidel methods",
-    "Power method for eigenvectors",
+    "Condition of a matrix and stability of algorithms",
+    "Iterative solution of linear systems (Jacobi, Gauss-Seidel)",
+    "Iterative computation of eigenvectors (power method, inverse iteration, Rayleigh quotient)",
     "Steepest descent and conjugate gradient methods",
-    "Linear programming",
-    "Optimisation"
+    "Linear programming"
   ],
   "source": "imperial"
 }

@@ -4,7 +4,7 @@
   "level": 1,
   "credits": 8,
   "prerequisites": [],
-  "description": "This module covers modern database system structures, relational database modelling, normalisation, SQL query design, and contemporary database technologies. Students understand the separation of physical and logical models and transaction management.",
+  "description": "Learn how modern database systems are structured: model relational databases, normalise relational schemas, write SQL queries, and explore recent developments in database technology.",
   "learning_objectives": [
     "Compare and contrast different database models and supporting architectures",
     "Model information in a relational system",
@@ -21,10 +21,8 @@
     "Functional dependencies, keys and normal forms",
     "Relational database languages",
     "Relational algebra",
-    "SQL",
-    "Views integrity and security",
-    "Transaction management and concurrency",
-    "Normalisation"
+    "Views, integrity and security",
+    "Transaction management and concurrency"
   ],
   "source": "imperial"
 }

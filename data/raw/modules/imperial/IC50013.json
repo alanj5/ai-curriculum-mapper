@@ -4,35 +4,29 @@
   "level": 2,
   "credits": 8,
   "prerequisites": [
-    "IC40016",
-    "IC40017",
-    "IC50008"
+    "IC50008",
+    "IC40017"
   ],
-  "description": "This module examines machine learning algorithms and their applications. The course covers supervised and unsupervised learning methodologies, model evaluation techniques, and practical implementation strategies for solving computational problems.",
+  "description": "Foundational and advanced machine learning concepts, including supervised and unsupervised learning, neural networks, model evaluation, and evolutionary algorithms.",
   "learning_objectives": [
     "Explain the strengths and weaknesses of machine learning algorithms",
     "Appraise the suitability of a machine learning algorithm to solve a given problem",
     "Provide appropriate methodologies to evaluate machine learning algorithms",
     "Implement algorithms to solve machine learning problems",
     "Develop predictive models with machine learning algorithms",
-    "Apply unsupervised clustering algorithms based on machine learning"
+    "Apply unsupervised clustering programs based on machine learning algorithms"
   ],
   "topics": [
-    "Machine learning concepts and types",
-    "Instance based learning",
-    "Inductive learning",
-    "Model evaluation and comparison",
-    "Cross-validation",
-    "Overfitting and regularisation",
-    "Neural networks",
-    "Backpropagation",
-    "Supervised learning",
-    "Unsupervised learning",
-    "Clustering algorithms",
-    "K-means clustering",
-    "Evolutionary algorithms",
+    "Machine learning concepts, taxonomies and the supervised learning pipeline",
+    "Feature encoding and the bias-variance tradeoff",
+    "Instance-based learning: k-nearest neighbours, locally weighted regression",
     "Decision trees",
-    "Support vector machines"
+    "Model evaluation, cross-validation and statistical significance",
+    "Neural networks: perceptron, multilayer perceptron, back-propagation",
+    "Stochastic gradient descent, activation functions and overfitting",
+    "Unsupervised learning: k-means clustering",
+    "Density estimation: kernel density, Gaussian and Gaussian mixture models",
+    "Evolutionary algorithms: genetic algorithms and evolutionary strategies"
   ],
   "source": "imperial"
 }

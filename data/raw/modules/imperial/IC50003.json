@@ -4,28 +4,25 @@
   "level": 2,
   "credits": 8,
   "prerequisites": [
-    "IC40012"
+    "IC40018"
   ],
-  "description": "This module concentrates on formal descriptions of computational behaviour covering operational semantics of programming languages and foundational definitions of algorithms. Topics include Turing machines, lambda calculus, register machines, the halting problem, and the Church-Turing thesis.",
+  "description": "Formal descriptions (models) of computational behaviour, covering operational semantics, programming language styles, and foundational definitions of algorithm and computable function.",
   "learning_objectives": [
-    "Provide formal descriptions of programming language behaviour across multiple styles",
+    "Provide formal descriptions of the precise behaviour of several styles of programming language",
     "Prove properties of such languages",
-    "Supply several formal definitions of algorithm",
-    "Connect algorithmic definitions with computable functions"
+    "Provide several formal definitions of algorithm",
+    "Link the definition of algorithm with the fundamental notion of a computable function"
   ],
   "topics": [
-    "Operational semantics for WHILE language",
-    "Programming language properties: confluence, totality",
-    "Inductive proofs for language extensions",
-    "Featherweight semantics for alternative programming styles",
-    "Register machines and universal register machines",
-    "Computable functions",
-    "Halting problem",
+    "Operational semantics for a simple while language and extensions",
+    "Properties of programming languages such as confluence and totality",
+    "Inductive proofs for WHILE and extensions",
+    "Register machines and the universal register machine",
+    "Computable functions expressed as register machines",
+    "The halting problem for register machines",
     "Turing machines",
-    "Lambda calculus",
-    "Church-Turing thesis",
-    "Computability theory",
-    "Formal language theory"
+    "The lambda calculus and language properties",
+    "The Church-Turing thesis"
   ],
   "source": "imperial"
 }
