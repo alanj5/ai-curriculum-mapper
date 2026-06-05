@@ -70,7 +70,7 @@ SBERT_MATCH_THRESHOLD = 0.75  # partial-credit cosine threshold for evaluation m
 # ensemble and sum to 1.0. "llm" is the optional sixth extractor; it is only
 # consulted when LLM_EXTRACTOR_ENABLED, and the canonicaliser normalises
 # confidence by the weights of extractors *present on each concept*, so this
-# entry is inert when the LLM is disabled (the 658-concept result is unchanged).
+# entry is inert when the LLM is disabled (the 970-concept result is unchanged).
 EXTRACTOR_WEIGHTS: dict[str, float] = {
     "tfidf": 0.15,
     "rake": 0.15,

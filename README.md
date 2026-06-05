@@ -14,7 +14,7 @@ Automated extraction, alignment, and visualisation of Computing curriculum conte
 
 ## Overview
 
-The system ingests 21 Imperial College Computing module descriptors, extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield 658 unique concepts, aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner, constructs a module-module similarity graph, and exposes all results through an interactive web interface.
+The system ingests 34 Imperial College Computing module descriptors (the full Year 1--3 content curriculum), extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield 970 unique concepts, aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner, constructs a module-module similarity graph, and exposes all results through an interactive web interface.
 
 ### Architecture
 
@@ -39,7 +39,7 @@ flowchart LR
     style K fill:#fff4e1,stroke:#A50000
 ```
 
-**Numbers (from a complete pipeline run on the 21-module corpus):** 21 modules → 658 canonical concepts (after the specificity filter and SBERT canonicalisation) → 1,030 alignment records (152 ambiguous concepts, 23.1%) → 146 module-module edges across 4 Louvain communities (modularity Q = 0.46).
+**Numbers (from a complete pipeline run on the 34-module corpus):** 34 modules → 970 canonical concepts (after the specificity filter and SBERT canonicalisation) → 1,490 alignment records (215 ambiguous concepts, 22.2%) → 277 module-module edges across 5 Louvain communities (modularity Q = 0.51).
 
 ---
 
@@ -99,7 +99,7 @@ source .venv/bin/activate
 # Step 1: Ingest module descriptors → populates modules, ilos, prerequisites tables
 python scripts/ingest_modules.py
 
-# Step 2: Run NLP extraction → populates concepts table (658 concepts, ~3–5 min)
+# Step 2: Run NLP extraction → populates concepts table (970 concepts, ~3–5 min)
 python scripts/run_nlp_pipeline.py --week2
 
 # Step 3: Align concepts to CS2023 KAs → populates alignments table (~1–2 min)
@@ -219,7 +219,7 @@ Interactive docs (Swagger UI): **http://127.0.0.1:8000/docs**
 ```bash
 # 1. Check the system is up
 curl http://127.0.0.1:8000/health
-# → {"status":"ok","modules":21,"concepts":658,"alignments":1030}
+# → {"status":"ok","modules":34,"concepts":970,"alignments":1490}
 
 # 2. List all Year 2 modules
 curl 'http://127.0.0.1:8000/api/v1/modules/?level=2'
@@ -229,7 +229,7 @@ curl 'http://127.0.0.1:8000/api/v1/modules/IC50001/alignments?ka=AL&ambiguous_on
 
 # 4. Get the Cytoscape-formatted module-module graph
 curl http://127.0.0.1:8000/api/v1/graph/module-module | jq '.nodes | length'
-# → 21
+# → 34
 
 # 5. Validate an alignment (accept) — writes to user_feedback audit table
 curl -X PATCH 'http://127.0.0.1:8000/api/v1/alignments/42/validate' \
