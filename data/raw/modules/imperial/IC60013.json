@@ -1,0 +1,32 @@
+{
+  "code": "IC60013",
+  "title": "Logic-Based Learning",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50009"
+  ],
+  "description": "Foundation knowledge and principles of logic-based machine learning, covering semantics, current learning algorithms and heuristics, and skills for formalising logic-based learning tasks for real-world problems.",
+  "learning_objectives": [
+    "Explain the semantic foundations and differences of logic-based machine learning problems",
+    "Formalise a learning task as a logic-based learning task",
+    "Apply algorithms to solve learning tasks in different semantic contexts",
+    "Use Answer Set Programming to solve real-world problems",
+    "Apply algorithms for learning Answer Set programs",
+    "Evaluate current forms of probabilistic logic-based inference and learning",
+    "Explain and apply state-of-the-art algorithms for probabilistic learning"
+  ],
+  "topics": [
+    "Deductive, abductive and inductive reasoning",
+    "Bayesian reasoning techniques",
+    "Answer set programming",
+    "Top-down and bottom-up approaches to learning",
+    "Meta-level logic-based learning",
+    "Monotonic and non-monotonic learning",
+    "Enhanced logic programming systems",
+    "Soundness and completeness of learning algorithms",
+    "Probabilistic inductive learning",
+    "Probabilistic logic programming"
+  ],
+  "source": "imperial"
+}

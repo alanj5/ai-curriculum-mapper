@@ -1,0 +1,28 @@
+{
+  "code": "IC60008",
+  "title": "Custom Computing",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC40005"
+  ],
+  "description": "Applications of custom computing designs in areas such as signal processing and genomics data analysis, and the development of parametric descriptions for custom computing designs.",
+  "learning_objectives": [
+    "Develop parametric descriptions of custom computing designs",
+    "Develop alternatives for custom computing designs that meet specified requirements",
+    "Analyse the performance of a custom computing design in terms of time and space",
+    "Evaluate space/time trade-offs between competing custom computing designs to determine optimal solutions",
+    "Use simulation to compare the intended and actual behaviour of custom computing designs"
+  ],
+  "topics": [
+    "Special-purpose computer systems customised for specific applications",
+    "Signal processing applications",
+    "Genomics data analysis applications",
+    "Techniques for describing custom computing designs",
+    "Evaluating custom computing designs",
+    "Optimisation methods for throughput and energy efficiency",
+    "Design tools to simulate design behaviour",
+    "Space and time trade-offs"
+  ],
+  "source": "imperial"
+}

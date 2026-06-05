@@ -1,0 +1,29 @@
+{
+  "code": "IC60034",
+  "title": "Deep Learning",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50013"
+  ],
+  "description": "The fundamental concepts and advanced methodologies of deep learning and their relation to real-world problems in a variety of domains.",
+  "learning_objectives": [
+    "Express and relate the underlying theoretical concepts of modern deep learning methods",
+    "Compare, characterise and quantitatively evaluate various deep learning approaches",
+    "Evaluate the limitations of deep learning",
+    "Apply deep learning techniques to real-world problems in computer vision, speech, text analysis and graph processing"
+  ],
+  "topics": [
+    "Supervised versus unsupervised learning, generalisation and overfitting",
+    "Perceptrons and deep versus shallow models",
+    "Stochastic gradient descent and backpropagation",
+    "Convolutional neural networks and applications in image analysis",
+    "Recurrent neural networks, LSTM and gated recurrent units",
+    "Applications of RNNs in speech analysis and machine translation",
+    "Variational autoencoders",
+    "Generative adversarial networks and image generation",
+    "Graph neural networks: spectral and spatial methods, message passing",
+    "Applications of graph neural networks"
+  ],
+  "source": "imperial"
+}

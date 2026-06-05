@@ -1,0 +1,33 @@
+{
+  "code": "IC60036",
+  "title": "Compilers",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50003"
+  ],
+  "description": "The theory and practice of compiler construction: how a high-level programming language is translated into executable code, covering the standard compiler pipeline from lexical analysis through parsing, semantic analysis, intermediate representation, optimisation and code generation.",
+  "learning_objectives": [
+    "Describe the phases of a modern compiler and how they interact",
+    "Implement lexical analysis and parsing for a programming language",
+    "Perform semantic analysis and type checking using symbol tables",
+    "Generate and optimise intermediate representations of programs",
+    "Generate target machine code and perform register allocation"
+  ],
+  "topics": [
+    "Lexical analysis",
+    "Regular expressions and finite automata",
+    "Context-free grammars",
+    "Top-down and bottom-up parsing (LL and LR)",
+    "Abstract syntax trees",
+    "Semantic analysis and symbol tables",
+    "Type checking",
+    "Intermediate representations",
+    "Data-flow analysis",
+    "Compiler optimisation",
+    "Code generation",
+    "Register allocation",
+    "Runtime systems"
+  ],
+  "source": "imperial (descriptor page unavailable; syllabus from standard public compilers curriculum)"
+}

@@ -1,0 +1,30 @@
+{
+  "code": "IC60016",
+  "title": "Operations Research",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC40017"
+  ],
+  "description": "Quantitative mathematical methods for taking decisions in the presence of constraints or finite resources, covering linear programming, integer linear programming, robust optimisation and game theory.",
+  "learning_objectives": [
+    "Classify mathematical programs on the basis of the number and types of their solutions",
+    "Apply linear programming to real-world decision problems with real and integer-valued variables",
+    "Model adversarial decision problems using linear programming",
+    "Select an appropriate solution method or synthesise a new method for a given mathematical program",
+    "Formulate mathematical programs for decision-making and decision-making under uncertainty",
+    "Formulate an adversarial decision problem in terms of a game"
+  ],
+  "topics": [
+    "Introduction to linear programming",
+    "Basic feasible solutions",
+    "Simplex method",
+    "Degenerate linear programs",
+    "Duality and shadow prices",
+    "Integer linear programming",
+    "Cutting planes",
+    "Branch-and-bound and branch-and-cut",
+    "Game theory and robust optimisation"
+  ],
+  "source": "imperial"
+}

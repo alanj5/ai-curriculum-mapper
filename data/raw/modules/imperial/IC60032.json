@@ -1,0 +1,28 @@
+{
+  "code": "IC60032",
+  "title": "Networked Systems",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50005"
+  ],
+  "description": "An overview of and hands-on experience with how modern networked systems are designed and implemented, across control plane, data plane and endpoints.",
+  "learning_objectives": [
+    "Enumerate and analyse basic network mechanisms, their design and implementation across different settings",
+    "Design and reason about scalability and performance requirements for parts of the networking infrastructure",
+    "Use network simulation, debugging and monitoring tools such as wireshark, tcpdump and NS2",
+    "Implement a network middlebox in different technologies such as eBPF, DPDK and P4"
+  ],
+  "topics": [
+    "TCP/IP stack, remote procedure calls and network stack design",
+    "Network architecture and topologies: WAN, datacenter networks, optical networking",
+    "Switch architecture",
+    "Control plane: routing algorithms BGP and OSPF",
+    "Software-defined networks",
+    "Programmable dataplanes: P4, match-action tables",
+    "Queueing theory, packet scheduling and quality of service",
+    "Congestion control and flow control",
+    "Kernel-bypassing, eBPF and virtual networking"
+  ],
+  "source": "imperial"
+}

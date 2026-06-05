@@ -1,0 +1,34 @@
+{
+  "code": "IC60005",
+  "title": "Graphics",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC40017",
+    "IC40016"
+  ],
+  "description": "Core computer graphics concepts, including the mathematical principles used for computer generated imagery, shading and light approximations.",
+  "learning_objectives": [
+    "Explain the core principles of programmable shading pipelines such as vertex, fragment and geometry shading",
+    "Compare and contrast methods for modelling object geometry and surfaces",
+    "Describe polyhedral and ray-based rendering methods and evaluate their tradeoffs",
+    "Analyse and deploy fundamental algorithms associated with computer graphics",
+    "Read, explain and adapt existing graphics source code and computer graphics pipeline diagrams",
+    "Design, analyse and implement new software for solving complex computer graphics problems"
+  ],
+  "topics": [
+    "Device-independent graphics",
+    "Polygon rendering",
+    "3D geometry",
+    "Texture mapping and anti-aliasing",
+    "Shading planar polygons",
+    "Representation of colours",
+    "Ray tracing",
+    "Radiosity",
+    "Geometric warping and morphing",
+    "Special visual effects and particle systems",
+    "Inverse kinematics in animation",
+    "Non-photorealistic rendering"
+  ],
+  "source": "imperial"
+}

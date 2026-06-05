@@ -1,0 +1,29 @@
+{
+  "code": "IC60023",
+  "title": "Type Systems for Programming Languages",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50003"
+  ],
+  "description": "The design of type assignment systems for programming languages, focusing on a sound theoretical framework for reasoning about typed programs, and comparing the type systems of modern functional and object-oriented languages.",
+  "learning_objectives": [
+    "Evaluate the relative merits of dynamic and static typing for functional, imperative and object-oriented languages",
+    "Formalise type systems and prove properties such as decidability, soundness and completeness",
+    "Describe and implement algorithms for type inference and type checking",
+    "Describe and formalise type system extensions required to support modern programming language features",
+    "Demonstrate advanced features of modern statically-typed programming languages through small applications"
+  ],
+  "topics": [
+    "Lambda calculus",
+    "Curry type assignment and principal types",
+    "Recursion and polymorphism",
+    "Type checking versus type inference",
+    "System F",
+    "Extensions for practical type inference: data types, type classes, type constraints",
+    "Subtypes and subtype inference",
+    "Higher-rank types",
+    "Dependent types and ownership types"
+  ],
+  "source": "imperial"
+}

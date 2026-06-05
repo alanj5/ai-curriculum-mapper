@@ -1,0 +1,32 @@
+{
+  "code": "IC60037",
+  "title": "Mathematics for Machine Learning",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC40016",
+    "IC40017"
+  ],
+  "description": "Advanced mathematical techniques required to understand, design and implement modern statistical machine learning algorithms and inference mechanisms.",
+  "learning_objectives": [
+    "Implement foundational machine learning algorithms from scratch",
+    "Apply appropriate mathematical techniques in a machine learning setting",
+    "Critically assess the quality of machine learning models",
+    "Evaluate connections between different machine learning algorithms"
+  ],
+  "topics": [
+    "Multivariate calculus",
+    "Multivariate probability: joint distributions, means and covariance matrices",
+    "Conditional probability and Bayes's rule",
+    "Maximum likelihood estimation",
+    "Monte Carlo estimation",
+    "Validation, test error estimation and cross-validation",
+    "Concentration inequalities and the law of large numbers",
+    "Gradient descent and its convergence",
+    "Principal component analysis, eigendecomposition and SVD",
+    "Bayesian inference and MAP inference",
+    "Multivariate Gaussians",
+    "Bayesian linear regression"
+  ],
+  "source": "imperial"
+}

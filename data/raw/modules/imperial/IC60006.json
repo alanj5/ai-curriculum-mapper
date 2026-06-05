@@ -1,0 +1,30 @@
+{
+  "code": "IC60006",
+  "title": "Computer Vision",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC40017",
+    "IC50013"
+  ],
+  "description": "How images are represented on computers and how they can be analysed by computer algorithms to extract semantic information.",
+  "learning_objectives": [
+    "Differentiate commonly used filters for image processing, edge detection and interest point detection",
+    "Describe features and classifiers used for image classification",
+    "Implement neural networks for image classification",
+    "Extend image classification methods to object detection and image segmentation",
+    "Recall commonly used methods for motion estimation and object tracking",
+    "Transform between the 2D coordinate system of an image and the 3D world"
+  ],
+  "topics": [
+    "Image filtering",
+    "Edge detection and interest point detection",
+    "Feature descriptors",
+    "Image classification",
+    "Object detection and image segmentation",
+    "Neural networks",
+    "Motion estimation",
+    "3D vision"
+  ],
+  "source": "imperial"
+}

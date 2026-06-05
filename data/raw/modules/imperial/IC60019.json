@@ -1,0 +1,29 @@
+{
+  "code": "IC60019",
+  "title": "Robotics",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50008"
+  ],
+  "description": "Mobile robotics, emphasising practical algorithms for navigation based on real hardware and tested in the real world, including localisation, mapping, planning and an introduction to SLAM.",
+  "learning_objectives": [
+    "Build, program and experiment with practical robots",
+    "Calibrate and model imperfect motors and sensors",
+    "Use knowledge of feedback control to implement sensor/motor control loops",
+    "Use probabilistic methods to implement 2D localisation and mapping on a mobile robot",
+    "Evaluate algorithms for relocalisation, mapping and planning in mobile robot navigation systems"
+  ],
+  "topics": [
+    "Mobile robotics and the state of the art",
+    "Robot motion: wheel kinematics, motors, gearing, PID control",
+    "Motion uncertainty",
+    "Sensors, processing and control loops with feedback",
+    "Reactive behaviours",
+    "Probabilistic methods in robotics",
+    "Monte Carlo localisation",
+    "Place recognition, occupancy mapping and dynamic window planning",
+    "Simultaneous localisation and mapping (SLAM)"
+  ],
+  "source": "imperial"
+}

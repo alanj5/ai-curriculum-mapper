@@ -1,0 +1,27 @@
+{
+  "code": "IC60035",
+  "title": "Natural Language Processing",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50013"
+  ],
+  "description": "The foundations, building blocks and applications of Natural Language Processing, with an emphasis on approaches based on deep learning, covering word representations, classification and tagging tasks, sequence models and machine translation.",
+  "learning_objectives": [
+    "Describe and critically appraise NLP approaches used to support deep learning activities",
+    "Model words and languages using appropriate NLP representations",
+    "Discuss approaches to classification tasks such as sentiment analysis and tagging tasks such as part-of-speech tagging",
+    "Apply state-of-the-art tools and techniques to solve real-world NLP problems"
+  ],
+  "topics": [
+    "Introduction to NLP",
+    "Word meaning and representations",
+    "Classification tasks: spam detection, sentiment analysis",
+    "Language models: n-gram, RNN and GPT",
+    "Part-of-speech tagging",
+    "Parsing",
+    "Sequence to sequence models",
+    "Machine translation"
+  ],
+  "source": "imperial"
+}

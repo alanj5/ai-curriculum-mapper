@@ -1,0 +1,29 @@
+{
+  "code": "IC60017",
+  "title": "System Performance Engineering",
+  "level": 3,
+  "credits": 8,
+  "prerequisites": [
+    "IC50004"
+  ],
+  "description": "Ensuring that computer systems, comprising hardware and software, are responsive, scalable and efficient, teaching the design of performance assessments, resource provisioning, bottleneck resolution and balancing of resource utilisation.",
+  "learning_objectives": [
+    "Explain and apply the design principles, techniques, tools and metrics of performance assessment",
+    "Make and explain performance trade-offs in software and hardware systems",
+    "Forecast performance of a system or application with the aim to improve it",
+    "Apply the principles, techniques and tools of performance optimisation"
+  ],
+  "topics": [
+    "Performance engineering methodology",
+    "Profiling systems to find bottlenecks",
+    "Macro and micro-benchmarking",
+    "Critical sections",
+    "Cost modeling",
+    "Resource management",
+    "Scaling up and out",
+    "Single-thread, multi-thread and multi-process performance",
+    "Performance-critical operating system features",
+    "Specialised devices"
+  ],
+  "source": "imperial"
+}
