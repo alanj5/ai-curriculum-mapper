@@ -227,8 +227,8 @@ ABLATION_RESULTS = {
                 "top1_accuracy": 0.714, "top3_accuracy": 0.844, "mrr": 0.777},
     },
     "canonicalisation_ablation": {
-        "with_canonicalisation": {"macro": {"F1@10": 0.138, "MAP": 0.097}, "n_concepts": 658},
-        "without_canonicalisation": {"macro": {"F1@10": 0.138, "MAP": 0.091}, "n_concepts": 704},
+        "with_canonicalisation": {"macro": {"F1@10": 0.112, "MAP": 0.071}, "n_concepts": 970},
+        "without_canonicalisation": {"macro": {"F1@10": 0.093, "MAP": 0.074}, "n_concepts": 1037},
     },
 }
 

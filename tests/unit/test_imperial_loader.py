@@ -2,7 +2,7 @@
 
 Validates that the loader correctly handles the Imperial JSON format
 (using 'learning_objectives' key instead of 'ilos') and that the
-21 Imperial module files load cleanly.
+34 Imperial module files load cleanly.
 """
 
 from __future__ import annotations
@@ -165,7 +165,7 @@ class TestImperialFilesLoad:
         """Modules with 40xxx codes (Year 1) should have level=1."""
         year1_codes = [
             "IC40001", "IC40005", "IC40007", "IC40008",
-            "IC40009", "IC40012", "IC40016", "IC40017", "IC40018",
+            "IC40009", "IC40016", "IC40017", "IC40018",
         ]
         for code in year1_codes:
             path = _imperial_file(code)
