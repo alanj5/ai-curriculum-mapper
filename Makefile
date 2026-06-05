@@ -28,7 +28,7 @@ pipeline-llm:
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/run_alignment.py
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/build_graph.py
 
-# Demo: serve the LLM-augmented data (865 concepts). Caches are DB-namespaced,
+# Demo: serve the LLM-augmented data (1,310 concepts). Caches are DB-namespaced,
 # so this does not affect the canonical `make serve`.
 serve-llm:
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/uvicorn curriculum_mapper.api.main:app --host 127.0.0.1 --port 8000
