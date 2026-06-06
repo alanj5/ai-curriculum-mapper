@@ -1,0 +1,28 @@
+{
+  "code": "MIT60001",
+  "title": "Introduction to Computer Science and Programming in Python",
+  "level": 1,
+  "source_url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+  "description": "An introduction to computer science as a tool to solve real-world analytical problems using Python, covering computational thinking, algorithms and basic data structures.",
+  "learning_objectives": [
+    "Write, debug and reason about small Python programs",
+    "Use core data structures and recursion",
+    "Analyse simple algorithmic complexity"
+  ],
+  "topics": [
+    "Python programming",
+    "Branching and iteration",
+    "Functions and recursion",
+    "Tuples, lists and dictionaries",
+    "Object-oriented programming",
+    "Algorithmic complexity",
+    "Searching and sorting",
+    "Plotting and simple simulations"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

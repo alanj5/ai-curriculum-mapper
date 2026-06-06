@@ -1,0 +1,28 @@
+{
+  "code": "MIT60041",
+  "title": "Probabilistic Systems Analysis and Applied Probability",
+  "level": 2,
+  "source_url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/",
+  "description": "The fundamentals of probability and its applications to modelling uncertainty and analysing stochastic systems.",
+  "learning_objectives": [
+    "Model uncertainty with probability",
+    "Compute with random variables",
+    "Apply Bayesian inference and Markov chains"
+  ],
+  "topics": [
+    "Probability models",
+    "Conditional probability and Bayes' rule",
+    "Discrete and continuous random variables",
+    "Expectation and variance",
+    "Bayesian inference",
+    "Limit theorems",
+    "Markov chains",
+    "Bernoulli and Poisson processes"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

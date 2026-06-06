@@ -1,0 +1,28 @@
+{
+  "code": "MIT60006",
+  "title": "Introduction to Algorithms",
+  "level": 2,
+  "source_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/",
+  "description": "Mathematical modelling of computational problems and the common algorithms, algorithmic paradigms and data structures used to solve them, with an emphasis on performance analysis.",
+  "learning_objectives": [
+    "Analyse the time and space complexity of algorithms",
+    "Select appropriate data structures",
+    "Design algorithms using standard paradigms"
+  ],
+  "topics": [
+    "Asymptotic complexity analysis",
+    "Sorting algorithms",
+    "Hashing and hash tables",
+    "Binary search trees",
+    "Graph search (BFS, DFS)",
+    "Shortest paths (Dijkstra, Bellman-Ford)",
+    "Dynamic programming",
+    "Greedy algorithms"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

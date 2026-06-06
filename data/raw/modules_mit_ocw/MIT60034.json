@@ -1,0 +1,28 @@
+{
+  "code": "MIT60034",
+  "title": "Artificial Intelligence",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/",
+  "description": "The knowledge representation, problem solving and learning methods of artificial intelligence.",
+  "learning_objectives": [
+    "Formulate problems as search and constraint satisfaction",
+    "Represent knowledge and reason with logic",
+    "Apply core machine-learning methods"
+  ],
+  "topics": [
+    "State-space search",
+    "Constraint satisfaction",
+    "Adversarial search and games",
+    "Knowledge representation and logic",
+    "Rule-based systems",
+    "Machine learning",
+    "Neural networks",
+    "Support vector machines"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

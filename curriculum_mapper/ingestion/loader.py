@@ -109,6 +109,9 @@ def load_from_json(path: Path) -> Optional[ModuleDescriptor]:
             topics=data.get("topics", data.get("syllabus", [])),
             source=data.get("source", "institutional"),
             source_file=path.name,
+            source_url=data.get("source_url"),
+            fetched_at=data.get("fetched_at"),
+            content_sha256=data.get("content_sha256"),
         )
         return normalise_module(module)
     except Exception as e:

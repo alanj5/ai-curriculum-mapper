@@ -1,0 +1,28 @@
+{
+  "code": "MIT60045",
+  "title": "Automata, Computability, and Complexity",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-045j-automata-computability-and-complexity-spring-2011/",
+  "description": "The theory of computation: what problems can be solved by computers, and at what cost, via automata, computability and complexity theory.",
+  "learning_objectives": [
+    "Classify languages by automata",
+    "Prove problems undecidable",
+    "Reason about complexity classes and reductions"
+  ],
+  "topics": [
+    "Finite automata and regular languages",
+    "Context-free grammars",
+    "Pushdown automata",
+    "Turing machines",
+    "Decidability and undecidability",
+    "Reductions",
+    "Time and space complexity",
+    "P, NP and NP-completeness"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

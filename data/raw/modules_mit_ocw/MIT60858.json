@@ -1,0 +1,28 @@
+{
+  "code": "MIT60858",
+  "title": "Computer Systems Security",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/",
+  "description": "The design and implementation of secure computer systems, covering threats, attacks, cryptography and defensive techniques.",
+  "learning_objectives": [
+    "Analyse threat models and attacks",
+    "Apply cryptographic primitives",
+    "Design defences for systems and the web"
+  ],
+  "topics": [
+    "Threat models",
+    "Buffer overflows and control-flow attacks",
+    "Privilege separation",
+    "Web security",
+    "Cryptography and key exchange",
+    "Authentication",
+    "Network security",
+    "Privacy and anonymity"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

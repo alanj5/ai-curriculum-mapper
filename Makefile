@@ -33,6 +33,15 @@ pipeline-llm:
 serve-llm:
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/uvicorn curriculum_mapper.api.main:app --host 127.0.0.1 --port 8000
 
+# Build the combined Imperial + MIT OpenCourseWare corpus (curriculum_multi.db)
+# for the cross-programme filter/comparison. Canonical curriculum.db untouched.
+pipeline-multi:
+	.venv/bin/python scripts/fetch_mit_ocw.py --build
+
+# Demo: serve the combined corpus so the programme facet spans Imperial + MIT OCW.
+serve-multi:
+	CURRICULUM_DB_PATH=data/curriculum_multi.db .venv/bin/uvicorn curriculum_mapper.api.main:app --host 127.0.0.1 --port 8000
+
 test:
 	.venv/bin/pytest --cov=curriculum_mapper --cov-report=html --cov-report=term-missing -v
 

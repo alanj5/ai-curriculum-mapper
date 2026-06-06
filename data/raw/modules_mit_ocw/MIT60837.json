@@ -1,0 +1,28 @@
+{
+  "code": "MIT60837",
+  "title": "Computer Graphics",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/",
+  "description": "The fundamentals of computer graphics: representing, rendering and animating three-dimensional scenes.",
+  "learning_objectives": [
+    "Implement ray tracing and rasterisation",
+    "Apply geometric transformations",
+    "Model curves, surfaces and animation"
+  ],
+  "topics": [
+    "Ray tracing",
+    "Geometric transformations",
+    "Rasterisation and the graphics pipeline",
+    "Shading and illumination models",
+    "Texture mapping",
+    "Curves and surfaces",
+    "Animation",
+    "Sampling and anti-aliasing"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

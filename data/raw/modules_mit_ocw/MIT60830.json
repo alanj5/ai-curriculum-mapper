@@ -1,0 +1,28 @@
+{
+  "code": "MIT60830",
+  "title": "Database Systems",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-830-database-systems-fall-2010/",
+  "description": "The architecture and internals of relational database management systems, including query processing, transactions and distributed data.",
+  "learning_objectives": [
+    "Design and query relational schemas",
+    "Explain query optimisation",
+    "Reason about transactions and concurrency"
+  ],
+  "topics": [
+    "Relational model and SQL",
+    "Storage and indexing",
+    "Query processing and optimisation",
+    "Transactions and ACID",
+    "Concurrency control",
+    "Recovery and logging",
+    "Distributed databases",
+    "Column stores and modern systems"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

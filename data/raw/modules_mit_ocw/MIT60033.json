@@ -1,0 +1,28 @@
+{
+  "code": "MIT60033",
+  "title": "Computer System Engineering",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-033-computer-system-engineering-spring-2018/",
+  "description": "Principles and abstractions for engineering computer systems, spanning operating systems, networking, distributed systems, fault tolerance and security.",
+  "learning_objectives": [
+    "Apply modularity and abstraction to systems",
+    "Reason about networking and distributed protocols",
+    "Analyse fault tolerance and security"
+  ],
+  "topics": [
+    "Operating system structure",
+    "Naming and abstraction",
+    "Client-server and networking",
+    "Distributed systems",
+    "Transactions and consistency",
+    "Fault tolerance and recovery",
+    "Computer security",
+    "Performance and scalability"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

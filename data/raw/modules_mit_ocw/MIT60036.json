@@ -1,0 +1,28 @@
+{
+  "code": "MIT60036",
+  "title": "Introduction to Machine Learning",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-036-introduction-to-machine-learning-fall-2020/",
+  "description": "Principles, algorithms and applications of machine learning from the point of view of statistical inference, supervised and reinforcement learning.",
+  "learning_objectives": [
+    "Train and evaluate predictive models",
+    "Reason about generalisation and regularisation",
+    "Apply neural networks and reinforcement learning"
+  ],
+  "topics": [
+    "Linear classifiers and perceptrons",
+    "Logistic and linear regression",
+    "Feature representation",
+    "Support vector machines",
+    "Neural networks and back-propagation",
+    "Regularisation and generalisation",
+    "Clustering",
+    "Reinforcement learning"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

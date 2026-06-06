@@ -1,0 +1,28 @@
+{
+  "code": "MIT60005",
+  "title": "Elements of Software Construction",
+  "level": 2,
+  "source_url": "https://ocw.mit.edu/courses/6-005-elements-of-software-construction-fall-2011/",
+  "description": "Fundamental principles and techniques for building correct, robust and maintainable software, including specification, abstraction, testing and concurrency.",
+  "learning_objectives": [
+    "Write specifications and abstract data types",
+    "Design and test robust software",
+    "Reason about concurrency"
+  ],
+  "topics": [
+    "Specifications and abstraction",
+    "Abstract data types",
+    "Test-driven development",
+    "Immutability and design patterns",
+    "Version control",
+    "Concurrency and synchronisation",
+    "Event-driven programming",
+    "Software design"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}

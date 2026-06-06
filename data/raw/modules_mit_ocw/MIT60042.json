@@ -1,0 +1,28 @@
+{
+  "code": "MIT60042",
+  "title": "Mathematics for Computer Science",
+  "level": 1,
+  "source_url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
+  "description": "Discrete mathematics and probability for computer science: logical reasoning, proof techniques, fundamental structures and probabilistic analysis.",
+  "learning_objectives": [
+    "Construct rigorous mathematical proofs",
+    "Reason about discrete structures and graphs",
+    "Apply counting and probability to computing problems"
+  ],
+  "topics": [
+    "Mathematical proofs and induction",
+    "Propositional and predicate logic",
+    "Number theory",
+    "Graph theory",
+    "Relations and partial orders",
+    "Counting and combinatorics",
+    "Discrete probability",
+    "Random variables and expectation"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+}
