@@ -141,6 +141,17 @@ class NLPPipeline:
         logger.info("Fitting BERTopic (may take 30–60 s)…")
         bertopic_results = self.bertopic.fit_transform(texts)
 
+        # Flag modules that BERTopic assigned to the outlier cluster (no topic
+        # words): they get one fewer extractor vote, so this is worth surfacing.
+        bertopic_outliers = [
+            modules[i].code for i in range(len(modules)) if i not in bertopic_results
+        ]
+        if bertopic_outliers:
+            logger.warning(
+                f"BERTopic produced no topic words for {len(bertopic_outliers)} "
+                f"module(s) (HDBSCAN outliers): {bertopic_outliers}"
+            )
+
         # ── Per-module extraction ─────────────────────────────────────────────
         all_candidates: dict[str, dict[str, dict[str, float]]] = {}
 
@@ -180,6 +191,12 @@ class NLPPipeline:
                 and (not self.apply_specificity_filter or not _is_generic_candidate(t))
             }
             all_candidates[module.code] = self._filter_noun_headed(length_filtered)
+            n_kept = len(all_candidates[module.code])
+            if n_kept < 5:
+                logger.warning(
+                    f"Module {module.code} yielded only {n_kept} candidate concept(s) "
+                    f"after filtering (short/atypical descriptor?)."
+                )
 
         # ── Canonicalize ──────────────────────────────────────────────────────
         logger.info("Canonicalizing concepts…")
