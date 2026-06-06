@@ -48,8 +48,10 @@ export async function acceptAlignment(id, onDone) {
   try {
     await api.validate(id, { action: 'accept' });
     if (onDone) onDone();
+    return true;
   } catch (e) {
     alert(`Accept failed: ${e.message}`);
+    return false;
   }
 }
 
@@ -57,7 +59,21 @@ export async function rejectAlignment(id, onDone) {
   try {
     await api.validate(id, { action: 'reject' });
     if (onDone) onDone();
+    return true;
   } catch (e) {
     alert(`Reject failed: ${e.message}`);
+    return false;
+  }
+}
+
+// Undo a prior accept/reject — returns the alignment to unvalidated.
+export async function resetAlignment(id, onDone) {
+  try {
+    await api.validate(id, { action: 'reset' });
+    if (onDone) onDone();
+    return true;
+  } catch (e) {
+    alert(`Undo failed: ${e.message}`);
+    return false;
   }
 }

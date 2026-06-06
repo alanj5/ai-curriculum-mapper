@@ -14,10 +14,13 @@
       <span class="header-sub">Imperial College Computing ↔ ACM/IEEE CS2023</span>
     </div>
     <nav class="tab-nav" id="tab-nav">
-      <button class="tab-btn active" data-tab="graph">Graph</button>
-      <button class="tab-btn" data-tab="alignments">Alignments</button>
-      <button class="tab-btn" data-tab="gaps">Gap Report</button>
+      <a class="tab-btn" data-route="overview"  href="#/overview">Overview</a>
+      <a class="tab-btn" data-route="map"       href="#/map">Curriculum Map</a>
+      <a class="tab-btn" data-route="explore"   href="#/explore">Explore</a>
+      <a class="tab-btn" data-route="coverage"  href="#/coverage">Coverage</a>
+      <a class="tab-btn" data-route="review"    href="#/review">Review</a>
     </nav>
+    <button class="help-btn" id="help-btn" title="What is this tool and how do I use it?" aria-label="Help">? Help</button>
     <div class="header-health" id="health-badge">
       <span class="dot"></span>
       <span id="health-text">connecting…</span>
@@ -26,95 +29,15 @@
 
   <div class="app-notice" role="note">
     <span class="app-notice-icon">⚠</span>
-    <span>These mappings are <strong>AI-generated suggestions</strong> from automated NLP, not ground truth. Review and validate each one before acting on it.</span>
+    <span>Every mapping here is an <strong>AI-generated suggestion</strong> from automated NLP — a starting point for review, not ground truth.</span>
   </div>
 
-  <main class="app-body">
-    <!-- LEFT SIDEBAR: module search + list -->
-    <aside class="sidebar" id="sidebar">
-      <div class="search-bar">
-        <div class="search-mode" id="search-mode">
-          <button type="button" class="sm-btn active" data-mode="modules">Modules</button>
-          <button type="button" class="sm-btn" data-mode="concepts">Concepts</button>
-        </div>
-        <input type="text" id="module-search" placeholder="Search modules…" autocomplete="off" />
-        <select id="level-filter">
-          <option value="">All levels</option>
-          <option value="1">Level 1</option>
-          <option value="2">Level 2</option>
-          <option value="3">Level 3</option>
-        </select>
-      </div>
-      <div class="module-list" id="module-list">
-        <p class="placeholder">Loading modules…</p>
-      </div>
-    </aside>
+  <main id="app"><!-- pages render here --></main>
 
-    <!-- CENTRE: tab panes -->
-    <section class="centre-pane">
-      <div class="tab-pane active" id="tab-graph">
-        <div class="graph-controls">
-          <select id="graph-view-select" class="graph-ctrl-btn" title="Switch graph view" style="padding:4px 8px;cursor:pointer;">
-            <option value="module-module">Module similarity</option>
-            <option value="level">By level (progression)</option>
-            <option value="bipartite">Module ↔ Concepts</option>
-          </select>
-          <button id="graph-fit-btn" class="graph-ctrl-btn" title="Zoom to fit the whole graph in view">⊡ Fit</button>
-          <button id="graph-layout-btn" class="graph-ctrl-btn" title="Re-arrange the nodes by re-running the force-directed layout">↻ Re-arrange</button>
-          <label class="graph-ctrl-label" id="edge-threshold-label" title="Hide weak connections (module similarity) or low-confidence concepts (module ↔ concepts)">
-            <span id="edge-threshold-text">Min edge strength</span>
-            <input type="range" id="edge-threshold" min="0" max="0.2" step="0.01" value="0" />
-            <span id="edge-threshold-val">0.00</span>
-          </label>
-          <span class="graph-ctrl-hint" id="graph-hint">Raise slider to hide weak connections and reveal clusters</span>
-        </div>
-        <div class="graph-viewport">
-          <div id="cy" class="cytoscape-container"></div>
-          <div class="graph-legend" id="graph-legend"></div>
-          <div class="edge-legend" id="edge-legend">
-            <div class="legend-item"><div class="edge-sample edge-solid"></div><span>Concept similarity</span></div>
-            <div class="legend-item"><div class="edge-sample edge-dashed"></div><span>Prerequisite</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-pane" id="tab-alignments">
-        <div class="alignment-controls">
-          <select id="ka-filter">
-            <option value="">All KAs</option>
-          </select>
-          <select id="ambiguous-filter">
-            <option value="">All</option>
-            <option value="true">Ambiguous only</option>
-            <option value="false">Unambiguous</option>
-          </select>
-          <select id="validated-filter">
-            <option value="">Any validation</option>
-            <option value="true">Accepted</option>
-            <option value="false">Rejected</option>
-            <option value="null">Unvalidated</option>
-          </select>
-        </div>
-        <div id="alignment-table-container"></div>
-      </div>
-
-      <div class="tab-pane" id="tab-gaps">
-        <div id="gap-report-container"></div>
-      </div>
-    </section>
-
-    <!-- RIGHT SIDEBAR: module detail panel -->
-    <aside class="detail-panel" id="detail-panel">
-      <div id="module-detail-content">
-        <p class="placeholder">Select a module to see details.</p>
-      </div>
-    </aside>
-  </main>
-
-  <!-- Reassign modal -->
+  <!-- Reassign modal (used by the Review page) -->
   <div class="modal-overlay hidden" id="reassign-modal">
     <div class="modal">
-      <h3>Reassign Alignment</h3>
+      <h3>Reassign mapping</h3>
       <div class="form-group">
         <label>New Knowledge Area</label>
         <select id="reassign-ka-select"></select>
@@ -130,7 +53,50 @@
     </div>
   </div>
 
+  <!-- Help / onboarding modal (auto-shown on first visit) -->
+  <div class="modal-overlay hidden" id="help-modal">
+    <div class="modal modal-help">
+      <button class="help-close" id="help-close" title="Close" aria-label="Close">✕</button>
+      <h3>AI Curriculum Mapper — quick guide</h3>
+      <p class="help-lead">
+        This tool maps Imperial Computing modules to the 18 ACM/IEEE
+        <strong>CS2023</strong> Knowledge Areas so students and staff can see how the
+        curriculum fits together. Every mapping is an
+        <strong>AI-generated suggestion for decision-support</strong> — you stay in control.
+      </p>
+
+      <div class="help-grid">
+        <div class="help-card">
+          <h4>🧭 Overview <span style="font-weight:400;color:#8794a3">(home)</span></h4>
+          <p>Your starting point: the headline numbers, the best-covered and thinnest areas, and a one-click jump into the Curriculum Map.</p>
+        </div>
+        <div class="help-card">
+          <h4>🕸 Curriculum Map <span style="font-weight:400;color:#8794a3">(the centrepiece)</span></h4>
+          <p>See how modules and concepts relate as an interactive graph. Switch views, filter by programme or year, trace prerequisite chains, and spot clusters.</p>
+        </div>
+        <div class="help-card">
+          <h4>🔍 Explore</h4>
+          <p>Search modules or concepts; open any one to see its outcomes, topics, prerequisites and where each concept is taught.</p>
+        </div>
+        <div class="help-card">
+          <h4>📊 Coverage</h4>
+          <p>How well each Knowledge Area and programme outcome is covered across the curriculum, with the gaps highlighted.</p>
+        </div>
+        <div class="help-card">
+          <h4>✓ Review <span style="font-weight:400;color:#8794a3">(educators)</span></h4>
+          <p>Validate the AI's suggestions: accept, reject or reassign any mapping. Every change is undoable.</p>
+        </div>
+      </div>
+
+      <p class="help-foot">Tip: open this guide any time from the <strong>? Help</strong> button in the header.</p>
+      <div class="modal-actions">
+        <button id="help-got-it" class="btn btn-primary">Got it</button>
+      </div>
+    </div>
+  </div>
+
   <div id="graph-tooltip" class="graph-tooltip hidden"></div>
+  <div id="edge-evidence" class="edge-evidence hidden"></div>
 
   <script type="module" src="/src/main.js"></script>
 </body>

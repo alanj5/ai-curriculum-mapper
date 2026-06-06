@@ -30,10 +30,14 @@ export const api = {
 
   // Modules
   modules: (params = {}) => _get('/modules/', params),
+  programmes: () => _get('/modules/programmes'),
   module: (code) => _get(`/modules/${code}`),
   moduleConcepts: (code) => _get(`/modules/${code}/concepts`),
   moduleAlignments: (code) => _get(`/modules/${code}/alignments`),
   moduleNeighbors: (code) => _get(`/modules/${code}/neighbors`),
+  modulePlos: (code) => _get(`/modules/${code}/plos`),
+  programmeOutcomes: (p) => _get(`/modules/programmes/${p}/outcomes`),
+  ploModules: (id) => _get(`/modules/plos/${id}/modules`),
 
   // Concepts
   concepts: (params = {}) => _get('/concepts/', params),
@@ -48,11 +52,16 @@ export const api = {
   // Graph
   moduleModuleGraph: (params = {}) => _get('/graph/module-module', params),
   bipartiteGraph: (module = null) => _get('/graph/module-concept', module ? { module } : {}),
+  conceptPrerequisites: () => _get('/graph/concept-prerequisites'),
+  conceptNeighbourhood: (id, depth = 2) => _get('/graph/concept-neighbourhood', { concept_id: id, depth }),
+  traceModule: (code) => _get(`/graph/trace/module/${code}`),
+  traceConcept: (id) => _get(`/graph/trace/concept/${id}`),
   communities: () => _get('/graph/communities'),
   centrality: () => _get('/graph/centrality'),
 
   // Reports
   coverage: () => _get('/reports/coverage'),
+  ploCoverage: () => _get('/modules/plo-coverage'),
   gaps: () => _get('/reports/gaps'),
   redundancies: () => _get('/reports/redundancies'),
   summary: () => _get('/reports/summary'),

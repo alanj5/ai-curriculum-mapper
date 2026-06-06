@@ -1,106 +1,62 @@
+import { initRouter, registerRoute } from './router.js';
 import { api } from './api.js';
-import { initGraph, highlightNode, fitGraph, rerunLayout, applyGraphFilter, switchGraphView, setSelectedModuleForGraph } from './components/GraphView.js';
-import { initModulePanel, selectModule, showModuleDetail } from './components/ModulePanel.js';
-import { initAlignmentTable } from './components/AlignmentTable.js';
+import { getKaOptions } from './state.js';
 import { initValidationWidget } from './components/ValidationWidget.js';
-import { initGapReport } from './components/GapReport.js';
+import { mountOverview } from './pages/Overview.js';
+import { mountExplore } from './pages/Explore.js';
+import { mountMap } from './pages/Map.js';
+import { mountCoverage } from './pages/Coverage.js';
+import { mountReview } from './pages/Review.js';
 
-// ── Health check ─────────────────────────────────────────────────
+// ── Health badge ─────────────────────────────────────────────────
 async function checkHealth() {
   const dot = document.querySelector('.dot');
   const text = document.getElementById('health-text');
   try {
     const h = await api.health();
     dot.classList.add('ok');
-    text.textContent = `${h.modules} modules · ${h.concepts} concepts · ${h.alignments} alignments`;
+    text.textContent = `${h.modules} modules · ${h.concepts.toLocaleString()} concepts · ${h.alignments.toLocaleString()} alignments`;
   } catch {
     dot.classList.add('err');
     text.textContent = 'API unreachable';
   }
 }
 
-// ── Tab routing ──────────────────────────────────────────────────
-let _activeTab = 'graph';
-let _gapLoaded = false;
-let _alignmentsLoaded = false;
+// ── Help / onboarding modal ──────────────────────────────────────
+function initHelpModal() {
+  const modal = document.getElementById('help-modal');
+  if (!modal) return;
+  const open = () => modal.classList.remove('hidden');
+  const close = () => modal.classList.add('hidden');
 
-function activateTab(tab) {
-  _activeTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === `tab-${tab}`));
+  document.getElementById('help-btn')?.addEventListener('click', open);
+  document.getElementById('help-close')?.addEventListener('click', close);
+  document.getElementById('help-got-it')?.addEventListener('click', close);
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) close();
+  });
 
-  if (tab === 'gaps' && !_gapLoaded) {
-    _gapLoaded = true;
-    initGapReport();
-  }
-}
-
-// ── Module selection callback ────────────────────────────────────
-function onModuleSelect(code) {
-  showModuleDetail(code);
-  highlightNode(code);
-  setSelectedModuleForGraph(code);
-}
-
-// ── KA list (shared between alignment table and validation widget) ─
-async function getKaOptions() {
-  const coverage = await api.coverage();
-  return coverage.map(c => ({ code: c.ka_code, name: c.ka_name }));
+  // Auto-open once for first-time visitors so the tool is never a blank slate.
+  try {
+    if (!localStorage.getItem('cm_seen_help')) { open(); localStorage.setItem('cm_seen_help', '1'); }
+  } catch { /* localStorage unavailable — skip */ }
 }
 
 // ── Bootstrap ────────────────────────────────────────────────────
-async function main() {
+function main() {
+  registerRoute('overview', mountOverview);
+  registerRoute('explore',  mountExplore);
+  registerRoute('map',      mountMap);
+  registerRoute('coverage', mountCoverage);
+  registerRoute('review',   mountReview);
+
+  initHelpModal();
   checkHealth();
+  initRouter();   // renders the first page immediately
 
-  // Tab buttons
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => activateTab(btn.dataset.tab));
-  });
-
-  // KA names first (used for the per-module CS2023 coverage tooltips), then panel
-  const kaOptions = await getKaOptions();
-  await initModulePanel(onModuleSelect, kaOptions);
-
-  // Validation widget (modal, shared by alignment table)
-  initValidationWidget(kaOptions);
-
-  // Graph tab
-  const cyContainer = document.getElementById('cy');
-  initGraph(cyContainer, (code) => {
-    if (code) {
-      selectModule(code);
-      showModuleDetail(code);
-    } else {
-      showModuleDetail(null);
-    }
-  }).then(() => {
-    // Wire up graph controls once graph is ready
-    document.getElementById('graph-fit-btn').addEventListener('click', () => fitGraph());
-    document.getElementById('graph-layout-btn').addEventListener('click', () => rerunLayout());
-
-    const slider = document.getElementById('edge-threshold');
-    const sliderVal = document.getElementById('edge-threshold-val');
-    slider.addEventListener('input', () => {
-      const v = parseFloat(slider.value);
-      sliderVal.textContent = v.toFixed(2);
-      applyGraphFilter(v);
-    });
-
-    const viewSelect = document.getElementById('graph-view-select');
-    viewSelect.addEventListener('change', () => {
-      switchGraphView(viewSelect.value, null);
-    });
-  }).catch(err => {
-    cyContainer.innerHTML = `<p class="placeholder" style="color:#f87171">Graph unavailable: ${err.message}</p>`;
-  });
-
-  // Alignments tab (lazy — only load once on first tab switch)
-  document.querySelector('[data-tab="alignments"]').addEventListener('click', () => {
-    if (!_alignmentsLoaded) {
-      _alignmentsLoaded = true;
-      initAlignmentTable(kaOptions);
-    }
-  }, { once: true });
+  // Wire the shared reassign modal once, in the background.
+  getKaOptions().then(ka => initValidationWidget(ka)).catch(() => { /* table still usable */ });
 }
 
-main().catch(console.error);
+main();

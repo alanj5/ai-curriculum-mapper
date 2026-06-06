@@ -1,6 +1,6 @@
 import { api } from '../api.js';
 import { isLikelyFragment } from '../util/concepts.js';
-import { reviewModuleAlignments } from './AlignmentTable.js';
+import { navigate } from '../router.js';
 
 let _allModules = [];
 let _selectedCode = null;
@@ -8,14 +8,32 @@ let _onSelect = null;
 let _searchMode = 'modules';   // 'modules' | 'concepts'
 let _kaNames = {};             // ka_code → full Knowledge-Area name
 
+// Where detail views render. The Explore page uses #module-detail-content; the
+// Map drawer passes its own element via the `target` argument.
+function detailHost(target) {
+  return target || document.getElementById('module-detail-content');
+}
+
 export async function initModulePanel(onSelect, kaOptions) {
   _onSelect = onSelect;
+  _searchMode = 'modules';   // reset so the markup's default toggle stays consistent on re-mount
+  _selectedCode = null;
   if (kaOptions) _kaNames = Object.fromEntries(kaOptions.map(k => [k.code, k.name]));
   _allModules = await api.modules({ limit: 100 });
   renderList(_allModules);
 
   const searchInput = document.getElementById('module-search');
   const levelFilter = document.getElementById('level-filter');
+  const programmeFilter = document.getElementById('programme-filter');
+
+  // Populate the programme facet (interim §3.2.4 "filter ... by programme").
+  try {
+    const programmes = await api.programmes();
+    if (programmeFilter) {
+      programmeFilter.innerHTML = '<option value="">All programmes</option>' +
+        programmes.map(p => `<option value="${p.id}">${p.name} (${p.module_count})</option>`).join('');
+    }
+  } catch { /* programmes endpoint unavailable — leave the default option */ }
 
   let debounceTimer;
   searchInput.addEventListener('input', () => {
@@ -23,6 +41,7 @@ export async function initModulePanel(onSelect, kaOptions) {
     debounceTimer = setTimeout(() => applyFilters(), 200);
   });
   levelFilter.addEventListener('change', () => applyFilters());
+  if (programmeFilter) programmeFilter.addEventListener('change', () => applyFilters());
 
   // Modules ↔ Concepts search-mode toggle
   document.querySelectorAll('#search-mode .sm-btn').forEach(btn => {
@@ -33,6 +52,7 @@ export async function initModulePanel(onSelect, kaOptions) {
       const concepts = _searchMode === 'concepts';
       searchInput.placeholder = concepts ? 'Search concepts…' : 'Search modules…';
       levelFilter.style.display = concepts ? 'none' : '';
+      if (programmeFilter) programmeFilter.style.display = concepts ? 'none' : '';
       applyFilters();
     });
   });
@@ -43,9 +63,11 @@ function applyFilters() {
 
   const q = document.getElementById('module-search').value.toLowerCase().trim();
   const level = document.getElementById('level-filter').value;
+  const programme = document.getElementById('programme-filter')?.value || '';
 
   let filtered = _allModules;
   if (level) filtered = filtered.filter(m => String(m.level) === level);
+  if (programme) filtered = filtered.filter(m => (m.programmes || []).includes(programme));
   if (q) {
     filtered = filtered.filter(m =>
       m.code.toLowerCase().includes(q) ||
@@ -59,18 +81,25 @@ function applyFilters() {
 async function applyConceptSearch() {
   const q = document.getElementById('module-search').value.trim();
   const el = document.getElementById('module-list');
+  setListMeta('Searching…');
   el.innerHTML = '<p class="placeholder">Searching…</p>';
   try {
     const concepts = await api.concepts({ search: q, limit: 60 });
     renderConceptList(concepts);
   } catch (e) {
-    el.innerHTML = `<p class="placeholder" style="color:#f87171">Search failed: ${e.message}</p>`;
+    el.innerHTML = `<p class="placeholder error">Search failed: ${e.message}</p>`;
   }
+}
+
+function setListMeta(text) {
+  const m = document.getElementById('list-meta');
+  if (m) m.textContent = text;
 }
 
 function renderConceptList(concepts) {
   const el = document.getElementById('module-list');
   concepts = _cleanConcepts(concepts);
+  setListMeta(`${concepts.length} concept${concepts.length === 1 ? '' : 's'}`);
   if (concepts.length === 0) {
     el.innerHTML = '<p class="placeholder">No concepts match.</p>';
     return;
@@ -78,7 +107,7 @@ function renderConceptList(concepts) {
   el.innerHTML = concepts.map(c => `
     <div class="module-card concept-result" data-concept-id="${c.id}">
       <div class="title">${esc(c.term)}</div>
-      <div class="meta">conf ${(c.confidence * 100).toFixed(0)}% · ${c.module_codes.length} module${c.module_codes.length === 1 ? '' : 's'}</div>
+      <div class="meta">${(c.confidence * 100).toFixed(0)}% confidence · ${c.module_codes.length} module${c.module_codes.length === 1 ? '' : 's'}</div>
     </div>
   `).join('');
 
@@ -89,15 +118,15 @@ function renderConceptList(concepts) {
 
 function renderList(modules) {
   const el = document.getElementById('module-list');
+  setListMeta(`${modules.length} module${modules.length === 1 ? '' : 's'}`);
   if (modules.length === 0) {
     el.innerHTML = '<p class="placeholder">No modules match.</p>';
     return;
   }
   el.innerHTML = modules.map(m => `
     <div class="module-card ${m.code === _selectedCode ? 'selected' : ''}" data-code="${m.code}">
-      <div class="code">${m.code}</div>
-      <div class="title">${m.title}</div>
-      <div class="meta">Level ${m.level} · ${m.credits} credits · ${m.ilo_count} ILOs</div>
+      <div class="title">${esc(m.title)}</div>
+      <div class="meta"><span class="code">${m.code}</span> · Level ${m.level} · ${m.credits} credits</div>
     </div>
   `).join('');
 
@@ -114,77 +143,90 @@ export function selectModule(code) {
   if (_onSelect) _onSelect(code);
 }
 
-export async function showModuleDetail(code) {
-  const container = document.getElementById('module-detail-content');
+export async function showModuleDetail(code, target) {
+  const container = detailHost(target);
+  if (!container) return;
   if (!code) {
-    container.innerHTML = '<p class="placeholder">Select a module to see details.</p>';
+    container.innerHTML = `<div class="detail-empty"><div class="big">📘</div><div>Select a module to see its outcomes, topics and prerequisites.</div></div>`;
     return;
   }
   container.innerHTML = '<p class="placeholder">Loading…</p>';
 
   try {
-    const [detail, concepts, alignments] = await Promise.all([
+    const [detail, concepts, alignments, plos] = await Promise.all([
       api.module(code),
       api.moduleConcepts(code),
       api.moduleAlignments(code),
+      api.modulePlos(code).catch(() => []),
     ]);
 
     const cleaned = _cleanConcepts(concepts);
-    const topConcepts = cleaned.slice(0, 12);
+    const topConcepts = cleaned.slice(0, 14);
 
     // CS2023 coverage profile: the Knowledge Areas this module's concepts map to
-    // (primary, rank-1 alignments), most-covered first — the curriculum mapping
-    // made concrete for this module.
+    // (primary, rank-1 alignments), most-covered first.
     const kaCounts = {};
-    for (const a of alignments) {
-      if (a.rank === 1) kaCounts[a.ka_code] = (kaCounts[a.ka_code] || 0) + 1;
-    }
+    for (const a of alignments) if (a.rank === 1) kaCounts[a.ka_code] = (kaCounts[a.ka_code] || 0) + 1;
     const kaList = Object.entries(kaCounts).sort((a, b) => b[1] - a[1]);
     const nMappings = alignments.filter(a => a.rank === 1).length;
 
     container.innerHTML = `
-      <h2>${detail.code}</h2>
-      <p style="font-size:12.5px; color:#94a3b8; margin-bottom:8px">${detail.title}</p>
-      <div class="detail-stat">
-        <span>Level ${detail.level}</span>·
-        <span>${detail.credits} ECTS credits</span>
-      </div>
-      ${detail.description ? `<p style="font-size:12px; color:#64748b; margin-bottom:10px">${detail.description}</p>` : ''}
-
-      ${kaList.length ? `
-        <h3>CS2023 Coverage <span style="font-weight:400; color:#64748b; font-size:11px">(${kaList.length} Knowledge Area${kaList.length === 1 ? '' : 's'})</span></h3>
-        <div class="ka-profile">
-          ${kaList.map(([ka, n]) => `<span class="ka-chip" title="${esc(_kaNames[ka] || ka)} — ${n} concept${n === 1 ? '' : 's'} map here">${ka}<span class="ka-chip-n">${n}</span></span>`).join('')}
+      <div class="detail-card">
+        <div class="dc-code">${detail.code}</div>
+        <h2 class="dc-title">${esc(detail.title)}</h2>
+        <div class="detail-stat">
+          <span class="pill">Level ${detail.level}</span>
+          <span class="pill">${detail.credits} ECTS credits</span>
+          <span class="pill">${detail.ilos.length} learning outcomes</span>
         </div>
-      ` : ''}
+        ${detail.description ? `<p class="dc-desc">${esc(detail.description)}</p>` : ''}
 
-      <h3>ILOs (${detail.ilos.length})</h3>
-      <ul class="ilo-list">
-        ${detail.ilos.map(ilo => `
-          <li class="ilo-item">${ilo.text}</li>
-        `).join('')}
-      </ul>
+        ${kaList.length ? `
+          <div class="dc-section">
+            <h3>CS2023 coverage <span class="h-note">— Knowledge Areas this module teaches (${kaList.length})</span></h3>
+            <div class="ka-profile">
+              ${kaList.map(([ka, n]) => `<span class="ka-chip" title="${esc(_kaNames[ka] || ka)} — ${n} concept${n === 1 ? '' : 's'} map here">${ka}<span class="ka-chip-n">${n}</span></span>`).join('')}
+            </div>
+          </div>` : ''}
 
-      <h3>Top Concepts <span style="font-weight:400; color:#64748b; font-size:11px">(click to explore)</span></h3>
-      <div style="margin-top:4px">
-        ${topConcepts.map(c => `
-          <span class="concept-chip concept-chip-clickable" data-concept-id="${c.id}" title="confidence: ${c.confidence.toFixed(3)} — click to explore">${esc(c.term)}</span>
-        `).join('')}
-        ${cleaned.length > 12 ? `<span class="concept-chip" style="color:#64748b">+${cleaned.length - 12} more</span>` : ''}
-      </div>
+        ${plos && plos.length ? `
+          <div class="dc-section">
+            <h3>Programme outcomes fulfilled <span class="h-note">(${plos.length})</span></h3>
+            <div class="ka-profile">
+              ${plos.map(p => `<span class="ka-chip plo-chip" title="${esc(p.description)} (semantic match ${p.score.toFixed(2)})">${esc(p.code)} · ${esc(p.title)}</span>`).join('')}
+            </div>
+          </div>` : ''}
 
-      ${detail.prerequisites && detail.prerequisites.length > 0 ? `
-        <h3>Prerequisites</h3>
-        <div style="margin-top:4px">
-          ${detail.prerequisites.map(p => `<span class="concept-chip prereq-chip" data-prereq="${esc(p)}" title="Go to ${esc(p)}">${esc(p)}</span>`).join('')}
+        <div class="dc-section">
+          <h3>Learning outcomes <span class="h-note">(${detail.ilos.length})</span></h3>
+          <ul class="ilo-list">
+            ${detail.ilos.map(ilo => `<li class="ilo-item">${esc(ilo.text)}</li>`).join('')}
+          </ul>
         </div>
-      ` : ''}
 
-      ${nMappings ? `<button class="btn btn-review" id="review-aligns" data-code="${detail.code}">Review this module's ${nMappings} mappings →</button>` : ''}
+        <div class="dc-section">
+          <h3>Key concepts <span class="h-note">— click any to explore where it's taught</span></h3>
+          <div class="chip-wrap">
+            ${topConcepts.map(c => `<span class="concept-chip concept-chip-clickable" data-concept-id="${c.id}" title="confidence ${(c.confidence * 100).toFixed(0)}% — click to explore">${esc(c.term)}</span>`).join('')}
+            ${cleaned.length > 14 ? `<span class="concept-chip" style="color:var(--muted)">+${cleaned.length - 14} more</span>` : ''}
+          </div>
+        </div>
+
+        ${detail.prerequisites && detail.prerequisites.length > 0 ? `
+          <div class="dc-section">
+            <h3>Prerequisites</h3>
+            <div class="chip-wrap">
+              ${detail.prerequisites.map(p => `<span class="concept-chip prereq-chip" data-prereq="${esc(p)}" title="Go to ${esc(p)}">${esc(p)}</span>`).join('')}
+            </div>
+          </div>` : ''}
+
+        <button class="btn-action" id="trace-prereq" data-code="${detail.code}">Trace prerequisite chain on the map →</button>
+        ${nMappings ? `<button class="btn-action" id="review-aligns" data-code="${detail.code}">Review this module's ${nMappings} AI mappings →</button>` : ''}
+      </div>
     `;
 
     container.querySelectorAll('.concept-chip-clickable').forEach(chip => {
-      chip.addEventListener('click', () => showConceptDetail(chip.dataset.conceptId, code));
+      chip.addEventListener('click', () => showConceptDetail(chip.dataset.conceptId, code, target));
     });
     container.querySelectorAll('.prereq-chip').forEach(chip => {
       chip.addEventListener('click', () => {
@@ -192,20 +234,19 @@ export async function showModuleDetail(code) {
         if (_allModules.some(m => m.code === c)) selectModule(c);
       });
     });
-    const reviewBtn = container.querySelector('#review-aligns');
-    if (reviewBtn) reviewBtn.addEventListener('click', () => reviewModuleAlignments(reviewBtn.dataset.code));
+    container.querySelector('#review-aligns')?.addEventListener('click', e => navigate('review', { module: e.target.dataset.code }));
+    container.querySelector('#trace-prereq')?.addEventListener('click', e => navigate('map', { view: 'level', trace: e.target.dataset.code }));
   } catch (e) {
-    container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load: ${e.message}</p>`;
+    container.innerHTML = `<p class="placeholder error">Failed to load: ${e.message}</p>`;
   }
 }
 
-// ── Concept detail (click a concept chip to explore its mapping) ──────
-// Shows the concept's CS2023 alignment, synonym variants, and every module
-// that teaches it, ordered by level so progression (introduced → reinforced)
-// is visible — delivering the concept-centric exploration promised for
-// students in the interim report.
-export async function showConceptDetail(conceptId, fromModule = null) {
-  const container = document.getElementById('module-detail-content');
+// ── Concept detail ────────────────────────────────────────────────────
+// The concept's CS2023 alignment, merged variants, and every module that teaches
+// it ordered by level so progression (introduced → reinforced) is visible.
+export async function showConceptDetail(conceptId, fromModule = null, target) {
+  const container = detailHost(target);
+  if (!container) return;
   container.innerHTML = '<p class="placeholder">Loading…</p>';
 
   try {
@@ -214,7 +255,6 @@ export async function showConceptDetail(conceptId, fromModule = null) {
       api.conceptAlignments(conceptId),
     ]);
 
-    // Resolve the modules that teach this concept, ordered by level.
     const byCode = new Map(_allModules.map(m => [m.code, m]));
     const teaching = (concept.module_codes || [])
       .map(c => byCode.get(c) || { code: c, title: '', level: null })
@@ -231,61 +271,65 @@ export async function showConceptDetail(conceptId, fromModule = null) {
     };
 
     const backLink = fromModule
-      ? `<a class="back-link" data-back="${fromModule}">← Back to ${fromModule}</a>`
+      ? `<a class="back-link" data-back="${esc(fromModule)}">← Back to ${esc(fromModule)}</a>`
       : '';
 
     container.innerHTML = `
-      ${backLink}
-      <h2>${esc(concept.term)}</h2>
-      <p style="font-size:12.5px; color:#94a3b8; margin-bottom:8px">Extracted concept</p>
-      <div class="detail-stat">
-        <span>confidence ${(concept.confidence * 100).toFixed(0)}%</span>·
-        <span>${concept.module_codes.length} module${concept.module_codes.length === 1 ? '' : 's'}</span>
-      </div>
-
-      <h3>CS2023 Alignment</h3>
-      ${top ? `
-        <div class="concept-align-row">
-          <span class="align-ka">${top.ka_code}</span>
-          <span class="align-topic">${esc(top.ka_topic || '')}</span>
-          <span class="align-score">${top.score.toFixed(3)}</span>
-          ${statusBadge(top)}
+      <div class="detail-card">
+        ${backLink}
+        <div class="dc-code">Extracted concept</div>
+        <h2 class="dc-title">${esc(concept.term)}</h2>
+        <div class="detail-stat">
+          <span class="pill">${(concept.confidence * 100).toFixed(0)}% confidence</span>
+          <span class="pill">taught in ${concept.module_codes.length} module${concept.module_codes.length === 1 ? '' : 's'}</span>
         </div>
-        <p style="font-size:11px; color:#64748b; margin-top:4px">Suggested mapping — review in the Alignments tab.</p>
-      ` : '<p class="placeholder">No alignment recorded.</p>'}
 
-      ${concept.variants && concept.variants.length > 1 ? `
-        <h3>Variants merged</h3>
-        <div style="margin-top:4px">
-          ${concept.variants.map(v => `<span class="concept-chip">${esc(v)}</span>`).join('')}
+        <button class="btn-action" id="explore-prereq">Explore its prerequisites on the map →</button>
+
+        <div class="dc-section">
+          <h3>CS2023 alignment</h3>
+          ${top ? `
+            <div class="concept-align-row">
+              <span class="align-ka">${top.ka_code}</span>
+              <span class="align-topic">${esc(top.ka_topic || '')}</span>
+              <span class="align-score">${top.score.toFixed(3)}</span>
+              ${statusBadge(top)}
+            </div>
+            <p class="section-sub" style="margin:8px 0 0">Suggested mapping — review on the Review page.</p>
+          ` : '<p class="placeholder">No alignment recorded.</p>'}
         </div>
-      ` : ''}
 
-      <h3>Taught in ${teaching.length} module${teaching.length === 1 ? '' : 's'} <span style="font-weight:400; color:#64748b; font-size:11px">(by level)</span></h3>
-      <div class="concept-modules">
-        ${teaching.map(m => `
-          <div class="concept-mod-card" data-code="${m.code}">
-            <div><span class="code">${m.code}</span> <span class="cm-title">${esc(m.title || '')}</span></div>
-            <div class="cm-meta">${m.level != null ? `Level ${m.level}` : ''}${m.level === introLevel && m.level != null ? ' · introduced here' : ''}</div>
+        ${concept.variants && concept.variants.length > 1 ? `
+          <div class="dc-section">
+            <h3>Variants merged into this concept</h3>
+            <div class="chip-wrap">${concept.variants.map(v => `<span class="concept-chip">${esc(v)}</span>`).join('')}</div>
+          </div>` : ''}
+
+        <div class="dc-section">
+          <h3>Taught in ${teaching.length} module${teaching.length === 1 ? '' : 's'} <span class="h-note">— ordered by level</span></h3>
+          <div class="concept-modules">
+            ${teaching.map(m => `
+              <div class="concept-mod-card" data-code="${m.code}">
+                <div><span class="code">${m.code}</span> <span class="cm-title">${esc(m.title || '')}</span></div>
+                <div class="cm-meta">${m.level != null ? `Level ${m.level}` : ''}${m.level === introLevel && m.level != null ? ' · introduced here' : ''}</div>
+              </div>
+            `).join('')}
           </div>
-        `).join('')}
+        </div>
       </div>
     `;
 
-    const back = container.querySelector('.back-link');
-    if (back) back.addEventListener('click', () => showModuleDetail(back.dataset.back));
+    container.querySelector('.back-link')?.addEventListener('click', e => showModuleDetail(e.target.dataset.back, target));
     container.querySelectorAll('.concept-mod-card').forEach(card => {
       card.addEventListener('click', () => selectModule(card.dataset.code));
     });
+    container.querySelector('#explore-prereq')?.addEventListener('click', () => navigate('map', { view: 'concept-prereq', concept: conceptId }));
   } catch (e) {
-    container.innerHTML = `<p class="placeholder" style="color:#f87171">Failed to load concept: ${e.message}</p>`;
+    container.innerHTML = `<p class="placeholder error">Failed to load concept: ${e.message}</p>`;
   }
 }
 
-// ── Display-only concept cleanup ──────────────────────────────────────
-// Suppress ILO sentence-fragments from the concept chips and search for
-// readability only (shared heuristic, see util/concepts.js). Never blank the
-// view: fall back to the original list if everything looks like a fragment.
+// ── Display-only concept cleanup (shared heuristic, see util/concepts.js) ──
 function _cleanConcepts(list) {
   const filtered = list.filter(c => !isLikelyFragment(c.term));
   return filtered.length ? filtered : list;

@@ -1,5 +1,6 @@
 import { api } from '../api.js';
-import { acceptAlignment, rejectAlignment, openReassignModal } from './ValidationWidget.js';
+import { acceptAlignment, rejectAlignment, resetAlignment, openReassignModal } from './ValidationWidget.js';
+import { showUndoToast } from './Toast.js';
 
 let _sortCol = 'score';
 let _sortDir = -1; // -1 = desc
@@ -20,14 +21,12 @@ export async function initAlignmentTable(kaOptions) {
   await loadTable();
 }
 
-// Open the Alignments tab scoped to one module — the natural unit of curriculum
-// review (an educator validates a whole course's mappings at once). Called from
-// the module detail panel.
+// Scope the review table to a single module — the natural unit of curriculum
+// review (an educator validates a whole course's mappings at once). Pass null to
+// clear the scope. Routing to the Review page is handled by the caller.
 export function reviewModuleAlignments(code) {
-  _moduleFilter = code;
-  const wasInit = _initialised;            // capture before the click may lazy-init the table
-  document.querySelector('.tab-btn[data-tab="alignments"]').click();
-  if (wasInit) loadTable();                // already built → re-filter now (else init's loadTable does it)
+  _moduleFilter = code || null;
+  if (_initialised) loadTable();
 }
 
 function clearModuleFilter() {
@@ -134,15 +133,20 @@ function renderTable(alignments, ka, ambiguousVal, validatedVal) {
     });
   });
 
-  // Action buttons
+  // Action buttons. Accept/reject show a 5-second Undo toast so an accidental
+  // click is recoverable without manual DB intervention.
   container.querySelectorAll('.btn-accept').forEach(btn => {
-    btn.addEventListener('click', () => {
-      acceptAlignment(btn.dataset.id, () => loadTable());
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      if (await acceptAlignment(id, () => loadTable()))
+        showUndoToast('Marked as accepted', () => resetAlignment(id, () => loadTable()));
     });
   });
   container.querySelectorAll('.btn-reject').forEach(btn => {
-    btn.addEventListener('click', () => {
-      rejectAlignment(btn.dataset.id, () => loadTable());
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      if (await rejectAlignment(id, () => loadTable()))
+        showUndoToast('Marked as rejected', () => resetAlignment(id, () => loadTable()));
     });
   });
   container.querySelectorAll('.btn-reassign').forEach(btn => {

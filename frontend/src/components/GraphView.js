@@ -5,6 +5,9 @@ import { isLikelyFragment } from '../util/concepts.js';
 
 cytoscape.use(fcose);
 
+// Close the edge-evidence popover on Escape (registered once).
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideEdgeEvidence(); });
+
 const COMMUNITY_COLORS = [
   '#5b8dee', '#7c6af6', '#34d399', '#fbbf24', '#f87171',
   '#60a5fa', '#a78bfa', '#6ee7b7', '#fcd34d', '#fca5a5',
@@ -19,15 +22,48 @@ const LAYOUT_OPTS = {
   animate: true,
   animationDuration: 800,
   quality: 'proof',
-  nodeRepulsion: 600000,
-  idealEdgeLength: 120,
-  edgeElasticity: 0.45,
+  // Reserve space for the (now title-based) labels so nodes don't overlap them,
+  // and push nodes further apart for a calmer, more legible layout.
+  nodeDimensionsIncludeLabels: true,
+  nodeRepulsion: 1400000,
+  idealEdgeLength: 200,
+  nodeSeparation: 240,
+  edgeElasticity: 0.4,
   nestingFactor: 0.1,
-  gravity: 0.15,
-  gravityRange: 3.8,
-  numIter: 3000,
-  tile: false,
+  gravity: 0.12,
+  gravityRange: 4.2,
+  numIter: 5000,
+  packComponents: true,
+  tile: true,
+  tilingPaddingVertical: 24,
+  tilingPaddingHorizontal: 24,
 };
+
+// Word-safe label: prefer the human title, never cut mid-word. Used for graph
+// node labels so people see "Robotics" not "IC60019", and full concept terms
+// instead of "complexity classes p".
+function nodeLabel(text, fallback = '', maxChars = 34) {
+  const t = String(text || fallback || '').trim();
+  if (t.length <= maxChars) return t;
+  const cut = t.slice(0, maxChars);
+  const sp = cut.lastIndexOf(' ');
+  return (sp > Math.floor(maxChars * 0.45) ? cut.slice(0, sp) : cut).replace(/[\s,;:]+$/, '') + '…';
+}
+
+// Build a code→level lookup so prerequisite edges can be oriented from the
+// earlier (lower-level) module to the later one, giving the dashed edge a
+// meaningful arrow direction (prerequisite → dependent).
+function levelByCode(nodes) {
+  const m = {};
+  for (const n of nodes) m[n.data.id] = n.data.level ?? 99;
+  return m;
+}
+function orientPrereq(d, lv) {
+  if (d.type === 'prerequisite' && (lv[d.source] ?? 99) > (lv[d.target] ?? 99)) {
+    return { source: d.target, target: d.source };
+  }
+  return { source: d.source, target: d.target };
+}
 
 let _cy = null;
 let _edgeThreshold = 0.0;
@@ -39,6 +75,31 @@ let _confMin = 0;        // confidence range of the current bipartite concept se
 let _confMax = 1;
 let _levelPositions = {}; // module-code → {x,y} for the level-progression preset layout
 let _pinnedId = null;     // module pinned by click (focus persists on mouse-out)
+const _conceptCache = {}; // module-code → concept list (for edge-evidence popover)
+let _centerConcept = null;        // concept id at the centre of the concept-prereq view
+let _conceptPrereqPositions = {};  // concept id → {x,y} for the concept-prereq preset layout
+let _programmeCodes = null;       // Set of module codes to show (programme filter), or null = all
+
+// Programme filter: hide module nodes (and their edges) not in `codes` (a Set);
+// null shows everything. Persisted in `_programmeCodes` and re-applied on every
+// view (re)render so it survives layout/view switches.
+export function setVisibleModules(codes) {
+  _programmeCodes = codes && codes.size ? codes : null;
+  _applyProgrammeFilter();
+}
+
+function _applyProgrammeFilter() {
+  if (!_cy) return;
+  _cy.nodes().forEach(n => {
+    if (n.data('nodeType') === 'concept') return;  // module views only
+    n.toggleClass('prog-hidden', !!(_programmeCodes && !_programmeCodes.has(n.id())));
+  });
+  _cy.edges().forEach(e => {
+    const hide = _programmeCodes &&
+      (e.source().hasClass('prog-hidden') || e.target().hasClass('prog-hidden'));
+    e.toggleClass('prog-hidden', !!hide);
+  });
+}
 
 // Normalise a confidence value to [0,1] over the current concept set so the
 // size/colour encoding uses the full visual range even when scores cluster.
@@ -71,14 +132,14 @@ async function _loadView(container, view, moduleCode) {
 
   if (view === 'bipartite') {
     if (!moduleCode) {
-      if (hint) hint.textContent = 'Select a module from the list to see its concepts';
+      if (hint) hint.textContent = 'Choose a module above to see its concepts';
       if (thresholdLabel) thresholdLabel.style.display = 'none';
       if (legend) legend.innerHTML = '';
       if (edgeLegend) edgeLegend.style.display = 'none';
       if (_cy) _cy.destroy();
       _cy = null;
       const cy = document.getElementById('cy');
-      if (cy) cy.innerHTML = '<p class="placeholder">Select a module on the left to explore its concept graph.</p>';
+      if (cy) cy.innerHTML = '<p class="placeholder">Pick a module from the “Choose a module…” dropdown above to see the concepts it teaches.</p>';
       return null;
     }
     data = await api.bipartiteGraph(moduleCode);
@@ -94,9 +155,10 @@ async function _loadView(container, view, moduleCode) {
     if (thresholdLabel) thresholdLabel.style.display = '';
     _calibrateConfidenceSlider();
     if (legend) legend.innerHTML =
-      '<div class="legend-item"><div class="legend-dot" style="background:#5b8dee"></div><span>Module</span></div>' +
-      '<div class="legend-item"><div class="legend-dot" style="background:#475569"></div><span>Low conf.</span></div>' +
-      '<div class="legend-item"><div class="legend-dot" style="background:#5b8dee"></div><span>High conf.</span></div>';
+      '<div class="lg-title">This module’s concepts</div>' +
+      '<div class="legend-item"><div class="legend-dot" style="background:#003e74"></div><span>The module</span></div>' +
+      '<div class="legend-item"><div class="legend-dot" style="background:#47556b"></div><span>Lower confidence</span></div>' +
+      '<div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div><span>Higher confidence (bigger)</span></div>';
     // Bipartite edges mean "module teaches concept", so the similarity/prerequisite
     // edge legend does not apply here.
     if (edgeLegend) edgeLegend.style.display = 'none';
@@ -110,6 +172,42 @@ async function _loadView(container, view, moduleCode) {
     _calibrateEdgeSlider(data.edges);
     buildLevelLegend(data.nodes);
     if (edgeLegend) edgeLegend.style.display = '';
+  } else if (view === 'concept-prereq') {
+    if (!_centerConcept) {
+      if (hint) hint.textContent = 'Search a concept above to see what it builds on and what builds on it.';
+      if (thresholdLabel) thresholdLabel.style.display = 'none';
+      if (legend) legend.innerHTML = '';
+      if (edgeLegend) edgeLegend.style.display = 'none';
+      if (_cy) _cy.destroy();
+      _cy = null;
+      const cy = document.getElementById('cy');
+      if (cy) cy.innerHTML = '<p class="placeholder">Search for a concept in the box above — for example “dynamic programming”, “recursion” or “machine learning” — to see its prerequisite concepts (what you need first) and the concepts that build on it.</p>';
+      return null;
+    }
+    // Depth 1 keeps the view legible (immediate prerequisites + dependents);
+    // clicking a neighbour recentres, so the chain is still fully walkable.
+    data = await api.conceptNeighbourhood(_centerConcept, 1);
+    if (!data.nodes || data.nodes.length === 0) {
+      if (hint) hint.textContent = 'No prerequisite/subsequent concepts were inferred for this concept.';
+      if (thresholdLabel) thresholdLabel.style.display = 'none';
+      if (legend) legend.innerHTML = '';
+      if (edgeLegend) edgeLegend.style.display = 'none';
+      if (_cy) _cy.destroy();
+      _cy = null;
+      const cy = document.getElementById('cy');
+      if (cy) cy.innerHTML = '<p class="placeholder">No prerequisite or subsequent concepts were inferred for this concept. Try a more central concept (e.g. from a module\'s top concepts).</p>';
+      return null;
+    }
+    elements = buildConceptPrereqElements(data);
+    style = buildConceptPrereqStyle();
+    if (hint) hint.textContent = 'Prerequisite concepts (left) → this concept → subsequent concepts (right). Arrows point prerequisite → dependent; click a concept to recentre.';
+    if (thresholdLabel) thresholdLabel.style.display = 'none';
+    if (legend) legend.innerHTML =
+      '<div class="lg-title">Prerequisite flow</div>' +
+      '<div class="legend-item"><div class="legend-dot" style="background:#d99a00"></div><span>Prerequisite (need first)</span></div>' +
+      '<div class="legend-item"><div class="legend-dot" style="background:#003e74"></div><span>This concept</span></div>' +
+      '<div class="legend-item"><div class="legend-dot" style="background:#157f3d"></div><span>Builds on it (subsequent)</span></div>';
+    if (edgeLegend) edgeLegend.style.display = 'none';
   } else {
     data = await api.moduleModuleGraph({ include_centrality: true, include_communities: true });
     _allEdgeData = data.edges;
@@ -127,8 +225,8 @@ async function _loadView(container, view, moduleCode) {
   // otherwise the "Select a module…" hint can remain visible behind the canvas.
   const cyEl = container || document.getElementById('cy');
   if (cyEl) cyEl.innerHTML = '';
-  const layout = view === 'level'
-    ? { name: 'preset', positions: _levelPositions, fit: true, padding: 50, animate: false }
+  const layout = (view === 'level' || view === 'concept-prereq')
+    ? { name: 'preset', positions: view === 'level' ? _levelPositions : _conceptPrereqPositions, fit: true, padding: 50, animate: false }
     : { ...LAYOUT_OPTS, randomize: true };
   _cy = cytoscape({
     container: cyEl,
@@ -142,6 +240,7 @@ async function _loadView(container, view, moduleCode) {
 
   _setupTooltip();
   if (_onNodeClick) _setupInteractions(_onNodeClick);
+  _applyProgrammeFilter();  // re-apply any active programme filter to the new view
   return _cy;
 }
 
@@ -158,6 +257,47 @@ export function setSelectedModuleForGraph(moduleCode) {
     const container = document.getElementById('cy');
     _loadView(container, 'bipartite', moduleCode);
   }
+}
+
+// One-click prerequisite-chain trace (interim §2.7.2): highlight a module's full
+// transitive prerequisite chain (upstream) and dependents (downstream) in the
+// graph, fading everything else. Uses the level view so prerequisite edges show.
+export async function traceModuleChain(code) {
+  if (_currentView !== 'level' && _currentView !== 'module-module') {
+    await switchGraphView('level', null);
+  }
+  if (!_cy) return;
+  let trace;
+  try { trace = await api.traceModule(code); } catch { return; }
+  const upstream = new Set(trace.upstream || []);
+  const downstream = new Set(trace.downstream || []);
+  const chain = new Set([trace.center, ...upstream, ...downstream]);
+  _pinnedId = null;
+  _cy.batch(() => {
+    _cy.nodes().removeClass('selected dimmed');
+    _cy.edges().removeClass('highlighted dimmed');
+    _cy.nodes().forEach(n => n.addClass(chain.has(n.id()) ? 'selected' : 'dimmed'));
+    _cy.edges().forEach(e => {
+      const inChain = chain.has(e.source().id()) && chain.has(e.target().id());
+      e.addClass(inChain ? 'highlighted' : 'dimmed');
+    });
+  });
+  const sel = _cy.nodes('.selected');
+  if (sel.length) _cy.fit(sel, 60);
+  const hint = document.getElementById('graph-hint');
+  if (hint) hint.textContent = `Prerequisite chain for ${code}: ${upstream.size} upstream (need first), ${downstream.size} downstream (build on it), depth ${trace.chain_depth}.`;
+}
+
+// Open the directed concept-prerequisite neighbourhood centred on a concept —
+// the interim §3.2.4 "click a concept to reveal its neighbourhood of
+// prerequisite/subsequent concepts".
+export function showConceptNeighbourhood(conceptId) {
+  _centerConcept = conceptId;
+  _currentView = 'concept-prereq';
+  const sel = document.getElementById('graph-view-select');
+  if (sel) sel.value = 'concept-prereq';
+  const container = document.getElementById('cy');
+  return _loadView(container, 'concept-prereq', null);
 }
 
 // ── Public controls ──────────────────────────────────────────────
@@ -293,6 +433,11 @@ function _applyConfidenceFilter(threshold) {
 function _setupInteractions(onNodeClick) {
   _cy.on('tap', 'node', (evt) => {
     const node = evt.target;
+    // In the concept-prerequisite view, clicking a concept recentres on it.
+    if (_currentView === 'concept-prereq') {
+      showConceptNeighbourhood(node.data('id'));
+      return;
+    }
     // Concept nodes (bipartite view) are not modules — ignore clicks so we do
     // not fire a /modules/<concept-uuid> request (which 404s).
     if (node.data('nodeType') === 'concept') return;
@@ -314,13 +459,86 @@ function _setupInteractions(onNodeClick) {
     _applyFocus(_pinnedId, true);   // restore the pinned focus, or clear if none
   });
 
+  // Click a module-module / level edge to reveal the concepts the two modules
+  // share — the evidence behind the similarity (or prerequisite) link
+  // (interim §2.7.2: "clicking an edge could display supporting evidence").
+  _cy.on('tap', 'edge', (evt) => {
+    if (_currentView === 'bipartite') return;  // bipartite edges are module→concept
+    const d = evt.target.data();
+    const src = _cy.getElementById(d.source).data('code') || _cy.getElementById(d.source).data('label') || d.source;
+    const tgt = _cy.getElementById(d.target).data('code') || _cy.getElementById(d.target).data('label') || d.target;
+    const e = evt.originalEvent;
+    showEdgeEvidence(src, tgt, d.type, e ? e.clientX : 200, e ? e.clientY : 200);
+  });
+
   _cy.on('tap', (evt) => {
     if (evt.target === _cy) {
       _pinnedId = null;
       _applyFocus(null);
       onNodeClick(null);
+      hideEdgeEvidence();
     }
   });
+}
+
+async function _moduleConcepts(code) {
+  if (!_conceptCache[code]) _conceptCache[code] = await api.moduleConcepts(code);
+  return _conceptCache[code];
+}
+
+function hideEdgeEvidence() {
+  document.getElementById('edge-evidence')?.classList.add('hidden');
+}
+
+// Show the concepts shared by two modules in a small pinned popover near the
+// click. Shared concepts are canonical, so a concept of module A whose
+// module_codes also include B is taught by both.
+async function showEdgeEvidence(srcCode, tgtCode, type, clientX, clientY) {
+  const panel = document.getElementById('edge-evidence');
+  if (!panel) return;
+  const rel = type === 'prerequisite' ? 'prerequisite link' : 'concept overlap';
+  panel.classList.remove('hidden');
+  panel.innerHTML = `<div class="ee-head"><span class="ee-title">${srcCode} ↔ ${tgtCode}</span>
+    <button class="ee-close" title="Close">✕</button></div><p class="ee-empty">Loading shared concepts…</p>`;
+  _placePopover(panel, clientX, clientY);
+  panel.querySelector('.ee-close').addEventListener('click', hideEdgeEvidence);
+
+  let shared = [];
+  try {
+    const concepts = await _moduleConcepts(srcCode);
+    shared = concepts
+      .filter(c => (c.module_codes || []).includes(tgtCode))
+      .sort((a, b) => (b.confidence ?? 0) - (a.confidence ?? 0));
+  } catch {
+    panel.querySelector('.ee-empty')?.replaceChildren(document.createTextNode('Could not load concepts.'));
+    return;
+  }
+
+  const body = shared.length
+    ? `<div class="ee-chips">${shared.slice(0, 30)
+        .map(c => `<span class="ee-chip">${_esc(c.term)}</span>`).join('')}</div>`
+    : '<p class="ee-empty">No directly shared concepts — this link reflects a prerequisite or weak overlap.</p>';
+  panel.innerHTML = `<div class="ee-head">
+      <span class="ee-title">${_esc(srcCode)} ↔ ${_esc(tgtCode)}</span>
+      <button class="ee-close" title="Close">✕</button></div>
+    <p class="ee-meta" style="font-size:11px;color:#94a3b8;margin-bottom:6px">${shared.length} shared concept${shared.length === 1 ? '' : 's'} · ${rel}</p>
+    ${body}`;
+  panel.querySelector('.ee-close').addEventListener('click', hideEdgeEvidence);
+  _placePopover(panel, clientX, clientY);
+}
+
+function _placePopover(panel, x, y) {
+  const pad = 14;
+  const w = panel.offsetWidth || 280, h = panel.offsetHeight || 120;
+  let left = x + pad, top = y + pad;
+  if (left + w > window.innerWidth - 8) left = x - w - pad;
+  if (top + h > window.innerHeight - 8) top = Math.max(8, y - h - pad);
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+}
+
+function _esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function _setupTooltip() {
@@ -362,8 +580,8 @@ function _setupTooltip() {
     const d = evt.target.data();
     // Resolve endpoint labels (module code or concept term) so we never show
     // raw concept UUIDs in the bipartite view.
-    const srcLabel = _cy.getElementById(d.source).data('label') || d.source;
-    const tgtLabel = _cy.getElementById(d.target).data('label') || d.target;
+    const srcLabel = _cy.getElementById(d.source).data('code') || _cy.getElementById(d.source).data('label') || d.source;
+    const tgtLabel = _cy.getElementById(d.target).data('code') || _cy.getElementById(d.target).data('label') || d.target;
     if (_currentView === 'bipartite') {
       tooltip.innerHTML = `
         <div class="tt-meta"><strong>${srcLabel}</strong> teaches</div>
@@ -422,7 +640,8 @@ function buildBipartiteElements(data) {
   const nodes = [...(moduleNode ? [moduleNode] : []), ...conceptNodes].map(n => ({
     data: {
       id: n.data.id,
-      label: n.data.type === 'module' ? n.data.id : (n.data.term || n.data.id).slice(0, 22),
+      code: n.data.type === 'module' ? n.data.id : undefined,
+      label: n.data.type === 'module' ? n.data.id : nodeLabel(n.data.term || n.data.id, '', 30),
       nodeType: n.data.type || 'concept',
       title: n.data.title || n.data.term || '',
       level: n.data.level ?? null,
@@ -447,13 +666,13 @@ function buildBipartiteStyle() {
     {
       selector: 'node[nodeType = "module"]',
       style: {
-        'background-color': '#5b8dee',
-        'width': 48, 'height': 48,
+        'background-color': '#003e74',
+        'width': 54, 'height': 54,
         'label': 'data(label)',
         'font-size': '14px', 'font-weight': 700,
-        'color': '#e2e8f0',
+        'color': '#ffffff',
         'text-valign': 'center', 'text-halign': 'center',
-        'text-outline-color': '#0f1117', 'text-outline-width': 2,
+        'text-outline-color': '#002f59', 'text-outline-width': 2,
         'cursor': 'pointer',
         'z-index': 10,
       },
@@ -463,24 +682,25 @@ function buildBipartiteStyle() {
       style: {
         // Size and colour both encode extraction confidence (bigger/brighter = higher).
         'background-color': (ele) => _confColor(ele.data('confidence')),
-        'border-width': 1, 'border-color': '#64748b',
-        'width': (ele) => 12 + _normConf(ele.data('confidence')) * 26,
-        'height': (ele) => 12 + _normConf(ele.data('confidence')) * 26,
+        'border-width': 1, 'border-color': '#94a3b8',
+        'width': (ele) => 12 + _normConf(ele.data('confidence')) * 28,
+        'height': (ele) => 12 + _normConf(ele.data('confidence')) * 28,
         'label': 'data(label)',
-        'font-size': '11px',
-        'color': '#cbd5e1',
+        'font-size': '11px', 'font-weight': 600,
+        'color': '#1b2430',
         'text-valign': 'bottom', 'text-halign': 'center',
         'text-margin-y': 4,
-        'text-outline-color': '#0f1117', 'text-outline-width': 1,
+        'text-wrap': 'wrap', 'text-max-width': '100px',
+        'text-outline-color': '#ffffff', 'text-outline-width': 2,
         'cursor': 'default',
       },
     },
     {
       selector: 'edge',
       style: {
-        'line-color': '#3a3f5c',
+        'line-color': '#cbd5e1',
         'width': (ele) => 0.5 + (ele.data('weight') ?? 0) * 1.5,
-        'opacity': 0.5,
+        'opacity': 0.6,
         'curve-style': 'haystack',
       },
     },
@@ -496,7 +716,8 @@ function buildElements(data) {
   const nodes = data.nodes.map(n => ({
     data: {
       id: n.data.id,
-      label: n.data.id,
+      code: n.data.id,
+      label: nodeLabel(n.data.title, n.data.id, 30),
       community: n.data.community ?? 0,
       degree: n.data.degree ?? 0,
       title: n.data.title ?? '',
@@ -506,6 +727,7 @@ function buildElements(data) {
     },
   }));
 
+  const lv = levelByCode(data.nodes);
   const edges = data.edges.map(e => {
     const d = e.data;
     // prerequisite edges have weight=1.0 (not a similarity score);
@@ -514,11 +736,12 @@ function buildElements(data) {
     const displaySim = d.type === 'prerequisite'
       ? (d.similarity ?? null)
       : (d.weight ?? 0);
+    const { source, target } = orientPrereq(d, lv);   // arrow points prerequisite → dependent
     return {
       data: {
         id: d.id,
-        source: d.source,
-        target: d.target,
+        source,
+        target,
         weight: d.weight ?? 0,
         displaySim,
         type: d.type ?? 'similarity',
@@ -543,7 +766,7 @@ function buildLevelElements(data) {
   const levels = [...byLevel.keys()].sort((a, b) => a - b);
   // Wide columns (clear Level 1→3 separation) but compact rows so all modules
   // fit on screen without shrinking labels to illegibility.
-  const COL_W = 440, ROW_H = 56;
+  const COL_W = 480, ROW_H = 66;
   _levelPositions = {};
   levels.forEach((lvl, ci) => {
     const group = byLevel.get(lvl).sort((a, b) => String(a.data.id).localeCompare(String(b.data.id)));
@@ -555,7 +778,8 @@ function buildLevelElements(data) {
   const nodes = data.nodes.map(n => ({
     data: {
       id: n.data.id,
-      label: n.data.id,
+      code: n.data.id,
+      label: `${n.data.id} · ${nodeLabel(n.data.title, n.data.id, 30)}`,
       level: n.data.level ?? null,
       degree: n.data.degree ?? 0,
       title: n.data.title ?? '',
@@ -564,14 +788,16 @@ function buildLevelElements(data) {
     },
   }));
 
+  const lv = levelByCode(data.nodes);
   const edges = data.edges.map(e => {
     const d = e.data;
     const displaySim = d.type === 'prerequisite' ? (d.similarity ?? null) : (d.weight ?? 0);
+    const { source, target } = orientPrereq(d, lv);
     return {
       data: {
         id: d.id,
-        source: d.source,
-        target: d.target,
+        source,
+        target,
         weight: d.weight ?? 0,
         displaySim,
         type: d.type ?? 'similarity',
@@ -581,6 +807,88 @@ function buildLevelElements(data) {
   });
 
   return [...nodes, ...edges];
+}
+
+// Lay the concept neighbourhood out left→right by signed distance from the
+// centre: prerequisites on the left, the concept in the middle, subsequents on
+// the right (a preset layout, like the level view).
+function buildConceptPrereqElements(data) {
+  const COL_W = 300, ROW_H = 64;
+  const byCol = new Map();
+  const nodes = data.nodes.map(n => {
+    const dir = n.data.direction || 'subsequent';
+    const dist = n.data.dist ?? 1;
+    const col = dir === 'self' ? 0 : (dir === 'prerequisite' ? -dist : dist);
+    if (!byCol.has(col)) byCol.set(col, []);
+    byCol.get(col).push(n.data.id);
+    return {
+      data: {
+        id: n.data.id,
+        label: nodeLabel(n.data.term || n.data.id, '', 30),
+        term: n.data.term || '',
+        nodeType: 'concept',
+        direction: dir,
+        confidence: n.data.confidence ?? null,
+      },
+    };
+  });
+  _conceptPrereqPositions = {};
+  for (const [col, ids] of byCol.entries()) {
+    ids.forEach((id, i) => {
+      _conceptPrereqPositions[id] = { x: col * COL_W, y: (i - (ids.length - 1) / 2) * ROW_H };
+    });
+  }
+  const edges = data.edges.map((e, i) => ({
+    data: {
+      id: e.data.id || `cp${i}`,
+      source: e.data.source,
+      target: e.data.target,
+      method: e.data.method || '',
+      weight: e.data.weight ?? 0.5,
+    },
+  }));
+  return [...nodes, ...edges];
+}
+
+function buildConceptPrereqStyle() {
+  const colour = (ele) => {
+    const d = ele.data('direction');
+    return d === 'self' ? '#003e74' : d === 'prerequisite' ? '#d99a00' : '#157f3d';
+  };
+  return [
+    {
+      selector: 'node',
+      style: {
+        'background-color': colour,
+        'width': (ele) => (ele.data('direction') === 'self' ? 34 : 22),
+        'height': (ele) => (ele.data('direction') === 'self' ? 34 : 22),
+        'label': 'data(label)',
+        'font-size': '11px', 'font-weight': 600,
+        'color': '#1b2430',
+        'text-valign': 'bottom', 'text-halign': 'center', 'text-margin-y': 4,
+        'text-wrap': 'wrap', 'text-max-width': '110px',
+        'text-outline-color': '#ffffff', 'text-outline-width': 2,
+        'cursor': 'pointer',
+      },
+    },
+    {
+      selector: 'node[direction = "self"]',
+      style: { 'border-width': 3, 'border-color': '#003e74', 'font-size': '12.5px', 'z-index': 10 },
+    },
+    {
+      selector: 'edge',
+      style: {
+        'line-color': '#9a7fd8',
+        'width': (ele) => 1 + (ele.data('weight') ?? 0.5) * 2.5,
+        'opacity': 0.85,
+        'curve-style': 'bezier',
+        'target-arrow-shape': 'triangle',
+        'target-arrow-color': '#6941c6',
+        'arrow-scale': 1,
+      },
+    },
+    { selector: '.filtered', style: { 'display': 'none' } },
+  ];
 }
 
 function buildStyle(colorBy = 'community') {
@@ -609,13 +917,19 @@ function buildStyle(colorBy = 'community') {
         'width': nodeSize,
         'height': nodeSize,
         'label': 'data(label)',
-        'font-size': isLevel ? '11px' : '9px',
-        'color': '#e2e8f0',
-        'text-valign': 'center',
-        'text-halign': 'center',
-        'text-outline-color': '#0f1117',
-        'text-outline-width': 2,
-        'border-width': 0,
+        'font-size': isLevel ? '11px' : '10px',
+        'font-weight': 600,
+        'color': '#1b2430',
+        'text-valign': isLevel ? 'center' : 'bottom',
+        'text-halign': isLevel ? 'right' : 'center',
+        'text-margin-x': isLevel ? 8 : 0,
+        'text-margin-y': isLevel ? 0 : 5,
+        'text-wrap': 'wrap',
+        'text-max-width': isLevel ? '180px' : '120px',
+        'text-outline-color': '#ffffff',
+        'text-outline-width': 3,
+        'border-width': 1.5,
+        'border-color': 'rgba(27,36,48,.18)',
         'cursor': 'pointer',
         'transition-property': 'opacity border-width width height',
         'transition-duration': '0.15s',
@@ -625,18 +939,18 @@ function buildStyle(colorBy = 'community') {
       selector: 'node.selected',
       style: {
         'border-width': 3,
-        'border-color': '#ffffff',
+        'border-color': '#003e74',
         'z-index': 999,
       },
     },
     {
       selector: 'node.dimmed',
-      style: { 'opacity': 0.12 },
+      style: { 'opacity': 0.18 },
     },
     {
       selector: 'edge',
       style: {
-        'line-color': '#3a3f5c',
+        'line-color': '#c2ccda',
         'width': (ele) => {
           const s = ele.data('displaySim');
           return s != null ? 0.8 + s * 4 : 1.2;
@@ -652,19 +966,24 @@ function buildStyle(colorBy = 'community') {
       style: {
         'line-style': 'dashed',
         'line-dash-pattern': [6, 4],
-        'line-color': '#a78bfa',
-        'opacity': isLevel ? 0.7 : 0.55,
-        'width': isLevel ? 2 : 1.5,
+        'line-color': '#6941c6',
+        'opacity': isLevel ? 0.85 : 0.65,
+        'width': isLevel ? 2.4 : 1.8,
+        // Arrow points from the earlier (prerequisite) module to the later one.
+        'target-arrow-shape': 'triangle',
+        'target-arrow-color': '#6941c6',
+        'arrow-scale': 1.1,
+        'curve-style': 'bezier',
       },
     },
     {
       selector: 'edge.highlighted',
       style: {
-        'line-color': '#5b8dee',
+        'line-color': '#003e74',
         'opacity': 0.95,
         'width': (ele) => {
           const s = ele.data('displaySim');
-          return s != null ? 2 + s * 5 : 2.5;
+          return s != null ? 2 + s * 5 : 2.8;
         },
         'z-index': 100,
       },
@@ -677,30 +996,39 @@ function buildStyle(colorBy = 'community') {
       selector: 'edge.filtered',
       style: { 'display': 'none' },
     },
+    {
+      selector: '.prog-hidden',
+      style: { 'display': 'none' },
+    },
   ];
 }
 
+// Colour = a thematic cluster of related modules (Louvain community). Name each
+// by its most-connected module so the colours mean something at a glance.
 function buildLegend(nodes) {
   const legendEl = document.getElementById('graph-legend');
   if (!legendEl) return;
 
-  const communities = new Map();
+  const byComm = new Map();
   for (const n of nodes) {
     const c = n.data.community ?? 0;
-    if (!communities.has(c)) communities.set(c, []);
-    communities.get(c).push(n.data.id);
+    if (!byComm.has(c)) byComm.set(c, []);
+    byComm.get(c).push(n.data);
   }
 
-  legendEl.innerHTML = [...communities.entries()]
+  const rows = [...byComm.entries()]
     .sort(([a], [b]) => a - b)
-    .map(([c, mods]) => {
+    .map(([c, list]) => {
       const color = COMMUNITY_COLORS[c % COMMUNITY_COLORS.length];
+      const rep = list.slice().sort((a, b) => (b.degree ?? 0) - (a.degree ?? 0))[0];
+      const repName = nodeLabel(rep?.title || rep?.id || '', '', 24);
       return `<div class="legend-item">
         <div class="legend-dot" style="background:${color}"></div>
-        <span>Cluster ${c + 1} (${mods.length})</span>
+        <span><strong>${list.length}</strong> related modules · e.g. ${_esc(repName)}</span>
       </div>`;
     })
     .join('');
+  legendEl.innerHTML = `<div class="lg-title">Thematic clusters</div>${rows}`;
 }
 
 function buildLevelLegend(nodes) {
@@ -713,14 +1041,15 @@ function buildLevelLegend(nodes) {
     counts.set(l, (counts.get(l) || 0) + 1);
   }
 
-  legendEl.innerHTML = [...counts.entries()]
+  const rows = [...counts.entries()]
     .sort(([a], [b]) => a - b)
     .map(([l, n]) => {
       const color = LEVEL_COLORS[(l - 1 + LEVEL_COLORS.length) % LEVEL_COLORS.length];
       return `<div class="legend-item">
         <div class="legend-dot" style="background:${color}"></div>
-        <span>Level ${l} (${n})</span>
+        <span>Level ${l} <strong>(${n})</strong></span>
       </div>`;
     })
     .join('');
+  legendEl.innerHTML = `<div class="lg-title">Year / level</div>${rows}`;
 }
