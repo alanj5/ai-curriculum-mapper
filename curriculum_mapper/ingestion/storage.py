@@ -18,7 +18,10 @@ from curriculum_mapper.ingestion.schema import (
     ILO,
     AlignmentResult,
     Concept,
+    ConceptPrerequisite,
     ModuleDescriptor,
+    PLOAlignment,
+    ProgrammeLearningOutcome,
 )
 
 # ── Schema DDL ─────────────────────────────────────────────────────────────────
@@ -32,6 +35,7 @@ CREATE TABLE IF NOT EXISTS modules (
     description     TEXT,
     description_clean TEXT,
     source          TEXT,
+    programmes      TEXT,            -- JSON array of programme ids
     source_file     TEXT,
     ingested_at     TEXT
 );
@@ -93,10 +97,40 @@ CREATE TABLE IF NOT EXISTS user_feedback (
     created_at      TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS concept_prerequisites (
+    id              TEXT PRIMARY KEY,
+    from_concept_id TEXT NOT NULL REFERENCES concepts(id),
+    to_concept_id   TEXT NOT NULL REFERENCES concepts(id),
+    confidence      REAL NOT NULL,
+    method          TEXT NOT NULL,
+    inferred        INTEGER DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS programme_learning_outcomes (
+    id              TEXT PRIMARY KEY,
+    programme       TEXT NOT NULL,
+    code            TEXT NOT NULL,
+    title           TEXT NOT NULL,
+    description     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS plo_alignments (
+    id              TEXT PRIMARY KEY,
+    module_code     TEXT NOT NULL REFERENCES modules(code),
+    plo_id          TEXT NOT NULL REFERENCES programme_learning_outcomes(id),
+    method          TEXT NOT NULL,
+    score           REAL NOT NULL,
+    rank            INTEGER NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_alignments_concept ON alignments(concept_id);
 CREATE INDEX IF NOT EXISTS idx_alignments_ka      ON alignments(ka_code);
 CREATE INDEX IF NOT EXISTS idx_concepts_term      ON concepts(term);
 CREATE INDEX IF NOT EXISTS idx_ilos_module        ON ilos(module_code);
+CREATE INDEX IF NOT EXISTS idx_cprereq_from       ON concept_prerequisites(from_concept_id);
+CREATE INDEX IF NOT EXISTS idx_cprereq_to         ON concept_prerequisites(to_concept_id);
+CREATE INDEX IF NOT EXISTS idx_plo_align_module   ON plo_alignments(module_code);
+CREATE INDEX IF NOT EXISTS idx_plo_programme      ON programme_learning_outcomes(programme);
 """
 
 
@@ -130,6 +164,11 @@ class StorageManager:
     def _init_db(self) -> None:
         with get_connection(self.db_path) as conn:
             conn.executescript(_DDL)
+            # Additive migration: add the programmes column to pre-existing DBs
+            # (CREATE TABLE IF NOT EXISTS will not alter an existing table).
+            cols = {r["name"] for r in conn.execute("PRAGMA table_info(modules)")}
+            if "programmes" not in cols:
+                conn.execute("ALTER TABLE modules ADD COLUMN programmes TEXT")
 
     # ── Modules ────────────────────────────────────────────────────────────────
 
@@ -138,8 +177,8 @@ class StorageManager:
             conn.execute(
                 """INSERT OR REPLACE INTO modules
                    (code, title, level, credits, description, description_clean,
-                    source, source_file, ingested_at)
-                   VALUES (?,?,?,?,?,?,?,?,?)""",
+                    source, programmes, source_file, ingested_at)
+                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
                 (
                     module.code,
                     module.title,
@@ -148,6 +187,7 @@ class StorageManager:
                     module.description,
                     module.description_clean,
                     module.source,
+                    json.dumps(module.programmes),
                     module.source_file,
                     module.ingested_at.isoformat(),
                 ),
@@ -198,6 +238,7 @@ class StorageManager:
                         ilos=ilos,
                         topics=topics,
                         source=row["source"] or "",
+                        programmes=json.loads(row["programmes"]) if row["programmes"] else ["beng_computing"],
                         source_file=row["source_file"] or "",
                         ingested_at=datetime.fromisoformat(
                             row["ingested_at"] or datetime.utcnow().isoformat()
@@ -227,6 +268,7 @@ class StorageManager:
                 ilos=ilos,
                 topics=topics,
                 source=row["source"] or "",
+                programmes=json.loads(row["programmes"]) if row["programmes"] else ["beng_computing"],
                 source_file=row["source_file"] or "",
                 ingested_at=datetime.fromisoformat(
                     row["ingested_at"] or datetime.utcnow().isoformat()
@@ -392,3 +434,90 @@ class StorageManager:
         with get_connection(self.db_path) as conn:
             conn.execute("DELETE FROM user_feedback")
             conn.execute("DELETE FROM alignments")
+
+    # ── Concept prerequisites (directed concept graph) ──────────────────────────
+
+    def insert_concept_prerequisite(self, edge: ConceptPrerequisite) -> None:
+        with get_connection(self.db_path) as conn:
+            conn.execute(
+                """INSERT OR REPLACE INTO concept_prerequisites
+                   (id, from_concept_id, to_concept_id, confidence, method, inferred)
+                   VALUES (?,?,?,?,?,?)""",
+                (edge.id, edge.from_concept_id, edge.to_concept_id,
+                 edge.confidence, edge.method, int(edge.inferred)),
+            )
+
+    def get_concept_prerequisites(self) -> list[ConceptPrerequisite]:
+        with get_connection(self.db_path) as conn:
+            rows = conn.execute("SELECT * FROM concept_prerequisites").fetchall()
+            return [
+                ConceptPrerequisite(
+                    id=r["id"],
+                    from_concept_id=r["from_concept_id"],
+                    to_concept_id=r["to_concept_id"],
+                    confidence=r["confidence"],
+                    method=r["method"],
+                    inferred=bool(r["inferred"]),
+                )
+                for r in rows
+            ]
+
+    def clear_concept_prerequisites(self) -> None:
+        with get_connection(self.db_path) as conn:
+            conn.execute("DELETE FROM concept_prerequisites")
+
+    # ── Programme-level outcomes (PLOs) ────────────────────────────────────────
+
+    def insert_plo(self, plo: ProgrammeLearningOutcome) -> None:
+        with get_connection(self.db_path) as conn:
+            conn.execute(
+                """INSERT OR REPLACE INTO programme_learning_outcomes
+                   (id, programme, code, title, description) VALUES (?,?,?,?,?)""",
+                (plo.id, plo.programme, plo.code, plo.title, plo.description),
+            )
+
+    def get_plos(self, programme: str | None = None) -> list[ProgrammeLearningOutcome]:
+        with get_connection(self.db_path) as conn:
+            if programme:
+                rows = conn.execute(
+                    "SELECT * FROM programme_learning_outcomes WHERE programme=? ORDER BY code",
+                    (programme,),
+                ).fetchall()
+            else:
+                rows = conn.execute(
+                    "SELECT * FROM programme_learning_outcomes ORDER BY programme, code"
+                ).fetchall()
+            return [
+                ProgrammeLearningOutcome(
+                    id=r["id"], programme=r["programme"], code=r["code"],
+                    title=r["title"], description=r["description"] or "",
+                )
+                for r in rows
+            ]
+
+    def insert_plo_alignment(self, alignment: PLOAlignment) -> None:
+        with get_connection(self.db_path) as conn:
+            conn.execute(
+                """INSERT OR REPLACE INTO plo_alignments
+                   (id, module_code, plo_id, method, score, rank) VALUES (?,?,?,?,?,?)""",
+                (alignment.id, alignment.module_code, alignment.plo_id,
+                 alignment.method, alignment.score, alignment.rank),
+            )
+
+    def get_plo_alignments(self) -> list[PLOAlignment]:
+        with get_connection(self.db_path) as conn:
+            rows = conn.execute(
+                "SELECT * FROM plo_alignments ORDER BY module_code, rank"
+            ).fetchall()
+            return [
+                PLOAlignment(
+                    id=r["id"], module_code=r["module_code"], plo_id=r["plo_id"],
+                    method=r["method"], score=r["score"], rank=r["rank"],
+                )
+                for r in rows
+            ]
+
+    def clear_plos(self) -> None:
+        with get_connection(self.db_path) as conn:
+            conn.execute("DELETE FROM plo_alignments")
+            conn.execute("DELETE FROM programme_learning_outcomes")

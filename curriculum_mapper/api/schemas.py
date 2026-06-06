@@ -28,6 +28,7 @@ class ModuleOut(BaseModel):
     prerequisites: list[str]
     description: str
     source: str
+    programmes: list[str] = []
     topics: list[str]
     ilo_count: int
 

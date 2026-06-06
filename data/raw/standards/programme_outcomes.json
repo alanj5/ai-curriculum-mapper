@@ -1,0 +1,40 @@
+{
+  "_source": "Programme-level learning outcomes derived from the Imperial College London BEng/MEng Computing and Joint Mathematics & Computing programme specifications and the Engineering Council AHEP4 accreditation learning outcomes (which these degrees are accredited against). Used as the interim's third node type ('Learning Outcomes') for the 'which programme-level outcomes a course fulfils' mapping.",
+  "programmes": {
+    "beng_computing": [
+      {"code": "PLO-1", "title": "Mathematical & computational foundations", "description": "Apply knowledge of mathematics, discrete structures, algorithms and the theory of computation to model and solve computing problems."},
+      {"code": "PLO-2", "title": "Programming & software construction", "description": "Design, implement, test and debug correct and efficient software across multiple programming paradigms and languages."},
+      {"code": "PLO-3", "title": "Computer systems & architecture", "description": "Explain the design and operation of computer systems, processor architecture, operating systems and computer networks."},
+      {"code": "PLO-4", "title": "Data & information management", "description": "Model, store, query and reason about data using databases, information systems and data-management techniques."},
+      {"code": "PLO-5", "title": "Artificial intelligence & machine learning", "description": "Apply machine learning, artificial intelligence and statistical data-analysis techniques to real-world problems."},
+      {"code": "PLO-6", "title": "Software engineering & teamwork", "description": "Apply software-engineering methods, processes and tools, and work effectively in teams to deliver substantial software systems."},
+      {"code": "PLO-7", "title": "Theory & formal reasoning", "description": "Apply logic, formal methods and mathematical reasoning to specify, analyse and verify computing artefacts."},
+      {"code": "PLO-8", "title": "Security, privacy & professional ethics", "description": "Analyse the security, privacy, legal, social, environmental and ethical implications of computing systems and act professionally."},
+      {"code": "PLO-9", "title": "Human-centred computing", "description": "Design, build and evaluate interactive systems, graphics and visualisations that meet the needs of human users."},
+      {"code": "PLO-10", "title": "Independent investigation & communication", "description": "Conduct independent investigation, critically evaluate evidence, and communicate technical findings to varied audiences."}
+    ],
+    "meng_computing": [
+      {"code": "PLO-1", "title": "Mathematical & computational foundations", "description": "Apply knowledge of mathematics, discrete structures, algorithms and the theory of computation to model and solve computing problems."},
+      {"code": "PLO-2", "title": "Programming & software construction", "description": "Design, implement, test and debug correct and efficient software across multiple programming paradigms and languages."},
+      {"code": "PLO-3", "title": "Computer systems & architecture", "description": "Explain the design and operation of computer systems, processor architecture, operating systems and computer networks."},
+      {"code": "PLO-4", "title": "Data & information management", "description": "Model, store, query and reason about data using databases, information systems and data-management techniques."},
+      {"code": "PLO-5", "title": "Artificial intelligence & machine learning", "description": "Apply machine learning, artificial intelligence and statistical data-analysis techniques to real-world problems."},
+      {"code": "PLO-6", "title": "Software engineering & teamwork", "description": "Apply software-engineering methods, processes and tools, and work effectively in teams to deliver substantial software systems."},
+      {"code": "PLO-7", "title": "Theory & formal reasoning", "description": "Apply logic, formal methods and mathematical reasoning to specify, analyse and verify computing artefacts."},
+      {"code": "PLO-8", "title": "Security, privacy & professional ethics", "description": "Analyse the security, privacy, legal, social, environmental and ethical implications of computing systems and act professionally."},
+      {"code": "PLO-9", "title": "Human-centred computing", "description": "Design, build and evaluate interactive systems, graphics and visualisations that meet the needs of human users."},
+      {"code": "PLO-10", "title": "Independent investigation & communication", "description": "Conduct independent investigation, critically evaluate evidence, and communicate technical findings to varied audiences."},
+      {"code": "PLO-11", "title": "Advanced specialisation & research", "description": "Apply advanced, research-level knowledge in a specialist area of computing to open-ended problems at the forefront of the discipline."}
+    ],
+    "jmc": [
+      {"code": "JMC-1", "title": "Advanced mathematics", "description": "Apply advanced pure and applied mathematics — analysis, algebra, probability and statistics — alongside computing."},
+      {"code": "JMC-2", "title": "Mathematical & computational foundations", "description": "Apply discrete structures, algorithms and the theory of computation to model and solve problems."},
+      {"code": "JMC-3", "title": "Programming & software construction", "description": "Design, implement, test and debug correct and efficient software across multiple paradigms."},
+      {"code": "JMC-4", "title": "Theory & formal reasoning", "description": "Apply logic, formal methods and rigorous mathematical reasoning to specify and verify artefacts."},
+      {"code": "JMC-5", "title": "Artificial intelligence & machine learning", "description": "Apply machine learning, AI and statistical techniques, drawing on a strong mathematical basis."},
+      {"code": "JMC-6", "title": "Software engineering & teamwork", "description": "Apply software-engineering methods and work effectively in teams to deliver software systems."},
+      {"code": "JMC-7", "title": "Security, privacy & professional ethics", "description": "Analyse the security, legal, social and ethical implications of computing and act professionally."},
+      {"code": "JMC-8", "title": "Independent investigation & communication", "description": "Conduct independent investigation, evaluate evidence, and communicate technical findings."}
+    ]
+  }
+}

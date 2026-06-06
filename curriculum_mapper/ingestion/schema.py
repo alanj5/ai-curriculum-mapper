@@ -34,9 +34,16 @@ class ModuleDescriptor(BaseModel):
     description_clean: str = ""
     ilos: list[ILO] = Field(default_factory=list)
     topics: list[str] = Field(default_factory=list)  # explicit topic lists
-    source: str  # "institutional" | "imperial"
+    source: str  # institution: "imperial" | "mit_ocw" | "institutional"
+    programmes: list[str] = Field(
+        default_factory=lambda: ["beng_computing"]
+    )  # degree programmes this module belongs to (filter-by-programme)
     source_file: str
     ingested_at: datetime = Field(default_factory=datetime.utcnow)
+    # ── Acquisition provenance (set by the live refetch scraper) ──────────────
+    source_url: Optional[str] = None  # descriptor page the content was fetched from
+    fetched_at: Optional[datetime] = None  # when the live page was retrieved
+    content_sha256: Optional[str] = None  # SHA-256 of the fetched page body
 
     @property
     def full_text(self) -> str:
@@ -86,3 +93,40 @@ class AlignmentResult(BaseModel):
     validated: Optional[bool] = None  # None=unvalidated, True=accepted, False=rejected
     validated_by: Optional[str] = None
     validated_at: Optional[datetime] = None
+
+
+class ConceptPrerequisite(BaseModel):
+    """A directed prerequisite edge between two concepts (from -> to).
+
+    ``from_concept_id`` is a prerequisite of ``to_concept_id``: it is introduced
+    at a lower curriculum level and the two are related. Edges are derived by a
+    DAG-safe metadata heuristic (see ``graph/concept_prerequisite.py``).
+    """
+
+    id: str = Field(default_factory=_uuid)
+    from_concept_id: str  # the prerequisite concept (lower level)
+    to_concept_id: str  # the dependent concept (higher level)
+    confidence: float  # [0, 1] relatedness strength
+    method: str  # "shared_module" | "same_ka" | "sbert"
+    inferred: bool = True  # heuristic (True) vs explicit metadata (False)
+
+
+class ProgrammeLearningOutcome(BaseModel):
+    """A programme-level learning outcome (the interim's 'Learning Outcome' node)."""
+
+    id: str = Field(default_factory=_uuid)
+    programme: str  # e.g. "beng_computing", "jmc", "mit_ocw_cs"
+    code: str  # e.g. "PLO-A1"
+    title: str
+    description: str
+
+
+class PLOAlignment(BaseModel):
+    """Alignment of a module to a programme-level outcome it fulfils."""
+
+    id: str = Field(default_factory=_uuid)
+    module_code: str
+    plo_id: str
+    method: str  # "lexical" | "semantic" | "hybrid"
+    score: float  # [0, 1]
+    rank: int  # 1 = best-matching PLO for this module
