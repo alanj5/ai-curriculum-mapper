@@ -9,7 +9,7 @@ make extension straightforward should anyone wish to fork it.
 ```bash
 make setup       # Python venv + spaCy + NLTK + npm install
 make pipeline    # End-to-end NLP + alignment + graph build
-make test        # All 343 tests
+make test        # All 458 tests
 make lint        # Ruff + Black checks
 ```
 

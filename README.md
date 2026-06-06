@@ -3,7 +3,7 @@
 [![Tests](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml/badge.svg)](https://github.com/alanj5/ai-curriculum-mapper/actions/workflows/test.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Coverage](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](#test-coverage-summary-v100)
+[![Coverage](https://img.shields.io/badge/coverage-82%25-brightgreen.svg)](#test-coverage-summary-v100)
 
 Automated extraction, alignment, and visualisation of Computing curriculum content against ACM/IEEE CS2023 Knowledge Areas.
 
@@ -14,7 +14,7 @@ Automated extraction, alignment, and visualisation of Computing curriculum conte
 
 ## Overview
 
-The system ingests 34 Imperial College Computing module descriptors (the full Year 1--3 content curriculum), extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield 970 unique concepts, aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner, constructs a module-module similarity graph, and exposes all results through an interactive web interface.
+The system ingests 34 Imperial College Computing module descriptors (the full Year 1--3 content curriculum), extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield 970 unique concepts, and aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner. It builds a heterogeneous, typed curriculum graph — **modules, concepts, CS2023 standards, and programme-level outcomes** — over four NetworkX graphs (module-module similarity, bipartite module-concept, concept-CS2023 hierarchy, and a directed **concept-prerequisite DAG**), tags each module with its degree programme(s) (BEng/MEng Computing, Joint Mathematics & Computing, and an optional MIT OpenCourseWare comparison cohort), and maps modules to the programme-level outcomes they fulfil. All results are exposed through an interactive web interface with a programme filter, click-a-concept prerequisite neighbourhoods, and one-click prerequisite-chain tracing.
 
 ### Architecture
 
@@ -30,7 +30,7 @@ flowchart LR
     G --> C
     C --> H[Graph builder<br/>NetworkX + Louvain]
     H --> I[(Graph<br/>pickles)]
-    C --> J[FastAPI<br/>22 endpoints]
+    C --> J[FastAPI<br/>31 endpoints]
     I --> J
     J --> K[Vite + Cytoscape.js<br/>web interface]
 
@@ -96,6 +96,11 @@ These steps populate the SQLite database (`data/curriculum.db`) from scratch.
 ```bash
 source .venv/bin/activate
 
+# Step 0 (optional): refresh module JSONs from the live Imperial descriptor pages,
+# recording provenance (source URL, fetch timestamp, content hash). Falls back to
+# the committed curated data if a page is unavailable. Skip to use the shipped JSONs.
+python scripts/fetch_imperial_modules.py
+
 # Step 1: Ingest module descriptors → populates modules, ilos, prerequisites tables
 python scripts/ingest_modules.py
 
@@ -105,10 +110,13 @@ python scripts/run_nlp_pipeline.py --week2
 # Step 3: Align concepts to CS2023 KAs → populates alignments table (~1–2 min)
 python scripts/run_alignment.py
 
-# Step 4: Build graphs → writes .pkl files to data/cache/graphs/ (~30 s)
+# Step 4: Build graphs → 4 graphs incl. the directed concept-prerequisite DAG (~30 s)
 python scripts/build_graph.py
 
-# Step 5 (optional): Run evaluation against gold annotations
+# Step 5: Map modules to programme-level outcomes (PLOs)
+python scripts/run_plo_alignment.py
+
+# Step 6 (optional): Run evaluation against gold annotations
 python scripts/run_evaluation.py
 ```
 
@@ -152,8 +160,25 @@ database, so the augmented run never clobbers the canonical artefacts.
 
 ```bash
 # Build the augmented pipeline + serve it (demo; canonical `make serve` unaffected)
-make pipeline-llm        # 865 concepts into data/curriculum_llm.db
+make pipeline-llm        # 1,310 concepts into data/curriculum_llm.db
 make serve-llm           # serves the augmented data at http://127.0.0.1:8000
+```
+
+---
+
+## Optional: combined corpus + cross-programme comparison
+
+A second, separate database (`curriculum_multi.db`) adds a curated subset of **MIT
+OpenCourseWare** Computer Science courses (used under CC BY-NC-SA 4.0, with each
+course's OCW URL recorded) to the 34 Imperial modules. This enables the
+**programme filter** to span institutions and a cross-curriculum comparison (the
+interim's §3.5 stretch goal). The canonical `curriculum.db` is never modified —
+the MIT courses live in `data/raw/modules_mit_ocw/`, which the canonical ingest
+does not scan.
+
+```bash
+make pipeline-multi   # build data/curriculum_multi.db (Imperial + MIT OCW, 48 modules)
+make serve-multi      # serve it; the programme facet now offers an "MIT OpenCourseWare CS" cohort
 ```
 
 ---
@@ -200,12 +225,21 @@ Interactive docs (Swagger UI): **http://127.0.0.1:8000/docs**
 | `/api/v1/modules/{code}/concepts` | GET | Extracted concepts for a module |
 | `/api/v1/modules/{code}/alignments` | GET | KA alignments for a module |
 | `/api/v1/modules/{code}/neighbors` | GET | Similar modules (by Jaccard) |
+| `/api/v1/modules/{code}/plos` | GET | Programme-level outcomes a module fulfils |
+| `/api/v1/modules/programmes` | GET | Degree programmes + module counts |
+| `/api/v1/modules/programmes/{p}/outcomes` | GET | A programme's learning outcomes |
+| `/api/v1/modules/plos/{id}/modules` | GET | Modules addressing a given outcome |
+| `/api/v1/modules/plo-coverage` | GET | Modules fulfilling each outcome |
 | `/api/v1/concepts/` | GET | List all concepts (`?ka=AL&search=sort`) |
 | `/api/v1/alignments/` | GET | All alignments with filters |
 | `/api/v1/alignments/stats` | GET | Counts by KA, method, validation status |
 | `/api/v1/alignments/{id}/validate` | PATCH | Accept / reject / reassign an alignment |
 | `/api/v1/graph/module-module` | GET | Cytoscape.js graph JSON (nodes + edges) |
 | `/api/v1/graph/module-concept` | GET | Bipartite graph for one module |
+| `/api/v1/graph/concept-prerequisites` | GET | Directed concept-prerequisite DAG |
+| `/api/v1/graph/concept-neighbourhood` | GET | A concept's prerequisite/subsequent neighbourhood |
+| `/api/v1/graph/trace/module/{code}` | GET | A module's full prerequisite chain + dependents |
+| `/api/v1/graph/trace/concept/{id}` | GET | A concept's full prerequisite chain |
 | `/api/v1/graph/communities` | GET | Louvain community assignments |
 | `/api/v1/graph/centrality` | GET | Degree, betweenness, eigenvector centrality |
 | `/api/v1/reports/coverage` | GET | Per-KA coverage fractions |
@@ -271,7 +305,7 @@ build path described in **Starting the Web Application → Option B**.
 ```bash
 source .venv/bin/activate
 python -m pytest tests/ -q
-# Expected: 429 passed in ~14 s
+# Expected: 458 passed in ~14 s
 ```
 
 ### With coverage report
@@ -279,21 +313,21 @@ python -m pytest tests/ -q
 ```bash
 python -m pytest --cov=curriculum_mapper --cov-report=html -q
 # Opens htmlcov/index.html for line-level coverage details
-# Current coverage: 83% (full suite)
+# Current coverage: 82% (full suite)
 ```
 
 ### Unit tests only (fast, no DB required for most)
 
 ```bash
 python -m pytest tests/unit/ -q
-# ~362 tests, ~12 s
+# ~390 tests, ~12 s
 ```
 
 ### Integration tests only (requires populated DB)
 
 ```bash
 python -m pytest tests/integration/ -v
-# 66 tests against real SQLite DB via ASGI transport
+# 68 tests against real SQLite DB via ASGI transport
 ```
 
 ### By test module
@@ -322,17 +356,19 @@ python -m black --check curriculum_mapper/ tests/  # Formatting check
 | Module | Coverage |
 |---|---|
 | `evaluation/metrics.py` | 100% |
-| `evaluation/reports.py` | 98% |
-| `evaluation/benchmarks.py` | 69%\* |
+| `evaluation/reports.py` | 90% |
+| `evaluation/benchmarks.py` | 78%\* |
 | `alignment/ambiguity.py` | 100% |
 | `alignment/hybrid.py` | 100% |
 | `alignment/aligner.py` | 100% |
+| `graph/prerequisite.py`, `graph/tracer.py` | 100% |
+| `graph/concept_prerequisite.py` | 94% |
 | `nlp/canonicalizer.py` | 92% |
 | `nlp/extractors/keybert_extractor.py` | 100% |
 | `nlp/extractors/tfidf_extractor.py` | 100% |
-| `ingestion/storage.py` | 97% |
+| `ingestion/storage.py` | 82% |
 | `api/schemas.py` | 100% |
-| **TOTAL** | **83%** |
+| **TOTAL** | **82%** |
 
 \*`benchmarks.py` includes CLI-only extended ablations (aligner weight sweep, per-extractor comparison) that are exercised end-to-end by `scripts/run_evaluation.py` rather than in unit tests.
 
@@ -358,14 +394,18 @@ ai-curriculum-mapper/
 │       ├── components/         # GraphView, ModulePanel, AlignmentTable, GapReport, ValidationWidget
 │       └── styles/main.css
 ├── scripts/                    # Pipeline entry points
+│   ├── fetch_imperial_modules.py  # live descriptor fetch + provenance (re-runnable)
+│   ├── create_imperial_modules.py # curated module data (offline fallback)
+│   ├── fetch_mit_ocw.py           # MIT OCW courses + build curriculum_multi.db
 │   ├── ingest_modules.py
 │   ├── run_nlp_pipeline.py
 │   ├── run_alignment.py
-│   ├── build_graph.py
+│   ├── build_graph.py             # 4 graphs incl. concept-prerequisite DAG
+│   ├── run_plo_alignment.py       # map modules → programme-level outcomes
 │   └── run_evaluation.py
 ├── tests/
-│   ├── unit/                   # 278 unit tests (fast, mock-based)
-│   └── integration/            # 66 integration tests (real DB, ASGI transport)
+│   ├── unit/                   # 390 unit tests (fast, mock-based)
+│   └── integration/            # 68 integration tests (real DB, ASGI transport)
 ├── data/
 │   ├── raw/modules/            # Imperial College JSON module descriptors
 │   ├── raw/standards/          # cs2023_ka.json (18 KAs, 974 topic strings)
