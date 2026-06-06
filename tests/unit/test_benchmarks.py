@@ -370,3 +370,106 @@ class TestLLMModelComparison:
         runner = BenchmarkRunner(storage, _make_flexible_em(), gold_path=gold_file)
         out = runner.run_llm_model_comparison(["good:model", "down:model"], ks=[5, 10])
         assert "good:model" in out and "down:model" not in out
+
+
+# ── New ablation/analysis methods (baselines, error analysis, per-KA, ambiguity) ─
+# (reuses the module-level ``gold_ka_file`` fixture + GOLD_WITH_KA defined above)
+
+
+def _stable_seed(text: str) -> int:
+    """Process-independent seed (Python's hash() is randomised per run)."""
+    import hashlib
+    return int.from_bytes(hashlib.sha256(text.encode()).digest()[:4], "big")
+
+
+def _make_term_em(dim: int = 16) -> MagicMock:
+    """EmbeddingManager mock: a deterministic unit vector *per individual term*,
+    so the same string always embeds identically (exact match => cosine 1.0) and
+    distinct terms stay near-orthogonal (no spurious hits)."""
+    em = MagicMock()
+
+    def _encode(texts, **kwargs):
+        out = []
+        for t in texts:
+            rng = np.random.default_rng(_stable_seed(t))
+            v = rng.standard_normal(dim).astype(np.float32)
+            v /= np.linalg.norm(v) + 1e-9
+            out.append(v)
+        return np.stack(out) if out else np.zeros((0, dim), dtype=np.float32)
+
+    em.encode.side_effect = _encode
+    return em
+
+
+def _ns_module(code, full_text, level=1):
+    from types import SimpleNamespace
+    return SimpleNamespace(code=code, full_text=full_text, full_text_clean=full_text, level=level)
+
+
+class TestAmbiguityMarginSweep:
+    def test_counts_grow_with_margin(self, gold_file):
+        from curriculum_mapper.ingestion.schema import AlignmentResult
+
+        def al(cid, rank, score):
+            return AlignmentResult(concept_id=cid, ka_code="AL", ka_topic="t",
+                                   method="hybrid", score=score, rank=rank)
+
+        aligns = [al("c1", 1, 0.90), al("c1", 2, 0.89),   # gap 0.01
+                  al("c2", 1, 0.90), al("c2", 2, 0.50),   # gap 0.40
+                  al("c3", 1, 0.80)]                       # no rank-2 → never ambiguous
+        runner = BenchmarkRunner(_make_storage(alignments=aligns), _make_flexible_em(),
+                                 gold_path=gold_file)
+        out = runner.run_ambiguity_margin_sweep(margins=[0.005, 0.05, 0.5])
+        assert out[0.005]["ambiguous_count"] == 0
+        assert out[0.05]["ambiguous_count"] == 1     # only c1
+        assert out[0.5]["ambiguous_count"] == 2      # c1 and c2
+        assert out[0.5]["ambiguous_fraction"] == round(2 / 3, 4)
+
+
+class TestErrorAnalysis:
+    def test_hit_miss_and_present_in_text(self, gold_file):
+        # gold MOD001 = sorting algorithms / binary search / dynamic programming
+        concepts = [_make_concept("sorting algorithms", ["MOD001"]),
+                    _make_concept("unrelated thing", ["MOD001"])]
+        storage = _make_storage(concepts=concepts)
+        storage.get_all_modules.return_value = [
+            _ns_module("MOD001", "sorting algorithms and binary search are covered"),
+            _ns_module("MOD002", "processes and threads"),
+        ]
+        runner = BenchmarkRunner(storage, _make_term_em(), gold_path=gold_file)
+        out = runner.run_error_analysis(threshold=0.75, k=10)
+        assert out["n_gold"] == 6                       # 3 per module × 2 modules
+        assert out["n_hit"] == 1                        # exact "sorting algorithms"
+        assert out["n_miss"] == 5
+        assert out["miss_present_in_text"] >= 1         # "binary search" is in MOD001 text
+        assert out["miss_present_in_text"] + out["miss_absent_from_text"] == 5
+
+
+class TestPerKaAlignment:
+    def test_returns_per_ka_counts(self, gold_ka_file):
+        runner = BenchmarkRunner(_make_storage(), _make_term_em(), gold_path=gold_ka_file)
+        out = runner.run_per_ka_alignment()
+        assert "AL" in out
+        assert out["AL"]["n"] == 2
+        assert 0.0 <= out["AL"]["top1_accuracy"] <= 1.0
+
+
+class TestBaselineComparison:
+    def test_runs_and_reports_novelty(self, gold_file):
+        # Four modules with overlapping vocabulary so TF-IDF/LDA min_df=2 keeps terms.
+        mods = [
+            _ns_module("MOD001", "sorting algorithms and binary search and data structures"),
+            _ns_module("MOD002", "process management virtual memory and data structures"),
+            _ns_module("MOD003", "sorting algorithms data structures and graph theory"),
+            _ns_module("MOD004", "virtual memory process management and graph theory"),
+        ]
+        concepts = [_make_concept("sorting algorithms", ["MOD001", "MOD003"]),
+                    _make_concept("virtual memory", ["MOD002", "MOD004"]),
+                    _make_concept("graph theory", ["MOD003", "MOD004"])]
+        storage = _make_storage(concepts=concepts)
+        storage.get_all_modules.return_value = mods
+        runner = BenchmarkRunner(storage, _make_term_em(), gold_path=gold_file)
+        out = runner.run_baseline_comparison(ks=[5, 10])
+        for key in ("tfidf_only", "lda", "noun_phrases", "random", "ensemble"):
+            assert key in out and "macro" in out[key]
+        assert 0.0 <= out["novelty_vs_baselines"] <= 1.0

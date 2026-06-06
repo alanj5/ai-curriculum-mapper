@@ -611,6 +611,266 @@ class BenchmarkRunner:
 
         return results
 
+    # ── Baseline comparison (interim §4.2) ─────────────────────────────────────
+
+    def run_baseline_comparison(
+        self, ks: list[int] | None = None, top_n: int = 15
+    ) -> dict:
+        """Compare the production ensemble against simple baselines on the gold set.
+
+        Baselines run on raw module text *without* the ensemble's specificity /
+        noun-headed filters, so the comparison isolates the value the ensemble
+        adds: (1) TF-IDF-only, (2) an unsupervised LDA topic model, (3) all noun
+        phrases, (4) random tokens. Also reports the ensemble's *novelty* — the
+        fraction of its concepts that no baseline produces (SBERT cosine < 0.85).
+        Returns {method: extraction-metrics, ..., "novelty_vs_baselines": float}.
+        """
+        import random as _random
+        from collections import Counter as _Counter
+
+        from sklearn.decomposition import LatentDirichletAllocation
+        from sklearn.feature_extraction.text import CountVectorizer
+
+        from curriculum_mapper.nlp.extractors.tfidf_extractor import TFIDFExtractor
+        from curriculum_mapper.nlp.preprocessor import Preprocessor
+
+        if ks is None:
+            ks = [5, 10, 20]
+
+        modules = self.storage.get_all_modules()
+        texts = {m.code: (m.full_text_clean or m.full_text) for m in modules}
+        corpus_codes = [m.code for m in modules]
+        corpus_texts = [texts[c] for c in corpus_codes]
+
+        # (1) raw TF-IDF-only
+        tf = TFIDFExtractor()
+        tf.fit(corpus_texts)
+        tfidf_mc = {c: [t for t, _ in tf.extract(texts[c], top_n=top_n)] for c in self.gold}
+
+        # (2) LDA topic-word baseline (deterministic seed)
+        cv = CountVectorizer(
+            stop_words="english", ngram_range=(1, 2), min_df=2, max_df=0.85,
+            token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z\-]{2,}\b",
+        )
+        dtm = cv.fit_transform(corpus_texts)
+        n_topics = min(10, max(2, len(corpus_texts) // 3))
+        lda = LatentDirichletAllocation(n_components=n_topics, random_state=42, max_iter=20)
+        doc_topic = lda.fit_transform(dtm)
+        vocab = cv.get_feature_names_out()
+        topic_words = [[vocab[i] for i in t.argsort()[::-1][:top_n]] for t in lda.components_]
+        lda_mc = {
+            corpus_codes[ci]: topic_words[int(doc_topic[ci].argmax())]
+            for ci in range(len(corpus_codes))
+            if corpus_codes[ci] in self.gold
+        }
+
+        # (3) all noun phrases (frequency-ranked)
+        pre = Preprocessor()
+        np_mc: dict[str, list[str]] = {}
+        for c in self.gold:
+            doc = pre._nlp(texts.get(c, ""))
+            chunks = [ch.text.lower().strip() for ch in doc.noun_chunks
+                      if 1 <= len(ch.text.split()) <= 4]
+            np_mc[c] = [t for t, _ in _Counter(chunks).most_common(top_n)]
+
+        # (4) random tokens (seeded)
+        rnd = _random.Random(42)
+        rand_mc: dict[str, list[str]] = {}
+        for c in self.gold:
+            toks = sorted({w.lower() for w in texts.get(c, "").split() if len(w) > 3})
+            rnd.shuffle(toks)
+            rand_mc[c] = toks[:top_n]
+
+        baselines = {"tfidf_only": tfidf_mc, "lda": lda_mc,
+                     "noun_phrases": np_mc, "random": rand_mc}
+        out: dict[str, object] = {}
+        for name, mc in baselines.items():
+            metrics = self._run_metrics_for_module_concepts(mc, ks)
+            out[name] = metrics
+            macro = metrics["macro"]
+            logger.info(f"  baseline {name:12s}: F1@10={macro.get('F1@10', 0):.4f}, "
+                        f"MAP={macro.get('MAP', 0):.4f}")
+
+        # ensemble (from DB) for the same gold modules
+        concepts = self.storage.get_all_concepts()
+        ens_mc: dict[str, list[str]] = defaultdict(list)
+        for con in sorted(concepts, key=lambda x: -x.confidence):
+            for mod in con.module_codes:
+                ens_mc[mod].append(con.term)
+        ens_metrics = self._run_metrics_for_module_concepts(dict(ens_mc), ks)
+        out["ensemble"] = ens_metrics
+        logger.info(f"  {'ensemble':21s}: F1@10={ens_metrics['macro'].get('F1@10', 0):.4f}, "
+                    f"MAP={ens_metrics['macro'].get('MAP', 0):.4f}")
+
+        # novelty: ensemble concepts (on gold modules) unmatched by any baseline term
+        baseline_terms = {t.lower() for mc in baselines.values()
+                          for c in self.gold for t in mc.get(c, [])}
+        ens_terms = list(dict.fromkeys(t for c in self.gold for t in ens_mc.get(c, [])))
+        novelty = 0.0
+        if ens_terms and baseline_terms:
+            base_embs = self.em.encode(list(baseline_terms))
+            ens_embs = self.em.encode(ens_terms)
+            novel = sum(1 for e in ens_embs if float(np.max(e @ base_embs.T)) < 0.85)
+            novelty = round(novel / len(ens_terms), 4)
+        out["novelty_vs_baselines"] = novelty
+        logger.info(f"  ensemble novelty vs baselines: {novelty:.4f}")
+        return out
+
+    # ── Extraction error analysis (interim §4.3.1) ─────────────────────────────
+
+    def run_error_analysis(self, threshold: float = 0.75, k: int = 10) -> dict:
+        """Categorise extraction errors against gold to localise the bottleneck.
+
+        Each gold concept is HIT if any extracted concept for its module is within
+        ``threshold`` cosine, else a MISS; misses are split by length (single- vs
+        multi-word) and by whether the term occurs verbatim in the module text
+        (present-but-unextracted → a filter/ranking miss; absent → not in the
+        descriptor). Top-``k`` predictions that match no gold concept are counted
+        as false positives. Returns category counts and rates.
+        """
+        from curriculum_mapper.evaluation.metrics import _is_hit
+
+        concepts = self.storage.get_all_concepts()
+        if not concepts:
+            return {}
+        module_concepts: dict[str, list[str]] = defaultdict(list)
+        for c in sorted(concepts, key=lambda x: -x.confidence):
+            for mc in c.module_codes:
+                module_concepts[mc].append(c.term)
+        # Check misses against the FULL descriptor (description + ILOs + syllabus
+        # topics) so "present in text" reflects whether the concept is anywhere in
+        # the source the annotator read — not just the description+ILOs the
+        # pipeline currently consumes.
+        mod_text = {m.code: m.full_text.lower()
+                    for m in self.storage.get_all_modules()}
+
+        n_gold = n_hit = 0
+        miss_single = miss_multi = miss_in_text = miss_absent = 0
+        n_pred_topk = fp_topk = 0
+
+        for code, gold_terms in self.gold.items():
+            if not gold_terms:
+                continue
+            predicted = module_concepts.get(code, [])
+            pred_embs = self.em.encode(predicted) if predicted else None
+            gold_embs = self.em.encode(gold_terms)
+            text = mod_text.get(code, "")
+
+            for gi, g in enumerate(gold_terms):
+                n_gold += 1
+                if pred_embs is not None and _is_hit(gold_embs[gi], pred_embs, threshold):
+                    n_hit += 1
+                else:
+                    if len(g.split()) == 1:
+                        miss_single += 1
+                    else:
+                        miss_multi += 1
+                    if g.lower() in text:
+                        miss_in_text += 1
+                    else:
+                        miss_absent += 1
+
+            # false positives among the top-k predictions
+            topk = predicted[:k]
+            if topk and gold_embs is not None:
+                topk_embs = self.em.encode(topk)
+                for pe in topk_embs:
+                    n_pred_topk += 1
+                    if not _is_hit(pe, gold_embs, threshold):
+                        fp_topk += 1
+
+        n_miss = n_gold - n_hit
+        out = {
+            "n_gold": n_gold,
+            "n_hit": n_hit,
+            "n_miss": n_miss,
+            "miss_rate": round(n_miss / n_gold, 4) if n_gold else 0.0,
+            "miss_single_word": miss_single,
+            "miss_multi_word": miss_multi,
+            "miss_present_in_text": miss_in_text,
+            "miss_absent_from_text": miss_absent,
+            "n_pred_topk": n_pred_topk,
+            "false_positive_topk": fp_topk,
+            "fp_rate_topk": round(fp_topk / n_pred_topk, 4) if n_pred_topk else 0.0,
+        }
+        logger.info(
+            f"Error analysis: {n_miss}/{n_gold} gold missed ({out['miss_rate']:.0%}); "
+            f"of misses {miss_in_text} present-in-text vs {miss_absent} absent; "
+            f"top-{k} FP rate {out['fp_rate_topk']:.0%}"
+        )
+        return out
+
+    # ── Per-KA alignment accuracy (interim §4.3.2) ─────────────────────────────
+
+    def run_per_ka_alignment(self) -> dict[str, dict]:
+        """Top-1 alignment accuracy broken down by gold Knowledge Area.
+
+        Uses the semantic aligner (best in the aligner comparison) on each gold
+        concept and records whether its top KA matches the gold KA, grouped by
+        KA — surfacing which Knowledge Areas the aligner handles best/worst.
+        """
+        from curriculum_mapper.alignment.aligner import load_ka_data
+        from curriculum_mapper.alignment.semantic import SemanticAligner
+
+        sem = SemanticAligner(load_ka_data(), self.em)
+        by_ka: dict[str, dict[str, int]] = defaultdict(lambda: {"n": 0, "hit1": 0})
+        for concept_ka_map in self.gold_with_ka.values():
+            for term, gold_ka in concept_ka_map.items():
+                emb = self.em.encode([term])[0]
+                ka_list: list[str] = []
+                seen: set[str] = set()
+                for r in sem.align(emb):
+                    if r["ka_code"] not in seen:
+                        seen.add(r["ka_code"])
+                        ka_list.append(r["ka_code"])
+                by_ka[gold_ka]["n"] += 1
+                if ka_list and ka_list[0] == gold_ka:
+                    by_ka[gold_ka]["hit1"] += 1
+        out = {
+            ka: {"n": v["n"], "top1_accuracy": round(v["hit1"] / v["n"], 4)}
+            for ka, v in sorted(by_ka.items())
+        }
+        for ka, v in out.items():
+            logger.info(f"  KA {ka:4s}: n={v['n']:3d}  Top-1={v['top1_accuracy']:.3f}")
+        return out
+
+    # ── Ambiguity-margin sweep (justifies δ) ───────────────────────────────────
+
+    def run_ambiguity_margin_sweep(self, margins: list[float] | None = None) -> dict:
+        """Ambiguous rank-1 alignments as a function of the margin δ.
+
+        A rank-1 alignment is flagged ambiguous when its score and the rank-2
+        score differ by less than δ. Sweeping δ shows how the chosen δ trades the
+        number of human-review flags against confidence — turning the fixed 0.08
+        into a justified operating point. Computed from stored alignment scores.
+        """
+        if margins is None:
+            margins = [0.02, 0.04, 0.06, 0.08, 0.10, 0.15, 0.20]
+
+        by_concept: dict[str, dict[int, float]] = defaultdict(dict)
+        for a in self.storage.get_all_alignments():
+            by_concept[a.concept_id][a.rank] = a.score
+
+        n_rank1 = 0
+        gaps: list[float] = []
+        for ranks in by_concept.values():
+            if 1 in ranks:
+                n_rank1 += 1
+                if 2 in ranks:
+                    gaps.append(ranks[1] - ranks[2])
+
+        out: dict[float, dict] = {}
+        for m in margins:
+            n_amb = sum(1 for g in gaps if g < m)
+            out[m] = {
+                "margin": m,
+                "ambiguous_count": n_amb,
+                "ambiguous_fraction": round(n_amb / n_rank1, 4) if n_rank1 else 0.0,
+            }
+            logger.info(f"  δ={m:.2f}: {n_amb}/{n_rank1} rank-1 ambiguous "
+                        f"({out[m]['ambiguous_fraction']:.1%})")
+        return out
+
     def run_all(self, ks: list[int] | None = None) -> dict:
         """Run all benchmarks and return combined results."""
         logger.info("Running extraction benchmark (ensemble)…")

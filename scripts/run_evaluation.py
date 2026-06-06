@@ -146,6 +146,23 @@ def main() -> None:
         results["aligner_weight_sweep"] = runner.run_aligner_weight_sweep()
         logger.info("Running canonicalisation ablation…")
         results["canonicalisation_ablation"] = runner.run_canonicalisation_ablation()
+        logger.info("Running baseline comparison (TF-IDF / LDA / noun-phrases / random)…")
+        results["baseline_comparison"] = runner.run_baseline_comparison()
+        logger.info("Running extraction error analysis…")
+        results["error_analysis"] = runner.run_error_analysis()
+        logger.info("Running per-KA alignment breakdown…")
+        results["per_ka_alignment"] = runner.run_per_ka_alignment()
+        logger.info("Running graph-structure validation (communities/DAG/threshold)…")
+        from curriculum_mapper.evaluation.graph_validation import (
+            compare_programmes,
+            evaluate_concept_prerequisites,
+            run_graph_validation,
+        )
+        results["graph_validation"] = run_graph_validation(storage)
+        results["concept_prerequisites"] = evaluate_concept_prerequisites(storage)
+        results["programme_comparison"] = compare_programmes(storage)
+        logger.info("Running ambiguity-margin sweep…")
+        results["ambiguity_margin_sweep"] = runner.run_ambiguity_margin_sweep()
         logger.info("Running perturbation-robustness analysis…")
         from curriculum_mapper.alignment.aligner import load_ka_data
         from curriculum_mapper.evaluation.robustness import run_perturbation_robustness
