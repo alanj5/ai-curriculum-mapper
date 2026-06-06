@@ -25,13 +25,13 @@ const LAYOUT_OPTS = {
   // Reserve space for the (now title-based) labels so nodes don't overlap them,
   // and push nodes further apart for a calmer, more legible layout.
   nodeDimensionsIncludeLabels: true,
-  nodeRepulsion: 1400000,
-  idealEdgeLength: 200,
-  nodeSeparation: 240,
-  edgeElasticity: 0.4,
+  nodeRepulsion: 1700000,
+  idealEdgeLength: 240,
+  nodeSeparation: 320,
+  edgeElasticity: 0.35,
   nestingFactor: 0.1,
-  gravity: 0.12,
-  gravityRange: 4.2,
+  gravity: 0.08,
+  gravityRange: 4.6,
   numIter: 5000,
   packComponents: true,
   tile: true,
@@ -641,7 +641,7 @@ function buildBipartiteElements(data) {
     data: {
       id: n.data.id,
       code: n.data.type === 'module' ? n.data.id : undefined,
-      label: n.data.type === 'module' ? n.data.id : nodeLabel(n.data.term || n.data.id, '', 30),
+      label: n.data.type === 'module' ? (n.data.title || n.data.id) : nodeLabel(n.data.term || n.data.id, '', 30),
       nodeType: n.data.type || 'concept',
       title: n.data.title || n.data.term || '',
       level: n.data.level ?? null,
@@ -667,12 +667,13 @@ function buildBipartiteStyle() {
       selector: 'node[nodeType = "module"]',
       style: {
         'background-color': '#003e74',
-        'width': 54, 'height': 54,
+        'width': 56, 'height': 56,
         'label': 'data(label)',
-        'font-size': '14px', 'font-weight': 700,
-        'color': '#ffffff',
-        'text-valign': 'center', 'text-halign': 'center',
-        'text-outline-color': '#002f59', 'text-outline-width': 2,
+        'font-size': '15px', 'font-weight': 700,
+        'color': '#1b2430',
+        'text-valign': 'bottom', 'text-halign': 'center', 'text-margin-y': 6,
+        'text-wrap': 'wrap', 'text-max-width': '160px',
+        'text-outline-color': '#ffffff', 'text-outline-width': 3,
         'cursor': 'pointer',
         'z-index': 10,
       },
@@ -717,7 +718,7 @@ function buildElements(data) {
     data: {
       id: n.data.id,
       code: n.data.id,
-      label: nodeLabel(n.data.title, n.data.id, 30),
+      label: n.data.title || n.data.id,   // full module name (not truncated)
       community: n.data.community ?? 0,
       degree: n.data.degree ?? 0,
       title: n.data.title ?? '',
@@ -917,7 +918,7 @@ function buildStyle(colorBy = 'community') {
         'width': nodeSize,
         'height': nodeSize,
         'label': 'data(label)',
-        'font-size': isLevel ? '11px' : '10px',
+        'font-size': isLevel ? '12px' : '13px',
         'font-weight': 600,
         'color': '#1b2430',
         'text-valign': isLevel ? 'center' : 'bottom',
@@ -925,7 +926,7 @@ function buildStyle(colorBy = 'community') {
         'text-margin-x': isLevel ? 8 : 0,
         'text-margin-y': isLevel ? 0 : 5,
         'text-wrap': 'wrap',
-        'text-max-width': isLevel ? '180px' : '120px',
+        'text-max-width': isLevel ? '200px' : '150px',
         'text-outline-color': '#ffffff',
         'text-outline-width': 3,
         'border-width': 1.5,
@@ -1020,15 +1021,18 @@ function buildLegend(nodes) {
     .sort(([a], [b]) => a - b)
     .map(([c, list]) => {
       const color = COMMUNITY_COLORS[c % COMMUNITY_COLORS.length];
-      const rep = list.slice().sort((a, b) => (b.degree ?? 0) - (a.degree ?? 0))[0];
-      const repName = nodeLabel(rep?.title || rep?.id || '', '', 24);
+      // Name the cluster by its most-connected modules (its exemplars), in full,
+      // so the colour means something concrete rather than "12 modules · e.g…".
+      const sorted = list.slice().sort((a, b) => (b.degree ?? 0) - (a.degree ?? 0));
+      const reps = sorted.slice(0, 2).map(r => r.title || r.id);
+      const extra = list.length - reps.length;
       return `<div class="legend-item">
         <div class="legend-dot" style="background:${color}"></div>
-        <span><strong>${list.length}</strong> related modules · e.g. ${_esc(repName)}</span>
+        <span>${_esc(reps.join(', '))}${extra > 0 ? ` <span style="color:var(--muted)">+${extra} more</span>` : ''}</span>
       </div>`;
     })
     .join('');
-  legendEl.innerHTML = `<div class="lg-title">Thematic clusters</div>${rows}`;
+  legendEl.innerHTML = `<div class="lg-title">Module clusters <span style="font-weight:400;text-transform:none;letter-spacing:0">— each colour groups modules that share concepts</span></div>${rows}`;
 }
 
 function buildLevelLegend(nodes) {

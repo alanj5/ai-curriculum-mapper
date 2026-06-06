@@ -353,13 +353,14 @@ a:hover { text-decoration: underline; }
   var(--bg); }
 
 .graph-legend {
-  position: absolute; top: 14px; left: 14px; max-width: 260px;
+  position: absolute; top: 14px; left: 14px; max-width: 280px;
+  max-height: calc(100% - 28px); overflow-y: auto;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   padding: 11px 13px; font-size: 12.5px; box-shadow: var(--shadow-md);
 }
 .graph-legend .lg-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 8px; }
-.legend-item { display: flex; align-items: center; gap: 8px; color: var(--text); padding: 2px 0; }
-.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+.legend-item { display: flex; align-items: flex-start; gap: 8px; color: var(--text); padding: 3px 0; line-height: 1.35; }
+.legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
 
 .edge-legend {
   position: absolute; bottom: 14px; left: 14px; display: flex; gap: 14px;
