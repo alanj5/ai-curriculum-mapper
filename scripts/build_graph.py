@@ -36,11 +36,14 @@ from curriculum_mapper.graph.analytics import (
 from curriculum_mapper.graph.builder import (
     build_bipartite_graph,
     build_concept_acm_graph,
+    build_concept_prerequisite_graph,
     build_module_module_graph,
 )
+from curriculum_mapper.graph.concept_prerequisite import infer_concept_prerequisites
 from curriculum_mapper.graph.gap_detector import generate_coverage_report
 from curriculum_mapper.graph.prerequisite import infer_prerequisites
 from curriculum_mapper.ingestion.storage import StorageManager
+from curriculum_mapper.nlp.embeddings import EmbeddingManager
 
 logging.basicConfig(
     level=logging.INFO,
@@ -92,6 +95,24 @@ def main() -> None:
     logger.info("Building concept-ACM hierarchy graph…")
     G_acm = build_concept_acm_graph(concepts, alignments, ka_data)
     logger.info(f"  Concept-ACM: {G_acm.number_of_nodes()} nodes, {G_acm.number_of_edges()} edges")
+
+    # ── Graph 4: Directed concept-prerequisite graph (DAG) ─────────────────────
+    logger.info("Inferring directed concept→concept prerequisites…")
+    best_alignments = storage.get_best_alignments_per_concept()
+    cprereq_edges = infer_concept_prerequisites(
+        concepts, modules, best_alignments, EmbeddingManager()
+    )
+    storage.clear_concept_prerequisites()
+    for edge in cprereq_edges:
+        storage.insert_concept_prerequisite(edge)
+    G_cp = build_concept_prerequisite_graph(cprereq_edges, concepts, modules)
+    import networkx as _nx
+    cp_acyclic = _nx.is_directed_acyclic_graph(G_cp) if G_cp.number_of_edges() else True
+    cp_depth = len(_nx.dag_longest_path(G_cp)) if (cp_acyclic and G_cp.number_of_edges()) else 0
+    logger.info(
+        f"  Concept-prerequisites: {G_cp.number_of_nodes()} nodes, "
+        f"{G_cp.number_of_edges()} edges, acyclic={cp_acyclic}, longest chain={cp_depth}"
+    )
 
     # ── Analytics on module-module graph ─────────────────────────────────────
     logger.info("Computing centrality measures…")
@@ -151,6 +172,12 @@ def main() -> None:
         "concept_acm": {
             "nodes": G_acm.number_of_nodes(),
             "edges": G_acm.number_of_edges(),
+        },
+        "concept_prerequisites": {
+            "nodes": G_cp.number_of_nodes(),
+            "edges": G_cp.number_of_edges(),
+            "acyclic": cp_acyclic,
+            "longest_chain": cp_depth,
         },
         "coverage": coverage_report,
         "inferred_prerequisites": [

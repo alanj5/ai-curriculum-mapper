@@ -156,3 +156,47 @@ def build_concept_acm_graph(
 
     _save_graph(G, "concept_acm")
     return G
+
+
+def build_concept_prerequisite_graph(
+    edges: list,
+    concepts: list[Concept],
+    modules: list[ModuleDescriptor],
+    save: bool = True,
+) -> nx.DiGraph:
+    """Directed concept→concept prerequisite graph (DAG).
+
+    ``edges`` is a list of ``ConceptPrerequisite``; only concepts referenced by an
+    edge become nodes. Each node carries its term and *introduction level* (lowest
+    teaching-module level) so the frontend can lay it out as a progression.
+    """
+    level_of = {m.code: m.level for m in modules}
+    intro: dict[str, int] = {}
+    by_id = {c.id: c for c in concepts}
+    for c in concepts:
+        levels = [level_of[mc] for mc in c.module_codes if mc in level_of]
+        if levels:
+            intro[c.id] = min(levels)
+
+    G = nx.DiGraph()
+    referenced = {e.from_concept_id for e in edges} | {e.to_concept_id for e in edges}
+    for cid in referenced:
+        node = by_id.get(cid)
+        if node is None:
+            continue
+        G.add_node(
+            cid, type="concept", term=node.term, label=node.term,
+            confidence=node.confidence, level=intro.get(cid),
+        )
+    for e in edges:
+        if G.has_node(e.from_concept_id) and G.has_node(e.to_concept_id):
+            G.add_edge(
+                e.from_concept_id, e.to_concept_id,
+                type="prerequisite", weight=e.confidence, method=e.method,
+            )
+
+    if G.number_of_edges() and not nx.is_directed_acyclic_graph(G):
+        logger.warning("Concept-prerequisite graph is unexpectedly cyclic!")
+    if save:
+        _save_graph(G, "concept_prerequisites")
+    return G

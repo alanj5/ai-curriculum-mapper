@@ -96,6 +96,14 @@ REDUNDANCY_THRESHOLD = 5      # concepts appearing in >=N modules flagged redund
 REDUNDANCY_MIN_CONFIDENCE = 0.25
 GAP_COVERAGE_THRESHOLD = 0.10  # KA coverage below 10% = gap
 
+# ── Concept-prerequisite inference (directed concept graph) ─────────────────────
+# A concept A is a prerequisite of B if they are related and A is introduced at a
+# strictly lower curriculum level (DAG-safe). See graph/concept_prerequisite.py.
+CONCEPT_PREREQ_MIN_CONFIDENCE = 0.20  # exclude only the lowest-confidence fragments
+CONCEPT_PREREQ_SBERT_THRESHOLD = 0.55  # SBERT cosine for relatedness
+CONCEPT_PREREQ_RELATEDNESS_FLOOR = 0.50  # minimum combined relatedness to keep an edge
+CONCEPT_PREREQ_TOP_K = 5  # max prerequisites kept per dependent concept
+
 # ── API ────────────────────────────────────────────────────────────────────────
 API_HOST = os.environ.get("API_HOST", "127.0.0.1")
 API_PORT = int(os.environ.get("API_PORT", "8000"))

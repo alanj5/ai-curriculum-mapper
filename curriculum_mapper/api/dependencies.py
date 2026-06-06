@@ -39,6 +39,11 @@ def get_graph_concept_acm():
     return load_graph("concept_acm")
 
 
+def get_graph_concept_prerequisite():
+    """Load the cached directed concept→concept prerequisite graph (DAG)."""
+    return load_graph("concept_prerequisites")
+
+
 def get_graph_stats() -> dict | None:
     """Load pre-computed graph stats (built by build_graph.py)."""
     p = GRAPH_STATS_PATH
