@@ -69,11 +69,15 @@ def validate_alignment(
     body: ValidateRequest,
     storage: StorageManager = Depends(get_storage),
 ) -> dict:
-    """Accept, reject, or reassign an alignment (human-in-the-loop)."""
-    if body.action not in ("accept", "reject", "reassign"):
+    """Accept, reject, reassign, or reset an alignment (human-in-the-loop).
+
+    ``reset`` clears a prior accept/reject decision (validated -> unvalidated),
+    backing the one-click *undo* offered in the UI after a validation action.
+    """
+    if body.action not in ("accept", "reject", "reassign", "reset"):
         raise HTTPException(
             status_code=422,
-            detail="action must be 'accept', 'reject', or 'reassign'",
+            detail="action must be 'accept', 'reject', 'reassign', or 'reset'",
         )
     if body.action == "reassign" and not body.new_ka_code:
         raise HTTPException(
@@ -107,6 +111,14 @@ def validate_alignment(
                        validated_by=?, validated_at=?
                    WHERE id=?""",
                 (new_ka, f"{ka_name} (reassigned)", by, now, alignment_id),
+            )
+        elif body.action == "reset":
+            # Undo a prior accept/reject: return the alignment to unvalidated.
+            conn.execute(
+                """UPDATE alignments
+                   SET validated=NULL, validated_by=NULL, validated_at=NULL
+                   WHERE id=?""",
+                (alignment_id,),
             )
         else:
             validated_value = 1 if body.action == "accept" else 0

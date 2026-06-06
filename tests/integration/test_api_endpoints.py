@@ -263,6 +263,25 @@ class TestAlignmentsEndpoints:
         assert r.status_code == 200
         assert r.json()["action"] == "reject"
 
+    async def test_validate_alignment_reset_undoes_decision(self, client):
+        # accept then reset returns the alignment to unvalidated — this backs the
+        # one-click "undo" offered in the UI after a validation action.
+        r_list = await client.get("/api/v1/alignments/?limit=3&rank=1")
+        alignment_id = r_list.json()[2]["id"]
+        await client.patch(
+            f"/api/v1/alignments/{alignment_id}/validate", json={"action": "accept"}
+        )
+        after = await client.get("/api/v1/alignments/?rank=1&limit=1000")
+        assert next(a["validated"] for a in after.json() if a["id"] == alignment_id) is True
+
+        r = await client.patch(
+            f"/api/v1/alignments/{alignment_id}/validate", json={"action": "reset"}
+        )
+        assert r.status_code == 200
+        assert r.json()["action"] == "reset"
+        after2 = await client.get("/api/v1/alignments/?rank=1&limit=1000")
+        assert next(a["validated"] for a in after2.json() if a["id"] == alignment_id) is None
+
     async def test_validate_alignment_invalid_action(self, client):
         r_list = await client.get("/api/v1/alignments/?limit=1")
         alignment_id = r_list.json()[0]["id"]
