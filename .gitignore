@@ -23,6 +23,9 @@ build/
 # Data — raw module documents may be sensitive; pipeline artefacts are regenerable
 data/raw/modules/*.pdf
 data/raw/modules/*.docx
+# Source programme-specification PDFs: provenance is the source URLs recorded in
+# data/raw/standards/imperial_module_meta.json, so the binaries are not tracked
+data/raw/standards/imperial_specs/
 data/cache/*
 # Track the small LLM response cache so the LLM-extraction numbers reproduce
 # without re-running the model (the heavy embedding/graph caches stay ignored).

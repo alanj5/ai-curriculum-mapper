@@ -1,40 +1,253 @@
 {
-  "_source": "Programme-level learning outcomes derived from the Imperial College London BEng/MEng Computing and Joint Mathematics & Computing programme specifications and the Engineering Council AHEP4 accreditation learning outcomes (which these degrees are accredited against). Used as the interim's third node type ('Learning Outcomes') for the 'which programme-level outcomes a course fulfils' mapping.",
+  "_source": "Imperial College London official Programme Specifications 2025-26 \u2014 verbatim programme Intended Learning Outcomes (BEng G400, MEng G401), Department of Computing.",
+  "_source_urls": {
+    "beng_computing": "https://www.imperial.ac.uk/media/imperial-college/study/programme-specifications/computing/25x2f26/G400-BEng-Computing-2025-26.pdf",
+    "meng_computing": "https://www.imperial.ac.uk/media/imperial-college/study/programme-specifications/computing/25x2f26/G401-MEng-Computing-2025-26.pdf"
+  },
   "programmes": {
     "beng_computing": [
-      {"code": "PLO-1", "title": "Mathematical & computational foundations", "description": "Apply knowledge of mathematics, discrete structures, algorithms and the theory of computation to model and solve computing problems."},
-      {"code": "PLO-2", "title": "Programming & software construction", "description": "Design, implement, test and debug correct and efficient software across multiple programming paradigms and languages."},
-      {"code": "PLO-3", "title": "Computer systems & architecture", "description": "Explain the design and operation of computer systems, processor architecture, operating systems and computer networks."},
-      {"code": "PLO-4", "title": "Data & information management", "description": "Model, store, query and reason about data using databases, information systems and data-management techniques."},
-      {"code": "PLO-5", "title": "Artificial intelligence & machine learning", "description": "Apply machine learning, artificial intelligence and statistical data-analysis techniques to real-world problems."},
-      {"code": "PLO-6", "title": "Software engineering & teamwork", "description": "Apply software-engineering methods, processes and tools, and work effectively in teams to deliver substantial software systems."},
-      {"code": "PLO-7", "title": "Theory & formal reasoning", "description": "Apply logic, formal methods and mathematical reasoning to specify, analyse and verify computing artefacts."},
-      {"code": "PLO-8", "title": "Security, privacy & professional ethics", "description": "Analyse the security, privacy, legal, social, environmental and ethical implications of computing systems and act professionally."},
-      {"code": "PLO-9", "title": "Human-centred computing", "description": "Design, build and evaluate interactive systems, graphics and visualisations that meet the needs of human users."},
-      {"code": "PLO-10", "title": "Independent investigation & communication", "description": "Conduct independent investigation, critically evaluate evidence, and communicate technical findings to varied audiences."}
+      {
+        "code": "LO1",
+        "title": "Explain the internal architecture of a simple computer",
+        "description": "Explain the internal architecture of a simple computer"
+      },
+      {
+        "code": "LO2",
+        "title": "Develop and test software solutions to well-specified problems using a variety of programming paradigms.",
+        "description": "Develop and test software solutions to well-specified problems using a variety of programming paradigms."
+      },
+      {
+        "code": "LO3",
+        "title": "Describe the key characteristics of information systems and use such systems effectively for data storage and retrieval.",
+        "description": "Describe the key characteristics of information systems and use such systems effectively for data storage and retrieval."
+      },
+      {
+        "code": "LO4",
+        "title": "Use mathematical methods to specify and analyse the behaviour of simple programs.",
+        "description": "Use mathematical methods to specify and analyse the behaviour of simple programs."
+      },
+      {
+        "code": "LO5",
+        "title": "Use continuous mathematics to solve simple problems in applied Computing.",
+        "description": "Use continuous mathematics to solve simple problems in applied Computing."
+      },
+      {
+        "code": "LO6",
+        "title": "Apply basic research methods and communicate findings orally and in writing.",
+        "description": "Apply basic research methods and communicate findings orally and in writing."
+      },
+      {
+        "code": "LO7",
+        "title": "Explain the social, ethical and professional principles associated with computer-based technology.",
+        "description": "Explain the social, ethical and professional principles associated with computer-based technology."
+      },
+      {
+        "code": "LO8",
+        "title": "Apply software engineering design principles to the development of robust software that is easy to understand, test and maintain.",
+        "description": "Apply software engineering design principles to the development of robust software that is easy to understand, test and maintain."
+      },
+      {
+        "code": "LO9",
+        "title": "Design, implement and deploy web-based applications that meet the needs of their target users.",
+        "description": "Design, implement and deploy web-based applications that meet the needs of their target users."
+      },
+      {
+        "code": "LO10",
+        "title": "Specify, design and implement programming languages.",
+        "description": "Specify, design and implement programming languages."
+      },
+      {
+        "code": "LO11",
+        "title": "Explain the key principles underpinning the design of modern computer and communication systems.",
+        "description": "Explain the key principles underpinning the design of modern computer and communication systems."
+      },
+      {
+        "code": "LO12",
+        "title": "Describe formal computational models that underpin Computing and use these to explain the limitations of computers.",
+        "description": "Describe formal computational models that underpin Computing and use these to explain the limitations of computers."
+      },
+      {
+        "code": "LO13",
+        "title": "Explain the relevant laws that impact on the practice of computing.",
+        "description": "Explain the relevant laws that impact on the practice of computing."
+      },
+      {
+        "code": "LO14",
+        "title": "Demonstrate effective teamwork in the management and delivery of complex projects.",
+        "description": "Demonstrate effective teamwork in the management and delivery of complex projects."
+      },
+      {
+        "code": "LO15",
+        "title": "Communicate effectively, both orally and in writing, as part of a team.",
+        "description": "Communicate effectively, both orally and in writing, as part of a team."
+      },
+      {
+        "code": "LO16",
+        "title": "Explain the statistical foundations of descriptive and predictive statistical models.",
+        "description": "Explain the statistical foundations of descriptive and predictive statistical models."
+      },
+      {
+        "code": "LO17",
+        "title": "Apply machine learning techniques to derive data-driven insights.",
+        "description": "Apply machine learning techniques to derive data-driven insights."
+      },
+      {
+        "code": "LO18",
+        "title": "Design, engineer and extend complex computer-based systems that are fit for purpose using core Computing knowledge and appropriate state-of-the-art technology, methods and thinking.",
+        "description": "Design, engineer and extend complex computer-based systems that are fit for purpose using core Computing knowledge and appropriate state-of-the-art technology, methods and thinking."
+      },
+      {
+        "code": "LO19",
+        "title": "Develop computer-based systems in a manner that respects relevant legal, social, ethical and other professional practices.",
+        "description": "Develop computer-based systems in a manner that respects relevant legal, social, ethical and other professional practices."
+      },
+      {
+        "code": "LO20",
+        "title": "Select and apply appropriate methods, techniques and tools to ensure correctness, security, reliability, performance, and maintainability of computer-based systems.",
+        "description": "Select and apply appropriate methods, techniques and tools to ensure correctness, security, reliability, performance, and maintainability of computer-based systems."
+      },
+      {
+        "code": "LO21",
+        "title": "Apply mathematical methods and scientific reasoning to novel computing-related problems.",
+        "description": "Apply mathematical methods and scientific reasoning to novel computing-related problems."
+      },
+      {
+        "code": "LO22",
+        "title": "Demonstrate effective application of Computing in scientific, engineering and industrial domains, as an individual.",
+        "description": "Demonstrate effective application of Computing in scientific, engineering and industrial domains, as an individual."
+      },
+      {
+        "code": "LO23",
+        "title": "Communicate effectively, both orally and in writing, as individuals.",
+        "description": "Communicate effectively, both orally and in writing, as individuals."
+      }
     ],
     "meng_computing": [
-      {"code": "PLO-1", "title": "Mathematical & computational foundations", "description": "Apply knowledge of mathematics, discrete structures, algorithms and the theory of computation to model and solve computing problems."},
-      {"code": "PLO-2", "title": "Programming & software construction", "description": "Design, implement, test and debug correct and efficient software across multiple programming paradigms and languages."},
-      {"code": "PLO-3", "title": "Computer systems & architecture", "description": "Explain the design and operation of computer systems, processor architecture, operating systems and computer networks."},
-      {"code": "PLO-4", "title": "Data & information management", "description": "Model, store, query and reason about data using databases, information systems and data-management techniques."},
-      {"code": "PLO-5", "title": "Artificial intelligence & machine learning", "description": "Apply machine learning, artificial intelligence and statistical data-analysis techniques to real-world problems."},
-      {"code": "PLO-6", "title": "Software engineering & teamwork", "description": "Apply software-engineering methods, processes and tools, and work effectively in teams to deliver substantial software systems."},
-      {"code": "PLO-7", "title": "Theory & formal reasoning", "description": "Apply logic, formal methods and mathematical reasoning to specify, analyse and verify computing artefacts."},
-      {"code": "PLO-8", "title": "Security, privacy & professional ethics", "description": "Analyse the security, privacy, legal, social, environmental and ethical implications of computing systems and act professionally."},
-      {"code": "PLO-9", "title": "Human-centred computing", "description": "Design, build and evaluate interactive systems, graphics and visualisations that meet the needs of human users."},
-      {"code": "PLO-10", "title": "Independent investigation & communication", "description": "Conduct independent investigation, critically evaluate evidence, and communicate technical findings to varied audiences."},
-      {"code": "PLO-11", "title": "Advanced specialisation & research", "description": "Apply advanced, research-level knowledge in a specialist area of computing to open-ended problems at the forefront of the discipline."}
-    ],
-    "jmc": [
-      {"code": "JMC-1", "title": "Advanced mathematics", "description": "Apply advanced pure and applied mathematics — analysis, algebra, probability and statistics — alongside computing."},
-      {"code": "JMC-2", "title": "Mathematical & computational foundations", "description": "Apply discrete structures, algorithms and the theory of computation to model and solve problems."},
-      {"code": "JMC-3", "title": "Programming & software construction", "description": "Design, implement, test and debug correct and efficient software across multiple paradigms."},
-      {"code": "JMC-4", "title": "Theory & formal reasoning", "description": "Apply logic, formal methods and rigorous mathematical reasoning to specify and verify artefacts."},
-      {"code": "JMC-5", "title": "Artificial intelligence & machine learning", "description": "Apply machine learning, AI and statistical techniques, drawing on a strong mathematical basis."},
-      {"code": "JMC-6", "title": "Software engineering & teamwork", "description": "Apply software-engineering methods and work effectively in teams to deliver software systems."},
-      {"code": "JMC-7", "title": "Security, privacy & professional ethics", "description": "Analyse the security, legal, social and ethical implications of computing and act professionally."},
-      {"code": "JMC-8", "title": "Independent investigation & communication", "description": "Conduct independent investigation, evaluate evidence, and communicate technical findings."}
+      {
+        "code": "LO1",
+        "title": "Explain the internal architecture of a simple computer.",
+        "description": "Explain the internal architecture of a simple computer."
+      },
+      {
+        "code": "LO2",
+        "title": "Develop and test software solutions to well-specified problems using a variety of programming paradigms.",
+        "description": "Develop and test software solutions to well-specified problems using a variety of programming paradigms."
+      },
+      {
+        "code": "LO3",
+        "title": "Describe the key characteristics of information systems and use such systems effectively for data storage and retrieval.",
+        "description": "Describe the key characteristics of information systems and use such systems effectively for data storage and retrieval."
+      },
+      {
+        "code": "LO4",
+        "title": "Use mathematical methods to specify and analyse the behaviour of simple programs.",
+        "description": "Use mathematical methods to specify and analyse the behaviour of simple programs."
+      },
+      {
+        "code": "LO5",
+        "title": "Use continuous mathematics to solve simple problems in applied Computing.",
+        "description": "Use continuous mathematics to solve simple problems in applied Computing."
+      },
+      {
+        "code": "LO6",
+        "title": "Apply basic research methods and communicate findings orally and in writing.",
+        "description": "Apply basic research methods and communicate findings orally and in writing."
+      },
+      {
+        "code": "LO7",
+        "title": "Explain the social, ethical and professional principles associated with computer-based technology.",
+        "description": "Explain the social, ethical and professional principles associated with computer-based technology."
+      },
+      {
+        "code": "LO8",
+        "title": "Apply software engineering design principles to the development of robust software that is easy to understand, test and maintain.",
+        "description": "Apply software engineering design principles to the development of robust software that is easy to understand, test and maintain."
+      },
+      {
+        "code": "LO9",
+        "title": "Design, implement and deploy web-based applications that meet the needs of their target users.",
+        "description": "Design, implement and deploy web-based applications that meet the needs of their target users."
+      },
+      {
+        "code": "LO10",
+        "title": "Specify, design and implement programming languages.",
+        "description": "Specify, design and implement programming languages."
+      },
+      {
+        "code": "LO11",
+        "title": "Explain the key principles underpinning the design of modern computer and communication systems.",
+        "description": "Explain the key principles underpinning the design of modern computer and communication systems."
+      },
+      {
+        "code": "LO12",
+        "title": "Describe formal computational models that underpin Computing and use these to explain the limitations of computers.",
+        "description": "Describe formal computational models that underpin Computing and use these to explain the limitations of computers."
+      },
+      {
+        "code": "LO13",
+        "title": "Explain the relevant laws that impact on the practice of computing.",
+        "description": "Explain the relevant laws that impact on the practice of computing."
+      },
+      {
+        "code": "LO14",
+        "title": "Demonstrate effective teamwork in the management and delivery of complex projects.",
+        "description": "Demonstrate effective teamwork in the management and delivery of complex projects."
+      },
+      {
+        "code": "LO15",
+        "title": "Communicate effectively, both orally and in writing, as part of a team.",
+        "description": "Communicate effectively, both orally and in writing, as part of a team."
+      },
+      {
+        "code": "LO16",
+        "title": "Explain the statistical foundations of descriptive and predictive statistical models.",
+        "description": "Explain the statistical foundations of descriptive and predictive statistical models."
+      },
+      {
+        "code": "LO17",
+        "title": "Apply machine learning techniques to derive data-driven insights.",
+        "description": "Apply machine learning techniques to derive data-driven insights."
+      },
+      {
+        "code": "LO18",
+        "title": "Design, engineer and extend complex computer-based systems that are fit for purpose using core Computing knowledge and appropriate state-of-the-art technology, methods and thinking.",
+        "description": "Design, engineer and extend complex computer-based systems that are fit for purpose using core Computing knowledge and appropriate state-of-the-art technology, methods and thinking."
+      },
+      {
+        "code": "LO19",
+        "title": "Select and apply appropriate methods, techniques and tools to ensure correctness, security, reliability, performance, and maintainability of computer-based systems.",
+        "description": "Select and apply appropriate methods, techniques and tools to ensure correctness, security, reliability, performance, and maintainability of computer-based systems."
+      },
+      {
+        "code": "LO20",
+        "title": "Apply mathematical methods and scientific reasoning to novel computing-related problems.",
+        "description": "Apply mathematical methods and scientific reasoning to novel computing-related problems."
+      },
+      {
+        "code": "LO21",
+        "title": "Communicate effectively, both orally and in writing, as individuals.",
+        "description": "Communicate effectively, both orally and in writing, as individuals."
+      },
+      {
+        "code": "LO22",
+        "title": "Develop computer-based systems in a manner that respects relevant legal, social, ethical and other professional practices.",
+        "description": "Develop computer-based systems in a manner that respects relevant legal, social, ethical and other professional practices."
+      },
+      {
+        "code": "LO23",
+        "title": "Apply technical knowledge and expertise to cutting-edge problems in industry.",
+        "description": "Apply technical knowledge and expertise to cutting-edge problems in industry."
+      },
+      {
+        "code": "LO24",
+        "title": "Reflect critically on professional practice in an industrial setting.",
+        "description": "Reflect critically on professional practice in an industrial setting."
+      },
+      {
+        "code": "LO25",
+        "title": "Individually demonstrate the use of cutting-edge research, methods and thinking to solve complex Computing problems in scientific, engineering and industrial domains.",
+        "description": "Individually demonstrate the use of cutting-edge research, methods and thinking to solve complex Computing problems in scientific, engineering and industrial domains."
+      }
     ]
   }
 }

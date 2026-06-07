@@ -1,0 +1,434 @@
+{
+  "_source": "Imperial College London official Programme Specifications 2025-26 (BEng G400, MEng G401), Department of Computing.",
+  "_source_urls": {
+    "beng": "https://www.imperial.ac.uk/media/imperial-college/study/programme-specifications/computing/25x2f26/G400-BEng-Computing-2025-26.pdf",
+    "meng": "https://www.imperial.ac.uk/media/imperial-college/study/programme-specifications/computing/25x2f26/G401-MEng-Computing-2025-26.pdf"
+  },
+  "modules": {
+    "IC40001": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Core"
+    },
+    "IC40016": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Core"
+    },
+    "IC40018": {
+      "credits": 10,
+      "term": "Autumn-Spring",
+      "module_type": "Core"
+    },
+    "IC40017": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Core"
+    },
+    "IC40005": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Core"
+    },
+    "IC40007": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Core"
+    },
+    "IC40008": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Core"
+    },
+    "IC40009": {
+      "credits": 20,
+      "term": "Autumn-Summer",
+      "module_type": "Core"
+    },
+    "IC50001": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Compulsory"
+    },
+    "IC50002": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Compulsory"
+    },
+    "IC50004": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Compulsory"
+    },
+    "IC50008": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Compulsory"
+    },
+    "IC50003": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Compulsory"
+    },
+    "IC50013": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Compulsory"
+    },
+    "IC50005": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Compulsory"
+    },
+    "IC50007": {
+      "credits": 15,
+      "term": "Autumn-Spring",
+      "module_type": "Core"
+    },
+    "IC50010": {
+      "credits": 5,
+      "term": "Spring-Summer",
+      "module_type": "Core"
+    },
+    "IC50009": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC50011": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60021": {
+      "credits": 10,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60010": {
+      "credits": 20,
+      "term": "Autumn-Summer",
+      "module_type": "Core"
+    },
+    "IC60013": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60007": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60006": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60005": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60008": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60003": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60015": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60001": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60019": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60020": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60017": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60016": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60009": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60023": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60029": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60012": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60032": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60033": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60034": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60035": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60036": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC60037": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC60031": {
+      "credits": 15,
+      "term": "Summer",
+      "module_type": "Core"
+    },
+    "IC70011": {
+      "credits": 25,
+      "term": "Autumn-Summer",
+      "module_type": "Core"
+    },
+    "IC70012": {
+      "credits": 30,
+      "term": "Autumn",
+      "module_type": "Core"
+    },
+    "IC70023": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70022": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70018": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70009": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70001": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70006": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70005": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70024": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70004": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70010": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70014": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70017": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70020": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70021": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70025": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70007": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70016": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70019": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70015": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70028": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70030": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70031": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70086": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70070": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70067": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70068": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70075": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70082": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70084": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70090": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70111": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70100": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70105": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70101": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70098": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70103": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70112": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    },
+    "IC70114": {
+      "credits": 5,
+      "term": "Autumn",
+      "module_type": "Elective"
+    },
+    "IC70113": {
+      "credits": 5,
+      "term": "Spring",
+      "module_type": "Elective"
+    }
+  }
+}
