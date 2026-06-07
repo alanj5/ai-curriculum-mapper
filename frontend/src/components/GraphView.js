@@ -95,10 +95,26 @@ export function setEdgeTypeVisibility(showSimilarity, showPrereq) {
 
 function _applyEdgeTypeVisibility() {
   if (!_cy) return;
+  // Only the module-similarity and by-year views carry typed (similarity /
+  // prerequisite) edges; the bipartite and concept-prereq views keep their own.
+  const typed = _currentView === 'module-module' || _currentView === 'level';
   _cy.edges().forEach(e => {
+    e.removeClass('as-sim as-pre as-both type-hidden');
+    if (!typed) return;
+    // Similarity and prerequisite are overlapping relationships, not exclusive
+    // types: a pair can both share concepts (>=3) AND have a prerequisite
+    // direction. Render each edge by which of its relationships are toggled on,
+    // so a "both" edge keeps its concept-overlap (solid line) while also showing
+    // the prerequisite direction (arrow) — and toggling one off reveals the
+    // other rather than hiding the edge.
+    const isSim = (e.data('sharedCount') || 0) >= 3 || e.data('type') === 'similarity';
     const isPre = e.data('type') === 'prerequisite';
-    const hide = (isPre && !_showPrereq) || (!isPre && !_showSimilarity);
-    e.toggleClass('type-hidden', hide);
+    const s = isSim && _showSimilarity;
+    const p = isPre && _showPrereq;
+    if (s && p) e.addClass('as-both');   // concept overlap (solid) + prereq (arrow)
+    else if (s) e.addClass('as-sim');    // concept overlap only (solid, no arrow)
+    else if (p) e.addClass('as-pre');    // prerequisite only (dashed + arrow)
+    else e.addClass('type-hidden');
   });
 }
 
@@ -1027,7 +1043,8 @@ function buildStyle(colorBy = 'community') {
       },
     },
     {
-      selector: 'edge[type = "prerequisite"]',
+      // Prerequisite WITHOUT much concept overlap: a dashed directed link.
+      selector: 'edge.as-pre',
       style: {
         'line-style': 'dashed',
         'line-dash-pattern': [6, 4],
@@ -1038,6 +1055,20 @@ function buildStyle(colorBy = 'community') {
         'target-arrow-shape': 'triangle',
         'target-arrow-color': '#6941c6',
         'arrow-scale': 1.1,
+        'curve-style': 'bezier',
+      },
+    },
+    {
+      // BOTH relationships: the modules share concepts (solid line, inherited
+      // from the base edge style) AND one precedes the other (arrow). Keeping
+      // the line solid stops genuine concept overlap from being hidden behind
+      // the prerequisite — the case that made BEng look prerequisite-heavy.
+      selector: 'edge.as-both',
+      style: {
+        'target-arrow-shape': 'triangle',
+        'target-arrow-color': '#6941c6',
+        'arrow-scale': 1.1,
+        'opacity': isLevel ? 0.7 : 0.62,
         'curve-style': 'bezier',
       },
     },
