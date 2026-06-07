@@ -71,6 +71,7 @@ let _allEdgeData = [];   // original edge list, kept for filter resets
 let _currentView = 'module-module';
 let _selectedModule = null;
 let _onNodeClick = null;
+let _onConceptClick = null;   // opens a concept's detail in the map drawer
 let _confMin = 0;        // confidence range of the current bipartite concept set
 let _confMax = 1;
 let _levelPositions = {}; // module-code → {x,y} for the level-progression preset layout
@@ -99,6 +100,9 @@ function _applyProgrammeFilter() {
       (e.source().hasClass('prog-hidden') || e.target().hasClass('prog-hidden'));
     e.toggleClass('prog-hidden', !!hide);
   });
+  // In the by-year view, re-pack the visible columns and refresh the legend so
+  // both reflect the filtered cohort.
+  if (_currentView === 'level') _recenterLevelLayout();
 }
 
 // Normalise a confidence value to [0,1] over the current concept set so the
@@ -116,8 +120,9 @@ function _confColor(c) {
   return `rgb(${ch(0)},${ch(1)},${ch(2)})`;
 }
 
-export async function initGraph(container, onNodeClick) {
+export async function initGraph(container, onNodeClick, onConceptClick) {
   _onNodeClick = onNodeClick;
+  _onConceptClick = onConceptClick || null;
   return _loadView(container, 'module-module', null);
 }
 
@@ -433,14 +438,19 @@ function _applyConfidenceFilter(threshold) {
 function _setupInteractions(onNodeClick) {
   _cy.on('tap', 'node', (evt) => {
     const node = evt.target;
-    // In the concept-prerequisite view, clicking a concept recentres on it.
+    // In the concept-prerequisite view, clicking a concept recentres on it AND
+    // opens its detail in the drawer (the same view Explore shows).
     if (_currentView === 'concept-prereq') {
+      if (_onConceptClick) _onConceptClick(node.data('id'));
       showConceptNeighbourhood(node.data('id'));
       return;
     }
-    // Concept nodes (bipartite view) are not modules — ignore clicks so we do
-    // not fire a /modules/<concept-uuid> request (which 404s).
-    if (node.data('nodeType') === 'concept') return;
+    // Concept nodes (bipartite view) are not modules — don't fire a
+    // /modules/<concept-uuid> request (404); instead open the concept detail.
+    if (node.data('nodeType') === 'concept') {
+      if (_onConceptClick) _onConceptClick(node.data('id'));
+      return;
+    }
     _pinnedId = node.data('id');
     _applyFocus(_pinnedId, true);
     onNodeClick(node.data('id'));
@@ -641,7 +651,9 @@ function buildBipartiteElements(data) {
     data: {
       id: n.data.id,
       code: n.data.type === 'module' ? n.data.id : undefined,
-      label: n.data.type === 'module' ? (n.data.title || n.data.id) : nodeLabel(n.data.term || n.data.id, '', 30),
+      label: n.data.type === 'module'
+        ? (n.data.title ? `${n.data.id} — ${n.data.title}` : n.data.id)
+        : nodeLabel(n.data.term || n.data.id, '', 30),
       nodeType: n.data.type || 'concept',
       title: n.data.title || n.data.term || '',
       level: n.data.level ?? null,
@@ -699,9 +711,9 @@ function buildBipartiteStyle() {
     {
       selector: 'edge',
       style: {
-        'line-color': '#cbd5e1',
-        'width': (ele) => 0.5 + (ele.data('weight') ?? 0) * 1.5,
-        'opacity': 0.6,
+        'line-color': '#94a3b8',
+        'width': (ele) => 1 + (ele.data('weight') ?? 0) * 1.8,
+        'opacity': 0.8,
         'curve-style': 'haystack',
       },
     },
@@ -815,8 +827,17 @@ function buildLevelElements(data) {
 // the right (a preset layout, like the level view).
 function buildConceptPrereqElements(data) {
   const COL_W = 300, ROW_H = 64;
+  const MAX_PER_SIDE = 14;   // cap each column so a hub concept stays legible
+  // Keep the centre, then the most-confident prerequisites and dependents only.
+  const byConf = (a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0);
+  const self = data.nodes.filter(n => (n.data.direction || 'subsequent') === 'self');
+  const pre = data.nodes.filter(n => n.data.direction === 'prerequisite').sort(byConf).slice(0, MAX_PER_SIDE);
+  const sub = data.nodes.filter(n => n.data.direction !== 'self' && n.data.direction !== 'prerequisite').sort(byConf).slice(0, MAX_PER_SIDE);
+  const kept = [...self, ...pre, ...sub];
+  const keep = new Set(kept.map(n => n.data.id));
+
   const byCol = new Map();
-  const nodes = data.nodes.map(n => {
+  const nodes = kept.map(n => {
     const dir = n.data.direction || 'subsequent';
     const dist = n.data.dist ?? 1;
     const col = dir === 'self' ? 0 : (dir === 'prerequisite' ? -dist : dist);
@@ -839,15 +860,17 @@ function buildConceptPrereqElements(data) {
       _conceptPrereqPositions[id] = { x: col * COL_W, y: (i - (ids.length - 1) / 2) * ROW_H };
     });
   }
-  const edges = data.edges.map((e, i) => ({
-    data: {
-      id: e.data.id || `cp${i}`,
-      source: e.data.source,
-      target: e.data.target,
-      method: e.data.method || '',
-      weight: e.data.weight ?? 0.5,
-    },
-  }));
+  const edges = data.edges
+    .filter(e => keep.has(e.data.source) && keep.has(e.data.target))
+    .map((e, i) => ({
+      data: {
+        id: e.data.id || `cp${i}`,
+        source: e.data.source,
+        target: e.data.target,
+        method: e.data.method || '',
+        weight: e.data.weight ?? 0.5,
+      },
+    }));
   return [...nodes, ...edges];
 }
 
@@ -907,8 +930,8 @@ function buildStyle(colorBy = 'community') {
   // that the hover-focus then makes fully legible. Level view: similarity edges
   // are kept but faded right back so the prerequisite progression dominates.
   const simOpacity = isLevel
-    ? 0.05
-    : (ele) => { const s = ele.data('displaySim'); return s != null ? Math.min(0.5, 0.1 + s * 3) : 0.22; };
+    ? 0.32
+    : (ele) => { const s = ele.data('displaySim'); return s != null ? Math.min(0.75, 0.48 + s * 3) : 0.48; };
 
   return [
     {
@@ -951,10 +974,10 @@ function buildStyle(colorBy = 'community') {
     {
       selector: 'edge',
       style: {
-        'line-color': '#c2ccda',
+        'line-color': '#8593a6',
         'width': (ele) => {
           const s = ele.data('displaySim');
-          return s != null ? 0.8 + s * 4 : 1.2;
+          return s != null ? 1.1 + s * 4 : 1.4;
         },
         'opacity': simOpacity,
         'curve-style': 'bezier',
@@ -1021,31 +1044,36 @@ function buildLegend(nodes) {
     .sort(([a], [b]) => a - b)
     .map(([c, list]) => {
       const color = COMMUNITY_COLORS[c % COMMUNITY_COLORS.length];
-      // Name the cluster by its most-connected modules (its exemplars), in full,
-      // so the colour means something concrete rather than "12 modules · e.g…".
-      const sorted = list.slice().sort((a, b) => (b.degree ?? 0) - (a.degree ?? 0));
-      const reps = sorted.slice(0, 2).map(r => r.title || r.id);
-      const extra = list.length - reps.length;
+      // Name each cluster by its single most-connected module (its exemplar) plus
+      // a count — compact enough to read at a glance without dominating the canvas.
+      const top = list.slice().sort((a, b) => (b.degree ?? 0) - (a.degree ?? 0))[0];
+      const name = nodeLabel(top?.title || top?.id || '', '', 30);
       return `<div class="legend-item">
         <div class="legend-dot" style="background:${color}"></div>
-        <span>${_esc(reps.join(', '))}${extra > 0 ? ` <span style="color:var(--muted)">+${extra} more</span>` : ''}</span>
+        <span>${_esc(name)} <span style="color:var(--muted)">· ${list.length}</span></span>
       </div>`;
     })
     .join('');
-  legendEl.innerHTML = `<div class="lg-title">Module clusters <span style="font-weight:400;text-transform:none;letter-spacing:0">— each colour groups modules that share concepts</span></div>${rows}`;
+  legendEl.innerHTML = `<div class="lg-title">Module clusters <span style="font-weight:400;text-transform:none;letter-spacing:0">— shared-concept groups</span></div>${rows}`;
 }
 
 function buildLevelLegend(nodes) {
-  const legendEl = document.getElementById('graph-legend');
-  if (!legendEl) return;
-
   const counts = new Map();
   for (const n of nodes) {
     const l = n.data.level ?? 0;
     counts.set(l, (counts.get(l) || 0) + 1);
   }
+  _renderLevelLegend(counts);
+}
 
+// Render the year/level legend from a level→count map. Only the levels actually
+// present are shown, so it tracks the programme/year filter (fix: BEng shows
+// Levels 1–3, MEng adds Level 4).
+function _renderLevelLegend(counts) {
+  const legendEl = document.getElementById('graph-legend');
+  if (!legendEl) return;
   const rows = [...counts.entries()]
+    .filter(([, n]) => n > 0)
     .sort(([a], [b]) => a - b)
     .map(([l, n]) => {
       const color = LEVEL_COLORS[(l - 1 + LEVEL_COLORS.length) % LEVEL_COLORS.length];
@@ -1056,4 +1084,30 @@ function buildLevelLegend(nodes) {
     })
     .join('');
   legendEl.innerHTML = `<div class="lg-title">Year / level</div>${rows}`;
+}
+
+// Re-pack the level columns using only the currently-visible modules, so each
+// column stays vertically centred (and the legend counts match) after a
+// programme/year filter hides part of the cohort.
+function _recenterLevelLayout() {
+  if (!_cy || _currentView !== 'level') return;
+  const COL_W = 480, ROW_H = 66;
+  const visible = _cy.nodes().filter(n => n.data('nodeType') !== 'concept' && !n.hasClass('prog-hidden'));
+  const byLevel = new Map();
+  visible.forEach(n => {
+    const lvl = n.data('level') ?? 0;
+    if (!byLevel.has(lvl)) byLevel.set(lvl, []);
+    byLevel.get(lvl).push(n);
+  });
+  const levels = [...byLevel.keys()].sort((a, b) => a - b);
+  const positions = {};
+  levels.forEach((lvl, ci) => {
+    const group = byLevel.get(lvl).sort((a, b) => String(a.id()).localeCompare(String(b.id())));
+    group.forEach((node, ri) => {
+      positions[node.id()] = { x: ci * COL_W, y: (ri - (group.length - 1) / 2) * ROW_H };
+    });
+  });
+  _levelPositions = positions;   // so "Re-arrange & fit" keeps the filtered layout
+  _cy.layout({ name: 'preset', positions, fit: true, padding: 50, animate: true, animationDuration: 350 }).run();
+  _renderLevelLegend(new Map(levels.map(l => [l, byLevel.get(l).length])));
 }

@@ -2,7 +2,7 @@ import {
   initGraph, switchGraphView, setSelectedModuleForGraph, setVisibleModules,
   fitGraph, rerunLayout, applyGraphFilter, traceModuleChain, showConceptNeighbourhood,
 } from '../components/GraphView.js';
-import { showModuleDetail } from '../components/ModulePanel.js';
+import { showModuleDetail, showConceptDetail } from '../components/ModulePanel.js';
 import { getModules } from '../state.js';
 import { isLikelyFragment } from '../util/concepts.js';
 import { api } from '../api.js';
@@ -30,6 +30,7 @@ export async function mountMap(app, params = {}) {
             <option value="1">Year 1</option>
             <option value="2">Year 2</option>
             <option value="3">Year 3</option>
+            <option value="4">Year 4 (MEng)</option>
           </select>
         </div>
 
@@ -48,7 +49,7 @@ export async function mountMap(app, params = {}) {
           <span id="edge-threshold-val">0.00</span>
         </label>
 
-        <button class="map-btn" id="reset-view" title="Re-arrange and zoom to fit">Reset view</button>
+        <button class="map-btn" id="reset-view" title="Re-arrange the nodes and zoom to fit everything">Re-arrange &amp; fit</button>
         <span class="ctrl-desc" id="graph-hint"></span>
       </div>
 
@@ -81,12 +82,17 @@ export async function mountMap(app, params = {}) {
     document.getElementById('map-drawer').classList.add('open');
     showModuleDetail(code, document.getElementById('map-detail'));
   };
+  // A clicked concept opens the same detail view Explore shows, in the map drawer.
+  const openConceptDrawer = (conceptId) => {
+    document.getElementById('map-drawer').classList.add('open');
+    showConceptDetail(conceptId, null, document.getElementById('map-detail'));
+  };
   const closeDrawer = () => document.getElementById('map-drawer')?.classList.remove('open');
 
   await initGraph(cy, (code) => {
     if (code) { setSelectedModuleForGraph(code); openDrawer(code); }
     else closeDrawer();
-  });
+  }, openConceptDrawer);
 
   const applyStrengthText = (view) => {
     if (strengthText) strengthText.textContent = view === 'bipartite' ? 'Show only confident concepts' : 'Show only strong links';
@@ -95,23 +101,53 @@ export async function mountMap(app, params = {}) {
 
   // ── Programme + year filters (module views) ───────────────────────
   const progSel = document.getElementById('map-programme');
+  const levelSel = document.getElementById('map-level');
+  const YEAR_LABELS = { 1: 'Year 1', 2: 'Year 2', 3: 'Year 3', 4: 'Year 4 (MEng)' };
   try {
     const programmes = await api.programmes();
-    progSel.innerHTML = '<option value="">All programmes</option>' +
-      programmes.map(p => `<option value="${p.id}">${esc(p.name)} (${p.module_count})</option>`).join('');
-  } catch { /* leave default */ }
+    // Order: BEng, MEng, MIT, any others, then "All programmes" last.
+    const rank = (p) => {
+      const s = (p.id + ' ' + p.name).toLowerCase();
+      if (/beng/.test(s)) return 0;
+      if (/meng/.test(s)) return 1;
+      if (/mit|opencourseware/.test(s)) return 2;
+      return 3;
+    };
+    const ordered = programmes.slice().sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
+    progSel.innerHTML =
+      ordered.map(p => `<option value="${p.id}">${esc(p.name)} (${p.module_count})</option>`).join('') +
+      '<option value="">All programmes</option>';
+    // Default to BEng — the home programme — rather than the full multi-cohort graph.
+    const beng = ordered.find(p => /beng/i.test(p.id + ' ' + p.name));
+    if (beng) progSel.value = beng.id;
+  } catch { progSel.innerHTML = '<option value="">All programmes</option>'; }
+
+  // Offer only the year levels that actually exist in the selected programme, so
+  // e.g. BEng / MIT OCW don't expose a "Year 4 (MEng)" option that hides everything.
+  const updateYearOptions = () => {
+    const prog = progSel.value;
+    const levels = [...new Set(allModules
+      .filter(m => !prog || (m.programmes || []).includes(prog))
+      .map(m => m.level).filter(l => l != null))].sort((a, b) => a - b);
+    const prev = levelSel.value;
+    levelSel.innerHTML = '<option value="">All years</option>' +
+      levels.map(l => `<option value="${l}">${YEAR_LABELS[l] || ('Year ' + l)}</option>`).join('');
+    levelSel.value = levels.map(String).includes(prev) ? prev : '';
+  };
 
   const applyMapFilters = () => {
     const prog = progSel.value;
-    const lvl = document.getElementById('map-level').value;
+    const lvl = levelSel.value;
     if (!prog && !lvl) { setVisibleModules(null); return; }
     const codes = new Set(allModules
       .filter(m => (!prog || (m.programmes || []).includes(prog)) && (!lvl || String(m.level) === lvl))
       .map(m => m.code));
     setVisibleModules(codes);
   };
-  progSel.addEventListener('change', applyMapFilters);
-  document.getElementById('map-level').addEventListener('change', applyMapFilters);
+  progSel.addEventListener('change', () => { updateYearOptions(); applyMapFilters(); });
+  levelSel.addEventListener('change', applyMapFilters);
+  updateYearOptions();
+  applyMapFilters();   // apply the BEng default immediately
 
   // ── Bipartite module picker ───────────────────────────────────────
   const sortedModules = allModules.slice().sort((a, b) => a.code.localeCompare(b.code));
