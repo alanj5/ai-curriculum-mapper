@@ -115,7 +115,10 @@ def build_module_module_graph(
                 union = concept_sets[a] | concept_sets[b]
                 jaccard = len(shared) / len(union) if union else 0.0
                 if G.has_edge(a, b):
-                    # upgrade to similarity if already has prereq edge
+                    # The pair already has a prerequisite edge; record the concept
+                    # overlap on it too. The edge stays typed "prerequisite", but
+                    # the shared_count lets the UI render it as BOTH a concept
+                    # overlap and a prerequisite rather than hiding the overlap.
                     G[a][b]["similarity"] = round(jaccard, 4)
                     G[a][b]["shared_count"] = len(shared)
                 else:

@@ -7,10 +7,15 @@ The Department of Computing publishes a descriptor page per module at
 
     <h1> 40001
     <h2> Introduction to Computer Systems
-    <h3> Module aims          -> description (a <p>)
-    <h3> Learning outcomes    -> ILOs (a <p> with <br>-separated "- " bullets)
+    <h3> Module aims          -> description (a lead-in <p> plus any <ul><li>
+                                 aims bullets, folded into one paragraph)
+    <h3> Learning outcomes    -> ILOs (a <p> with <br>-separated "- " bullets,
+                                 or a <ul><li> list)
     <h3> Module syllabus      -> topics (a <ul><li> list)
     <h3> Teaching methods / Assessments / Reading list / Module leaders
+
+List items (outcomes/topics) have any trailing list connective (";", ",",
+"; and") stripped so sentence-style bullets read cleanly.
 
 This module provides:
   * :func:`build_source_url`     internal code -> descriptor URL
