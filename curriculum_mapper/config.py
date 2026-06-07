@@ -89,7 +89,10 @@ AMBIGUITY_MARGIN = 0.08  # top-2 score diff below which concept is flagged ambig
 LEXICAL_THRESHOLD = 0.30
 
 # ── Graph Hyperparameters ──────────────────────────────────────────────────────
-SHARED_CONCEPT_EDGE_MIN = 2   # minimum shared concepts for module-module edge
+SHARED_CONCEPT_EDGE_MIN = 3   # min shared concepts for a module-module edge (raised
+#                               from 2 for the larger real-scraped corpus, whose
+#                               richer descriptions share more concepts; 3 restores
+#                               a clean modular structure ~6 communities, Q≈0.49)
 REDUNDANCY_THRESHOLD = 5      # concepts appearing in >=N modules flagged redundant
 # Redundancy is defined by cross-module frequency, not extraction certainty;
 # this is only a light noise floor to exclude near-zero-confidence fragments.
@@ -101,8 +104,10 @@ GAP_COVERAGE_THRESHOLD = 0.10  # KA coverage below 10% = gap
 # strictly lower curriculum level (DAG-safe). See graph/concept_prerequisite.py.
 CONCEPT_PREREQ_MIN_CONFIDENCE = 0.20  # exclude only the lowest-confidence fragments
 CONCEPT_PREREQ_SBERT_THRESHOLD = 0.55  # SBERT cosine for relatedness
-CONCEPT_PREREQ_RELATEDNESS_FLOOR = 0.50  # minimum combined relatedness to keep an edge
-CONCEPT_PREREQ_TOP_K = 5  # max prerequisites kept per dependent concept
+CONCEPT_PREREQ_RELATEDNESS_FLOOR = 0.55  # min combined relatedness to keep an edge
+#                                          (raised from 0.50 to drop the weakest
+#                                          same-KA (=0.50) and low-overlap links)
+CONCEPT_PREREQ_TOP_K = 3  # max prerequisites kept per dependent concept (was 5)
 
 # ── API ────────────────────────────────────────────────────────────────────────
 API_HOST = os.environ.get("API_HOST", "127.0.0.1")
@@ -203,6 +208,21 @@ GENERIC_CONCEPT_TERMS: frozenset[str] = frozenset({
     "conduct", "explores", "examines", "addresses", "act", "form", "group",
     "part", "parts", "type", "types", "kind", "kinds", "level", "levels",
     "wide", "deep", "broad", "different", "various", "important", "appropriate",
+    # Real (scraped) Imperial/OCW descriptions add conversational boilerplate
+    # ("In this module you will have the opportunity to…") and very generic
+    # vocabulary that, left in, connects almost every module to every other and
+    # collapses the similarity-graph community structure. These carry no
+    # discriminating domain signal. Multi-word specifics survive because not all
+    # of their tokens are generic (e.g. "machine learning", "data structures",
+    # "control flow", "operating systems" keep a non-generic token).
+    "you", "opportunity", "module", "modules", "world", "real",
+    "computers", "computer", "machine", "machines", "problems", "problem",
+    "models", "model", "systems", "computing", "computation", "computational",
+    "tools", "tool", "data", "software", "control", "order", "terms", "term",
+    "properties", "property", "representations", "representation", "modern",
+    "efficient", "things", "thing", "way", "ways", "topic", "topics",
+    "concept", "concepts", "idea", "ideas", "use", "uses", "using",
+    "knowledge", "skills", "skill",
 })
 
 # Legitimate single-word computing concepts that happen to appear in the
