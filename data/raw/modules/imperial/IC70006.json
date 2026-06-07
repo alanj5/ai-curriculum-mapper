@@ -4,7 +4,7 @@
   "level": 4,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to be introduced to the fundamental models and mathematical theories to computer science and engineering students. In particular, in this module you will have the opportunity to learn to:",
+  "description": "In this module you will have the opportunity to be introduced to the fundamental models and mathematical theories to computer science and engineering students. In particular, in this module you will have the opportunity to learn to: Understand the time value of money; Price derivatives using arbitrage pricing theory; Optimally design investment strategies that trade-off risk with rewards; Use efficient numerical methods to solve optimisation models and simulate stochastic processes.",
   "learning_objectives": [
     "explain how risk is related to reward in investment decisions",
     "critically assess the risks in fixed income investments and show how the impacts of these risks can be limited using risk management strategies such as immunisation",

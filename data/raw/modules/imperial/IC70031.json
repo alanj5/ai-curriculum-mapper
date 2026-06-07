@@ -18,9 +18,9 @@
   ],
   "topics": [
     "1. Basic Modal Logic",
-    "a. Modal Languages; b. Kripke Models and Frames; c. Modal Consequence Relations, Decision Problems, Validity;",
+    "a. Modal Languages; b. Kripke Models and Frames; c. Modal Consequence Relations, Decision Problems, Validity",
     "2. Reasoning about Multi-agent Systems",
-    "a. Concurrent Game Structures as formal models of MAS; b. The Role of Logics for MAS; c. Formal Verification through Model Checking;",
+    "a. Concurrent Game Structures as formal models of MAS; b. The Role of Logics for MAS; c. Formal Verification through Model Checking",
     "3. Reasoning about Time and Change",
     "a. Temporal Logics; b. Linear Temporal Logic (LTL); c. Computation Tree Logic (CTL); d. Complexity of Model Checking Temporal Logics",
     "4. Model Checking CTL",

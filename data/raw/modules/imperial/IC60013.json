@@ -4,7 +4,7 @@
   "level": 3,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: acquire foundation knowledge and basic principles of logic-based machine learning; cover foundational semantics concepts and methods for logic-based machine learning; familiarise with state-of-the-art learning algorithms and heuristics; study state-of-the-art machine learning methods for Answer Set Programming (ASP); develop skills for formalising logic-based learning tasks for solving real-world problems; explore probabilistic logic-based inference and learning.",
   "learning_objectives": [
     "explain the semantic foundations and differences of logic-based machine learning problems",
     "formalise a learning task as a logic-based learning task",

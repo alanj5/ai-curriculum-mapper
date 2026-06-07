@@ -4,7 +4,7 @@
   "level": 4,
   "credits": 5,
   "prerequisites": [],
-  "description": "To introduce students to techniques and tools for improving the reliability of software systems. The course will provide an overview of the main types of software reliability techniques and discuss their respective strengths and weaknesses. The course will present in detail a selection of these techniques and associated tools, focusing on recent directions in both research and practice. More specifically you will: Recommended: Compilers, logic, good C programming skills.",
+  "description": "To introduce students to techniques and tools for improving the reliability of software systems. The course will provide an overview of the main types of software reliability techniques and discuss their respective strengths and weaknesses. The course will present in detail a selection of these techniques and associated tools, focusing on recent directions in both research and practice. More specifically you will: Recommended: Compilers, logic, good C programming skills. Gain familiarity with different types of program analysis techniques for improving software reliability; Learn how to assess the trade-offs offered by different techniques and tools; Experiment with a variety of open-source tools implementing popular software reliability techniques; Read and analyse research papers in the area; Critically evaluate and present a software reliability tool; Implement a software reliability tool for a specific domain.",
   "learning_objectives": [
     "Evaluate the trade-offs of different software reliability techniques",
     "Explain the main types of generic software bugs, such as memory errors",

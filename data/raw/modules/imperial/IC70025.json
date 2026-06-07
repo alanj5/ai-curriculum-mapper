@@ -4,7 +4,7 @@
   "level": 4,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to: Recommended:The contents of the 3rd Year Software Engineering Group Project or equivalent experience.",
+  "description": "In this module you will have the opportunity to: Recommended:The contents of the 3rd Year Software Engineering Group Project or equivalent experience. Find out more about industrial practices for working on large, existing, software systems; Discuss how to successfully design, modify, maintain and operate the large software systems that form so much of the infrastructure of trade, commerce, communication and entertainment in the modern world; Discuss current issues faced by the practising software engineer, and particularly look at engineering trade-offs in different situations; Understand that software engineering problems do not always have right and wrong answers.",
   "learning_objectives": [
     "Discuss trade-offs that must be made in software engineering projects caused by various engineering and business forces",
     "Reflect critically on theory in the context of industrial software engineering practice",

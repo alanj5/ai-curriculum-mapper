@@ -4,7 +4,7 @@
   "level": 4,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: study time and space complexity classes; identify the complexity classes associated with computational problems; prove that problems are complete for particular complexity classes; develop the ability to fit a particular problem into a class of related problems, and so to appreciate the efficiency attainable by algorithms to solve the particular problem; study circuit complexity and the class NC of parallelisable problems; study randomised computation and the associated complexity classes; explore how the P=NP problem is related to cryptography.",
   "learning_objectives": [
     "determine to which complexity class a computational problem belongs",
     "prove that a computational problem is complete for a class such as NP",

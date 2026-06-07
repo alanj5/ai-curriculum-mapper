@@ -4,7 +4,7 @@
   "level": 2,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: Explore the main algorithmic design paradigms; Apply algorithmic techniques to practical and unseen problems; Quantitatively analyse the performance of algorithms; Model the mathematical structure of computational tasks and apply the right algorithmic tools on them; Develop your algorithmic thinking and problem solving skills.",
   "learning_objectives": [
     "Compare, characterise and evaluate different implementations of basic algorithms",
     "Analyse algorithms using quantitative evaluation",

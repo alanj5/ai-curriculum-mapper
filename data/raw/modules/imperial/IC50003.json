@@ -4,7 +4,7 @@
   "level": 2,
   "credits": 5,
   "prerequisites": [],
-  "description": "This module focuses on formal descriptions (models) of computational behaviour. You will learn about:",
+  "description": "This module focuses on formal descriptions (models) of computational behaviour. You will learn about: the operational semantics (formal description)\u00a0 of a simple 'WHILE' programming language; the operational semantics of other styles of real-world languages, such as Java and Haskell; equivalent\u00a0 definitions of algorithm, initiated in the 1930s and providing the foundations for programming languages and computation.",
   "learning_objectives": [
     "provide formal descriptions of the precise behaviour of several styles of programming language",
     "prove properties of such languages",

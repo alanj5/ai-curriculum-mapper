@@ -4,7 +4,7 @@
   "level": 3,
   "credits": 5,
   "prerequisites": [],
-  "description": "This module will give you the opportunity to:",
+  "description": "This module will give you the opportunity to: explore quantitative mathematical methods for taking decisions in the presence of constraints or finite resources; learn about linear programming, integer linear programming, robust optimisation, and game theory and their application; classify mathematical programs on the basis of the number and types of their solutions; implement solution techniques for linear programs with both real and integer-valued variables; familiarise yourself with fundamental notions of duality, degeneracy, and sensitivity.",
   "learning_objectives": [
     "classify mathematical programs on the basis of the number and types of their solutions",
     "apply linear programming to real-world decision problems with real and integer-valued variables",

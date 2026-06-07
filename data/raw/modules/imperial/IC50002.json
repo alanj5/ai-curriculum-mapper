@@ -4,7 +4,7 @@
   "level": 2,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: consider the effects of various design choices on the flexibility, maintainability and cost of software systems; practise different refactoring techniques to improve code quality; practise automated testing techniques; select appropriate design patterns and architectural styles to suit a given problem; reflect on the impact of different design choices on the long term health of a software system; consider how these technical practices fit in the context of iterative and incremental software delivery.",
   "learning_objectives": [
     "Identify and describe various design patterns, the problems they address, and any trade-offs involved",
     "Make informed engineering decisions to minimise the cost of change",

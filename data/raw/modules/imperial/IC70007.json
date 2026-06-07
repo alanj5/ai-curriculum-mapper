@@ -4,7 +4,7 @@
   "level": 4,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: learn numerical methods for the solution of non-linear optimisation problems; apply optimisation in engineering (e.g., the design of energy efficient chemical processes), machine learning (e.g., learning classifiers from data), and finance (e.g., optimal portfolio allocation); use analytical techniques and numerical algorithms to solve constrained and unconstrained problems; identify convexity in a mathematical model and appreciate the importance of convexity both in theory and in practice; identify necessary and sufficient conditions of optimality for different classes of optimisation models; be able to apply an appropriate numerical method given the characteristics of the optimisation model; understand the meaning of Lagrange multipliers; be able to implement first/second order methods for constrained and unconstrained models.",
   "learning_objectives": [
     "use advanced mathematical methods to establish convexity in complex problems",
     "specify necessary and sufficient conditions for optimality",
@@ -13,10 +13,10 @@
     "apply sensitivity analysis to optimisation problems using Lagrange multipliers"
   ],
   "topics": [
-    "Prove convexity of a function and of an optimization problem;",
-    "Specify the optimality conditions for both constrained and unconstrained optimization problems;",
-    "Derive basic zeroth-, first-, and second-order optimization algorithms and evaluate their convergence;",
-    "Apply optimization algorithms to machine learning applications, e.g., recognizing hand-writing and robust principal component analysis;",
+    "Prove convexity of a function and of an optimization problem",
+    "Specify the optimality conditions for both constrained and unconstrained optimization problems",
+    "Derive basic zeroth-, first-, and second-order optimization algorithms and evaluate their convergence",
+    "Apply optimization algorithms to machine learning applications, e.g., recognizing hand-writing and robust principal component analysis",
     "Program basic zeroth-, first-, and second-order optimization algorithms.",
     "Recommended: COMP50011 Computational Techniques; COMP60016 Operations Research and COMP70015 Mathematics for Machine Learning"
   ],

@@ -6,11 +6,11 @@
   "prerequisites": [],
   "description": "Real-life problems arising in computer science, computational management and economics often involve deciding the best way to use a given set of resources (e.g., servers, networks, routes) to complete a desired set of tasks within constraints (e.g., costs, deadline). Examples include job scheduling, workflow allocation, traffic routing, business processes optimization. The module blends methods from optimization, scheduling, and game theory to teach the best decision algorithms for such problems. Emphasis will be given to understand the trade-offs between cooperative and competitive approaches, both in centralized and decentralized decision making.",
   "learning_objectives": [
-    "(1) Specify algorithms to optimally allocate a finite set of resources to process a workload;",
-    "(2)\u00a0 Consider useful metrics to quantify performance and costs of an allocation policy;",
-    "(3) Generate optimal decisions with the amount of information available, coping with uncertainties;",
-    "(4) Identify presence of selfish decision makers in real-world problems;",
-    "(5) Evaluate the performance degradation arising from selfish decision making;",
+    "(1) Specify algorithms to optimally allocate a finite set of resources to process a workload",
+    "(2)\u00a0 Consider useful metrics to quantify performance and costs of an allocation policy",
+    "(3) Generate optimal decisions with the amount of information available, coping with uncertainties",
+    "(4) Identify presence of selfish decision makers in real-world problems",
+    "(5) Evaluate the performance degradation arising from selfish decision making",
     "(6) Illustrate applications of the theory to relevant scenarios, e.g., workflow management and internet traffic routing."
   ],
   "topics": [

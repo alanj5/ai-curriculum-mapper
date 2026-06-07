@@ -4,7 +4,7 @@
   "level": 2,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: use probability theory to model uncertainty; design simple probabilistic models that facilitate prediction; conduct sound scientific analysis of data; study the mathematical foundations of probabilistic modelling with Markov chains and simulation.",
   "learning_objectives": [
     "Describe notions of probability in terms of sample spaces",
     "Define and use random variables",

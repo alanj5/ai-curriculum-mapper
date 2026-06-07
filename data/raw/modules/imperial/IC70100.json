@@ -6,11 +6,11 @@
   "prerequisites": [],
   "description": "Computational neurodynamics is the use of computer models to study the dynamics of large networks of interacting neurons. The rationale behind the field, which lies at the theoretical end of computational neuroscience, is that the languages of dynamical systems and information theory are the right ones to express the underlying principles of nervous system operation. Throughout the module, you will learn the basic principles behind the brain's intelligent behaviour, the computational tools needed to simulate such behaviour, and illuminating connections between biological and artificial intelligent systems. Interdisciplinary at heart, the module will also include some elements of neuroscience, biology, and physics (although no background in these is required).",
   "learning_objectives": [
-    "Derive the core mathematical principles of computational models of single neurons;",
-    "Create and evaluate efficient implementations of said models;",
-    "Combine many low-level models to create large networks of neurons, up to the scale of the whole brain;",
-    "Summarise the main properties of large-scale cognitive architectures;",
-    "Contrast similarities and differences between biological and artificial intelligent systems; and",
+    "Derive the core mathematical principles of computational models of single neurons",
+    "Create and evaluate efficient implementations of said models",
+    "Combine many low-level models to create large networks of neurons, up to the scale of the whole brain",
+    "Summarise the main properties of large-scale cognitive architectures",
+    "Contrast similarities and differences between biological and artificial intelligent systems",
     "Interpret the resulting behaviour of such systems using a variety of measures."
   ],
   "topics": [

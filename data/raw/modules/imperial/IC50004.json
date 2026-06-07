@@ -4,7 +4,7 @@
   "level": 2,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: develop an understanding of the main operating system abstractions; explore the trade-offs in the implementations of operating system functionality; study the different sub-systems that make up a modern operating system; investigate different operating system mechanisms and policies for resource management and allocation; apply a theoretical understanding of operating systems to a real-world operating system implementation.",
   "learning_objectives": [
     "distinguish between different styles of operating system design",
     "explain the main principles behind resource abstraction and resource management",

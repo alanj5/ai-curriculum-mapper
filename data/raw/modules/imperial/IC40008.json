@@ -4,7 +4,7 @@
   "level": 1,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: prove mathematical properties of graphs; explore classical algorithms associated with graphs and trees; design algorithms for sorting and searching; apply various methods for determining the time complexity of algorithm; study the complexity classes P and NP and the concept of NP-completeness.",
   "learning_objectives": [
     "Prove basic properties of graphs",
     "Describe, and establish the correctness of, some of the fundamental algorithms in computing",

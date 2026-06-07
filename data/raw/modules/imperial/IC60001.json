@@ -4,7 +4,7 @@
   "level": 3,
   "credits": 5,
   "prerequisites": [],
-  "description": "Computer architecture concerns the design of general-purpose and  special-purpose processors, and of parallel computer systems for  applications ranging from embedded robotics through mobile handsets to  datacentres and supercomputers. Through this module you will:",
+  "description": "Computer architecture concerns the design of general-purpose and  special-purpose processors, and of parallel computer systems for  applications ranging from embedded robotics through mobile handsets to  datacentres and supercomputers. Through this module you will: develop a thorough understanding of high-performance and energy-efficient computer architecture; learn principles and techniques for evaluating architectural proposals; explore how knowledge of computer architecture informs software performance engineering; gain  a deep understanding of topical trends in advanced computer  architecture, compiler design, operating systems and parallel processing.",
   "learning_objectives": [
     "Justify  the design of current, leading-edge processor products at various  architectural levels, from microarchitecture to large-scale parallel  systems",
     "evaluate architecture design alternatives and tradeoffs in terms of power and performance",

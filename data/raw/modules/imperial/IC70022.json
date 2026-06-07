@@ -4,7 +4,7 @@
   "level": 4,
   "credits": 5,
   "prerequisites": [],
-  "description": "In this module you will have the opportunity to:",
+  "description": "In this module you will have the opportunity to: get an overview of data centre technologies, the infrastructure needed to run a variety of workloads, and the design decisions when engineering scalable distributed applications; analyze the full system stack for managing and scheduling data-centre resources; discuss the design principles for scalable systems; investigate concepts and techniques to build large scale systems, with a focus on distributed storage, coordination, computation and resource allocation; get an overview of NewSQL and NoSQL technologies; understand new data models, their associated query languages and systems; discuss new storage technology and its impact on query execution and data management systems in general.",
   "learning_objectives": [
     "Define the requirements and challenges when architecting, building and managing a large-scale data-centre infrastructure with distributed systems",
     "Know the design principles of modern technologies, encompassing the software stack that manages the data-centre resources and be able to critically assess them",

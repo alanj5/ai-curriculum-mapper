@@ -6,7 +6,7 @@
   "prerequisites": [],
   "description": "In this module you will have the opportunity to study additional mathematical topics that form prerequisites for later third and fourth year modules in areas such as computer graphics, machine learning and computational finance. The focus is on how mathematical methods can be applied to complex computational problems.",
   "learning_objectives": [
-    "apply advanced topics in linear algebra to problems in machine learning and deep learning,",
+    "apply advanced topics in linear algebra to problems in machine learning and deep learning",
     "be able to understand and implement mathematical methods in image processing, graphics and computational finance",
     "use vector calculus to solve computational optimisation problems"
   ],
