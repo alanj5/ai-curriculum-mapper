@@ -115,12 +115,27 @@ def _section_paragraph(soup: BeautifulSoup, headings: tuple[str, ...]) -> str:
     if not h:
         return ""
     parts: list[str] = []
+    bullets: list[str] = []
     for sib in _siblings_until_next_heading(h):
-        if getattr(sib, "name", None) in ("p", "div"):
+        name = getattr(sib, "name", None)
+        if name in ("p", "div"):
             text = sib.get_text(" ", strip=True)
             if text:
                 parts.append(text)
-    return " ".join(parts).strip()
+        elif name in ("ul", "ol"):
+            bullets += [
+                li.get_text(" ", strip=True)
+                for li in sib.find_all("li")
+                if len(li.get_text(strip=True)) > 3
+            ]
+    para = " ".join(parts).strip()
+    # The aims section is often a lead-in ("…you will have the opportunity to:")
+    # followed by a bulleted list; fold those bullets into the prose so the
+    # description carries the actual content rather than a dangling colon.
+    if bullets:
+        joined = "; ".join(b.rstrip(". ") for b in bullets)
+        para = f"{para} {joined}." if para else f"{joined}."
+    return para.strip()
 
 
 def _section_items(soup: BeautifulSoup, headings: tuple[str, ...]) -> list[str]:
@@ -135,10 +150,13 @@ def _section_items(soup: BeautifulSoup, headings: tuple[str, ...]) -> list[str]:
             items += [li.get_text(" ", strip=True) for li in sib.find_all("li")]
         elif name == "p":
             items += _bulleted_paragraph(sib)
-    # de-duplicate while preserving order, drop fragments
+    # de-duplicate while preserving order, drop fragments, and strip the trailing
+    # list connectives (";", ",", "; and") left over when a page writes its
+    # outcomes/syllabus as one sentence split across bullets.
     seen: set[str] = set()
     out: list[str] = []
-    for it in (x.strip() for x in items):
+    for raw in items:
+        it = re.sub(r"\s*[;,]\s*(?:and|or)?\s*$", "", raw.strip(), flags=re.IGNORECASE).strip()
         if len(it) > 3 and it.lower() not in seen:
             seen.add(it.lower())
             out.append(it)
