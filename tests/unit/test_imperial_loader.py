@@ -2,7 +2,7 @@
 
 Validates that the loader correctly handles the Imperial JSON format
 (using 'learning_objectives' key instead of 'ilos') and that the
-34 Imperial module files load cleanly.
+69 Imperial module files (BEng/MEng Years 1-3 + MEng Year 4) load cleanly.
 """
 
 from __future__ import annotations
@@ -122,8 +122,8 @@ class TestImperialJsonFormat:
 class TestImperialFilesLoad:
     def test_all_imperial_files_present(self):
         json_files = list(IMPERIAL_DIR.glob("*.json"))
-        assert len(json_files) == 34, (
-            f"Expected 34 Imperial module files, found {len(json_files)}"
+        assert len(json_files) == 69, (
+            f"Expected 69 Imperial module files, found {len(json_files)}"
         )
 
     def test_all_imperial_modules_load_without_error(self):
@@ -153,11 +153,11 @@ class TestImperialFilesLoad:
             assert len(module.topics) > 0, f"{path.name} has no topics"
 
     def test_level_values_are_valid(self):
-        """All Imperial modules should have level 1, 2, or 3."""
+        """All Imperial modules should have level 1, 2, 3 (Years 1-3) or 4 (MEng Year 4)."""
         for path in sorted(IMPERIAL_DIR.glob("*.json")):
             module = load_from_json(path)
             assert module is not None
-            assert module.level in (1, 2, 3), (
+            assert module.level in (1, 2, 3, 4), (
                 f"{path.name} has unexpected level {module.level}"
             )
 
@@ -240,7 +240,7 @@ class TestImperialFilesLoad:
 class TestLoadAllImperialModules:
     def test_load_all_returns_all_modules(self):
         modules = load_all_modules(IMPERIAL_DIR)
-        assert len(modules) == 34
+        assert len(modules) == 69
 
     def test_no_duplicate_codes(self):
         modules = load_all_modules(IMPERIAL_DIR)

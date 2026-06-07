@@ -49,10 +49,12 @@ class TestPerturbationRobustness:
 
     def test_fraction_rows_and_pruning(self):
         modules = [_module("M1"), _module("M2")]
-        # 10 concepts; the two shared ones (high confidence) create the M1–M2 edge.
+        # 10 concepts; the three shared ones (high confidence) create the M1–M2 edge
+        # (SHARED_CONCEPT_EDGE_MIN = 3).
         concepts = [_concept("shared1", ["M1", "M2"], 0.9),
-                    _concept("shared2", ["M1", "M2"], 0.8)]
-        concepts += [_concept(f"low{i}", ["M1"], 0.1 + i * 0.01) for i in range(8)]
+                    _concept("shared2", ["M1", "M2"], 0.8),
+                    _concept("shared3", ["M1", "M2"], 0.7)]
+        concepts += [_concept(f"low{i}", ["M1"], 0.1 + i * 0.01) for i in range(7)]
         alignments = [_align(c.id, "AL") for c in concepts]
         s = _storage(modules, concepts, alignments)
 

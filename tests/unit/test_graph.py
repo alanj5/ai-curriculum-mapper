@@ -16,10 +16,14 @@ from curriculum_mapper.graph.gap_detector import (
     detect_redundancies,
     generate_coverage_report,
 )
-from curriculum_mapper.graph.prerequisite import infer_prerequisites
+from curriculum_mapper.graph.prerequisite import (
+    infer_module_prerequisites_from_concept_dag,
+    infer_prerequisites,
+)
 from curriculum_mapper.ingestion.schema import (
     AlignmentResult,
     Concept,
+    ConceptPrerequisite,
     ModuleDescriptor,
 )
 
@@ -395,6 +399,76 @@ class TestInferPrerequisites:
         if len(inferred) >= 2:
             scores = [s for _, _, s in inferred]
             assert scores[0] >= scores[1]
+
+
+# ── Module prerequisites derived from the concept DAG ──────────────────────────
+
+def _cp_edge(frm: str, to: str) -> ConceptPrerequisite:
+    return ConceptPrerequisite(from_concept_id=frm, to_concept_id=to, confidence=0.9, method="test")
+
+
+def _mod(code: str, level: int, source: str = "imperial") -> ModuleDescriptor:
+    m = _make_module(code, level=level)
+    m.source = source
+    return m
+
+
+class TestInferModulePrerequisitesFromConceptDAG:
+    """A→B when A's concepts are prerequisites of B's concepts in the concept DAG,
+    same cohort, A strictly lower level; ≥min_votes links, top_k per dependent."""
+
+    def _votes(self, a_mod, b_mod, n):
+        """n concept-prereq links from a_mod's concepts to b_mod's concepts."""
+        a = [_make_concept(f"{a_mod}_a{i}", [a_mod]) for i in range(n)]
+        b = [_make_concept(f"{b_mod}_b{i}", [b_mod]) for i in range(n)]
+        edges = [_cp_edge(a[i].id, b[i].id) for i in range(n)]
+        return a + b, edges
+
+    def test_derives_edge_when_enough_votes(self):
+        m1, m2 = _mod("M1", 1), _mod("M2", 2)
+        concepts, edges = self._votes("M1", "M2", 5)
+        out = infer_module_prerequisites_from_concept_dag([m1, m2], concepts, edges)
+        assert ("M1", "M2") in [(a, b) for a, b, _ in out]
+        assert out[0][2] == 5  # vote count carried as the strength
+
+    def test_below_min_votes_dropped(self):
+        m1, m2 = _mod("M1", 1), _mod("M2", 2)
+        concepts, edges = self._votes("M1", "M2", 3)  # < default min_votes (5)
+        assert infer_module_prerequisites_from_concept_dag([m1, m2], concepts, edges) == []
+        # …but a lower floor keeps it
+        out = infer_module_prerequisites_from_concept_dag([m1, m2], concepts, edges, min_votes=3)
+        assert ("M1", "M2") in [(a, b) for a, b, _ in out]
+
+    def test_respects_strict_level_ordering(self):
+        # M1 is HIGHER level than M2, so M1 cannot be a prerequisite of M2.
+        m1, m2 = _mod("M1", 3), _mod("M2", 1)
+        concepts, edges = self._votes("M1", "M2", 5)
+        assert infer_module_prerequisites_from_concept_dag([m1, m2], concepts, edges) == []
+
+    def test_same_cohort_only(self):
+        m1, m2 = _mod("M1", 1, source="mit_ocw"), _mod("M2", 2, source="imperial")
+        concepts, edges = self._votes("M1", "M2", 6)
+        assert infer_module_prerequisites_from_concept_dag([m1, m2], concepts, edges) == []
+        # provenance suffix on the same cohort still groups (first token)
+        m1.source, m2.source = "imperial (page unavailable)", "imperial"
+        out = infer_module_prerequisites_from_concept_dag([m1, m2], concepts, edges)
+        assert ("M1", "M2") in [(a, b) for a, b, _ in out]
+
+    def test_top_k_caps_prerequisites_per_module(self):
+        dep = _mod("D", 3)
+        mods = [dep]
+        concepts: list = []
+        edges: list = []
+        for i in range(4):  # four candidate prerequisites, decreasing votes
+            src = _mod(f"P{i}", 1)
+            mods.append(src)
+            c, e = self._votes(f"P{i}", "D", 5 + (4 - i))
+            concepts += c
+            edges += e
+        out = infer_module_prerequisites_from_concept_dag(mods, concepts, edges, top_k=3)
+        deps = [a for a, b, _ in out if b == "D"]
+        assert len(deps) == 3  # capped at top_k
+        assert "P0" in deps and "P3" not in deps  # strongest kept, weakest dropped
 
 
 class TestCacheNamespacing:
