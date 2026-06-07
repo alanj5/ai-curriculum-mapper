@@ -232,7 +232,7 @@ def load_from_ocw_json(path: Path) -> Optional[ModuleDescriptor]:
             description=description,
             ilos=ilos,
             topics=topics,
-            source="mit_ocw",
+            source=data.get("source", "mit_ocw"),
             source_file=path.name,
         )
         return normalise_module(module)

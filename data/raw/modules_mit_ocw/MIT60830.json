@@ -3,26 +3,30 @@
   "title": "Database Systems",
   "level": 3,
   "source_url": "https://ocw.mit.edu/courses/6-830-database-systems-fall-2010/",
-  "description": "The architecture and internals of relational database management systems, including query processing, transactions and distributed data.",
+  "description": "This course relies on primary readings from the database community to introduce graduate students to the foundations of database systems, focusing on basics such as the relational algebra and data model, schema normalization, query optimization, and transactions. It is designed for students who have taken [6.033](/courses/6-033-computer-system-engineering-spring-2018/) (or equivalent); no prior database experience is assumed, though students who have taken an undergraduate course in databases are encouraged to attend.",
   "learning_objectives": [
     "Design and query relational schemas",
     "Explain query optimisation",
     "Reason about transactions and concurrency"
   ],
   "topics": [
-    "Relational model and SQL",
-    "Storage and indexing",
-    "Query processing and optimisation",
-    "Transactions and ACID",
-    "Concurrency control",
-    "Recovery and logging",
-    "Distributed databases",
-    "Column stores and modern systems"
+    "Business",
+    "Information Technology",
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures",
+    "Data Mining",
+    "Software Design and Engineering"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "2a3c07901ab9657a368d200e8ba8da2462b1fb8aba69083d0290032423837c24",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:30.481326+00:00",
+  "scraped": true
 }

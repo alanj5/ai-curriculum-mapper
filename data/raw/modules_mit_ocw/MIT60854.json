@@ -1,0 +1,29 @@
+{
+  "code": "MIT60854",
+  "title": "Advanced Algorithms",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-854j-advanced-algorithms-fall-2008/",
+  "description": "This is a graduate course on the design and analysis of algorithms, covering several advanced topics not studied in typical introductory courses on algorithms. It is especially designed for doctoral students interested in theoretical computer science.",
+  "learning_objectives": [
+    "Design efficient algorithms",
+    "Apply linear programming and duality",
+    "Analyse approximation and randomised algorithms"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures",
+    "Theory of Computation"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "4fae6606b23f95b30aeed507f4bd9f84126cfb78d69b19866a7d37743c714e2f",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:32.058350+00:00",
+  "scraped": true
+}

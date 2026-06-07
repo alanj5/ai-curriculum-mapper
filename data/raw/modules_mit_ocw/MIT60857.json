@@ -1,0 +1,32 @@
+{
+  "code": "MIT60857",
+  "title": "Network and Computer Security",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-857-network-and-computer-security-spring-2014/",
+  "description": "_6.857_ _Network and Computer Security_\u00c2\u00a0is an upper-level undergraduate, first-year graduate course on network and computer security. It fits within the Computer Systems and Architecture Engineering concentration.",
+  "learning_objectives": [
+    "Apply cryptographic primitives",
+    "Reason about security protocols",
+    "Analyse system and network attacks"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Computer Networks",
+    "Cryptography",
+    "Social Science",
+    "Public Administration",
+    "Security Studies"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "82e05b57d527ba47c06a309d384b74edb380d0672a367a4f51254a9a10d8e2ad",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:32.228749+00:00",
+  "scraped": true
+}

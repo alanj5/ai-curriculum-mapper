@@ -1,0 +1,29 @@
+{
+  "code": "MIT60801",
+  "title": "Machine Vision",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-801-machine-vision-fall-2020/",
+  "description": "This course is an\u00c2\u00a0introduction to the process of generating a symbolic description of the environment from an image. It covers the physics of image formation, image analysis, binary image processing, and filtering. Machine vision has applications in robotics and the intelligent interaction of machines with their environment. Students taking the graduate version complete additional assignments.",
+  "learning_objectives": [
+    "Model image formation",
+    "Recover shape and motion",
+    "Apply photometric and geometric constraints"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Artificial Intelligence",
+    "Graphics and Visualization"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "a7815ce40c74d83b5577cddc10b5e63229dfa86062a8541645eacba2729ee0b1",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:32.642828+00:00",
+  "scraped": true
+}

@@ -3,26 +3,28 @@
   "title": "Mathematics for Computer Science",
   "level": 1,
   "source_url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
-  "description": "Discrete mathematics and probability for computer science: logical reasoning, proof techniques, fundamental structures and probabilistic analysis.",
+  "description": "This subject offers an interactive introduction to discrete mathematics oriented toward computer science and engineering. The subject coverage divides roughly into thirds:\n\n1. Fundamental concepts of mathematics: Definitions, proofs, sets, functions, relations.\n2. Discrete structures: graphs, state machines, modular arithmetic, counting.\n3. Discrete probability theory.\n\nOn completion of 6.042J, students will be able to explain and apply the basic methods of discrete (noncontinuous) mathematics in computer science. They will be able to use these methods in subsequent courses in the design and analysis of algorithms, computability theory, software engineering, and computer systems.\n\nThis course is part of the {{% resource_link \"70d06f44-b623-42be-9057-dc4b4773a7d6\" \"Open Learning Library\" %}}, which is free to use.\u00c2\u00a0You have the option to sign up and enroll in the course if you want to track your progress, or you can view and use all the materials without enrolling.",
   "learning_objectives": [
     "Construct rigorous mathematical proofs",
     "Reason about discrete structures and graphs",
     "Apply counting and probability to computing problems"
   ],
   "topics": [
-    "Mathematical proofs and induction",
-    "Propositional and predicate logic",
-    "Number theory",
-    "Graph theory",
-    "Relations and partial orders",
-    "Counting and combinatorics",
-    "Discrete probability",
-    "Random variables and expectation"
+    "Engineering",
+    "Computer Science",
+    "Mathematics",
+    "Applied Mathematics",
+    "Probability and Statistics"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "266269b583d9700284fee6c171e508502255b40787f0829f3d2bbb2970914f31",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:28.231881+00:00",
+  "scraped": true
 }

@@ -3,26 +3,28 @@
   "title": "Computer Graphics",
   "level": 3,
   "source_url": "https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/",
-  "description": "The fundamentals of computer graphics: representing, rendering and animating three-dimensional scenes.",
+  "description": "This course provides introduction to computer graphics algorithms, software and hardware. Topics include: ray tracing, the graphics pipeline, transformations, texture mapping, shadows, sampling, global illumination, splines, animation and color. This course offers 6 Engineering Design Points in MIT's EECS program.",
   "learning_objectives": [
     "Implement ray tracing and rasterisation",
     "Apply geometric transformations",
     "Model curves, surfaces and animation"
   ],
   "topics": [
-    "Ray tracing",
-    "Geometric transformations",
-    "Rasterisation and the graphics pipeline",
-    "Shading and illumination models",
-    "Texture mapping",
-    "Curves and surfaces",
-    "Animation",
-    "Sampling and anti-aliasing"
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures",
+    "Graphics and Visualization",
+    "Programming Languages"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "cb700ade8e935dc6fc0b3cc6b27f5117981d2a6b8985e4b9dd1d01f466a3cd19",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:30.652134+00:00",
+  "scraped": true
 }

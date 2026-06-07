@@ -24,5 +24,9 @@
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "d90cc3d1f9cf29fd33f531232d90753123b975d3db00807b0a62b24de7128a77",
+  "http_status": 404,
+  "fetched_at": "2026-06-06T19:14:29.028841+00:00"
 }

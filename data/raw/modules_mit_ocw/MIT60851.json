@@ -1,0 +1,28 @@
+{
+  "code": "MIT60851",
+  "title": "Advanced Data Structures",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-851-advanced-data-structures-spring-2012/",
+  "description": "Data structures play a central role in modern computer science. You interact with data structures even more often than with algorithms (think Google, your mail server, and even your network routers). In addition, data structures are essential building blocks in obtaining efficient algorithms. This course covers major results and current directions of research in data structure.\n\nAcknowledgments\n---------------\n\nThanks to videographers Martin Demaine and Justin Zhang.",
+  "learning_objectives": [
+    "Analyse advanced data structures",
+    "Apply amortisation and persistence",
+    "Reason about lower bounds"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "d084fa75aa6dbc0a6f66970b5b4ed0c327cc50814722a6df9f23db88f93a4a1c",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:31.817745+00:00",
+  "scraped": true
+}

@@ -3,26 +3,27 @@
   "title": "Introduction to Machine Learning",
   "level": 3,
   "source_url": "https://ocw.mit.edu/courses/6-036-introduction-to-machine-learning-fall-2020/",
-  "description": "Principles, algorithms and applications of machine learning from the point of view of statistical inference, supervised and reinforcement learning.",
+  "description": "This course introduces principles, algorithms, and applications of machine learning from the point of view of modeling and prediction. It includes formulation of learning problems and concepts of representation, over-fitting, and generalization. These concepts are exercised in supervised learning and reinforcement learning, with applications to images and to temporal sequences.\n\nThis course is part of the {{% resource_link \"76dabe41-4ff8-4a77-b03c-106df1d157d2\" \"Open Learning Library\" %}}, which is free to use.\u00c2\u00a0You have the option to sign up and enroll in the course if you want to track your progress, or you can view and use all the materials without enrolling.",
   "learning_objectives": [
     "Train and evaluate predictive models",
     "Reason about generalisation and regularisation",
     "Apply neural networks and reinforcement learning"
   ],
   "topics": [
-    "Linear classifiers and perceptrons",
-    "Logistic and linear regression",
-    "Feature representation",
-    "Support vector machines",
-    "Neural networks and back-propagation",
-    "Regularisation and generalisation",
-    "Clustering",
-    "Reinforcement learning"
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures",
+    "Artificial Intelligence"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "a0819ce4b1c060013e699eff5c9d95466be0c9a66a0224b357dbcc9958c5bcae",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:30.073273+00:00",
+  "scraped": true
 }

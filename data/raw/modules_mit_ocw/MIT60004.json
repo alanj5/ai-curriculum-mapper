@@ -3,26 +3,28 @@
   "title": "Computation Structures",
   "level": 2,
   "source_url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
-  "description": "The design of digital systems and computer architecture, from MOS transistors and Boolean logic up to pipelined processors, memory hierarchy and operating-system support.",
+  "description": "This course introduces architecture of digital systems, emphasizing structural principles common to a wide range of technologies. It covers the topics including multilevel implementation strategies, definition of new primitives (e.g., gates, instructions, procedures, processes) and their mechanization using lower-level elements. It also includes analysis of potential concurrency, precedence constraints and performance measures, pipelined and multidimensional systems, instruction set design issues and architectural support for contemporary software structures.",
   "learning_objectives": [
     "Design combinational and sequential digital circuits",
     "Explain processor datapath and control",
     "Reason about memory hierarchy and performance"
   ],
   "topics": [
-    "Boolean algebra and digital logic",
-    "Combinational and sequential circuits",
-    "Instruction set architecture",
-    "Assembly language",
-    "Processor datapath and control",
-    "Pipelining",
-    "Caches and memory hierarchy",
-    "Virtual memory"
+    "Engineering",
+    "Computer Science",
+    "Computer Design and Engineering",
+    "Electrical Engineering",
+    "Digital Systems"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "0c447b0b5822577f859e02b5df111d6876b21fa62f22f69ad7a9e6d3c8da9739",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:28.655972+00:00",
+  "scraped": true
 }

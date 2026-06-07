@@ -1,0 +1,29 @@
+{
+  "code": "MIT60828",
+  "title": "Operating System Engineering",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-828-operating-system-engineering-fall-2012/",
+  "description": "This course studies fundamental design and implementation ideas in the engineering of operating systems. Lectures are based on a study of UNIX and research papers. Topics include virtual memory, threads, context switches, kernels, interrupts, system calls, interprocess communication, coordination, and the interaction between software and hardware. Individual laboratory assignments involve implementation of a small operating system in C, with some x86 assembly.",
+  "learning_objectives": [
+    "Explain OS abstractions and mechanisms",
+    "Implement kernel components",
+    "Reason about isolation and concurrency"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Operating Systems",
+    "Software Design and Engineering"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "65c21c2edef2c78cf49719d1049e57732f94a864c1ec7da0176f3d05e3174164",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:31.478743+00:00",
+  "scraped": true
+}

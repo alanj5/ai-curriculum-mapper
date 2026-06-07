@@ -1,0 +1,27 @@
+{
+  "code": "MIT60840",
+  "title": "Theory of Computation",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/",
+  "description": "This course emphasizes computability and computational complexity theory. Topics include regular and context-free languages, decidable and undecidable problems, reducibility, recursive function theory, time and space measures on computation, completeness, hierarchy theorems, inherently complex problems, oracles, probabilistic computation, and interactive proof systems.",
+  "learning_objectives": [],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Theory of Computation",
+    "Mathematics",
+    "Computation",
+    "Discrete Mathematics"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "9d2079e509e7c6bb91ccd7af38882498b5d1a970bb34adf4be303712e418ebd3",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:34.100686+00:00",
+  "scraped": true
+}

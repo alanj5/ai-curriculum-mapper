@@ -1,0 +1,25 @@
+{
+  "code": "MIT60823",
+  "title": "Computer System Architecture",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-823-computer-system-architecture-fall-2005/",
+  "description": "6.823 is a course in the department's \"Computer Systems and Architecture\" concentration. 6.823 is a study of the evolution of computer architecture and the factors influencing the design of hardware and software elements of computer systems. Topics may include: instruction set design; processor micro-architecture and pipelining; cache and virtual memory organizations; protection and sharing; I/O and interrupts; in-order and out-of-order superscalar architectures; VLIW machines; vector supercomputers; multithreaded architectures; symmetric multiprocessors; and parallel computers.",
+  "learning_objectives": [],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Computer Design and Engineering",
+    "Theory of Computation"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "b160b872aad9053d49484eee9bb7ae848f6846d0ab299813a6db67eb9919e020",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:33.845336+00:00",
+  "scraped": true
+}

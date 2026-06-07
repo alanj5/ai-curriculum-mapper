@@ -3,26 +3,28 @@
   "title": "Probabilistic Systems Analysis and Applied Probability",
   "level": 2,
   "source_url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/",
-  "description": "The fundamentals of probability and its applications to modelling uncertainty and analysing stochastic systems.",
+  "description": "Welcome to 6.041/6.431, a subject on the modeling and analysis of random phenomena and processes, including the basics of statistical inference. Nowadays, there is broad consensus that the ability to think probabilistically is a fundamental component of scientific literacy. For example:\n\n*   The concept of statistical significance (to be touched upon at the end of this course) is considered by the Financial Times as one of \"The Ten Things Everyone Should Know About Science\".\n*   A {{% resource_link \"89b91304-6cef-429c-8994-cc41689695bb\" \"recent Scientific American article\" %}} argues that statistical literacy is crucial in making health-related decisions.\n*   Finally, an {{% resource_link \"67e564ff-b97f-4262-b2b9-c3fb0ce9b8df\" \"article in the New York Times\" %}} identifies statistical data analysis as an upcoming profession, valuable everywhere, from Google and Netflix to the Office of Management and Budget.\n\nThe aim of this class is to introduce the relevant models, skills, and tools, by combining mathematics with conceptual understanding and intuition.",
   "learning_objectives": [
     "Model uncertainty with probability",
     "Compute with random variables",
     "Apply Bayesian inference and Markov chains"
   ],
   "topics": [
-    "Probability models",
-    "Conditional probability and Bayes' rule",
-    "Discrete and continuous random variables",
-    "Expectation and variance",
-    "Bayesian inference",
-    "Limit theorems",
-    "Markov chains",
-    "Bernoulli and Poisson processes"
+    "Engineering",
+    "Systems Engineering",
+    "Mathematics",
+    "Discrete Mathematics",
+    "Probability and Statistics"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "e7043c1ca6155988f9c55215b903465baa70f92538ca7e13872db76d21b37748",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:29.442614+00:00",
+  "scraped": true
 }

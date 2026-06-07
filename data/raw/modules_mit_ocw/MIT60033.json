@@ -3,26 +3,29 @@
   "title": "Computer System Engineering",
   "level": 3,
   "source_url": "https://ocw.mit.edu/courses/6-033-computer-system-engineering-spring-2018/",
-  "description": "Principles and abstractions for engineering computer systems, spanning operating systems, networking, distributed systems, fault tolerance and security.",
+  "description": "This class covers topics on the engineering of computer software and hardware systems. Topics include techniques for controlling complexity; strong modularity using client-server design, operating systems; performance, networks; naming; security and privacy; fault-tolerant systems, atomicity and coordination of concurrent activities, and recovery; impact of computer systems on society.",
   "learning_objectives": [
     "Apply modularity and abstraction to systems",
     "Reason about networking and distributed protocols",
     "Analyse fault tolerance and security"
   ],
   "topics": [
-    "Operating system structure",
-    "Naming and abstraction",
-    "Client-server and networking",
-    "Distributed systems",
-    "Transactions and consistency",
-    "Fault tolerance and recovery",
-    "Computer security",
-    "Performance and scalability"
+    "Engineering",
+    "Computer Science",
+    "Computer Design and Engineering",
+    "Computer Networks",
+    "Operating Systems",
+    "Software Design and Engineering"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "cc6fe2b6ef63033926ae7188a5aaf6d6087bdf8cdbb72f5b3291d746643ab6d4",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:29.636422+00:00",
+  "scraped": true
 }

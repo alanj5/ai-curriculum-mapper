@@ -3,26 +3,28 @@
   "title": "Artificial Intelligence",
   "level": 3,
   "source_url": "https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/",
-  "description": "The knowledge representation, problem solving and learning methods of artificial intelligence.",
+  "description": "This course introduces students to the basic knowledge representation, problem solving, and learning methods of artificial intelligence. Upon completion of 6.034, students should be able to develop intelligent systems by assembling solutions to concrete computational problems; understand the role of knowledge representation, problem solving, and learning in intelligent-system engineering; and appreciate the role of problem solving, vision, and language in understanding human intelligence from a computational perspective.",
   "learning_objectives": [
     "Formulate problems as search and constraint satisfaction",
     "Represent knowledge and reason with logic",
     "Apply core machine-learning methods"
   ],
   "topics": [
-    "State-space search",
-    "Constraint satisfaction",
-    "Adversarial search and games",
-    "Knowledge representation and logic",
-    "Rule-based systems",
-    "Machine learning",
-    "Neural networks",
-    "Support vector machines"
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures",
+    "Artificial Intelligence",
+    "Theory of Computation"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "c404bbfc59d28ad02fee220029279919a4c3b5c606b66c07db388d40736ed709",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:29.906050+00:00",
+  "scraped": true
 }

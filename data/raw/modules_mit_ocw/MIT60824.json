@@ -1,0 +1,29 @@
+{
+  "code": "MIT60824",
+  "title": "Distributed Computer Systems Engineering",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-824-distributed-computer-systems-engineering-spring-2006/",
+  "description": "This course covers abstractions and implementation techniques for the design of distributed systems. Topics include: server design, network programming, naming, storage systems, security, and fault tolerance. The assigned readings for the course are from current literature. This course is worth 6 Engineering Design Points.",
+  "learning_objectives": [
+    "Reason about consistency and fault tolerance",
+    "Apply replication and consensus",
+    "Analyse distributed system designs"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Computer Design and Engineering",
+    "Computer Networks"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "de44f6691ceecd040b42ac66df2dbf38ea03160587d60d4a46529de0a020193b",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:31.644804+00:00",
+  "scraped": true
+}

@@ -3,26 +3,30 @@
   "title": "Design and Analysis of Algorithms",
   "level": 2,
   "source_url": "https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/",
-  "description": "Techniques for the design and analysis of efficient algorithms, emphasising paradigms, amortised analysis, network flow, intractability and approximation.",
+  "description": "This is an intermediate algorithms course with an emphasis on teaching techniques for the design and analysis of efficient algorithms, emphasizing methods of application. Topics include divide-and-conquer, randomization, dynamic programming, greedy algorithms, incremental improvement, complexity, and cryptography.",
   "learning_objectives": [
     "Apply algorithm-design paradigms to new problems",
     "Prove correctness and complexity",
     "Recognise NP-hard problems and design approximations"
   ],
   "topics": [
-    "Divide and conquer",
-    "Dynamic programming",
-    "Greedy algorithms",
-    "Amortised analysis",
-    "Network flow",
-    "Linear programming",
-    "NP-completeness",
-    "Approximation algorithms"
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures",
+    "Computer Networks",
+    "Cryptography",
+    "Mathematics",
+    "Applied Mathematics"
   ],
   "credits": 8,
   "source": "mit_ocw",
   "programmes": [
     "mit_ocw_cs"
   ],
-  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)"
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "39ca3b36c0103faacc5441c5fbc362cf82024d56d8f938bb43a32a228182f5fe",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:29.185723+00:00",
+  "scraped": true
 }

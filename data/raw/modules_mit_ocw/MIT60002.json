@@ -1,0 +1,29 @@
+{
+  "code": "MIT60002",
+  "title": "Introduction to Computational Thinking and Data Science",
+  "level": 1,
+  "source_url": "https://ocw.mit.edu/courses/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/",
+  "description": "6.0002 is the continuation of _[6.0001 Introduction to Computer Science and Programming in Python](/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/)_ and is intended for students with little or no programming experience. It aims to provide students with an understanding of the role computation can play in solving problems and to help students, regardless of their major, feel justifiably confident of their ability to write small programs that allow them to accomplish useful goals. The class uses the Python 3.5 programming language.",
+  "learning_objectives": [
+    "Build simple computational models",
+    "Run Monte Carlo simulations",
+    "Draw inferences from data"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Mathematics",
+    "Probability and Statistics"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "0d6ce57957140f745c7fb08287fc19c22292e6e2d6ad3f95aa5409201c1577d9",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:31.061945+00:00",
+  "scraped": true
+}

@@ -1,0 +1,33 @@
+{
+  "code": "MIT60867",
+  "title": "Machine Learning",
+  "level": 3,
+  "source_url": "https://ocw.mit.edu/courses/6-867-machine-learning-fall-2006/",
+  "description": "6.867 is an introductory course on machine learning which gives an overview of many concepts, techniques, and algorithms in machine learning, beginning with topics such as classification and linear regression and ending up with more recent topics such as boosting, support vector machines, hidden Markov models, and Bayesian networks. The course will give the student the basic ideas and intuition behind modern machine learning methods as well as a bit more formal understanding of how, why, and when they work. The underlying theme in the course is statistical inference as it provides the foundation for most of the methods covered.",
+  "learning_objectives": [
+    "Formulate learning problems",
+    "Apply supervised and unsupervised methods",
+    "Reason about generalisation"
+  ],
+  "topics": [
+    "Engineering",
+    "Computer Science",
+    "Algorithms and Data Structures",
+    "Artificial Intelligence",
+    "Mathematics",
+    "Probability and Statistics",
+    "Science",
+    "Cognitive Science"
+  ],
+  "credits": 8,
+  "source": "mit_ocw",
+  "programmes": [
+    "mit_ocw_cs"
+  ],
+  "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+  "prerequisites": [],
+  "content_sha256": "395bc5c69ca71a6457d026b49ec6082008ea5b00f5b80561180cc7f853d979b3",
+  "http_status": 200,
+  "fetched_at": "2026-06-06T19:14:32.399259+00:00",
+  "scraped": true
+}
