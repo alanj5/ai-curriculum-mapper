@@ -1,6 +1,7 @@
 import {
   initGraph, switchGraphView, setSelectedModuleForGraph, setVisibleModules,
   fitGraph, rerunLayout, applyGraphFilter, traceModuleChain, showConceptNeighbourhood,
+  setEdgeTypeVisibility,
 } from '../components/GraphView.js';
 import { showModuleDetail, showConceptDetail } from '../components/ModulePanel.js';
 import { getModules } from '../state.js';
@@ -57,8 +58,11 @@ export async function mountMap(app, params = {}) {
         <div id="cy" class="cytoscape-container"></div>
         <div class="graph-legend" id="graph-legend"></div>
         <div class="edge-legend" id="edge-legend">
-          <div class="legend-item"><div class="edge-sample edge-solid"></div><span>Concept overlap</span></div>
-          <div class="legend-item"><div class="edge-sample edge-dashed-arrow"></div><span>Prerequisite (arrow → the later module)</span></div>
+          <div class="edge-legend-title">Edge types <span>· click to show / hide</span></div>
+          <div class="edge-legend-row">
+            <div class="legend-item legend-toggle" id="toggle-similarity" title="Click to show or hide these edges"><span class="legend-check"></span><div class="edge-sample edge-solid"></div><span>Concept overlap</span></div>
+            <div class="legend-item legend-toggle" id="toggle-prereq" title="Click to show or hide these edges"><span class="legend-check"></span><div class="edge-sample edge-dashed-arrow"></div><span>Prerequisite (arrow → the later module)</span></div>
+          </div>
         </div>
         <div class="map-hint" id="map-firsthint">
           <button class="mh-close" id="mh-close" aria-label="Dismiss">✕</button>
@@ -236,6 +240,19 @@ export async function mountMap(app, params = {}) {
   });
 
   document.getElementById('reset-view').addEventListener('click', () => { rerunLayout(); setTimeout(fitGraph, 60); });
+
+  // The edge-legend doubles as a filter: click an entry to show/hide that edge
+  // type (so a user can see only similarities or only prerequisites).
+  let showSim = true, showPrereq = true;
+  const simToggle = document.getElementById('toggle-similarity');
+  const preToggle = document.getElementById('toggle-prereq');
+  const syncToggles = () => {
+    simToggle?.classList.toggle('legend-off', !showSim);
+    preToggle?.classList.toggle('legend-off', !showPrereq);
+  };
+  simToggle?.addEventListener('click', () => { showSim = !showSim; setEdgeTypeVisibility(showSim, showPrereq); syncToggles(); });
+  preToggle?.addEventListener('click', () => { showPrereq = !showPrereq; setEdgeTypeVisibility(showSim, showPrereq); syncToggles(); });
+
   document.getElementById('drawer-close').addEventListener('click', closeDrawer);
   document.getElementById('mh-close')?.addEventListener('click', () => document.getElementById('map-firsthint')?.remove());
 

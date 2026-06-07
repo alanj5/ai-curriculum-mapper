@@ -5,8 +5,10 @@ import { isLikelyFragment } from '../util/concepts.js';
 
 cytoscape.use(fcose);
 
-// Close the edge-evidence popover on Escape (registered once).
+// Close the edge-evidence popover on Escape, or when the route changes (so it
+// never lingers after navigating to another page). Registered once.
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideEdgeEvidence(); });
+window.addEventListener('hashchange', () => hideEdgeEvidence());
 
 const COMMUNITY_COLORS = [
   '#5b8dee', '#7c6af6', '#34d399', '#fbbf24', '#f87171',
@@ -80,6 +82,25 @@ const _conceptCache = {}; // module-code → concept list (for edge-evidence pop
 let _centerConcept = null;        // concept id at the centre of the concept-prereq view
 let _conceptPrereqPositions = {};  // concept id → {x,y} for the concept-prereq preset layout
 let _programmeCodes = null;       // Set of module codes to show (programme filter), or null = all
+let _showSimilarity = true;       // edge-type toggles (module-module / by-year views)
+let _showPrereq = true;
+
+// Toggle whole edge types on/off so a user can see only shared-concept overlaps
+// or only prerequisites. Persisted across view switches and re-applied on render.
+export function setEdgeTypeVisibility(showSimilarity, showPrereq) {
+  _showSimilarity = showSimilarity;
+  _showPrereq = showPrereq;
+  _applyEdgeTypeVisibility();
+}
+
+function _applyEdgeTypeVisibility() {
+  if (!_cy) return;
+  _cy.edges().forEach(e => {
+    const isPre = e.data('type') === 'prerequisite';
+    const hide = (isPre && !_showPrereq) || (!isPre && !_showSimilarity);
+    e.toggleClass('type-hidden', hide);
+  });
+}
 
 // Programme filter: hide module nodes (and their edges) not in `codes` (a Set);
 // null shows everything. Persisted in `_programmeCodes` and re-applied on every
@@ -100,9 +121,21 @@ function _applyProgrammeFilter() {
       (e.source().hasClass('prog-hidden') || e.target().hasClass('prog-hidden'));
     e.toggleClass('prog-hidden', !!hide);
   });
-  // In the by-year view, re-pack the visible columns and refresh the legend so
-  // both reflect the filtered cohort.
+  // Keep the legend in step with what's actually on screen after a programme/year
+  // filter: the by-year view re-packs its columns, the module-similarity view
+  // re-derives its cluster names and counts from the visible modules only.
   if (_currentView === 'level') _recenterLevelLayout();
+  else if (_currentView === 'module-module') _refreshModuleLegend();
+}
+
+// Rebuild the "Module clusters" legend from the currently-visible modules so its
+// exemplar names and counts reflect the filtered cohort, not the whole corpus.
+function _refreshModuleLegend() {
+  if (!_cy || _currentView !== 'module-module') return;
+  const visible = _cy.nodes()
+    .filter(n => n.data('nodeType') !== 'concept' && !n.hasClass('prog-hidden'))
+    .map(n => ({ data: n.data() }));
+  buildLegend(visible);
 }
 
 // Normalise a confidence value to [0,1] over the current concept set so the
@@ -123,11 +156,14 @@ function _confColor(c) {
 export async function initGraph(container, onNodeClick, onConceptClick) {
   _onNodeClick = onNodeClick;
   _onConceptClick = onConceptClick || null;
+  _showSimilarity = true;   // fresh mount: both edge types on (matches the legend)
+  _showPrereq = true;
   return _loadView(container, 'module-module', null);
 }
 
 async function _loadView(container, view, moduleCode) {
   _currentView = view;
+  hideEdgeEvidence();   // never carry a click-evidence popover across a view switch
   const hint = document.getElementById('graph-hint');
   const thresholdLabel = document.getElementById('edge-threshold-label');
   const legend = document.getElementById('graph-legend');
@@ -245,7 +281,8 @@ async function _loadView(container, view, moduleCode) {
 
   _setupTooltip();
   if (_onNodeClick) _setupInteractions(_onNodeClick);
-  _applyProgrammeFilter();  // re-apply any active programme filter to the new view
+  _applyProgrammeFilter();      // re-apply any active programme filter to the new view
+  _applyEdgeTypeVisibility();   // re-apply any active edge-type toggles
   return _cy;
 }
 
@@ -922,8 +959,10 @@ function buildStyle(colorBy = 'community') {
     : (ele) => COMMUNITY_COLORS[ele.data('community') % COMMUNITY_COLORS.length];
 
   // Level view uses fixed, readable nodes (the columns are dense); module
-  // similarity sizes by degree so hubs stand out.
-  const nodeSize = isLevel ? 30 : (ele) => 18 + ele.data('degree') * 38;
+  // similarity sizes by degree centrality so hubs stand out. The multiplier is
+  // large because degree-centrality values are small on the sparser real-corpus
+  // graph — without it every node would look the same size.
+  const nodeSize = isLevel ? 30 : (ele) => 16 + (ele.data('degree') || 0) * 110;
 
   // Resting edge opacity. Module similarity: scale by Jaccard so strong links
   // stay visible while the weak long tail recedes — a calmer default hairball
@@ -941,7 +980,9 @@ function buildStyle(colorBy = 'community') {
         'width': nodeSize,
         'height': nodeSize,
         'label': 'data(label)',
-        'font-size': isLevel ? '12px' : '13px',
+        // Readable floor (14px) that grows a little with the node's degree, so
+        // hub labels are larger but every label stays legible.
+        'font-size': isLevel ? '12px' : (ele) => 14 + (ele.data('degree') || 0) * 26,
         'font-weight': 600,
         'color': '#1b2430',
         'text-valign': isLevel ? 'center' : 'bottom',
@@ -1018,6 +1059,10 @@ function buildStyle(colorBy = 'community') {
     },
     {
       selector: 'edge.filtered',
+      style: { 'display': 'none' },
+    },
+    {
+      selector: 'edge.type-hidden',
       style: { 'display': 'none' },
     },
     {
