@@ -24,6 +24,7 @@ export async function mountExplore(app, params = {}) {
                 <option value="1">Level 1</option>
                 <option value="2">Level 2</option>
                 <option value="3">Level 3</option>
+                <option value="4">Level 4 (MEng)</option>
               </select>
               <select id="programme-filter" class="filter-select" title="Filter by degree programme">
                 <option value="">All programmes</option>

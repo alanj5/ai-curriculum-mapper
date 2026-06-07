@@ -19,7 +19,7 @@ export async function initModulePanel(onSelect, kaOptions) {
   _searchMode = 'modules';   // reset so the markup's default toggle stays consistent on re-mount
   _selectedCode = null;
   if (kaOptions) _kaNames = Object.fromEntries(kaOptions.map(k => [k.code, k.name]));
-  _allModules = await api.modules({ limit: 100 });
+  _allModules = await api.modules({ limit: 200 });
   renderList(_allModules);
 
   const searchInput = document.getElementById('module-search');
@@ -84,8 +84,8 @@ async function applyConceptSearch() {
   setListMeta('Searching…');
   el.innerHTML = '<p class="placeholder">Searching…</p>';
   try {
-    const concepts = await api.concepts({ search: q, limit: 60 });
-    renderConceptList(concepts);
+    const concepts = await api.concepts({ search: q, limit: 200 });
+    renderConceptList(concepts, q);
   } catch (e) {
     el.innerHTML = `<p class="placeholder error">Search failed: ${e.message}</p>`;
   }
@@ -96,10 +96,16 @@ function setListMeta(text) {
   if (m) m.textContent = text;
 }
 
-function renderConceptList(concepts) {
+function renderConceptList(concepts, query = '') {
   const el = document.getElementById('module-list');
   concepts = _cleanConcepts(concepts);
-  setListMeta(`${concepts.length} concept${concepts.length === 1 ? '' : 's'}`);
+  // The headline count (e.g. 2,692) is every extracted concept including short
+  // sub-phrase fragments and merged variants; this browser shows the cleaned,
+  // searchable concepts. Make that explicit so the numbers don't seem to clash.
+  const capped = concepts.length >= 200;
+  setListMeta(query
+    ? `${concepts.length} concept${concepts.length === 1 ? '' : 's'} match “${query}”`
+    : `Showing ${concepts.length}${capped ? '+' : ''} of the extracted concepts — type to search them all`);
   if (concepts.length === 0) {
     el.innerHTML = '<p class="placeholder">No concepts match.</p>';
     return;
@@ -255,6 +261,11 @@ export async function showConceptDetail(conceptId, fromModule = null, target) {
       api.conceptAlignments(conceptId),
     ]);
 
+    // On the Map drawer the module cache may not be primed (Explore primes it via
+    // initModulePanel); fetch it on demand so "taught in" shows titles and levels.
+    if (!_allModules.length) {
+      try { _allModules = await api.modules({ limit: 200 }); } catch { /* leave empty */ }
+    }
     const byCode = new Map(_allModules.map(m => [m.code, m]));
     const teaching = (concept.module_codes || [])
       .map(c => byCode.get(c) || { code: c, title: '', level: null })

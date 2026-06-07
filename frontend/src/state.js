@@ -15,6 +15,6 @@ export async function getKaOptions() {
 /** Full module list, cached for the session. */
 export async function getModules() {
   if (_modules) return _modules;
-  _modules = await api.modules({ limit: 100 });
+  _modules = await api.modules({ limit: 200 });
   return _modules;
 }

@@ -18,7 +18,7 @@ export async function initGapReport() {
       api.coverage(),
       api.gaps(),
       api.redundancies(),
-      api.modules({ limit: 100 }),
+      api.modules({ limit: 200 }),
       api.ploCoverage().catch(() => []),
     ]);
     _allModules = modules;

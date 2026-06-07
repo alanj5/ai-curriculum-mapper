@@ -22,28 +22,10 @@ async function checkHealth() {
   }
 }
 
-// ── Help / onboarding modal ──────────────────────────────────────
-function initHelpModal() {
-  const modal = document.getElementById('help-modal');
-  if (!modal) return;
-  const open = () => modal.classList.remove('hidden');
-  const close = () => modal.classList.add('hidden');
-
-  document.getElementById('help-btn')?.addEventListener('click', open);
-  document.getElementById('help-close')?.addEventListener('click', close);
-  document.getElementById('help-got-it')?.addEventListener('click', close);
-  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modal.classList.contains('hidden')) close();
-  });
-
-  // Auto-open once for first-time visitors so the tool is never a blank slate.
-  try {
-    if (!localStorage.getItem('cm_seen_help')) { open(); localStorage.setItem('cm_seen_help', '1'); }
-  } catch { /* localStorage unavailable — skip */ }
-}
-
 // ── Bootstrap ────────────────────────────────────────────────────
+// No global help modal: every page documents itself in context (the Overview is
+// the index; each page has a lede; the map carries its own legends + hover tip;
+// the review table and coverage chart carry their own keys).
 function main() {
   registerRoute('overview', mountOverview);
   registerRoute('explore',  mountExplore);
@@ -51,7 +33,6 @@ function main() {
   registerRoute('coverage', mountCoverage);
   registerRoute('review',   mountReview);
 
-  initHelpModal();
   checkHealth();
   initRouter();   // renders the first page immediately
 

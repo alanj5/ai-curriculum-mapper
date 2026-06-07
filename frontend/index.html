@@ -20,7 +20,6 @@
       <a class="tab-btn" data-route="coverage"  href="#/coverage">Coverage</a>
       <a class="tab-btn" data-route="review"    href="#/review">Review</a>
     </nav>
-    <button class="help-btn" id="help-btn" title="What is this tool and how do I use it?" aria-label="Help">? Help</button>
     <div class="header-health" id="health-badge">
       <span class="dot"></span>
       <span id="health-text">connecting…</span>
@@ -49,48 +48,6 @@
       <div class="modal-actions">
         <button id="reassign-confirm" class="btn btn-primary">Reassign</button>
         <button id="reassign-cancel" class="btn btn-secondary">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Help / onboarding modal (auto-shown on first visit) -->
-  <div class="modal-overlay hidden" id="help-modal">
-    <div class="modal modal-help">
-      <button class="help-close" id="help-close" title="Close" aria-label="Close">✕</button>
-      <h3>AI Curriculum Mapper — quick guide</h3>
-      <p class="help-lead">
-        This tool maps Imperial Computing modules to the 18 ACM/IEEE
-        <strong>CS2023</strong> Knowledge Areas so students and staff can see how the
-        curriculum fits together. Every mapping is an
-        <strong>AI-generated suggestion for decision-support</strong> — you stay in control.
-      </p>
-
-      <div class="help-grid">
-        <div class="help-card">
-          <h4>🧭 Overview <span style="font-weight:400;color:#8794a3">(home)</span></h4>
-          <p>Your starting point: the headline numbers, the best-covered and thinnest areas, and a one-click jump into the Curriculum Map.</p>
-        </div>
-        <div class="help-card">
-          <h4>🕸 Curriculum Map <span style="font-weight:400;color:#8794a3">(the centrepiece)</span></h4>
-          <p>See how modules and concepts relate as an interactive graph. Switch views, filter by programme or year, trace prerequisite chains, and spot clusters.</p>
-        </div>
-        <div class="help-card">
-          <h4>🔍 Explore</h4>
-          <p>Search modules or concepts; open any one to see its outcomes, topics, prerequisites and where each concept is taught.</p>
-        </div>
-        <div class="help-card">
-          <h4>📊 Coverage</h4>
-          <p>How well each Knowledge Area and programme outcome is covered across the curriculum, with the gaps highlighted.</p>
-        </div>
-        <div class="help-card">
-          <h4>✓ Review <span style="font-weight:400;color:#8794a3">(educators)</span></h4>
-          <p>Validate the AI's suggestions: accept, reject or reassign any mapping. Every change is undoable.</p>
-        </div>
-      </div>
-
-      <p class="help-foot">Tip: open this guide any time from the <strong>? Help</strong> button in the header.</p>
-      <div class="modal-actions">
-        <button id="help-got-it" class="btn btn-primary">Got it</button>
       </div>
     </div>
   </div>
