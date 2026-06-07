@@ -2,27 +2,34 @@
   "code": "IC60008",
   "title": "Custom Computing",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC40005"
-  ],
-  "description": "Applications of custom computing designs in areas such as signal processing and genomics data analysis, and the development of parametric descriptions for custom computing designs.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to explore applications of custom computing designs in applications such as signal processing and genomics data analysis, and develop parametric descriptions for custom computing designs. You will also analyse performance and resource usage of custom computing designs, optimise them to meet design requirements, and compare their realisations based on simulation.",
   "learning_objectives": [
-    "Develop parametric descriptions of custom computing designs",
-    "Develop alternatives for custom computing designs that meet specified requirements",
-    "Analyse the performance of a custom computing design in terms of time and space",
-    "Evaluate space/time trade-offs between competing custom computing designs to determine optimal solutions",
-    "Use simulation to compare the intended and actual behaviour of custom computing designs"
+    "develop parametric descriptions of custom computing designs",
+    "develop alternatives for custom computing designs that meet specified requirements",
+    "analyse the performance of a custom computing design in terms of time space",
+    "evaluate space/time trade-offs between competing custom computing designs in order to determine optimal solutions",
+    "use simulation to compare the intended and actual behaviour of custom computing designs"
   ],
   "topics": [
-    "Special-purpose computer systems customised for specific applications",
-    "Signal processing applications",
-    "Genomics data analysis applications",
-    "Techniques for describing custom computing designs",
-    "Evaluating custom computing designs",
-    "Optimisation methods for throughput and energy efficiency",
-    "Design tools to simulate design behaviour",
-    "Space and time trade-offs"
+    "Custom computing concerns special-purpose computer systems customised for specific applications such as signal processing and genomics data analysis, when general-purpose computers are too slow, too bulky or consume too much power. Through this module, you will learn effective techniques of describing and evaluating custom computing designs, how such designs can be optimised to improve throughput or energy efficiency, and how design tools can be used to simulate the behaviour of such designs."
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60008/",
+  "fetched_at": "2026-06-06T18:18:15.152609+00:00",
+  "content_sha256": "5440c8737958c68383646183d02c23db4610fce8e11a3c9aea60b3deaa6b4439",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

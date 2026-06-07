@@ -1,0 +1,36 @@
+{
+  "code": "IC70101",
+  "title": "Human-Robot Interaction",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [
+    "IC60019"
+  ],
+  "description": "Advanced MEng (Year 4) module: Human-Robot Interaction.",
+  "learning_objectives": [
+    "Design and evaluate interactions between humans and robots",
+    "Apply models of human behaviour and perception to robot control",
+    "Reason about trust, safety and ethics in human-robot interaction"
+  ],
+  "topics": [
+    "Human-robot interaction paradigms",
+    "Social and collaborative robotics",
+    "Perceiving and modelling humans",
+    "Verbal and non-verbal communication",
+    "Shared autonomy and teleoperation",
+    "Trust, acceptance and safety",
+    "Ethics of interactive robots",
+    "Evaluation methods for HRI"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70101/",
+  "fetched_at": "2026-06-06T18:18:35.279825+00:00",
+  "content_sha256": "3db911d57b4a097ad47174f89160d8778e3e78420fc04eb6a75fa609ffc19e70",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [],
+  "fetch_note": "curated content retained; live page fetched for provenance",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

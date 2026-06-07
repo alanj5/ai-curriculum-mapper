@@ -2,9 +2,9 @@
   "code": "IC40001",
   "title": "Introduction to Computer Systems",
   "level": 1,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [],
-  "description": "Study the fundamental principles and devices used in the design of digital computers, and the way in which primitive control logic can be organised to construct a programmable machine.",
+  "description": "In this module you will study the fundamental principles and devices used in the design of digital computers, and the way in which primitive control logic can be organised to construct a programmable machine.",
   "learning_objectives": [
     "Explain combinatorial circuit design and synchronous sequential circuit design",
     "Design a CPU using Boolean algebra and functional design",
@@ -16,7 +16,7 @@
     "Boolean algebra",
     "Combinatorial logic functions",
     "Principles of semiconductor devices and logic gates",
-    "Adders, subtractors and multipliers",
+    "Adders subtractors and multipliers",
     "Bistable storage devices",
     "Flip-flop design",
     "Registers",
@@ -27,5 +27,20 @@
     "Register transfer descriptions",
     "ALU and CPU design"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40001/",
+  "fetched_at": "2026-06-06T18:17:53.525005+00:00",
+  "content_sha256": "8c1cc0b9938644a2663fa0a584c09d77b4431f3e39d868fae7735f60ba09fa29",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

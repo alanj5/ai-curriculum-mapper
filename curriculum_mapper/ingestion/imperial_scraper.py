@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import re
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -49,6 +50,23 @@ USER_AGENT = "ai-curriculum-mapper/1.0 (Imperial BEng FYP; research use)"
 _AIMS_HEADINGS = ("module aims", "module description", "aims", "description")
 _OUTCOME_HEADINGS = ("learning outcomes", "intended learning outcomes", "learning objectives")
 _SYLLABUS_HEADINGS = ("module syllabus", "syllabus", "module content", "content")
+_PREREQ_HEADINGS = ("pre-requisites", "prerequisites", "pre requisites", "pre-requisite", "prerequisite")
+
+# Module codes appear in prerequisite prose as e.g. "COMP50002" or "50002"; the
+# Department uses COMP/numeric codes on the descriptor pages but our internal
+# codes are IC-prefixed (COMP50002 -> IC50002).
+_CODE_RE = re.compile(r"\b(?:COMP|IC)?\s?([4-7]\d{4})\b")
+
+
+def _extract_module_codes(text: str) -> list[str]:
+    """Pull internal module codes (IC#####) out of free-text prerequisites."""
+    out, seen = [], set()
+    for m in _CODE_RE.finditer(text or ""):
+        code = "IC" + m.group(1)
+        if code not in seen:
+            seen.add(code)
+            out.append(code)
+    return out
 
 
 def build_source_url(code: str) -> str:
@@ -136,6 +154,8 @@ class ParsedDescriptor:
     description: str = ""
     learning_objectives: list[str] = field(default_factory=list)
     topics: list[str] = field(default_factory=list)
+    prerequisites: list[str] = field(default_factory=list)  # module codes (IC#####)
+    prerequisites_text: str = ""                            # the published prose, verbatim
 
     @property
     def is_empty(self) -> bool:
@@ -152,12 +172,15 @@ def parse_descriptor_html(html: str) -> ParsedDescriptor:
         h2 = h1.find_next("h2")
         if h2:
             title = h2.get_text(strip=True)
+    prereq_text = _section_paragraph(soup, _PREREQ_HEADINGS)
     return ParsedDescriptor(
         code=code,
         title=title,
         description=_section_paragraph(soup, _AIMS_HEADINGS),
         learning_objectives=_section_items(soup, _OUTCOME_HEADINGS),
         topics=_section_items(soup, _SYLLABUS_HEADINGS),
+        prerequisites=_extract_module_codes(prereq_text),
+        prerequisites_text=prereq_text,
     )
 
 

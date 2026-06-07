@@ -2,28 +2,42 @@
   "code": "IC50004",
   "title": "Operating Systems",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC40005"
-  ],
-  "description": "Develop an understanding of the main operating system abstractions, explore trade-offs in their implementation, and investigate mechanisms for resource management in modern operating systems.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
-    "Distinguish between different styles of operating system design",
-    "Explain the main principles behind resource abstraction and resource management",
-    "Explain the main principles behind process isolation and process and thread models",
-    "Explain scheduling and the mechanisms behind inter-process communication",
-    "Identify the main problems related to concurrency and explain synchronisation mechanisms",
-    "Evaluate security risks in operating systems and the role operating systems play in security"
+    "distinguish between different styles of operating system design",
+    "explain the main principles behind resource abstraction and resource management",
+    "explain the main priniciples behind process isolation and both process and thread models",
+    "explain the problems of scheduling and the mechanisms behind inter-process communication",
+    "identify the main problems related to concurrency and explain different synchronisation mechanisms in operating systems",
+    "evaluate security risks in operating systems and understand the role operating systems should play in establishing security"
   ],
   "topics": [
     "Operating system kernel organisation",
     "Process and thread abstractions",
-    "Inter-process synchronisation mechanisms",
+    "Inter-process sychronisation mechnaisms",
     "Concurrency control and scheduling algorithms",
-    "Virtual memory abstractions and on-demand paging",
+    "Virtual memory abstractions and mechanisms, including on-demand paging",
     "Device and disk management",
-    "I/O APIs and file system abstractions",
+    "I/O APIs, and file system abstractions",
     "Basic security concepts and attacks"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50004/",
+  "fetched_at": "2026-06-06T18:18:06.760989+00:00",
+  "content_sha256": "4c91b04da4b2ce11bf2a5b71914c67557fd3f081ed98541d7022cfbc9381e21a",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Compulsory",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

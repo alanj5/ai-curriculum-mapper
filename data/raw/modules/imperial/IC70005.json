@@ -1,0 +1,43 @@
+{
+  "code": "IC70005",
+  "title": "Complexity",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to:",
+  "learning_objectives": [
+    "determine to which complexity class a computational problem belongs",
+    "prove that a computational problem is complete for a class such as NP",
+    "establish and reason about properties of complexity classes",
+    "demonstrate to what extent an NP-complete problem has efficient approximate solutions",
+    "determine whether a problem has efficient parallel solutions",
+    "evaluate the relationships between public key cryptography, one-way functions and the P=NP problem"
+  ],
+  "topics": [
+    "Turing machines, decidability, machine independence",
+    "Time complexity: the classes P and NP, NP-completeness, example problems from logic and graphs",
+    "Space complexity classes",
+    "The polynomial hierarchy",
+    "The parallel computation thesis, Boolean circuits, PRAMs, the class NC",
+    "Probabilistic algorithms",
+    "Function problems",
+    "One-way functions and cryptography"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70005/",
+  "fetched_at": "2026-06-06T18:18:25.924796+00:00",
+  "content_sha256": "7dcb2ee8a57cb2a22cbee714f6aa3ad4ce848d4e3a7b7bc37cdd1d7e71cf78ef",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

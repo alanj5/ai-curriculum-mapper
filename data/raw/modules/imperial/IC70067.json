@@ -1,0 +1,40 @@
+{
+  "code": "IC70067",
+  "title": "Robot Learning",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Robot Learning is an exciting new field, which studies how physical robots can learn skills using machine learning techniques, and can be seen as an \"advanced reinforcement learning\" module. The module first motivates the need for robot learning, by describing classical robot control methods and their limitations. Then, the module explains how reinforcement learning can be applied to physical robots acting in the real world. Finally, the module explores how robots can learn new skills by observing and interacting with humans. Lab sessions and courseworks teach students how to implement these methods in Python for a simulated robot learning to solve tasks, which culminates in a fun live competition in the final lecture. The module assumes knowledge of the Reinforcement Learning module in the  previous term, so taking Reinforcement Learning is strongly  recommended, unless students have already taken a similar module  elsewhere. For example, the module assumes familiarity with Markov  decision processes, Q-learning, and deep reinforcement learning,  although these will be briefly recapped",
+  "learning_objectives": [
+    "1. Explain the need for robot learning with respect to classical control methods.",
+    "2. Describe the design choices for a given robot learning problem.",
+    "3. Compare the strengths and weaknesses of different robot learning strategies.",
+    "4. Analyse a given robot learning algorithm for a given task, and hypothesise about its likely performance.",
+    "5. Explain the roles of various mathematical formulae within a given robot learning algorithm.",
+    "6. Design and implement a robot learning strategy in Python for a given task, and evaluate its performance."
+  ],
+  "topics": [
+    "1. Specification of robot learning problems: states, observations, actions, rewards, and policies.",
+    "2. Analytical methods: kinematics and dynamics models, planning and optimisation, and classical control.",
+    "3. Model-based reinforcement learning: model learning, exploration, and integration of planning and learning.",
+    "4. Imitation learning: behavioural cloning, inverse reinforcement learning, and learning interactively with humans.",
+    "5. Advanced topics: state-of-the-art research, open problems, and future directions (non-examinable)."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70067/",
+  "fetched_at": "2026-06-06T18:18:42.495916+00:00",
+  "content_sha256": "9f5981d08b048dc6d6a40f5d6b972e8fd9d3a945693bc0840f0246dd685eac6d",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

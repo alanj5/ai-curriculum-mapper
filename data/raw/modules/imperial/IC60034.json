@@ -2,28 +2,43 @@
   "code": "IC60034",
   "title": "Deep Learning",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50013"
-  ],
-  "description": "The fundamental concepts and advanced methodologies of deep learning and their relation to real-world problems in a variety of domains.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This module addresses the fundamental concepts and advanced methodologies of deep learning and relates them to real-world problems in a variety of domains. The aim is to provide an overview of different approaches, both classical and emerging. The module will equip you with the necessary knowledge and skills to work in the field of deep learning and to contribute to ongoing research in the area.",
   "learning_objectives": [
-    "Express and relate the underlying theoretical concepts of modern deep learning methods",
-    "Compare, characterise and quantitatively evaluate various deep learning approaches",
-    "Evaluate the limitations of deep learning",
-    "Apply deep learning techniques to real-world problems in computer vision, speech, text analysis and graph processing"
+    "express and relate the underlying theoretical concepts of modern deep learning methods",
+    "compare, characterise and quantitively evaluate various deep learning approaches",
+    "evaluate the limitations of deep learning",
+    "apply deep learning techniques to real-world problems in computer vision, speech, text analysis, and graph processing"
   ],
   "topics": [
-    "Supervised versus unsupervised learning, generalisation and overfitting",
-    "Perceptrons and deep versus shallow models",
+    "Supervised vs unsupervised learning, generalisation, overfitting",
+    "Perceptrons, including deep vs shallow models",
     "Stochastic gradient descent and backpropagation",
-    "Convolutional neural networks and applications in image analysis",
-    "Recurrent neural networks, LSTM and gated recurrent units",
-    "Applications of RNNs in speech analysis and machine translation",
-    "Variational autoencoders",
-    "Generative adversarial networks and image generation",
-    "Graph neural networks: spectral and spatial methods, message passing",
-    "Applications of graph neural networks"
+    "Convolutional neural networks (CNN) and underlying mathematical principles",
+    "CNN architectures and applications in image analysis",
+    "Recurrent neural networks (RNN), long-short term memory (LSTM), gated recurrent units (GRU)",
+    "Applications on RNNs in speech analysis and machine translation",
+    "Mathematical principles of generative networks; variational autoencoders (VAE); generative adversarial networks (GAN)",
+    "Applications of generative networks in image generation",
+    "Graph neural networks (GNN): spectral and spatial domain methods, message passing",
+    "Applications of GNNs in computational social sciences, high-energy physics, and medicine"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60034/",
+  "fetched_at": "2026-06-06T18:18:20.725085+00:00",
+  "content_sha256": "e08a3662170c805540acedd485f79975244bfbb0f7df67cc9548adc0205b3cd5",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

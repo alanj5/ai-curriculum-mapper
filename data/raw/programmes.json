@@ -1,16 +1,8 @@
 {
-  "_source": "Imperial College Department of Computing programme pages — BEng/MEng Computing (/computing/current-students/computing/) and Joint Mathematics and Computing (/computing/current-students/jmc/), accessed June 2026.",
-  "_note": "BEng and MEng Computing share the same Year 1-3 content modules, so all content modules belong to both. JMC (Joint Maths & Computing) takes the CS core plus Year-3 computing electives, but NOT the computing-department mathematics modules (JMC students take Mathematics-department maths) nor the Year-1 systems/databases modules.",
+  "_source": "Imperial College Department of Computing programme pages \u2014 BEng/MEng Computing (/computing/prospective-students/ug/beng-meng-computing/), accessed June 2026.",
+  "_note": "BEng and MEng Computing share the Year 1-3 content modules; the MEng is an integrated master's adding a Year-4 (level-4) set of advanced modules, so Year-4 modules are MEng-only. Programme membership is derived from module level at ingest (see scripts/ingest_modules.py); this file supplies only the display names.",
   "programme_names": {
     "beng_computing": "BEng Computing",
-    "meng_computing": "MEng Computing",
-    "jmc": "Joint Mathematics and Computing"
-  },
-  "jmc_modules": [
-    "IC40008", "IC40009",
-    "IC50001", "IC50002", "IC50003", "IC50004", "IC50009", "IC50010", "IC50013",
-    "IC60001", "IC60005", "IC60006", "IC60007", "IC60008", "IC60013", "IC60015",
-    "IC60016", "IC60017", "IC60019", "IC60023", "IC60032", "IC60034", "IC60035",
-    "IC60036", "IC60037"
-  ]
+    "meng_computing": "MEng Computing"
+  }
 }

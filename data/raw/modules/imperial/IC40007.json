@@ -2,16 +2,16 @@
   "code": "IC40007",
   "title": "Introduction to Databases",
   "level": 1,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [],
-  "description": "Learn how modern database systems are structured: model relational databases, normalise relational schemas, write SQL queries, and explore recent developments in database technology.",
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
-    "Compare and contrast different database models and supporting architectures",
-    "Model information in a relational system",
-    "Optimise a relational schema and demonstrate correctness of optimisations",
-    "Design relational queries and write SQL queries",
-    "Set up a database, implement a schema as well as the queries",
-    "Explain the benefits of separating physical and logical models"
+    "compare and contrast different database models and supporting architectures",
+    "model information in a relational system",
+    "optimise a relational schema and demonstrate correctness of optimisations",
+    "design relational queries and write SQL queries",
+    "set up a database, implement a schema as well as the queries",
+    "explain the benefits of separating physical and logical models"
   ],
   "topics": [
     "Database systems",
@@ -21,8 +21,23 @@
     "Functional dependencies, keys and normal forms",
     "Relational database languages",
     "Relational algebra",
-    "Views, integrity and security",
+    "Views integrity and security",
     "Transaction management and concurrency"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40007/",
+  "fetched_at": "2026-06-06T18:17:54.858336+00:00",
+  "content_sha256": "05fa7d30ae53b6d92064614f6b558eb0d26247299c4c15a1b788aafd84c75cf4",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

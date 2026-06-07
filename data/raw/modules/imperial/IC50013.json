@@ -2,31 +2,39 @@
   "code": "IC50013",
   "title": "Machine Learning",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC50008",
-    "IC40017"
-  ],
+  "credits": 5,
+  "prerequisites": [],
   "description": "Foundational and advanced machine learning concepts, including supervised and unsupervised learning, neural networks, model evaluation, and evolutionary algorithms.",
   "learning_objectives": [
-    "Explain the strengths and weaknesses of machine learning algorithms",
-    "Appraise the suitability of a machine learning algorithm to solve a given problem",
-    "Provide appropriate methodologies to evaluate machine learning algorithms",
-    "Implement algorithms to solve machine learning problems",
-    "Develop predictive models with machine learning algorithms",
-    "Apply unsupervised clustering programs based on machine learning algorithms"
+    "Explain the strengths and weaknesses of machine learning algorithms.",
+    "Appraise the suitability of a machine learning algorithm to solve a given problem.",
+    "Provide appropriate methodologies to evaluate machine learning algorithms.",
+    "Implement algorithms to solve machine learning problems.",
+    "Develop predictive models with machine learning algorithms.",
+    "Apply unsupervised clustering programs based on machine learning algorithms."
   ],
   "topics": [
-    "Machine learning concepts, taxonomies and the supervised learning pipeline",
-    "Feature encoding and the bias-variance tradeoff",
-    "Instance-based learning: k-nearest neighbours, locally weighted regression",
-    "Decision trees",
-    "Model evaluation, cross-validation and statistical significance",
-    "Neural networks: perceptron, multilayer perceptron, back-propagation",
-    "Stochastic gradient descent, activation functions and overfitting",
-    "Unsupervised learning: k-means clustering",
-    "Density estimation: kernel density, Gaussian and Gaussian mixture models",
-    "Evolutionary algorithms: genetic algorithms and evolutionary strategies"
+    "Machine Learning Concepts: Definition and taxonomies, Supervised learning pipeline (classification/regression), Feature encoding, Model learning, Bias-variance tradeoff.",
+    "Instance Based Learning and Inductive Learning: K-nearest neighbours, Locally weighted regression, Decision trees.",
+    "Model Evaluation and Comparison: Training/validation/test data splits, Cross-validation, Evaluation metrics, Confidence intervals, Statistical significance.",
+    "Neural Networks: Perceptron, Multilayer perceptron, Back-propagation, Stochastic gradient descent, Activation and error functions, Overfitting, Data normalization, Hyper-parameter tuning.",
+    "Unsupervised Learning: Clustering algorithms (K-means), Models for density estimation (Kernel Density, Gaussian and Gaussian Mixture Models).",
+    "Evolutionary Algorithms: Genetic algorithms, Evolutionary strategies, Novelty search, Quality-Diversity optimisation."
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50013/",
+  "fetched_at": "2026-06-06T18:18:10.423893+00:00",
+  "content_sha256": "6813e2d0ea31457a353dc3fa7503d0582a3d0e4cf4277987c15dc7c3b755bf0f",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Compulsory",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

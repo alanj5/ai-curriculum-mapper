@@ -2,30 +2,46 @@
   "code": "IC50009",
   "title": "Symbolic Reasoning",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC40018"
-  ],
-  "description": "The foundations of symbolic reasoning: SAT solving, logic programming, answer set programming and SMT solving, with the practical skills to solve real-world problems in program reasoning and symbolic artificial intelligence.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This module\u00a0 covers the foundations of symbolic reasoning: SAT solving, logic programming, answer set programming, and SMT solving. It equips you with the practical skills necessary to use to solve real-world problems in program reasoning and symbolic artificial intelligence. It also provides the theoretical background for more advanced modules in these areas.",
   "learning_objectives": [
-    "Describe theoretical foundations of Boolean Satisfiability (SAT) and SMT solving",
-    "Implement algorithms for SAT solving",
-    "Encode problems in SMT form and solve them using state-of-the-art SMT solvers",
-    "Explain the theoretical foundations of logic programming",
-    "Apply resolution as an inference system for logic programming",
-    "Encode problems using Answer Set Programming and solve them using ASP solvers"
+    "describe theoretical foundations of Boolean Satisfiability (SAT) and Satisfiability Modulo Theories (SMT) solving",
+    "implement algorithms for SAT solving",
+    "encode problems in SMT form and solve them using state-of-the-art SMT solvers",
+    "explain the theoretical foundations of logic programming",
+    "apply resolution as an inference system for logic programming",
+    "encode problems using Answer Set Programming (ASP) and solve them using state-of-the-art ASP solvers"
   ],
   "topics": [
-    "Boolean satisfiability and NP-completeness",
-    "DP and DPLL algorithms",
-    "Conflict-driven clause learning",
-    "Knowledge representation and reasoning",
-    "Logic programming syntax and semantics",
-    "Herbrand models and stable models",
-    "SLD and SLDNF resolution",
-    "Answer set programming",
-    "First-order theories and decidability",
-    "Lazy SMT solving and the DPLL(T) architecture"
+    "The SAT problem and its NP-complete status",
+    "The DP and DPLL algorithms for SAT solving",
+    "The abstract DPLL framework and conflict-driven clause learning",
+    "Logic programming syntax",
+    "Definite logic programs semantics: herbrand models, minimal models,\u00a0 immediate consequent operator",
+    "Normal logic programs semantics: stratification, iterative fixed point, stable models, answer set semantics",
+    "Inference systems: SLD resolution and SLDNF resolution",
+    "Answer set programming: syntax, choice rules, aggregation, optimization statements, hard constraints and weak constraints",
+    "4. Satisfiability Modulo Theories (SMT)",
+    "A variety of first-order theories and their decidability",
+    "Lazy SMT solving",
+    "The DPLL(T) architecture for SMT solving"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50009/",
+  "fetched_at": "2026-06-06T18:18:08.741913+00:00",
+  "content_sha256": "f02da6e49a8f462dfbc816f6cece2cf887ed672e093dbfb67f85c17a2079ce42",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

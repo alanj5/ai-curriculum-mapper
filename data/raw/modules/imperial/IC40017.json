@@ -2,14 +2,14 @@
   "code": "IC40017",
   "title": "Linear Algebra",
   "level": 1,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [],
-  "description": "Study linear algebra, which underpins many applications of Computing involving analysis of aggregated data in vector or matrix form.",
+  "description": "In this module you will study linear algebra which underpins many applications of Computing that involve analysis of aggregated data in vector or matrix form. A core central topic is the formalisation and solution of linear systems of equations which are ubiquitous. Linear algebra features in many later modules, including graphics, robotics, performance engineering, operations research and statstical machine learning. The module also provides the background for follow-on mathematics modules that lay the foundations for advanced electives in the above topics and other mathematically-focused areas such as optimisation and finance.",
   "learning_objectives": [
     "Solve systems of linear equations using Gaussian elimination",
     "Determine matrices representing linear mappings",
     "Compute matrix rank",
-    "Compute eigenvalues and eigenvectors for simple matrices and explain their application",
+    "Compute Eigenvalues and Eigenvectors for simple matrices and explain their application",
     "Define projections and rotations in matrix form",
     "Find the spectral decomposition of real symmetric matrices"
   ],
@@ -20,18 +20,35 @@
     "Vector spaces",
     "Linear transformations and matrix representation",
     "Change of basis",
-    "Orthonormal bases and Gram-Schmidt",
-    "Rank and nullity theorem",
+    "Orthonormal Bases and Gram-Schmidt",
+    "Rank and Nullity Theorem",
     "Scalar products",
     "Orthogonal subspaces",
+    "Fundamental theorem",
     "Introduction to linear regression",
     "Eigenvalue and eigenvector problem",
     "Determinants and their properties",
     "Diagonalisability of matrices",
-    "Cayley-Hamilton theorem",
+    "Caley-Hamilton theorem",
     "Projections",
     "Rotation matrices",
-    "Symmetric matrices and spectral decomposition"
+    "Symmetric matrices",
+    "Spectral decomposition"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40017/",
+  "fetched_at": "2026-06-06T18:18:00.398011+00:00",
+  "content_sha256": "8ec0d385f1058cd8fbad46b478717c98bf941d973ad44bdbc76befca62027195",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

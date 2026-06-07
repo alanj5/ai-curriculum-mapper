@@ -1,0 +1,47 @@
+{
+  "code": "IC70020",
+  "title": "Program Analysis",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "The course will provide you with an introduction to the areas of classical and probabilistic program analysis. Starting from methods used in compiler optimisation (Live Variable, etc.) you will be introduced to lattice based approaches to Data-flow Analysis (Monotone Frameworks) and Control-flow Analysis before we discuss the general, semantics based framework of Abstract Interpretation. Considering quantitative properties of (probabilistic) programs you will then see how to extend classical program analysis to this setting. This leads to a framework of Probabilistic Abstract Interpretation which is based to an appropriate formal semantics.",
+  "learning_objectives": [
+    "design classical program analysis, such as data-flow and control-flow, for classical and probabilistic programs",
+    "solve the equations and constraints resulting from program analysis",
+    "reason informally about the complexity of constraint solving algorithms",
+    "specify formally the classical and probabilistic properties of programs based on their semantics",
+    "reason about the correctness of a given program analysis on the basis of the semantics of the program"
+  ],
+  "topics": [
+    "Static Program Analysis",
+    "Operational Semantics and Traces",
+    "Dataflow Analysis (for imperative programs)",
+    "Program Properties (Lattices)",
+    "Monotone Frameworks",
+    "Control Flow Analysis (for functional programs)",
+    "Abstract Interpretation (Galois Connections)",
+    "Compositional Probabilistic Models (Tensor Product)",
+    "Order Reduction and Simplification",
+    "Probabilistic Abstract Interpretation (Moore-Penrose, Pseudo-Inverse)",
+    "Applications: Probabilistic Dataflow Analysis, Bisimulation, etc.",
+    "Optional: Relation to machine learning (Least Square Approximation)",
+    "Optional: Construction of Optimal Abstractions"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70020/",
+  "fetched_at": "2026-06-06T18:18:41.236914+00:00",
+  "content_sha256": "9f6b072c07c8dfcd0e2e73be90718f240c56b416c762fb52fafd33d0f67b8967",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

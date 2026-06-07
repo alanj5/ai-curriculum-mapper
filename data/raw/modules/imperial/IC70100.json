@@ -1,0 +1,42 @@
+{
+  "code": "IC70100",
+  "title": "Computational Neurodynamics",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Computational neurodynamics is the use of computer models to study the dynamics of large networks of interacting neurons. The rationale behind the field, which lies at the theoretical end of computational neuroscience, is that the languages of dynamical systems and information theory are the right ones to express the underlying principles of nervous system operation. Throughout the module, you will learn the basic principles behind the brain's intelligent behaviour, the computational tools needed to simulate such behaviour, and illuminating connections between biological and artificial intelligent systems. Interdisciplinary at heart, the module will also include some elements of neuroscience, biology, and physics (although no background in these is required).",
+  "learning_objectives": [
+    "Derive the core mathematical principles of computational models of single neurons;",
+    "Create and evaluate efficient implementations of said models;",
+    "Combine many low-level models to create large networks of neurons, up to the scale of the whole brain;",
+    "Summarise the main properties of large-scale cognitive architectures;",
+    "Contrast similarities and differences between biological and artificial intelligent systems; and",
+    "Interpret the resulting behaviour of such systems using a variety of measures."
+  ],
+  "topics": [
+    "Computational modelling of single neurons.",
+    "Synapses and neuroplasticity (learning).",
+    "Complex networks.",
+    "Dynamical systems theory.",
+    "Computational models of whole-brain activity.",
+    "Information theory and neural coding.",
+    "Large-scale cognitive architectures."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70100/",
+  "fetched_at": "2026-06-06T18:18:34.715599+00:00",
+  "content_sha256": "a29680fee69edeeb887e0ab99363f1b1e1fa598dbf5dd10a293b776284f19d19",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

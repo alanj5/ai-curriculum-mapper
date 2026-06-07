@@ -2,25 +2,41 @@
   "code": "IC50005",
   "title": "Networks and Communications",
   "level": 2,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [],
-  "description": "Study the principles of computer networking, analyse the OSI and TCP/IP models, design a network from requirements, and become familiar with the basic principles of computer security.",
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
-    "Define and classify the major concepts of computer networking",
-    "Design a computer network based on given requirements",
-    "Calculate important network metrics",
-    "Identify and analyse potential security risks"
+    "define and classify the major concepts of Computer Networking",
+    "design a computer network based on given requirements",
+    "calculate important network metrics",
+    "identify and analyse potential security risks"
   ],
   "topics": [
-    "Introduction to networking concepts",
-    "The application, presentation and session layers",
-    "The transport layer",
-    "Network security",
-    "The network layer",
-    "The data link layer",
-    "The physical layer",
-    "Client/server programming",
-    "Future directions"
+    "Introduction to Networking Concepts",
+    "The Application/Presentation/Session Layer",
+    "The Transport Layer",
+    "Network Security",
+    "Practical Applications",
+    "The Network Layer",
+    "The Data Link Layer",
+    "The Physical Layer",
+    "Client/Server Programming",
+    "Future Directions"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50005/",
+  "fetched_at": "2026-06-06T18:18:07.447788+00:00",
+  "content_sha256": "fe6f0bbb7add201efa8c4706aa9261a9daf0e41a97ababd1b0fbe330a45f1ea6",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Compulsory",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

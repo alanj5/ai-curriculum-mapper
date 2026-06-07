@@ -1,0 +1,41 @@
+{
+  "code": "IC70105",
+  "title": "Deep Graph-Based Learning",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This module comes at the intersection of graph theory, machine learning, and deep modeling. It aims to\u00a0give a flavor of different aspects of the broad and ever-expanding field of graph theory and learning. The module first motivates the need for graph-based learning, by introducing conventional graph data analysis methods. Next, the module covers the nascent field of graph neural networks on both theoretical and application levels. Together, we will explore the foundation of landmark GNN models and cover state-of-the-art models and graph-based learning techniques. We will have sessions to implement a few GNN examples in Python, weekly quizzes for continuous assessment, and stimulating group discussions based on deconstructing recent papers published in this field.",
+  "learning_objectives": [
+    "1. Evaluate the relative merits of graph learning and traditional graph data analysis.",
+    "2. Analyze the design choices for a Graph Neural Network (GNN) architecture.",
+    "3. Implement GNN models using state-of-the art programming languages and tools.",
+    "4. Apply graph-based learning to real-world problems in image/text/speech processing and graph analysis."
+  ],
+  "topics": [
+    "1. Graph fundamentals and topological principles",
+    "2. Traditional graph-based analysis methods",
+    "3. Graph convolutional networks (GCN)",
+    "4. Theory of graph neural networks (GNNs)",
+    "5. Applications of GNNs",
+    "6. Generative and diffusion models for GNNs",
+    "7. Data-specific challenges in GNNs",
+    "8. The future of deep graph learning"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70105/",
+  "fetched_at": "2026-06-06T18:18:45.789258+00:00",
+  "content_sha256": "38fe7d140be49628dae3f2cd78f08ddcf310530ce71c7d5e38675168b605832a",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

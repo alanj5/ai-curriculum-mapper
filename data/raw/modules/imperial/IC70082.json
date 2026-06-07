@@ -1,0 +1,41 @@
+{
+  "code": "IC70082",
+  "title": "Network and Web Security",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to gain a broad  knowledge of network and web security from the network to the  application layer. The emphasis of the course is both on the underlying  principles and techniques, and on examples of how such principles are  applied in practice.",
+  "learning_objectives": [
+    "assess main threats, attack techniques and defences relevant to cybersecurity and network security",
+    "analyse web applications in order to identify vulnerabilities",
+    "compare countermeasures to address vulnerabilities",
+    "devise secure web applications by leveraging security principles"
+  ],
+  "topics": [
+    "Cybersecurity overview",
+    "Threat analysis and bug finding",
+    "Internet security",
+    "Server\u00adside security",
+    "Client-side security",
+    "Secure Web Sessions",
+    "Emerging security standards",
+    "Online Privacy issues"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70082/",
+  "fetched_at": "2026-06-06T18:18:44.156835+00:00",
+  "content_sha256": "524b8ae271a4ad83b71defbc4c0adeb29ea26dc93b8ca978de1f4d90553fae70",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

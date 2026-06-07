@@ -1,0 +1,39 @@
+{
+  "code": "IC70112",
+  "title": "Non-Euclidean Methods in Machine Learning",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "We understand the world by interaction with the bodies we observe. This Kantian empirical realism called experience is made possible by the a priori Euclidean constraints on space. While being subject to limits of scales and tolerances of our senses, such a flat view of the world has been the driving force in many fields laying the foundations of the first AI systems. Recent progress is challenging this perspective by showing that the world around us as well as the answers we are looking for admit a non-Euclidean, curved structure. Hence, it becomes desirable for our machine learning models to adapt naturally. In this course, we cover the nuts and bolts of learning non- Euclidean embeddings connecting non-Euclidean domains and parameter spaces. We will apply optimization techniques from Riemannian geometry, bring in knowledge from graph theory and present novel developments in neural networks that are suited to data living on lower dimensional manifolds.",
+  "learning_objectives": [
+    "Evaluate geometric machine learning as a tool to model common learning frameworks.",
+    "Design optimizers on Riemannian manifolds to implement smooth constrained optimization.",
+    "Synthesise discrete operators on graphs from their continuous versions.",
+    "Modify learning models to operate on constrained domains and outcomes.",
+    "Implement deep learning on unstructured domains such as graphs, point sets and meshes.",
+    "Implement mechanisms to yield structured output from learning models."
+  ],
+  "topics": [
+    "Review of tensors, differential and Riemannian geometry.",
+    "Optimization on manifolds",
+    "Probability and Bayesian inference on Manifolds",
+    "Going from manifolds to graphs: continuous to discrete"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70112/",
+  "fetched_at": "2026-06-06T18:18:46.767477+00:00",
+  "content_sha256": "1cac27036da248e03b1de18d5ea6097720cd838cd9425db10fb1f9ae18589cd6",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

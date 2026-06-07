@@ -1,0 +1,42 @@
+{
+  "code": "IC70025",
+  "title": "Software Engineering for Industry",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to: Recommended:The contents of the 3rd Year Software Engineering Group Project or equivalent experience.",
+  "learning_objectives": [
+    "Discuss trade-offs that must be made in software engineering projects caused by various engineering and business forces",
+    "Reflect critically on theory in the context of industrial software engineering practice",
+    "Construct an evidence-based argument by conducting your own literature research",
+    "Apply relevant software engineering tools, techniques and practices in a given scenario",
+    "Reflect on your own software engineering experience in the context of the wider industry"
+  ],
+  "topics": [
+    "Working with Legacy Code",
+    "Software Architecture",
+    "Software Evolution",
+    "Agile Methods in Practice",
+    "Continuous Delivery",
+    "Microservice Architectures",
+    "Cloud Computing",
+    "Resilience at Scale"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70025/",
+  "fetched_at": "2026-06-06T18:18:32.325989+00:00",
+  "content_sha256": "b0eb0a9b6738a61103b6dbf206c50f9e0fc24bbb928b16e829155c229697fcca",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

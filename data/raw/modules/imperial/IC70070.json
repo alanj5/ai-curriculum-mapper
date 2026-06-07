@@ -1,0 +1,35 @@
+{
+  "code": "IC70070",
+  "title": "Custom Computing",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to explore applications of custom computing designs in applications such as signal processing and genomics data analysis, and develop parametric descriptions for custom computing designs. You will also analyse performance and resource usage of custom computing designs, optimise them to meet design requirements, and compare their realisations based on simulation and transformation.",
+  "learning_objectives": [
+    "develop parametric descriptions of custom computing designs",
+    "develop alternatives for custom computing designs that meet specified requirements",
+    "analyse the performance of a custom computing design in terms of time space",
+    "evaluate space/time trade-offs between competing custom computing designs in order to determine optimal solutions",
+    "use simulation and transformation to compare the behaviour of custom computing designs"
+  ],
+  "topics": [
+    "Custom computing concerns special-purpose computer systems customised for specific applications such as signal processing and genomics data analysis, when general-purpose computers are too slow, too bulky or consume too much power. Through this module, you will learn effective techniques of describing and evaluating custom computing designs, how such designs can be optimised by correctness-preserving transformations to improve throughput or energy efficiency, and how design tools can be used to simulate the behaviour of such designs."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70070/",
+  "fetched_at": "2026-06-06T18:18:43.014351+00:00",
+  "content_sha256": "2f5dc4536801f3158154cb8bdbfaada28802bf6597e616d23249a88a509e1e77",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

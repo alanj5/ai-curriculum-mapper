@@ -2,18 +2,18 @@
   "code": "IC40009",
   "title": "Computing Practical 1",
   "level": 1,
-  "credits": 8,
+  "credits": 20,
   "prerequisites": [],
-  "description": "Develop practical skills including programming across major paradigms, web development, basic academic research, and written and oral communication, as important attributes of a professional software engineer.",
+  "description": "In this module you will have the opportunity to develop various practical skills, including programming, Web development, basic academic research and both written and oral communication skills, all of which are important attributes of a professional software engineer. The programming aspects of this module will also give you a chance to put into practice some of the theoretical material covered in the first year lecture courses and to explore additional topics in Computing that will be built on in later years.",
   "learning_objectives": [
-    "Demonstrate proficiency in using programming languages from three of the major paradigms",
-    "Develop working solutions to well-specified programming problems of small to medium size",
-    "Create a website that meets stakeholder needs",
-    "Use core software development tools effectively, including those for version control",
-    "Undertake basic research into Computing topics, including Computing ethics",
-    "Write short technical documentation demonstrating proficiency in scientific communication",
-    "Deliver short oral presentations summarising practical project work and research findings",
-    "Operate effectively as a member of a group to produce deliverables"
+    "demonstrate proficiency in using programming languages from three of the major paradigms",
+    "develop working solutions to well-specified programming problems of small to medium size",
+    "create a website that meets stakeholder needs",
+    "use core software development tools effectively, including those for version control",
+    "undertake basic research into Computing topics, including those related to Computing ethics",
+    "write short technical documentation that demonstrate proficiency in scientific communication",
+    "deliver short oral presentations summarising practical project work and research findings",
+    "operate effectively as a member of a group to produce deliverables that meet set criteria"
   ],
   "topics": [
     "Functional programming in Haskell",
@@ -24,9 +24,24 @@
     "Web development using HTML, CSS and JavaScript",
     "Computer systems project",
     "Introduction to research methods",
-    "Introduction to ethics in Computing",
+    "Introduction to Ethics in Computing",
     "Introduction to academic writing",
     "Oral presentation skills"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40009/",
+  "fetched_at": "2026-06-06T18:17:56.409024+00:00",
+  "content_sha256": "e3e0a97aa777c701d48632a0b5b5d26340a92f1b689b97f7d57a2121beaa5528",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn-Summer",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

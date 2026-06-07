@@ -8,7 +8,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import json
 import logging
 import sys
 from pathlib import Path
@@ -16,32 +15,26 @@ from pathlib import Path
 # Ensure project root is on path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from curriculum_mapper.config import DATA_DIR
 from curriculum_mapper.ingestion.loader import load_all_modules
 from curriculum_mapper.ingestion.storage import StorageManager
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
-PROGRAMMES_PATH = DATA_DIR / "raw" / "programmes.json"
-
 
 def _apply_programmes(modules: list) -> None:
     """Tag each Imperial module with the degree programmes it belongs to.
 
-    BEng/MEng Computing share all Year 1-3 content modules; JMC takes the subset
-    listed in ``data/raw/programmes.json``. Non-Imperial modules (e.g. MIT OCW)
-    keep the programmes set by their own loader.
+    BEng and MEng Computing share the Year 1-3 content modules; the MEng is an
+    integrated master's that adds a fourth year of advanced (level-4) modules, so
+    Year-4 modules are MEng-only. Non-Imperial modules (e.g. MIT OCW) keep the
+    programmes set by their own loader.
     """
-    if not PROGRAMMES_PATH.exists():
-        return
-    with open(PROGRAMMES_PATH) as fh:
-        cfg = json.load(fh)
-    jmc = set(cfg.get("jmc_modules", []))
     for m in modules:
         if m.source.startswith("imperial"):
-            m.programmes = ["beng_computing", "meng_computing"] + (
-                ["jmc"] if m.code in jmc else []
+            # MEng spans all four years; BEng covers Years 1-3 only.
+            m.programmes = ["meng_computing"] + (
+                ["beng_computing"] if (m.level or 0) <= 3 else []
             )
 
 

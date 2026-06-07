@@ -2,20 +2,18 @@
   "code": "IC40005",
   "title": "Introduction to Computer Architecture",
   "level": 1,
-  "credits": 8,
-  "prerequisites": [
-    "IC40001"
-  ],
-  "description": "Develop a fundamental understanding of the organisation and operation of a computer system, from machine instructions to memory hierarchy and performance.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to develop a fundamental understanding of the organisation and operation of a computer system. The emphasis of the module is on understanding how high-level language programs are represented and executed at an architectural level.",
   "learning_objectives": [
-    "Describe the basic organisation of a computer",
-    "Explain different representations used for instructions, numbers and text",
-    "Show how machine code instructions are executed by a computer",
-    "Compare different implementations of a computer's control unit",
-    "Explain program behaviour by reading the binary representation of machine code",
-    "Translate high-level program fragments into assembler code",
-    "Explain the effect that memory hierarchy has on a program's execution time",
-    "Estimate the performance of a program on a given computer"
+    "describe the basic organisation of a computer",
+    "explain different representations used for instructions, numbers and text",
+    "show how machine code instructions are executed by a computer",
+    "compare different implementations of a computer's control unit",
+    "explain program behaviour by reading the binary representation of machine code",
+    "translate high-level program fragments into assembler code",
+    "explain the effect that memory hierarchy has on a program's execution time",
+    "estimate the performance of a program on a given computer"
   ],
   "topics": [
     "Basic organisation of a computer",
@@ -23,10 +21,25 @@
     "Translation of high-level programs into instructions",
     "Instruction execution",
     "Implementation choices of the control unit",
-    "CISC and RISC instruction set architecture",
+    "CISC and RISC Instruction Set Architecture",
     "Assembler programming",
-    "Memory organisation and spatial and temporal locality",
-    "Performance estimation and Amdahl's Law"
+    "Memory organisation and concepts of spatial and temporal locality",
+    "Performance estimation and Amdahl\u2019s Law"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40005/",
+  "fetched_at": "2026-06-06T18:17:54.096646+00:00",
+  "content_sha256": "6e9d4eefb8561cf7cea502fdcd710483c23a6161b57d826f4382eab5e4b3f6d2",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

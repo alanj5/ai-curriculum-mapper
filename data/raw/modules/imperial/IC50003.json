@@ -2,27 +2,41 @@
   "code": "IC50003",
   "title": "Models of Computation",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC40018"
-  ],
-  "description": "Formal descriptions (models) of computational behaviour, covering operational semantics, programming language styles, and foundational definitions of algorithm and computable function.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This module focuses on formal descriptions (models) of computational behaviour. You will learn about:",
   "learning_objectives": [
-    "Provide formal descriptions of the precise behaviour of several styles of programming language",
-    "Prove properties of such languages",
-    "Provide several formal definitions of algorithm",
-    "Link the definition of algorithm with the fundamental notion of a computable function"
+    "provide formal descriptions of the precise behaviour of several styles of programming language",
+    "prove properties of such languages",
+    "provide several formal definitions of algorithm",
+    "link the definition of algorithm with the fundamental notion of a computable function"
   ],
   "topics": [
-    "Operational semantics for a simple while language and extensions",
-    "Properties of programming languages such as confluence and totality",
-    "Inductive proofs for WHILE and extensions",
-    "Register machines and the universal register machine",
-    "Computable functions expressed as register machines",
-    "The halting problem for register machines",
+    "operational semantics for a simple while language (WHILE) and many extensions",
+    "simple properties of programming language such as confluence and totality",
+    "inductive proofs or counter examples of such properties for WHILE and extensions",
+    "an introduction to simple featherweight semantics for other styles of programming languages",
+    "register machines and the universal register machine",
+    "computable functions expressed as register machines",
+    "the Halting problem for register machines",
     "Turing machines",
-    "The lambda calculus and language properties",
-    "The Church-Turing thesis"
+    "the lambda calculus with language properties such as confluence and totality",
+    "the Church-Turing thesis"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50003/",
+  "fetched_at": "2026-06-06T18:18:05.341360+00:00",
+  "content_sha256": "38bcfafa56b0b852f3ea27b16c198583df698c7b2004da67629e29a7504ebf54",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Compulsory",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

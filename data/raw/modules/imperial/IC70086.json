@@ -1,0 +1,44 @@
+{
+  "code": "IC70086",
+  "title": "Advanced Computer Architecture",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Computer architecture concerns the design of general-purpose and special-purpose processors, and of parallel computer systems for applications ranging from embedded robotics through mobile handsets to datacentres and supercomputers. Through this module you will develop a thorough understanding of high-performance and energy-efficient computer architecture and be able to explore how knowledge of computer architecture informs software performance engineering. You will learn principles and techniques for evaluating architectural proposals and gain deep understanding of topical trends in advanced computer architecture, compiler design, operating systems and parallel processing.",
+  "learning_objectives": [
+    "Justify  the design of current, leading-edge processor products at various  architectural levels, from microarchitecture to large-scale parallel  systems",
+    "evaluate architecture design alternatives and tradeoffs in terms of power and performance",
+    "identify architectural security hazards and attack vulnerabilities and explain how they can be mitigated",
+    "optimise application software kernels to exploit architectural capabilities effectively"
+  ],
+  "topics": [
+    "Pipelines, hazards, instruction-level parallelism, locality and caching",
+    "Dynamic scheduling, Tomasulo's algorithm and register renaming",
+    "Software instruction scheduling and software pipelining",
+    "Superscalar and long-instruction-word architectures",
+    "Branch prediction and speculative execution",
+    "Simultaneous multithreading",
+    "Vector instruction execution",
+    "Caches, cache coherency, memory systems, address translation",
+    "Optimisations for parallelism and locality and their automation in compilers",
+    "Graphics processors and manycore architectures",
+    "Security vulnerabilities and their mitigation"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70086/",
+  "fetched_at": "2026-06-06T18:18:34.223438+00:00",
+  "content_sha256": "e9fbd2b494ed2664b6597665d70770e77708e56b4cf24a6ffc90e1390c407faa",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

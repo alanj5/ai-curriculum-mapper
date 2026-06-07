@@ -2,16 +2,13 @@
   "code": "IC60006",
   "title": "Computer Vision",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC40017",
-    "IC50013"
-  ],
-  "description": "How images are represented on computers and how they can be analysed by computer algorithms to extract semantic information.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will learn how images are represented on computers and how they can be analysed by computer algorithms to extract semantic information. As part of the module you will have the opportunity to develop algorithms for detecting interesting features in images, design neural networks to perform natural image classification and explore algorithms for solving real-world problems such as hand-written digit recognition etc.",
   "learning_objectives": [
     "Differentiate commonly used filters for image processing, edge detection and interest point detection",
     "Describe features and classifiers used for image classification",
-    "Implement neural networks for image classification",
+    "Implement neural networks for image classfication",
     "Extend image classification methods to object detection and image segmentation",
     "Recall commonly used methods for motion estimation and object tracking",
     "Transform between the 2D coordinate system of an image and the 3D world"
@@ -26,5 +23,20 @@
     "Motion estimation",
     "3D vision"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60006/",
+  "fetched_at": "2026-06-06T18:18:12.274198+00:00",
+  "content_sha256": "3e5f35359528eb832e4c11f3a6a4f4b563ed774f14c86b9c42a579a23144cb93",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

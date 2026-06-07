@@ -1,0 +1,47 @@
+{
+  "code": "IC70017",
+  "title": "Principles of Distributed Ledgers",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Distributed ledgers, such as Bitcoin and Ethereum, have gained rapid popularity, attracting the attention of academics, entrepreneurs, and policy-makers. They promise and have already created new disruptive markets, revolutionizing how we think of money and financial infrastructure. In this module, you will have the opportunity to explore the foundational principles behind distributed ledgers and learn about how software can be developed using this novel technology. This will include the foundations of blockchains, smart-contract programming, and decentralised application development. (There are no strict prerequisites to take this module. However, this module does not cover general programming concepts, and it is assumed that students are familiar with these. While this module does cover some decentralised finance applications in some lectures, no previous knowledge of finance is required.)",
+  "learning_objectives": [
+    "Explain and illustrate the fundamental principles and architecture of blockchain systems",
+    "Design, implement, test, and deploy smart-contract-based applications on EVM-based blockchains",
+    "Interact with on-chain applications",
+    "Conduct a critical analysis of blockchain security",
+    "Evaluate the scalability of blockchain applications and build scalable solutions"
+  ],
+  "topics": [
+    "Blocks and the blockchain",
+    "Wallets and transactions",
+    "Proof-of-Work and mining (e.g., Bitcoin)",
+    "Proof-of-Stake (e.g., Ethereum)",
+    "Ethereum Virtual Machine (EVM)",
+    "Smart contract programming in Solidity",
+    "Deploying and testing smart contracts",
+    "Designing decentralised applications (DApps)",
+    "Scaling distributed ledgers",
+    "Decentralised Finance",
+    "Automated market makers (AMMs)",
+    "Protocols for loanable funds and flash loans",
+    "Technical and economic security of decentralised applications"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70017/",
+  "fetched_at": "2026-06-06T18:18:27.823535+00:00",
+  "content_sha256": "66745ae272f222026a193bb5a775cc7a9e717aa333dc5dc4fb2227e09e10ddc5",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

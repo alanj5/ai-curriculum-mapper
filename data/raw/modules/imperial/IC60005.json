@@ -2,19 +2,16 @@
   "code": "IC60005",
   "title": "Graphics",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC40017",
-    "IC40016"
-  ],
-  "description": "Core computer graphics concepts, including the mathematical principles used for computer generated imagery, shading and light approximations.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to study core computer  graphics concepts, including the mathematical principles used for  computer generated imagery, shading and light approximations. You will  also learn different geometry representations and modelling techniques  and will have the opportunity to apply what you have learnt to practical  computer graphics problems, using modern shader languages and graphics  accelerators.",
   "learning_objectives": [
-    "Explain the core principles of programmable shading pipelines such as vertex, fragment and geometry shading",
-    "Compare and contrast methods for modelling object geometry and surfaces",
-    "Describe polyhedral and ray-based rendering methods and evaluate their tradeoffs",
-    "Analyse and deploy fundamental algorithms associated with computer graphics",
-    "Read, explain and adapt existing graphics source code and computer graphics pipeline diagrams",
-    "Design, analyse and implement new software for solving complex computer graphics problems"
+    "explain the core principles of programmable shading pipelines, such as vertex, fragment, and geometry shading",
+    "compare and contrast methods for modelling object geometry and surfaces",
+    "describe polyhedral and ray-based rendering methods evaluate their tradeoffs",
+    "analyse and deploy fundamental algorithms associated with computer graphics",
+    "read, explain and adapt graphics existing graphics source code and computer graphics pipeline diagrams",
+    "design, analyse and implement new software for solving complex computer graphics problems"
   ],
   "topics": [
     "Device-independent graphics",
@@ -23,12 +20,28 @@
     "Texture mapping and anti-aliasing",
     "Shading planar polygons",
     "Representation of colours",
-    "Ray tracing",
+    "Ray Tracing",
     "Radiosity",
-    "Geometric warping and morphing",
-    "Special visual effects and particle systems",
+    "Geometric Warping and Morphing",
+    "Special Visual Effects, e.g. particle systems for fire smoke and water",
     "Inverse kinematics in animation",
     "Non-photorealistic rendering"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60005/",
+  "fetched_at": "2026-06-06T18:18:11.713120+00:00",
+  "content_sha256": "d7d96a515ef25aa7f8c639b1e2833aa2e24af89e8aa58217b286383a8f732ac8",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

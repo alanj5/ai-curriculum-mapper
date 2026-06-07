@@ -2,28 +2,42 @@
   "code": "IC60023",
   "title": "Type Systems for Programming Languages",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50003"
-  ],
-  "description": "The design of type assignment systems for programming languages, focusing on a sound theoretical framework for reasoning about typed programs, and comparing the type systems of modern functional and object-oriented languages.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will study in detail the design of type assignment  systems for programming languages and focus on the importance of a  sound theoretical framework, in order to be able to reason about the  properties of a typed program. You will also study and compare the types  systems of various modern functional and object-oriented programming  languages.",
   "learning_objectives": [
-    "Evaluate the relative merits of dynamic and static typing for functional, imperative and object-oriented languages",
-    "Formalise type systems and prove properties such as decidability, soundness and completeness",
-    "Describe and implement algorithms for type inference and type checking",
-    "Describe and formalise type system extensions required to support modern programming language features",
-    "Demonstrate advanced features of modern statically-typed programming languages through small applications"
+    "evaluate the relative merits of dynamic and static typing for functional, imperative, and objected oriented languages",
+    "formalise type systems and prove properties such as decidability, soundness, and completeness",
+    "describe and implement algorithms for type inference and type checking",
+    "describe and formalise selected type system extensions required to support modern programming language features",
+    "demonstrate advanced features of modern statically-typed programming lanaguges through small applications"
   ],
   "topics": [
-    "Lambda calculus",
+    "Review of Lambda calculus",
     "Curry type assignment and principal types",
     "Recursion and polymorphism",
-    "Type checking versus type inference",
+    "Type checking vs type inference",
     "System F",
-    "Extensions for practical type inference: data types, type classes, type constraints",
+    "Extensions for practical type inference, including data types, type classes,\u00a0 type constraints and coercion",
+    "System F_C",
     "Subtypes and subtype inference",
-    "Higher-rank types",
-    "Dependent types and ownership types"
+    "Advanced topics, e.g. higher-rank types, dependent types and ownership types"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60023/",
+  "fetched_at": "2026-06-06T18:18:19.511641+00:00",
+  "content_sha256": "67b8f751587051248d48e35690368b47a19fce40e565a3040f9ae5d22cfd5780",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

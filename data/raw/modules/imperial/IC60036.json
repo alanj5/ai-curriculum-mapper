@@ -2,7 +2,7 @@
   "code": "IC60036",
   "title": "Compilers",
   "level": 3,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [
     "IC50003"
   ],
@@ -29,5 +29,14 @@
     "Register allocation",
     "Runtime systems"
   ],
-  "source": "imperial (descriptor page unavailable; syllabus from standard public compilers curriculum)"
+  "source": "imperial (descriptor page unavailable; syllabus from standard public compilers curriculum)",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60036/",
+  "fetched_at": "2026-06-06T18:18:22.071331+00:00",
+  "content_sha256": "340c124454d7f7cdbae6208b4125ce2963664d3c0db5c8c2c3b6a5ec1840f2d8",
+  "fetch_ok": false,
+  "http_status": 404,
+  "fetch_note": "fetch failed (HTTP 404); curated content retained as fallback",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

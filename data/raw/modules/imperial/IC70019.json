@@ -1,0 +1,40 @@
+{
+  "code": "IC70019",
+  "title": "Probabilistic Inference",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to: - learn about and implement probabilistic inference methods. Probabilistic inference is used to learn posterior distributions over unknown parameters and quantities in probabilistic machine learning models. - look at Gaussian processes as one specific model in more detail, and Bayesian optimisation as one specific application. - find out about classical and modern approximate inference techniques. These are being applied in modern artificial intelligence, e.g., in generative models. The recommended pre-requisite of this module is a strong mathematical understanding, including probability, statistics, linear algebra and vector calculus. Although not required, students are highly recommended to take 70015 Mathematics for Machine Learning to learn relevant mathematical concepts, before taking the Probabilistic Inference module.",
+  "learning_objectives": [
+    "implement probabilistic models from scratch",
+    "develop and apply probabilistic inference techniques",
+    "analyse the quality of probabilistic models",
+    "critically evaluate inference models and improve them"
+  ],
+  "topics": [
+    "Probabilistic methods for modeling data and making inferences",
+    "Graphical models",
+    "Gaussian processes",
+    "Bayesian optimisation",
+    "Sampling techniques",
+    "Variational inference",
+    "Modern topics, e.g., normalising flows, amortised inference, stochastic gradient estimators"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70019/",
+  "fetched_at": "2026-06-06T18:18:40.632775+00:00",
+  "content_sha256": "72c245421c3dbdd3d69e64fe74e95b2b8118f5564a71921efc6e6dfb5cdbd571",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

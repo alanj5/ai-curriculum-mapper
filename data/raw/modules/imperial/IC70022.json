@@ -1,0 +1,53 @@
+{
+  "code": "IC70022",
+  "title": "Scalable Systems and Data",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to:",
+  "learning_objectives": [
+    "Define the requirements and challenges when architecting, building and managing a large-scale data-centre infrastructure with distributed systems",
+    "Know the design principles of modern technologies, encompassing the software stack that manages the data-centre resources and be able to critically assess them",
+    "Use the theoretical foundations from distributed algorithms to define the building blocks for scalable system design in relation to distributed storage, coordination and computation.",
+    "Critically assess the trade-offs between different requirements when designing scalable distributed systems",
+    "Discuss, compare and criticise the proposed approaches presented in state-of-the-art research papers targeting distributed systems",
+    "Get a basic understanding of NewSQL and NoSQL technolgies driven by new data models",
+    "Understand the trade-offs in converting between data models and database tools",
+    "Understand the implications of new hardware (storage class memory, SSD, main memory and multicores) on database management systems"
+  ],
+  "topics": [
+    "The course consists of mandatory reading of key (recently published) research papers related to aspects of scalable distributed systems design.",
+    "Overview of scalable distributed system design (goals and example systems, deployment environments, and challenges).",
+    "Overview of data-centres, their technologies and the link to cloud computing and introduction to latest technologies encompassing rack-scale computing",
+    "Hardware virtualization (full and para virtualization, virtualization of different resources, security)/OS virtualization (containers and serverless computing)",
+    "Design scalable services and applications (reference architectures, requirements and design priniciples for highly performant and fault tolerant systems)",
+    "Distributed Storage (CAP theorem, Consistency-types (strong, weak, eventual, etc.))",
+    "Distributed Coordination (consensus protocols, and use-cases)",
+    "Distributed Computation (data-flow and graph processing models)",
+    "Managing distributed resources (resource management and allocation, cluster schedulers)",
+    "NoSQL and NewSQL; Overview of the new data management landscape",
+    "Key/Value Store and their successor extensible record stores",
+    "Document stores; schema free: shifting the complexity from ETL to querying",
+    "New storage media; relative (random) access cost on disk compared to main memory/SSD",
+    "Main memory databases; transactions in main memory; random access in main memory",
+    "Flash/SSD databases; reading and writing (block erase); relative cost; wear levelling in write access; potentially outlook to phase change memory",
+    "Transactions on multicores; CPU cache hierarchy; multi-socket architecture; (workload driven) data placement."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70022/",
+  "fetched_at": "2026-06-06T18:18:29.098143+00:00",
+  "content_sha256": "6330c7931886c2f263b549e6d26b16f916d3f7aedeada1c0ab7eeaf8e5ac0829",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

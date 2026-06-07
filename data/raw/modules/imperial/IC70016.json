@@ -1,0 +1,43 @@
+{
+  "code": "IC70016",
+  "title": "Natural Language Processing",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to: - Learn the foundations, key concepts, and real-world applications of Natural Language Processing (NLP), with an emphasis on deep learning approaches. - Study models for representing words and their meanings. - Use these representations in text classification tasks like Natural Language Inference (NLI). - Analyse deep learning model architectures used in Language modeling and text generation. - Review current methods for training and fine-tuning Large Language Models (LLMs).",
+  "learning_objectives": [
+    "describe and critically appraise modern NLP approaches and techniques.",
+    "model textual data using appropriate language representations.",
+    "discuss various NLP approaches to classification tasks (e.g. NLI).",
+    "apply state-of-the art tools and techniques to solve real-world NLP problems.",
+    "analyse deep learning based model architectures used in language modeling and text generation",
+    "explain the process of training and fine-tuning of LLMs.",
+    "compare the performance and outputs of various LLMs."
+  ],
+  "topics": [
+    "Introduction to NLP",
+    "Word meaning and representations",
+    "Classification tasks",
+    "Language models (n-gram based, RNN, Attention-based, Transformer, GPT)",
+    "Large Language Models",
+    "Benchmarking and Evaluation",
+    "Advanced NLP Topics"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70016/",
+  "fetched_at": "2026-06-06T18:18:39.870078+00:00",
+  "content_sha256": "95433d4f6116597fc780b888db937e0fbfa3f0ba81870876f5a308fce954c5d9",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

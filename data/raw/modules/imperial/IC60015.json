@@ -2,26 +2,39 @@
   "code": "IC60015",
   "title": "Network and Web Security",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50005"
-  ],
-  "description": "A broad knowledge of network and web security from the network to the application layer, emphasising both underlying principles and techniques and how they are applied in practice.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to gain a broad  knowledge of network and web security from the network to the  application layer. The emphasis of the course is both on the underlying  principles and techniques, and on examples of how such principles are  applied in practice.",
   "learning_objectives": [
-    "Evaluate main threats, attack techniques and defences relevant to cybersecurity and network security",
-    "Analyse web applications in order to identify vulnerabilities",
-    "Propose countermeasures to address vulnerabilities",
-    "Design secure web applications by leveraging security principles"
+    "evaluate main threats, attack techniques and defences relevant to cybersecurity and network security",
+    "analyse web applications in order to identify vulnerabilities",
+    "propose countermeasures to address vulnerabilities",
+    "design secure web applications by leveraging security principles"
   ],
   "topics": [
     "Cybersecurity overview",
     "Threat analysis and bug finding",
     "Internet security",
-    "Server-side security",
+    "Server\u00adside security",
     "Client-side security",
-    "Secure web sessions",
+    "Secure Web Sessions",
     "Emerging security standards",
-    "Online privacy issues"
+    "Online Privacy issues"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60015/",
+  "fetched_at": "2026-06-06T18:18:17.142397+00:00",
+  "content_sha256": "649e3eea6f9517ea9450f1cffba5a26114a514d00cdaafad5af5eac7c2f7219c",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

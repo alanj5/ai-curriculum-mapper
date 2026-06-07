@@ -2,27 +2,40 @@
   "code": "IC60032",
   "title": "Networked Systems",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50005"
-  ],
-  "description": "An overview of and hands-on experience with how modern networked systems are designed and implemented, across control plane, data plane and endpoints.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module, you will get an overview and hands-on experience on how modern networked systems are designed and implemented. The module assumes prior networking knowledge and goes into more detail on the evolution of networking, new network architectures, and new software and hardware infrastructure at the network control plane, data plane, and the endpoints. You will also explore and enumerate the systems principles, e.g. layering and the end-to-end argument, that led to certain design choices and understand how the same principles are applied across a variety of systems.",
   "learning_objectives": [
-    "Enumerate and analyse basic network mechanisms, their design and implementation across different settings",
-    "Design and reason about scalability and performance requirements for parts of the networking infrastructure",
-    "Use network simulation, debugging and monitoring tools such as wireshark, tcpdump and NS2",
-    "Implement a network middlebox in different technologies such as eBPF, DPDK and P4"
+    "enumerate and analyse the basic network mechanisms, their design and implementation, and the underlying principles across different network settings and architectures.",
+    "design and reason about the scalability and performance requirements for different parts of the networking infrastructure: control plane, data plane, endpoints",
+    "use network simulation, debugging, and monitoring tools, such as wireshark, tcpdump, and NS2",
+    "implement a network middlebox in different technologies, e.g. eBPF, DPDK, P4"
   ],
   "topics": [
-    "TCP/IP stack, remote procedure calls and network stack design",
-    "Network architecture and topologies: WAN, datacenter networks, optical networking",
-    "Switch architecture",
-    "Control plane: routing algorithms BGP and OSPF",
-    "Software-defined networks",
-    "Programmable dataplanes: P4, match-action tables",
-    "Queueing theory, packet scheduling and quality of service",
-    "Congestion control and flow control",
-    "Kernel-bypassing, eBPF and virtual networking"
+    "Overview: TCP/IP stack refresh, Remote Procedure Calls, basic operating system and network stack design",
+    "Network Architecture &Topologies: WAN, datacenter networks, clos, optical networking, basic switch architecture",
+    "Control Plane I: Routing Algorithms BGP and OSPF",
+    "Control Plane II: Software-Defined Networks",
+    "Programmable Dataplanes: introduction to P4, match-action tables, PISA architecture",
+    "Basic queueing theory, packet scheduling algorithms, and QoS",
+    "EndHost: congestion control, flow control, kernel-bypassing, eBPF, virtual networking",
+    "Congestion Control: congestion signals in different networking settings, DCTCP, HPCC, BBR, Timely"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60032/",
+  "fetched_at": "2026-06-06T18:18:20.028163+00:00",
+  "content_sha256": "b8144bc225fdc568fcd43a85b1173e4e34223bc0b37d3bb71d9c08b3f3c12ba8",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

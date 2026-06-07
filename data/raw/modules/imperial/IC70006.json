@@ -1,0 +1,45 @@
+{
+  "code": "IC70006",
+  "title": "Computational Finance",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to be introduced to the fundamental models and mathematical theories to computer science and engineering students. In particular, in this module you will have the opportunity to learn to:",
+  "learning_objectives": [
+    "explain how risk is related to reward in investment decisions",
+    "critically assess the risks in fixed income investments and show how the impacts of these risks can be limited using risk management strategies such as immunisation",
+    "decompose the risk of an investment decision into components that can potentially lead to higher rewards",
+    "explain the principles of arbitrage pricing theory",
+    "price complex financial products using arbitrage arguments",
+    "explain the main assumptions behind financial models, and test their validity in practice"
+  ],
+  "topics": [
+    "This module covers the following topics",
+    "compare and appraise the key theories that underlie current thinking in finance and investment",
+    "explain how these theories are applied in practical situations",
+    "explain the properties of the principal asset classes and securities",
+    "apply a range of analytical methods and computational tools used in finance",
+    "solve portfolio selection problems with off-the-shelf optimisation software",
+    "solve option pricing problems based on binomial lattices",
+    "undertake independent self-study (or research) using technical literature in computational finance in the future",
+    "All students are assumed to be familiar with basic analysis and  linear algebra, eg COMP50011 Computational Techniques (for computing  students).",
+    "Recommended: COMP60016 Operations Research. Students  who have not taken this course are assumed to be familiar with linear  programming duality."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70006/",
+  "fetched_at": "2026-06-06T18:18:26.563846+00:00",
+  "content_sha256": "5abfb5d707d225b256f2ae17981bbd0b41547e6a80a33fde3fb4ebdad907fd77",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

@@ -2,11 +2,9 @@
   "code": "IC50001",
   "title": "Algorithm Design and Analysis",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC40008"
-  ],
-  "description": "Explore the main algorithmic design paradigms, apply algorithmic techniques to practical and unseen problems, quantitatively analyse the performance of algorithms, and model the mathematical structure of computational tasks.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
     "Compare, characterise and evaluate different implementations of basic algorithms",
     "Analyse algorithms using quantitative evaluation",
@@ -15,13 +13,27 @@
     "Specify which algorithms can be applied to which classes of problems"
   ],
   "topics": [
-    "Quantitative analysis of algorithms and growth order",
-    "Divide and conquer",
-    "Dynamic programming",
-    "Greedy algorithms",
-    "Randomised algorithms",
-    "Advanced graph algorithms",
-    "String processing algorithms"
+    "Quantitative Analysis of Algorithms and Growth Order",
+    "Divide and Conquer",
+    "Dynamic Programming",
+    "Greedy Algorithms",
+    "Randomised Algorithms",
+    "Advanced Graph Algorithms",
+    "String Processing Algorithms"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50001/",
+  "fetched_at": "2026-06-06T18:18:01.912503+00:00",
+  "content_sha256": "1e751edfed1991711840bc557d74d9ed971519c2efc3fc2df507273b34fee9e7",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Compulsory",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

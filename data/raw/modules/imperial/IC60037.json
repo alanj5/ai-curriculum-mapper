@@ -2,31 +2,45 @@
   "code": "IC60037",
   "title": "Mathematics for Machine Learning",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC40016",
-    "IC40017"
-  ],
-  "description": "Advanced mathematical techniques required to understand, design and implement modern statistical machine learning algorithms and inference mechanisms.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to study the advanced mathematical techniques required to understand, design and implement modern statistical machine learning algorithms and inference mechanisms.",
   "learning_objectives": [
-    "Implement foundational machine learning algorithms from scratch",
-    "Apply appropriate mathematical techniques in a machine learning setting",
-    "Critically assess the quality of machine learning models",
-    "Evaluate connections between different machine learning algorithms"
+    "implement foundational machine learning algorithms from scratch",
+    "apply appropriate mathematical techniques in a machine learning setting",
+    "critically assess the quality of machine learning models",
+    "evaluate connections between different machine learning algorithms"
   ],
   "topics": [
-    "Multivariate calculus",
-    "Multivariate probability: joint distributions, means and covariance matrices",
+    "Multivariate Calculus (einstein notation, differentiation and integration)",
+    "Multivariate probability (joint pmfs, joint pdfs, means, covariance matrices)",
     "Conditional probability and Bayes's rule",
-    "Maximum likelihood estimation",
-    "Monte Carlo estimation",
-    "Validation, test error estimation and cross-validation",
-    "Concentration inequalities and the law of large numbers",
+    "Maximum Likelihood estimation",
+    "Monte Carlo Estimation",
+    "Validation and test error estimation, and cross-validation",
+    "Concentration inequalities (e.g. Law of Large Numbers)",
     "Gradient descent and its convergence",
-    "Principal component analysis, eigendecomposition and SVD",
-    "Bayesian inference and MAP inference",
+    "PCA, eigendecomposition, SVD",
+    "Bayesian inference",
+    "MAP inference",
     "Multivariate Gaussians",
-    "Bayesian linear regression"
+    "Bayesian Linear Regression",
+    "Recommended: The contents of COMP50008 Probability and Statistics."
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60037/",
+  "fetched_at": "2026-06-06T18:18:25.340088+00:00",
+  "content_sha256": "99103ed2dcdd8c0a29d16f530a3fc456f42d3ab76b4b34747d185683fa0f42fc",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

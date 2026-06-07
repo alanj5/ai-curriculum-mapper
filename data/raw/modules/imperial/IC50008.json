@@ -2,11 +2,9 @@
   "code": "IC50008",
   "title": "Probability and Statistics",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC40016"
-  ],
-  "description": "Use probability theory to model uncertainty, design simple probabilistic models that facilitate prediction, conduct sound scientific analysis of data, and study the foundations of probabilistic modelling with Markov chains and simulation.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
     "Describe notions of probability in terms of sample spaces",
     "Define and use random variables",
@@ -26,5 +24,19 @@
     "Fundamentals of simulation",
     "Markov chains"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50008/",
+  "fetched_at": "2026-06-06T18:18:08.201852+00:00",
+  "content_sha256": "43b56ec4ffa85de5126a39bfe93ca009f632aa4f72d7ca0f304747ecc5e6b8e6",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Compulsory",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

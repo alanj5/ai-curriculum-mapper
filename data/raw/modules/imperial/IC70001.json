@@ -1,0 +1,40 @@
+{
+  "code": "IC70001",
+  "title": "Advanced Computer Graphics",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "The module is motivated by modern developments in photorealistic computer graphics, particularly image-based techniques for achieving photorealism, and aims to introduce the fundamental concepts and techniques employed in modern image synthesis combining computation with optics and digital photography. In this module you will have the opportunity to learn modern techniques in realistic computer graphics and image synthesis. In particular, you will learn image-based techniques for photorealism, recent developments in global illumination, and techniques for material appearance capture and rendering. Up-to-date machine learning approaches for realistic computer graphics will also be introduced.",
+  "learning_objectives": [
+    "use and appraise advanced methods to compute high dynamic range (HDR) images",
+    "model complex environmental illumination to determine direct illumination on a surface",
+    "compute surface reflectance with various parametric BRDF models",
+    "compute synthetic images using a Monte Carlo path tracer",
+    "critically evaluate approaches for appearance acquisition with respect to quality and practicality"
+  ],
+  "topics": [
+    "High dynamic range imaging and image based lighting/ relighting",
+    "Basics of radiometry and surface reflectance",
+    "Monte Carlo sampling and rendering with direct and global illumination",
+    "Scattering: in participating media, subsurface scattering in skin, and in hair fibers",
+    "Measurement of surface reflectance",
+    "Machine learning approaches for realistic rendering"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70001/",
+  "fetched_at": "2026-06-06T18:18:36.741841+00:00",
+  "content_sha256": "2439da63787654a43bfe9c0256588c41402b3b1e29450d6d2caedfe329fefd12",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

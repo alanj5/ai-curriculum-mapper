@@ -1,0 +1,40 @@
+{
+  "code": "IC70007",
+  "title": "Computational Optimisation",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to:",
+  "learning_objectives": [
+    "use advanced mathematical methods to establish convexity in complex problems",
+    "specify necessary and sufficient conditions for optimality",
+    "classify optimisation algorithms as first or second order",
+    "determine appropriate optimisation algorithms for given problems given the size and structure of the optimisation models",
+    "apply sensitivity analysis to optimisation problems using Lagrange multipliers"
+  ],
+  "topics": [
+    "Prove convexity of a function and of an optimization problem;",
+    "Specify the optimality conditions for both constrained and unconstrained optimization problems;",
+    "Derive basic zeroth-, first-, and second-order optimization algorithms and evaluate their convergence;",
+    "Apply optimization algorithms to machine learning applications, e.g., recognizing hand-writing and robust principal component analysis;",
+    "Program basic zeroth-, first-, and second-order optimization algorithms.",
+    "Recommended: COMP50011 Computational Techniques; COMP60016 Operations Research and COMP70015 Mathematics for Machine Learning"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70007/",
+  "fetched_at": "2026-06-06T18:18:37.866637+00:00",
+  "content_sha256": "8ca0befa33a7fd3e14ecfe6220951daa4186b893ae284f24e3632e2e5967f197",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

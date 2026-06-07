@@ -10,20 +10,25 @@ taken from those pages. One module (60036 Compilers) has no live descriptor
 page; its entry is supplemented from a standard public compilers curriculum and
 flagged accordingly in its ``source`` field.
 
-This covers the content modules of Years 1-3. Non-content entries are excluded:
-extracurricular (COMPM0193/0701/0804), I-Explore / external placeholders
-(COMPM035x), pure projects (60010 Individual Project, 60021 Group Project),
-the teaching-placement module (60003), MATH-department finance electives, and
-sub-part/lab variants (40018A, 50007.x, 50010.2).
+This covers the shared BEng/MEng content modules of Years 1-3 plus the MEng
+Year-4 advanced modules (70xxx). Non-content entries are excluded: extracurricular
+(COMPM0193/0701/0804), I-Explore / external placeholders (COMPM035x/045x), pure
+projects (60010/70011 Individual Project, 60021 Group Project), industrial
+placement (60031/70012), the teaching-placement module (60003), MATH-department
+electives, and sub-part/lab variants (40018A, 50007.x, 50010.2).
 
 Level convention:
   40xxx -> level 1 (Year 1)
   50xxx -> level 2 (Year 2)
   60xxx -> level 3 (Year 3)
+  70xxx -> level 4 (Year 4, MEng only)
 
-Prerequisites encode the standard pedagogical knowledge dependencies of the
-curriculum (the descriptor pages do not list formal prerequisites); they are
-deliberately conservative and limited to unambiguous foundational links.
+Prerequisites: most descriptor pages do not publish a formal prerequisites field.
+Where a page DOES (parsed by ``imperial_scraper``), ``fetch_imperial_modules.py
+--adopt-parsed`` adopts the real published prerequisites; otherwise none are
+asserted and the graph builder infers prerequisite structure algorithmically. The
+conservative links in this table are offline fallbacks only (used by this script's
+direct, no-network mode), not the source of record for the built corpus.
 """
 
 import json
@@ -1159,6 +1164,114 @@ MODULES = [
         "source": "imperial",
     },
 ]
+
+# ── Year 4 (Level 4) — MEng integrated-master's advanced modules ──────────────
+# The MEng adds a fourth year of advanced modules on top of the shared BEng/MEng
+# Years 1-3. Codes/titles from the MEng Year-4 list at
+#   /computing/prospective-students/ug/beng-meng-computing/meng-comp/  (June 2026).
+# Descriptions, learning outcomes and syllabus topics are scraped live from each
+# descriptor page (run scripts/fetch_imperial_modules.py --adopt-parsed); the stub
+# text below is only a fallback if a page is unavailable. Project/placement and
+# Maths-department/external electives are excluded, matching the Years 1-3
+# content-only policy. Prerequisites encode the obvious Year 2/3 foundations.
+YEAR4 = [
+    ("IC70005", "Complexity", ["IC50003"]),
+    ("IC70006", "Computational Finance", ["IC50011"]),
+    ("IC70015", "Mathematics for Machine Learning", ["IC40017", "IC50008"]),
+    ("IC70017", "Principles of Distributed Ledgers", ["IC50005"]),
+    ("IC70021", "Quantum Computing", ["IC40017"]),
+    ("IC70022", "Scalable Systems and Data", ["IC50004", "IC40007"]),
+    ("IC70023", "Scalable Software Verification", ["IC50003", "IC50002"]),
+    ("IC70024", "Software Reliability", ["IC50002"]),
+    ("IC70025", "Software Engineering for Industry", ["IC50002"]),
+    ("IC70028", "Reinforcement Learning", ["IC50013"]),
+    ("IC70068", "Scheduling and Resource Allocation", ["IC60016"]),
+    ("IC70086", "Advanced Computer Architecture", ["IC60001"]),
+    ("IC70100", "Computational Neurodynamics", ["IC50013"]),
+    ("IC70101", "Human-Robot Interaction", ["IC60019"]),
+    ("IC70103", "Statistical Information Theory", ["IC50008"]),
+    ("IC70114", "Machine Learning Systems and Hardware", ["IC50013", "IC60001"]),
+    ("IC70001", "Advanced Computer Graphics", ["IC60005"]),
+    ("IC70004", "Advanced Computer Security", ["IC60015"]),
+    ("IC70007", "Computational Optimisation", ["IC60016"]),
+    ("IC70010", "Deep Learning", ["IC50013"]),
+    ("IC70014", "Machine Learning for Imaging", ["IC50013"]),
+    ("IC70016", "Natural Language Processing", ["IC50013"]),
+    ("IC70019", "Probabilistic Inference", ["IC50008"]),
+    ("IC70020", "Program Analysis", ["IC50003"]),
+    ("IC70031", "Formal Methods for Safe AI", ["IC50003", "IC50013"]),
+    ("IC70067", "Robot Learning", ["IC60019", "IC50013"]),
+    ("IC70070", "Custom Computing", ["IC60008"]),
+    ("IC70075", "System Performance Engineering", ["IC60017"]),
+    ("IC70082", "Network and Web Security", ["IC60015"]),
+    ("IC70090", "Graphics", ["IC60005"]),
+    ("IC70098", "Introduction to Concrete Complexity", ["IC50003"]),
+    ("IC70105", "Deep Graph-Based Learning", ["IC50013"]),
+    ("IC70111", "Networked Systems", ["IC60032"]),
+    ("IC70112", "Non-Euclidean Methods in Machine Learning", ["IC50013"]),
+    ("IC70113", "Generative AI", ["IC50013"]),
+]
+for _code, _title, _prereqs in YEAR4:
+    MODULES.append(
+        {
+            "code": _code,
+            "title": _title,
+            "level": 4,
+            "credits": CREDITS,
+            "prerequisites": _prereqs,
+            "description": f"Advanced MEng (Year 4) module: {_title}.",
+            "learning_objectives": [],
+            "topics": [],
+            "source": "imperial",
+        }
+    )
+
+# A few Year-4 descriptor pages publish only an aims paragraph (no structured
+# outcomes/syllabus list); supply curated fallback outcomes/topics so every module
+# has content. The live aims paragraph is still adopted as the description.
+_YEAR4_FALLBACK = {
+    "IC70101": {
+        "learning_objectives": [
+            "Design and evaluate interactions between humans and robots",
+            "Apply models of human behaviour and perception to robot control",
+            "Reason about trust, safety and ethics in human-robot interaction",
+        ],
+        "topics": [
+            "Human-robot interaction paradigms",
+            "Social and collaborative robotics",
+            "Perceiving and modelling humans",
+            "Verbal and non-verbal communication",
+            "Shared autonomy and teleoperation",
+            "Trust, acceptance and safety",
+            "Ethics of interactive robots",
+            "Evaluation methods for HRI",
+        ],
+    },
+}
+for _m in MODULES:
+    _fb = _YEAR4_FALLBACK.get(_m["code"])
+    if _fb:
+        if not _m["learning_objectives"]:
+            _m["learning_objectives"] = _fb["learning_objectives"]
+        if not _m["topics"]:
+            _m["topics"] = _fb["topics"]
+
+# Apply official per-module ECTS credits, term and module type from the Imperial
+# programme specifications (data/raw/standards/imperial_module_meta.json), the
+# authoritative source for these fields (the descriptor pages omit them).
+_META_PATH = BASE / "data" / "raw" / "standards" / "imperial_module_meta.json"
+if _META_PATH.exists():
+    _meta = json.load(open(_META_PATH)).get("modules", {})
+    for _m in MODULES:
+        _md = _meta.get(_m["code"])
+        if _md:
+            if _md.get("credits"):
+                _m["credits"] = _md["credits"]
+            if _md.get("term"):
+                _m["term"] = _md["term"]
+            if _md.get("module_type"):
+                _m["module_type"] = _md["module_type"]
+            _m["credits_source"] = "Imperial Programme Specification 2025-26"
 
 
 def main():

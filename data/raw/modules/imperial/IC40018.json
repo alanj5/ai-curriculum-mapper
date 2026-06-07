@@ -1,19 +1,19 @@
 {
   "code": "IC40018",
-  "title": "Discrete Mathematics, Logic and Reasoning",
+  "title": "Discrete Mathematics, Logic & Reasoning",
   "level": 1,
-  "credits": 8,
+  "credits": 10,
   "prerequisites": [],
-  "description": "Learn how discrete mathematics and logic can be used to describe and reason about computational structures and systems, providing a foundation for hardware design, algorithm analysis and program reasoning, with an emphasis on proof techniques.",
+  "description": "In this module you will learn how discrete mathematics and logic can be used to describe and reason about computational structures and systems.\u00a0 The module provides an important\u00a0 foundation for many core topics in Computing, such as computer hardware design, algorithm analysis, and program reasoning. Central to this module are proof techniques, which are important when establishing whether or not a program or system behaves according to its specification. The ability to use mathematics and logic to formalise such specifications is also a key learning outcome.",
   "learning_objectives": [
-    "Construct various types of mathematical proof using informal and formal reasoning",
-    "Define properties of fundamental discrete structures such as sets, relations and functions",
-    "Read, parse and evaluate logical formulas",
-    "Formalise English statements into logic",
-    "Use logic to specify the desired properties of a system, program or algorithm",
-    "Use induction to reason about the correctness of recursive programs and data structures",
-    "Provide suitable pre-, post- and mid-conditions and invariants for imperative program fragments",
-    "Use logic to reason about the correctness of imperative programs"
+    "construct various types of mathematical proof using informal and formal reasoning",
+    "define properties of fundamential discrete structures, such as sets, relations and functions",
+    "read, parse and evaluate logical formulas",
+    "formalise English statements into logic",
+    "use logic to specify the desired properties of a system, program or algorithm",
+    "use induction to reason about the correctness of recursive programs and data structures",
+    "provide suitable pre, post and mid conditions and invariants for imperative program fragments",
+    "use logic to reason about the correctness of imperative programs"
   ],
   "topics": [
     "Logical connectives",
@@ -25,11 +25,28 @@
     "Inductive reasoning applied to recursive programs and data types",
     "Formalisation of logic syntax and semantics",
     "Validity and satisfiability",
-    "Logical equivalence",
-    "Logical proof systems, soundness and completeness",
+    "Equivalence",
+    "Logical proof systems",
+    "Soundeness and completeness",
     "Specification of pre-, post- and mid-conditions",
     "Loop invariants and variants",
     "Logical reasoning applied to imperative programs"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40018/",
+  "fetched_at": "2026-06-06T18:18:01.107119+00:00",
+  "content_sha256": "c011b4d6fbd26e8c09543d73f0b057b3abefc3b7dc32d179c0f6c4271f3cacf5",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn-Spring",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

@@ -1,0 +1,42 @@
+{
+  "code": "IC70014",
+  "title": "Machine Learning for Imaging",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This module covers the fundamental concepts and advanced  methodologies of machine learning for imaging and relates those to  real-world problems in computer vision and medical image analysis. You  will experience different approaches to machine learning including  supervised and unsupervised techniques with an emphasis on deep learning  methods. Topics include image segmentation, image registration,  self-supervised learning, inverse problems (super-resolution, image  reconstruction), causality in imaging, and trustworthy machine learning.  A key objective is to equip you with the skills needed to work in, and  conduct research into, image computing and applied machine learning.",
+  "learning_objectives": [
+    "select and apply appropriate machine learning methods for solving practical problems in image computing",
+    "implement and assess techniques for image segmentation, image registration, and self-supervised learning",
+    "compare, characterise and quantitatively assess competing approaches to computer vision and image computing",
+    "evaluate the performance of computer vision and image computing algorithms",
+    "analyse critically the limitations of machine learning techniques in the domain of image computing"
+  ],
+  "topics": [
+    "Introduction to machine learning for imaging",
+    "Image segmentation",
+    "Image registration",
+    "Self-supervised representation learning",
+    "Inverse problems (super-resolution, image reconstruction)",
+    "Trustworthy machine learning in imaging (privacy, explainability)",
+    "Causality in imaging",
+    "Highly recommended modules: Computer Vision, Introduction  to Machine Learning, and Deep Learning."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70014/",
+  "fetched_at": "2026-06-06T18:18:38.990160+00:00",
+  "content_sha256": "f3729ad8c9515334cbfa68f4ae906b65c545bf275c7eb82a182c510be9629af2",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

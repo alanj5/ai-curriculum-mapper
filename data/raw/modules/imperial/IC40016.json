@@ -2,9 +2,9 @@
   "code": "IC40016",
   "title": "Calculus",
   "level": 1,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [],
-  "description": "Study the calculus needed for many applications of Computing such as graphics, vision, robotics, operations research and statistical machine learning.",
+  "description": "In this module you will study the calculus needed for many applications of Computing, such as graphics, vision, robotics, operations research and statsitical machine learning. It also provides the background for follow-on mathematics modules that lay the foundations for advanced electives in the above topics and other mathematically-focused areas such as optimisation and finance.",
   "learning_objectives": [
     "Establish convergence or divergence of sequences and series and determine limit values",
     "Derive Maclaurin and Taylor series and determine radius of convergence",
@@ -16,7 +16,7 @@
   "topics": [
     "Ordering and supremum of real numbers",
     "Sequences, series and convergence",
-    "Limits of functions and continuity, intermediate value theorem",
+    "Limits of functions and continuity, intermediate value theorem, uniform continuity",
     "Differentiation and its properties",
     "Mean value theorem",
     "Riemann integral and its properties",
@@ -24,13 +24,29 @@
     "Uniform convergence and power series",
     "Metric spaces",
     "Contraction mapping theorem",
-    "Multivariate differential calculus",
+    "Multivariate Differential Calculus",
     "Partial derivatives",
     "Hessian and the Taylor series formula",
     "Extrema of scalar fields",
-    "Newton's method",
-    "Vector valued functions and the Jacobian matrix",
+    "Newton\u2019s method",
+    "Vector valued functions",
+    "Jacobian matrix",
     "Cylindrical and spherical coordinate systems"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40016/",
+  "fetched_at": "2026-06-06T18:17:58.828961+00:00",
+  "content_sha256": "3e68c91a47ea829d28bd1f816edb2f2edd1d4672cf52c1ca42f4334f03f1ab19",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

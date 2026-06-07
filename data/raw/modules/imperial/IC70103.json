@@ -1,0 +1,40 @@
+{
+  "code": "IC70103",
+  "title": "Statistical Information Theory",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "What does fitting a machine learning model have to do with copying a file over a computer network? The answer, you may be surprised to hear, is quite a lot. The fundamental principles of information theory were originally devised to study optimal communication over information channels, but have since found widespread applications across areas of data science and computing. This module will introduce the basics of information theory as devised by Claude Shannon in 1948, and then delve into its deep connections with statistics and machine learning. Through mathematical and computational exercises, the module presents information as a unifying theory linking computing, statistics, and geomety, and provides crucial theoretical background for students wishing to pursue a career in data science or machine learning.",
+  "learning_objectives": [
+    "Explain the key properties of information metrics in terms of communication principles.",
+    "Calculate these metrics in common probability distributions.",
+    "Compare different metrics and coding schemes on real-world data.",
+    "Explain the mathematical connections between data transmission and model fitting.",
+    "Design principled data analysis plans with appropriate statistical criteria."
+  ],
+  "topics": [
+    "Entropy and the source coding theorem.",
+    "Mutual information and the channel coding theorem.",
+    "Simple coding schemes, such as Huffman and Hamming codes.",
+    "Introduction to information geometry and projections.",
+    "Connections between information theory and maximum likelihood estimation.",
+    "Recent trends in multivariate information theory for data analysis."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70103/",
+  "fetched_at": "2026-06-06T18:18:35.529413+00:00",
+  "content_sha256": "83a0f82cec82203c6a00649caabe235abd177a303c9debb1a3ad817ec37af6c0",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

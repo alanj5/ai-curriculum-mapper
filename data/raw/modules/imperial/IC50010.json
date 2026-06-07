@@ -2,24 +2,38 @@
   "code": "IC50010",
   "title": "Designing for Real People",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC50002"
-  ],
-  "description": "Apply software engineering techniques to implement a large web-based or mobile application that solves a real-world problem, following human-centred design and agile development.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to apply the software engineering techniques taught throughout the year to the implementation of a large web-based or mobile-based application that solves a real-world problem. This application will be designed following the principles and practices of Human Centred Design (HCD), which will be taught as part of the module. Additionally, you will learn, and will be expected to adhere to, the core aspects of Computer Law which must be taken into account when developing computing applications of this type.",
   "learning_objectives": [
-    "Describe and discuss the concepts involved in Human-Centred Design and agile software development",
-    "Conduct research into a real-world problem following HCD principles",
-    "Design, engineer and deploy a web-based or mobile-based application to solve a real-world problem",
-    "Work effectively as part of a small group to deliver software iteratively using agile methods",
-    "Report, present and demonstrate a solution and its value proposition to an interdisciplinary audience",
-    "Recall relevant Computer Laws and act in conformity with those laws"
+    "describe and discuss the concepts involved in Human-Centred Design (HCD) and agile software development",
+    "conduct research into a real-world problem following HCD principles",
+    "design, engineer and deploy a web-based or mobile-based application to solve a real-world problem",
+    "work effectively as part of a small group to deliver software iteratively using modern agile software development methods",
+    "report, present and demonstrate a solution and its value proposition to an interdisciplinary audience",
+    "recall relevant Computer Laws and act in a manner that demonstrates awareness and conformity with those laws"
   ],
   "topics": [
-    "Human-centred design",
+    "Human-Centred Design",
     "Agile software development",
-    "Design and implementation of a multi-user application",
-    "Copyright and data protection law"
+    "Design and implementation of a multi-user application that solves a real world problem",
+    "Copyright and Data Protection law"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50010/",
+  "fetched_at": "2026-06-06T18:18:09.277266+00:00",
+  "content_sha256": "dea9968c10f6c725393c42390eb0f3e2534304245fbaccd625a99678e2ff0d8b",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring-Summer",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

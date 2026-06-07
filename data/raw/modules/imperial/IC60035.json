@@ -2,26 +2,41 @@
   "code": "IC60035",
   "title": "Natural Language Processing",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50013"
-  ],
-  "description": "The foundations, building blocks and applications of Natural Language Processing, with an emphasis on approaches based on deep learning, covering word representations, classification and tagging tasks, sequence models and machine translation.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to: - Learn about the foundations, building blocks and applications of Natural Language Processing (NLP), with an emphasis on approaches based on deep learning. - Study the models used to represent words and word meanings. - Use these representations to study classification tasks (e.g. sentiment analysis) and tagging tasks (e.g. part of speech tagging). - View languages as sequences of variable length, from pure language models to machine translation models. - See approaches that are based on modern neural machine learning algorithms, where linguistic information is provided by instances of uses of language.",
   "learning_objectives": [
-    "Describe and critically appraise NLP approaches used to support deep learning activities",
-    "Model words and languages using appropriate NLP representations",
-    "Discuss approaches to classification tasks such as sentiment analysis and tagging tasks such as part-of-speech tagging",
-    "Apply state-of-the-art tools and techniques to solve real-world NLP problems"
+    "describe and critically appraise NLP approaches used to support deep learning activities",
+    "model words and languages using appropriate NLP representations",
+    "discuss approaches to classification tasks (e.g. sentiment analysis) and tagging tasks (e.g. part of speech tagging).",
+    "apply state-of-the art tools and techniques to solve real-world NLP problems"
   ],
   "topics": [
     "Introduction to NLP",
     "Word meaning and representations",
     "Classification tasks: spam detection, sentiment analysis",
-    "Language models: n-gram, RNN and GPT",
-    "Part-of-speech tagging",
+    "Language models (n-gram based, RNN, GPT)",
+    "POS tagging and language model",
     "Parsing",
     "Sequence to sequence models",
-    "Machine translation"
+    "Machine translation",
+    "Guest lecture(s) on advanced NLP topic(s)"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60035/",
+  "fetched_at": "2026-06-06T18:18:21.245135+00:00",
+  "content_sha256": "8d8cabb3ac53b2a30e97cd590d7cbe0edc244eb5c2b5aeab8331898f6ef8d41c",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

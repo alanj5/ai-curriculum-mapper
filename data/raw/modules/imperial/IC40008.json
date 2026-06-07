@@ -2,9 +2,9 @@
   "code": "IC40008",
   "title": "Graphs and Algorithms",
   "level": 1,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [],
-  "description": "Prove mathematical properties of graphs, explore classical algorithms for graphs and trees, design algorithms for sorting and searching, analyse time complexity, and study the complexity classes P and NP and NP-completeness.",
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
     "Prove basic properties of graphs",
     "Describe, and establish the correctness of, some of the fundamental algorithms in computing",
@@ -20,9 +20,24 @@
     "Dynamic programming",
     "Divide and conquer",
     "Searching and sorting",
-    "Algorithm analysis, recurrence relations and the Master Theorem",
+    "Algorithm analysis (time complexity, recurrence relations, Master Theorem)",
     "Decision trees",
     "The complexity classes P and NP, NP-completeness"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/40008/",
+  "fetched_at": "2026-06-06T18:17:55.369662+00:00",
+  "content_sha256": "7731587148b45fb861c5c52f7061b0f996c3c19991e3f4edf77f853d3a1d381c",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Core",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

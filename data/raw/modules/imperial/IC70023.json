@@ -1,0 +1,48 @@
+{
+  "code": "IC70023",
+  "title": "Scalable Software Verification",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Software verification has come of age: proof assistants are mature; verification techniques and tools are tractable; and real-world programs are verified both in academia and industry. A key breakthrough came with separation logic, which introduced compositional reasoning about heap-manipulating programs. The aim of this course is to enable\u00a0 students to reason about heap-manipulating programs using separation logic, both by exploring the underlying theory and by working with cutting-edge academic and industrial analysis tools. The fact that the reasoning is compositional means that it scales. The theoretical part of the course will revolve around a simple While language, whereas the practical part will touch on real-world languages such as Java, JavaScript and C. More specifically, you will: Recommended pre-requisites: for the M.Eng students,\u00a0 an interest in COMP40018 Discrete Mathematics, Logic and Reasoning,\u00a0 (JMC: COMP40012 Logic and Reasoning), COMP50003 Models of Computation (the part on semantics); for the MSc students, either some experience in\u00a0 formal reasoning about programs\u00a0 or rigorous programming skills or a good knowledge of algorithms and\u00a0 a strength in mathematics.",
+  "learning_objectives": [
+    "(ILO1) evaluate the design choices underpinning SL for While",
+    "(ILO2) establish the correctness of SL for While with respect to the While operational semantics",
+    "(ILO3) adapt SL for While to other simple programming languages and justify the adaptation",
+    "(ILO4) design abstractions, create specifications, and produce rigorous correctness proofs for standard sequential data structures and their associated algorithms",
+    "(ILO5) use several state-of-the-art academic and industrial tools based on SL, whose analysis ranges from semi-automatic verification to automatic lightweight bug-finding",
+    "(IL06) explain the reasoning techniques underpinning the SL tools",
+    "(ILO7) apply concurrent SLs to specify and verify simple concurrent data-structure algorithms"
+  ],
+  "topics": [
+    "Core Separation Logic (SL), ILO1-4: three weeks",
+    "SL assertion language and entailment",
+    "SL for a simple While language",
+    "specification and verification of data-structure algorithms",
+    "soundness of SL with respect to the While operational semantics",
+    "Tools and Techniques, ILO5-6: three weeks",
+    "semi-automatic tools for specialist developers: Smallfoot, Gillian",
+    "automatic tool for the general developer: Facebook Infer",
+    "underlying techniques: symbolic execution, frame inference, bi-abduction",
+    "Concurrent Separation Logics, IL07: one week",
+    "original concurrent SL: coarse-grained concurrent programs",
+    "modern concurrent SLs: fine-grained concurrent programs"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70023/",
+  "fetched_at": "2026-06-06T18:18:29.691994+00:00",
+  "content_sha256": "92192fd61e7c5b989e51043ce3cdfa3537b99b829c00cea5f706d5ebfadc386f",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

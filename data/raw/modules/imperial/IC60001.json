@@ -2,29 +2,43 @@
   "code": "IC60001",
   "title": "Advanced Computer Architecture",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC40005"
-  ],
-  "description": "The design of general-purpose and special-purpose processors and parallel computer systems, covering high-performance and energy-efficient architecture and current trends in processor design.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Computer architecture concerns the design of general-purpose and  special-purpose processors, and of parallel computer systems for  applications ranging from embedded robotics through mobile handsets to  datacentres and supercomputers. Through this module you will:",
   "learning_objectives": [
-    "Justify the design of leading-edge processor products from microarchitecture to large-scale parallel systems",
-    "Evaluate architecture design alternatives and tradeoffs in terms of power and performance",
-    "Identify architectural security hazards and attack vulnerabilities and explain how they can be mitigated",
-    "Optimise application software kernels to exploit architectural capabilities effectively"
+    "Justify  the design of current, leading-edge processor products at various  architectural levels, from microarchitecture to large-scale parallel  systems",
+    "evaluate architecture design alternatives and tradeoffs in terms of power and performance",
+    "identify architectural security hazards and attack vulnerabilities and explain how they can be mitigated",
+    "optimise application software kernels to exploit architectural capabilities effectively"
   ],
   "topics": [
-    "Pipelines, hazards and instruction-level parallelism",
-    "Locality and caching",
+    "Pipelines, hazards, instruction-level parallelism, locality and caching",
     "Dynamic scheduling, Tomasulo's algorithm and register renaming",
     "Software instruction scheduling and software pipelining",
     "Superscalar and long-instruction-word architectures",
     "Branch prediction and speculative execution",
     "Simultaneous multithreading",
     "Vector instruction execution",
-    "Cache coherency, memory systems and address translation",
+    "Caches, cache coherency, memory systems, address translation",
+    "Optimisations for parallelism and locality and their automation in compilers",
     "Graphics processors and manycore architectures",
     "Security vulnerabilities and their mitigation"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60001/",
+  "fetched_at": "2026-06-06T18:18:11.066516+00:00",
+  "content_sha256": "fac541189bcbc8f8515783af05332a979525025ae59c509d3569f065a739e837",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

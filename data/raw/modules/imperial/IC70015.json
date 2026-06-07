@@ -1,0 +1,47 @@
+{
+  "code": "IC70015",
+  "title": "Mathematics for Machine Learning",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to study the advanced mathematical techniques required to understand, design and implement modern statistical machine learning algorithms and inference mechanisms.",
+  "learning_objectives": [
+    "implement foundational machine learning algorithms from scratch",
+    "apply appropriate mathematical techniques in a machine learning setting",
+    "critically assess the quality of machine learning models",
+    "evaluate connections between different machine learning algorithms"
+  ],
+  "topics": [
+    "Multivariate Calculus (einstein notation, differentiation and integration)",
+    "Multivariate probability (joint pmfs, joint pdfs, means, covariance matrices)",
+    "Conditional probability and Bayes's rule",
+    "Maximum Likelihood estimation",
+    "Monte Carlo Estimation",
+    "Validation and test error estimation, and cross-validation",
+    "Concentration inequalities (e.g. Law of Large Numbers)",
+    "Gradient descent and its convergence",
+    "PCA, eigendecomposition, SVD",
+    "Bayesian inference",
+    "MAP inference",
+    "Multivariate Gaussians",
+    "Bayesian Linear Regression",
+    "Recommended: The contents of COMP50008 Probability and Statistics."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70015/",
+  "fetched_at": "2026-06-06T18:18:27.139358+00:00",
+  "content_sha256": "2c936a45bf39ded4f11485cda227f298f26304e892f6823925a7907fa1eef917",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

@@ -2,31 +2,32 @@
   "code": "IC50011",
   "title": "Computational Techniques",
   "level": 2,
-  "credits": 8,
-  "prerequisites": [
-    "IC40017",
-    "IC40016"
-  ],
-  "description": "Additional mathematical topics that form prerequisites for later modules in computer graphics, machine learning and computational finance, focusing on how mathematical methods apply to complex computational problems.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to study additional mathematical topics that form prerequisites for later third and fourth year modules in areas such as computer graphics, machine learning and computational finance. The focus is on how mathematical methods can be applied to complex computational problems.",
   "learning_objectives": [
-    "Apply advanced topics in linear algebra to problems in machine learning and deep learning",
-    "Understand and implement mathematical methods in image processing, graphics and computational finance",
-    "Use vector calculus to solve computational optimisation problems"
+    "apply advanced topics in linear algebra to problems in machine learning and deep learning,",
+    "be able to understand and implement mathematical methods in image processing, graphics and computational finance",
+    "use vector calculus to solve computational optimisation problems"
   ],
   "topics": [
-    "Vector and matrix norms",
-    "Generalised eigenvectors and Jordan normal form",
-    "Singular value decomposition",
-    "Dimensionality reduction",
-    "Positive definite matrices and Cholesky factorisation",
-    "Normal equations and the least squares method",
-    "QR decomposition and Householder transform",
-    "LU decomposition",
-    "Condition of a matrix and stability of algorithms",
-    "Iterative solution of linear systems (Jacobi, Gauss-Seidel)",
-    "Iterative computation of eigenvectors (power method, inverse iteration, Rayleigh quotient)",
-    "Steepest descent and conjugate gradient methods",
-    "Linear programming"
+    "Vector and matrix norms, Generalised eigenvectors, Jordan normal form, Singular Value Decomposition, Dimensionality Reduction, Positive definite matrices, Cholesky factorisation, Normal Equations, Least Square Method, QR-decomposition, Householder transform, QR algorithm, LU-decomposition, Conditions of a matrix, Stability of Algorithms, Iterative solution of linear systems of equations, Jacobi method, Gauss-Seidel method, Iterative computation of eigenvectors, Power method, Inverse iteration, Rayleigh Quotient, Steepest descent method, Conjugate method, Linear programming."
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50011/",
+  "fetched_at": "2026-06-06T18:18:09.778209+00:00",
+  "content_sha256": "5634141fa54598fc58e069286b4e1775ec23cf60340591398c4555532cae376d",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

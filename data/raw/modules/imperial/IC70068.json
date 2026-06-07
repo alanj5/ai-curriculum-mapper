@@ -1,0 +1,36 @@
+{
+  "code": "IC70068",
+  "title": "Scheduling and Resource Allocation",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Real-life problems arising in computer science, computational management and economics often involve deciding the best way to use a given set of resources (e.g., servers, networks, routes) to complete a desired set of tasks within constraints (e.g., costs, deadline). Examples include job scheduling, workflow allocation, traffic routing, business processes optimization. The module blends methods from optimization, scheduling, and game theory to teach the best decision algorithms for such problems. Emphasis will be given to understand the trade-offs between cooperative and competitive approaches, both in centralized and decentralized decision making.",
+  "learning_objectives": [
+    "(1) Specify algorithms to optimally allocate a finite set of resources to process a workload;",
+    "(2)\u00a0 Consider useful metrics to quantify performance and costs of an allocation policy;",
+    "(3) Generate optimal decisions with the amount of information available, coping with uncertainties;",
+    "(4) Identify presence of selfish decision makers in real-world problems;",
+    "(5) Evaluate the performance degradation arising from selfish decision making;",
+    "(6) Illustrate applications of the theory to relevant scenarios, e.g., workflow management and internet traffic routing."
+  ],
+  "topics": [
+    "(1) Theory of scheduling; (2) Workflow analysis; (3) Jobs with uncertain execution times; (4) Release times; (5) Introduction to competitive decision making (game theory); (6) Selfish resource allocation and the price of anarchy; (7) Online decision making and regret minimization; (8) Case studies: routing over the internet."
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70068/",
+  "fetched_at": "2026-06-06T18:18:33.715391+00:00",
+  "content_sha256": "2ef0b64e46e49cb9e4638208218520a3fff70cce77514b661beabe0e1bc0ddf3",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

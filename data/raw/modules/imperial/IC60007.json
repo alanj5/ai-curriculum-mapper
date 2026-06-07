@@ -2,30 +2,46 @@
   "code": "IC60007",
   "title": "The Theory and Practice of Concurrent Programming",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50004"
-  ],
-  "description": "Modern concurrent programming models and the challenges of writing correct concurrent code, covering shared memory concurrency from architectural foundations to high-level synchronisation, with a focus on correctness through formal specification and verification.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This course focuses on the theory and practice of concurrent programming, in order to familiarise the students with a range of modern concurrent programming models, and with the challenges of correct concurrent programming. It is divided into two parts: a largely practical part that gives an overview of shared memory concurrency in modern programming languages, and a more theoretical part that treats shared memory concurrency from the ground up, covering low-level topics such as hardware memory models, primitives for shared-memory concurrency, building up towards higher-level synchronisation techniques such as locks, mutexes and transactional memory. Throughout the course, a main objective is to reinforce correct concurrent programming through the use of tools, formal specification and verification techniques.",
   "learning_objectives": [
-    "Write correct and efficient concurrent software in modern programming languages",
-    "Evaluate the strengths and weaknesses of a variety of concurrency models",
-    "Explain the architectural mechanisms for supporting shared memory concurrency",
-    "Formalise the semantics of shared memory concurrency",
-    "Specify, test and verify properties of concurrent systems using practical tools and formal methods"
+    "write correct and efficient concurrent software in modern programming languages",
+    "evaluate the differences between, and strengths and weaknesses of, a variety of concurrency models",
+    "explain the architectural mechanisms for supporting shared memory concurrency",
+    "formalise the semantics of shared memory concurrency",
+    "specify, test and verify properties of concurrent systems using state-of-the-art practical tools and formal methods"
   ],
   "topics": [
-    "Shared memory concurrent programming in C++",
-    "Synchronisation using locks and atomic operations",
-    "Implementation of synchronisation primitives",
-    "Functional programming and concurrency",
-    "Dynamic data race detection",
-    "Architecture support for single- and multi-core shared memory",
-    "Strong and weak memory models",
-    "Races, deadlocks, livelocks and progress guarantees",
-    "Design patterns for synchronisation: mutexes, locks, monitors",
-    "Concurrent objects and linearisability",
-    "Transactional memory"
+    "+ Shared memory concurrent programming in C++",
+    "+ Synchronisation using locks and atomic operations",
+    "+ Implementation of synchronisation primitives",
+    "+ Functional programming and concurrency",
+    "+ Dynamic data race detection",
+    "+ Primitives for shared-memory concurrency",
+    "+ Architecture support for single- and multi-core shared memory",
+    "+ Strong and weak memory models",
+    "+ Challenges of correct concurrent programming (races, deadlocks, livelocks, progress guarantees)",
+    "+ Design patterns for synchronisation (mutexes, locks, monitors)",
+    "+ Concurrent objects and linearisability",
+    "The practical part of the course will use the C++ programming language. A series of videos providing a crash course in C++ tailored to the needs of this course will be provided.",
+    "The module will rely heavily on knowledge from the Java concurrency material in Computing Practical 1 (40009), the material on concurrency in operating systems in Computing Practical 2 (50007), and on Models of Computation (50003). JMC students who have not already taken Models of Computation (MoC) should consider studying the necessary material (about 2 weeks of the MoC material on small- and big-step operational semantics) independently \u2013 it will be difficult to succeed in the theoretical part of this course without background from MoC."
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60007/",
+  "fetched_at": "2026-06-06T18:18:12.861674+00:00",
+  "content_sha256": "208d1fa9799ca072bd8b20eebb8145f46b2e43ea8a0b21f44b48338ec31538d7",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

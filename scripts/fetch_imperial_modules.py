@@ -42,6 +42,10 @@ from curriculum_mapper.ingestion.imperial_scraper import (  # noqa: E402
     fetch_descriptor,
 )
 
+# Codes that exist in our corpus, so scraped prerequisites referencing modules we
+# do not model (e.g. excluded MATH/COMP options) are dropped rather than dangling.
+KNOWN_CODES = {m["code"].upper() for m in MODULES}
+
 
 def _norm(text: str) -> str:
     return " ".join(text.lower().split())
@@ -99,6 +103,15 @@ def build_record(curated: dict, *, offline: bool, adopt_parsed: bool, retries: i
             result.parsed.learning_objectives or curated["learning_objectives"]
         )
         record["topics"] = result.parsed.topics or curated["topics"]
+        # Prerequisites: use the module's *published* pre-requisites where the page
+        # lists them (real data), filtered to modules we model; otherwise assert
+        # none (most descriptor pages publish no formal prerequisites). This
+        # replaces the previously curated prerequisite links.
+        record["prerequisites"] = [
+            c for c in result.parsed.prerequisites if c.upper() in KNOWN_CODES
+        ]
+        record["prerequisites_text"] = result.parsed.prerequisites_text
+        record["prerequisites_published"] = bool(result.parsed.prerequisites_text)
         record["fetch_note"] = "content adopted from live page"
     else:
         record["fetch_note"] = (

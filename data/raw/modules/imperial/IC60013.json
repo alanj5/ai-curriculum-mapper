@@ -2,31 +2,45 @@
   "code": "IC60013",
   "title": "Logic-Based Learning",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50009"
-  ],
-  "description": "Foundation knowledge and principles of logic-based machine learning, covering semantics, current learning algorithms and heuristics, and skills for formalising logic-based learning tasks for real-world problems.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
-    "Explain the semantic foundations and differences of logic-based machine learning problems",
-    "Formalise a learning task as a logic-based learning task",
-    "Apply algorithms to solve learning tasks in different semantic contexts",
-    "Use Answer Set Programming to solve real-world problems",
-    "Apply algorithms for learning Answer Set programs",
-    "Evaluate current forms of probabilistic logic-based inference and learning",
-    "Explain and apply state-of-the-art algorithms for probabilistic learning"
+    "explain the semantic foundations and differences of logic-based machine learning problems",
+    "formalise a learning task as a logic-based learning task",
+    "apply algorithms to solve learning tasks in different semantic contexts",
+    "use Answer Set Programming to solve real-word problems",
+    "apply algorithms for learning Answer Set programs",
+    "evaluate current forms of probabilistic logic-based inference and learning",
+    "explain and apply state of the art algorithms for probabilistic learning"
   ],
   "topics": [
     "Deductive, abductive and inductive reasoning",
     "Bayesian reasoning techniques",
-    "Answer set programming",
+    "Answer Set Programming",
     "Top-down and bottom-up approaches to learning",
     "Meta-level logic-based learning",
     "Monotonic and non-monotonic learning",
-    "Enhanced logic programming systems",
+    "Enhanced logic programming systems (Progol, TopLog, Metagol, TAL, Imparo, ASPAL and ILASP)",
     "Soundness and completeness of learning algorithms",
-    "Probabilistic inductive learning",
+    "Probabilistic/ stochastic inductive learning",
     "Probabilistic logic programming"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60013/",
+  "fetched_at": "2026-06-06T18:18:16.567302+00:00",
+  "content_sha256": "17bb419db5b64de58444d3da6cc385d825ab18d608b3aa6c1191f1a0a7df4065",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

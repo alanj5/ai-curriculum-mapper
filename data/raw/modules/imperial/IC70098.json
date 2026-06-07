@@ -1,0 +1,41 @@
+{
+  "code": "IC70098",
+  "title": "Introduction to Concrete Complexity",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "[Formerly \"Methods and Tools in the Theory of Computing\"] Can we find solutions to problems as quickly as we can identify the correctness of their solutions once given to us? Does every valid formula have short proofs? Are there functions that are easy to compute but hard to invert? These and similar questions such as the P versus NP problem, are the fundamental hardness questions of computer science, which lie at the heart of both the theory and practice of computing. In this module, you will learn some of the major approaches developed to tackle these questions. We shall focus on elementary tools, methods and results: the combinatorial method, through circuit complexity, and the logical approach, through proof-complexity.",
+  "learning_objectives": [
+    "Prove fundamental properties of Boolean circuits and their size-complexity.",
+    "Estimate the Boolean circuit size required to compute certain functions using elementary probabilistic techniques.",
+    "Analyse the proof-complexity of certain propositional proof systems."
+  ],
+  "topics": [
+    "The Boolean Circuit model",
+    "Shannon lower bounds: most Boolean functions require large circuits",
+    "Connections between circuits and the classes P, NP and Turing machines",
+    "Propositional proof systems",
+    "Cook's programme to separate P from NP",
+    "The random restriction method & switching lemmas",
+    "Constant depth circuit lower bounds",
+    "Resolution lower bounds for the Pigeonhole Principle",
+    "The Approximation method: monotone circuits lower bounds for deciding graph cliques"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70098/",
+  "fetched_at": "2026-06-06T18:18:45.167372+00:00",
+  "content_sha256": "7fd4d4b5135f2647bc7e16456d5ae51ab4651cb5d20d5f54a4692187cc1b854c",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

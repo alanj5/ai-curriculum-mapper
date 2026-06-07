@@ -1,0 +1,47 @@
+{
+  "code": "IC70090",
+  "title": "Graphics",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to study core computer  graphics concepts, including the mathematical principles used for  computer generated imagery, shading and light approximations. You will  also learn different geometry representations and modelling techniques  and will have the opportunity to apply what you have learnt to practical  computer graphics problems, using modern shader languages and graphics  accelerators.",
+  "learning_objectives": [
+    "appraise the core principles of programmable shading pipelines, such as vertex, fragment, and geometry shading",
+    "compare and contrast methods for modelling object geometry and surfaces",
+    "evaluate the tradeoffs between polyhedral and ray-based rendering methods",
+    "analyse and deploy fundamental algorithms associated with computer graphics",
+    "adapt existing graphics source code and computer graphics pipeline diagrams",
+    "design, analyse and implement new software for solving complex computer graphics problems"
+  ],
+  "topics": [
+    "Device-independent graphics",
+    "Polygon rendering",
+    "3D geometry",
+    "Texture mapping and anti-aliasing",
+    "Shading planar polygons",
+    "Representation of colours",
+    "Ray Tracing",
+    "Radiosity",
+    "Geometric Warping and Morphing",
+    "Special Visual Effects, e.g. particle systems for fire smoke and water",
+    "Inverse kinematics in animation",
+    "Non-photorealistic rendering"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70090/",
+  "fetched_at": "2026-06-06T18:18:44.657610+00:00",
+  "content_sha256": "236e961390c67b005eaf1cee563f1a701c7a55b11dd7e94b29c089ee891226ef",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

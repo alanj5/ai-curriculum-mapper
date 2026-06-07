@@ -1,0 +1,41 @@
+{
+  "code": "IC70111",
+  "title": "Networked Systems",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module, you will get an overview and hands-on experience on how modern networked systems are designed and implemented. The module assumes prior networking knowledge and goes into more detail on the evolution of networking, new network architectures, and new software and hardware infrastructure at the network control plane, data plane, and the endpoints. You will also explore and enumerate the systems principles, e.g. layering and the end-to-end argument, that led to certain design choices and understand how the same principles are applied across a variety of systems.",
+  "learning_objectives": [
+    "enumerate and analyse the basic network mechanisms, their design and implementation, and the underlying principles across different network settings and architectures.",
+    "design and reason about the scalability and performance requirements for different parts of the networking infrastructure: control plane, data plane, endpoints",
+    "use network simulation, debugging, and monitoring tools, such as wireshark, tcpdump, and NS2",
+    "implement a network middlebox in different technologies, e.g. eBPF, DPDK, P4"
+  ],
+  "topics": [
+    "Overview: TCP/IP stack refresh, Remote Procedure Calls, basic operating system and network stack design",
+    "Network Architecture &Topologies: WAN, datacenter networks, clos, optical networking, basic switch architecture",
+    "Control Plane I: Routing Algorithms BGP and OSPF",
+    "Control Plane II: Software-Defined Networks",
+    "Programmable Dataplanes: introduction to P4, match-action tables, PISA architecture",
+    "Basic queueing theory, packet scheduling algorithms, and QoS",
+    "EndHost: congestion control, flow control, kernel-bypassing, eBPF, virtual networking",
+    "Congestion Control: congestion signals in different networking settings, DCTCP, HPCC, BBR, Timely"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70111/",
+  "fetched_at": "2026-06-06T18:18:46.289634+00:00",
+  "content_sha256": "b329b2f7205a2d6692d82b9774df003f7c58fb525262cda175ed8ea4ebadc31f",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

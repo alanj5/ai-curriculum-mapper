@@ -2,11 +2,11 @@
   "code": "IC50002",
   "title": "Software Engineering Design",
   "level": 2,
-  "credits": 8,
+  "credits": 5,
   "prerequisites": [],
-  "description": "Examine the effects of design choices on flexibility, maintainability and cost; practise refactoring and automated testing; select appropriate design patterns; and reflect on technical practices within iterative delivery.",
+  "description": "In this module you will have the opportunity to:",
   "learning_objectives": [
-    "Identify and describe various design patterns, the problems they address, and trade-offs involved",
+    "Identify and describe various design patterns, the problems they address, and any trade-offs involved",
     "Make informed engineering decisions to minimise the cost of change",
     "Implement common design structures for various common software application types",
     "Construct automated tests for code through test-driven development",
@@ -22,10 +22,26 @@
     "Code quality metrics",
     "Design patterns for data processing and concurrency",
     "Design patterns for object creation and dependency management",
-    "Interactive GUI applications",
+    "Interactive (GUI) applications",
     "Patterns for system integration",
     "Patterns for distribution",
     "Web applications, REST and web services"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/50002/",
+  "fetched_at": "2026-06-06T18:18:02.744887+00:00",
+  "content_sha256": "394e00ca69b0e390b36bc9fad7c7560078f6d41adf6cdc3a0006c1f6f333847c",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Compulsory",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

@@ -2,28 +2,41 @@
   "code": "IC60019",
   "title": "Robotics",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50008"
-  ],
-  "description": "Mobile robotics, emphasising practical algorithms for navigation based on real hardware and tested in the real world, including localisation, mapping, planning and an introduction to SLAM.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This module focuses on mobile robotics, emphasising practical  algorithms for navigation, all based around real hardware and tested in  the real world. Key elements are: 1) Wheeled locomotion, motor control, and motion calibration 2) Outward-looking sensors for behavioural control loops 3) Probabilistic localisation using particle filtering 4) Advanced use of sensors for place recognition, occupancy mapping and planning 5) An introduction to Simultaneous Localisation and Mapping. This module is intensively practical, and all the key methods you learn will  be tested on robots you build and program from scratch in groups using  kits based around the Raspberry Pi single board computer and Lego  Mindstorms components.",
   "learning_objectives": [
-    "Build, program and experiment with practical robots",
-    "Calibrate and model imperfect motors and sensors",
-    "Use knowledge of feedback control to implement sensor/motor control loops",
-    "Use probabilistic methods to implement 2D localisation and mapping on a mobile robot",
-    "Evaluate algorithms for relocalisation, mapping and planning in mobile robot navigation systems"
+    "build, program and experiment with practical robots",
+    "calibrate and model imperfect motors and sensors",
+    "use knowledge of the essentials of feedback control to implement sensor/ motor control loops",
+    "use probabilistic methods to implement 2D localisation and mapping functionality on a mobile robot",
+    "evaluate algorithms for relocalisation, mapping, and planning in the context of a mobile robot navigation system"
   ],
   "topics": [
-    "Mobile robotics and the state of the art",
-    "Robot motion: wheel kinematics, motors, gearing, PID control",
-    "Motion uncertainty",
-    "Sensors, processing and control loops with feedback",
-    "Reactive behaviours",
-    "Probabilistic methods in robotics",
-    "Monte Carlo localisation",
-    "Place recognition, occupancy mapping and dynamic window planning",
-    "Simultaneous localisation and mapping (SLAM)"
+    "What is a robot? Applications and state of the art in mobile robotics. Case study on robotic floor cleaners.",
+    "Robot Motion: wheel kinematics. Motors, gearing and PID control. 2D coordinates and rigid kinematics. Motion uncertainty.",
+    "Sensors: sensor types and processing. Sensor/ motor control loops with feedback. Reactive behaviours.",
+    "Motivation for probabilistic methods in robotics. Probabilistic representation of uncertain motion using particles.",
+    "Monte Carlo Localisation: a full algorithm of probabilistic localisation within a known map, using odometry and sonar.",
+    "Place Recognition, Occupancy Mapping and Dynamic Window planning.",
+    "Introduction to Simultaneous Localisation and Mapping (SLAM).",
+    "Review and Competition: all students take part in groups in a challenge race to complete a timed robotics objective."
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60019/",
+  "fetched_at": "2026-06-06T18:18:18.926223+00:00",
+  "content_sha256": "c8f6d19c833da22fad9e11dc224060b48d3afeb94265441d62118f5f479d080b",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "Essential geometry (vectors, rotations, trigonometry). Essential probability theory. Programming: you will write a lot of code in Python. Willingness to work in groups with robot kit hardware, which is not always reliable.",
+  "prerequisites_published": true,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

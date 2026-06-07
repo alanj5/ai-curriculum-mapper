@@ -1,0 +1,39 @@
+{
+  "code": "IC70021",
+  "title": "Quantum Computing",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "In this module you will have the opportunity to explore this exciting topic that sits at the boundaries of computer science and physics. The module will be taught from a computer science perspective, but will also draw on topics from linear algebra, which provides the mathematical apparatus for formalising quantum systems. You will be introduced to the basic notions of quantum computing, including quantum bits and quantum entanglement and will get to explore quantum algorithms, such as Quantum Search, Quantum Simulation and Quantum Information concepts such as quantum error correction.",
+  "learning_objectives": [
+    "explain and evaluate key notions of quantum computing, including quantum bits, quantum evolution and quantum circuits",
+    "critically compare a range of quantum algorithms used to solve common problems in computer science and physics",
+    "illustrate the current open questions in quantum computing",
+    "use state of the art software tools to program and simulate quantum algorithms"
+  ],
+  "topics": [
+    "Mathematical background on quantum states and operations",
+    "Quantum gates and circuits",
+    "Quantum programming languages/tools",
+    "Quantum algorithms (physics simulation and searching)",
+    "Learning quantum states",
+    "Quantum error correction"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70021/",
+  "fetched_at": "2026-06-06T18:18:28.493885+00:00",
+  "content_sha256": "7601f46703f4319d2526929796db24ce785d92246fd259409210e8c633da5d41",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}

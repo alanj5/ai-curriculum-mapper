@@ -2,16 +2,14 @@
   "code": "IC60017",
   "title": "System Performance Engineering",
   "level": 3,
-  "credits": 8,
-  "prerequisites": [
-    "IC50004"
-  ],
-  "description": "Ensuring that computer systems, comprising hardware and software, are responsive, scalable and efficient, teaching the design of performance assessments, resource provisioning, bottleneck resolution and balancing of resource utilisation.",
+  "credits": 5,
+  "prerequisites": [],
+  "description": "Performance engineering is the area of computer science ensuring that computer systems (comprised of hardware as well as software) are responsive, scalable, and efficient.\u00a0 The course aims at introducing fundamental principles and techniques used in performance management of modern computer systems, either purpose-built applications or generic system (single-node as well as distributed). In particular, in this module you will have the opportunity to learn to:",
   "learning_objectives": [
-    "Explain and apply the design principles, techniques, tools and metrics of performance assessment",
-    "Make and explain performance trade-offs in software and hardware systems",
-    "Forecast performance of a system or application with the aim to improve it",
-    "Apply the principles, techniques and tools of performance optimisation"
+    "explain and apply the design principles, techniques, tools and metrics of performance assessment",
+    "make and explain performance trade-offs in software and hardware systems",
+    "forecast performance of a system or application with the aim to improve it",
+    "apply the principles, techniques and tools of performance-optimization"
   ],
   "topics": [
     "Performance engineering methodology",
@@ -20,10 +18,26 @@
     "Critical sections",
     "Cost modeling",
     "Resource management",
-    "Scaling up and out",
-    "Single-thread, multi-thread and multi-process performance",
-    "Performance-critical operating system features",
-    "Specialised devices"
+    "Scaling (up and out)",
+    "Single-thread, multi-thread and multi-process performance (analysis and optimization)",
+    "Performance-critical operating system features used by applications",
+    "Specialized devices"
   ],
-  "source": "imperial"
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/60017/",
+  "fetched_at": "2026-06-06T18:18:18.261816+00:00",
+  "content_sha256": "55d51e1f58382cc0ffc73297776b9a0a240053e4ad1b589f4b00060d94fef383",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Spring",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
 }

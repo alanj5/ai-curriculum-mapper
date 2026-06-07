@@ -1,0 +1,50 @@
+{
+  "code": "IC70028",
+  "title": "Reinforcement Learning",
+  "level": 4,
+  "credits": 5,
+  "prerequisites": [],
+  "description": "This module provides comprehensive knowledge in reinforcement learning through an integrated approach that traces core algorithmic concepts from their theoretical foundations to state-of-the-art implementations. This course covers tabular and deep reinforcement learning topics and couples classical and modern approaches to provide students with a unified understanding of how RL algorithms have evolved and are applied today. Students will develop three core skills: theory, implementation, and evaluation. The module follows a \"\"roots-to-modern\"\" structure where each major algorithmic family (model-free, model-based, etc) is explored from its tabular origins through to contemporary deep learning implementations. By mid-course, students will be equipped to understand and critically evaluate modern RL research papers. Specifically, you will: * Master the theoretical foundations of reinforcement learning (MDPs, dynamic programming, and convergence guarantees) * Trace the evolution of model-free methods from temporal difference learning to Deep Q-Networks and beyond * Understand policy-based approaches from REINFORCE to modern actor-critic methods like SAC and PPO * Explore model-based RL from classical planning to modern neural approaches * Implement and experiment with both classical and deep RL algorithms using Python and PyTorch * Develop skills in performance evaluation, hyperparameter tuning, and algorithmic comparison * Critically analyze current RL research and identify future directions",
+  "learning_objectives": [
+    "1. Analyse the mathematical foundations of reinforcement learning and explain how theoretical principles manifest in practical algorithms",
+    "2. Trace the evolution of major RL algorithm families from tabular to deep learning implementations",
+    "3. Compare classical and modern RL approaches, identifying their respective strengths, limitations, and appropriate use cases",
+    "4. Design RL solutions for complex decision-making problems by selecting and adapting appropriate algorithmic approaches",
+    "5. Implement both tabular and deep RL algorithms in Python and PyTorch, demonstrating understanding of key implementation details",
+    "6. Evaluate RL algorithm performance using appropriate metrics and statistical methods, and propose theoretically-grounded improvements",
+    "7. Synthesise insights from multiple sources to critically assess current RL research and identify promising future directions"
+  ],
+  "topics": [
+    "Reinforcement learning paradigm and applications",
+    "Markov Decision Process framework and mathematical foundations",
+    "Dynamic programming and the principle of optimality",
+    "Temporal difference learning and Q-learning (tabular)",
+    "Function approximation motivation and neural network foundations",
+    "Deep Q-Networks (DQN): experience replay, target networks, and variants",
+    "Modern developments: Double DQN, Dueling DQN, Rainbow",
+    "Policy gradients and the REINFORCE algorithm",
+    "Actor-critic methods and baseline techniques",
+    "Deep policy gradients: A2C, A3C, and PPO",
+    "Advanced actor-critic: DDPG, TD3, and Soft Actor-Critic (SAC)",
+    "Classical planning and model-based RL",
+    "Modern model-based methods: Dyna-Q to neural model learning",
+    "Model-based deep RL: PETS, Dreamer, and MuZero concepts"
+  ],
+  "source": "imperial",
+  "source_url": "https://www.imperial.ac.uk/computing/current-students/courses/70028/",
+  "fetched_at": "2026-06-06T18:18:33.169135+00:00",
+  "content_sha256": "a369b69b363f986dbcd21421b133f476bdd9139efc571dcd63f5469390f1cfb8",
+  "fetch_ok": true,
+  "http_status": 200,
+  "content_drift": [
+    "description",
+    "learning_objectives",
+    "topics"
+  ],
+  "prerequisites_text": "",
+  "prerequisites_published": false,
+  "fetch_note": "content adopted from live page",
+  "term": "Autumn",
+  "module_type": "Elective",
+  "credits_source": "Imperial Programme Specification 2025-26"
+}
