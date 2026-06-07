@@ -34,6 +34,7 @@ from curriculum_mapper.graph.analytics import (
     to_cytoscape_json,
 )
 from curriculum_mapper.graph.builder import (
+    _save_graph,
     build_bipartite_graph,
     build_concept_acm_graph,
     build_concept_prerequisite_graph,
@@ -41,7 +42,9 @@ from curriculum_mapper.graph.builder import (
 )
 from curriculum_mapper.graph.concept_prerequisite import infer_concept_prerequisites
 from curriculum_mapper.graph.gap_detector import generate_coverage_report
-from curriculum_mapper.graph.prerequisite import infer_prerequisites
+from curriculum_mapper.graph.prerequisite import (
+    infer_module_prerequisites_from_concept_dag,
+)
 from curriculum_mapper.ingestion.storage import StorageManager
 from curriculum_mapper.nlp.embeddings import EmbeddingManager
 
@@ -87,6 +90,11 @@ def main() -> None:
     logger.info(f"  Bipartite: {G_bip.number_of_nodes()} nodes, {G_bip.number_of_edges()} edges")
 
     # ── Graph 2: Module-Module ─────────────────────────────────────────────────
+    # Module prerequisites are derived below from the concept DAG (the Department
+    # publishes none); clear any persisted by a prior run so the graph is built
+    # purely from this run's derivation — idempotent, no stale cross-cohort edges.
+    for _m in modules:
+        _m.prerequisites = []
     logger.info("Building module-module similarity graph…")
     G_mm = build_module_module_graph(modules, concepts)
     logger.info(f"  Module-module: {G_mm.number_of_nodes()} nodes, {G_mm.number_of_edges()} edges")
@@ -114,6 +122,23 @@ def main() -> None:
         f"{G_cp.number_of_edges()} edges, acyclic={cp_acyclic}, longest chain={cp_depth}"
     )
 
+    # ── Module prerequisite inference (from the directed concept DAG) ─────────
+    # The Department publishes no module prerequisites, so they are inferred from
+    # the concept-prerequisite structure (level-ordered, hence acyclic), persisted
+    # so the trace / by-year / graph views use them, and added to the module graph
+    # *before* the analytics so centrality/communities match the served graph.
+    logger.info("Inferring module prerequisites from the concept DAG…")
+    inferred = infer_module_prerequisites_from_concept_dag(modules, concepts, cprereq_edges)
+    logger.info(f"  {len(inferred)} module-prerequisite edges inferred.")
+    storage.replace_prerequisites([(a, b) for a, b, _ in inferred])
+    for a, b, n in inferred:
+        if G_mm.has_edge(a, b):
+            G_mm[a][b]["type"] = "prerequisite"
+            G_mm[a][b]["prereq_votes"] = n
+        else:
+            G_mm.add_edge(a, b, type="prerequisite", weight=1.0, prereq_votes=n)
+    _save_graph(G_mm, "module_module")
+
     # ── Analytics on module-module graph ─────────────────────────────────────
     logger.info("Computing centrality measures…")
     centrality = compute_centrality(G_mm)
@@ -136,11 +161,6 @@ def main() -> None:
         f"{coverage_report['gap_count']} gaps "
         f"({len(coverage_report['critical_gaps'])} critical)"
     )
-
-    # ── Prerequisite inference ────────────────────────────────────────────────
-    logger.info("Inferring implicit prerequisites…")
-    inferred = infer_prerequisites(modules, concepts)
-    logger.info(f"  {len(inferred)} implicit prerequisite edges inferred.")
 
     # ── Cytoscape export ──────────────────────────────────────────────────────
     logger.info("Exporting Cytoscape.js JSON…")

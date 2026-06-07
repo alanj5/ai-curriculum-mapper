@@ -427,7 +427,23 @@ class StorageManager:
             conn.execute("DELETE FROM user_feedback")
             conn.execute("DELETE FROM alignments")
             conn.execute("DELETE FROM concept_variants")
+            # concept_prerequisites also FK-references concepts; clear it before
+            # the concepts themselves so a re-run doesn't hit a FK constraint.
+            conn.execute("DELETE FROM concept_prerequisites")
             conn.execute("DELETE FROM concepts")
+
+    def replace_prerequisites(self, edges: list[tuple[str, str]]) -> None:
+        """Replace all module prerequisite rows. ``edges`` = [(prereq_code, module_code)].
+
+        Used to persist the algorithmically-inferred module prerequisites (the
+        Department publishes none) so the trace, by-year and graph views use them.
+        """
+        with get_connection(self.db_path) as conn:
+            conn.execute("DELETE FROM prerequisites")
+            conn.executemany(
+                "INSERT OR IGNORE INTO prerequisites (module_code, prereq_code) VALUES (?, ?)",
+                [(module, prereq) for prereq, module in edges],
+            )
 
     def clear_alignments(self) -> None:
         """Remove all alignments (so re-running alignment alone is idempotent)."""

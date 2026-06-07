@@ -115,7 +115,7 @@ class ProgrammeLearningOutcome(BaseModel):
     """A programme-level learning outcome (the interim's 'Learning Outcome' node)."""
 
     id: str = Field(default_factory=_uuid)
-    programme: str  # e.g. "beng_computing", "jmc", "mit_ocw_cs"
+    programme: str  # e.g. "beng_computing", "meng_computing", "mit_ocw_cs"
     code: str  # e.g. "PLO-A1"
     title: str
     description: str
