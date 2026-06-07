@@ -28,7 +28,7 @@ pipeline-llm:
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/run_alignment.py
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/build_graph.py
 
-# Demo: serve the LLM-augmented data (1,310 concepts). Caches are DB-namespaced,
+# Demo: serve the LLM-augmented data. Caches are DB-namespaced,
 # so this does not affect the canonical `make serve`.
 serve-llm:
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/uvicorn curriculum_mapper.api.main:app --host 127.0.0.1 --port 8000
@@ -36,7 +36,7 @@ serve-llm:
 # Build the combined Imperial + MIT OpenCourseWare corpus (curriculum_multi.db)
 # for the cross-programme filter/comparison. Canonical curriculum.db untouched.
 pipeline-multi:
-	.venv/bin/python scripts/fetch_mit_ocw.py --build
+	.venv/bin/python scripts/fetch_mit_ocw.py --build --scrape
 
 # Demo: serve the combined corpus so the programme facet spans Imperial + MIT OCW.
 serve-multi:

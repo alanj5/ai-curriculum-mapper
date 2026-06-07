@@ -42,9 +42,9 @@ Assign the **one** KA that best matches the concept's primary home in CS2023
   across two KAs.
 
 ## Module sampling (for expanding the set)
-Choose modules to span **all three years** and the main **sub-areas** (theory,
-systems, programming/SE, data/AI, HCI/graphics, security). Target ≥ 40% of the
-34 modules (~14) for a representative gold set, per the interim plan (15–30).
+Choose modules to span **all four years** and the main **sub-areas** (theory,
+systems, programming/SE, data/AI, HCI/graphics, security). Target a representative
+subset of the 69 modules for the gold set (the committed reference set annotates 5).
 
 ## Inter-annotator agreement (Cohen's κ)
 A **second annotator** independently labels the KA for a random subset of
