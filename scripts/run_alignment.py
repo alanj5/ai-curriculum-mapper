@@ -9,7 +9,7 @@ Usage:
 
 Prerequisites:
     python scripts/ingest_modules.py
-    python scripts/run_nlp_pipeline.py --week2
+    python scripts/run_nlp_pipeline.py
 """
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ def main() -> None:
     storage = StorageManager()
     n_concepts = storage.count_concepts()
     if n_concepts == 0:
-        logger.error("No concepts in DB — run scripts/run_nlp_pipeline.py --week2 first.")
+        logger.error("No concepts in DB — run scripts/run_nlp_pipeline.py first.")
         sys.exit(1)
     logger.info(f"Found {n_concepts} concepts in DB.")
 

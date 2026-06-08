@@ -12,7 +12,7 @@ Usage:
     python scripts/build_graph.py [--verbose]
 
 Prerequisites:
-    python scripts/run_nlp_pipeline.py --week2
+    python scripts/run_nlp_pipeline.py
     python scripts/run_alignment.py
 """
 
@@ -73,7 +73,7 @@ def main() -> None:
         logger.error("No modules in DB — run ingest_modules.py first.")
         sys.exit(1)
     if not concepts:
-        logger.error("No concepts in DB — run run_nlp_pipeline.py --week2 first.")
+        logger.error("No concepts in DB — run run_nlp_pipeline.py first.")
         sys.exit(1)
 
     logger.info(f"Building graphs: {len(modules)} modules, {len(concepts)} concepts, "

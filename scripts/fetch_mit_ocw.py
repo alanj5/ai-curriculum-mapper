@@ -340,7 +340,7 @@ def build_multi() -> None:
     run("scripts/ingest_modules.py")            # Imperial → multi DB (with programmes)
     n = ingest_external_into(MULTI_DB)          # + external cohorts (MIT OCW)
     print(f"Ingested {n} external courses into {MULTI_DB.name}")
-    run("scripts/run_nlp_pipeline.py", "--week2")
+    run("scripts/run_nlp_pipeline.py")
     run("scripts/run_alignment.py")
     run("scripts/build_graph.py")
     run("scripts/run_plo_alignment.py")

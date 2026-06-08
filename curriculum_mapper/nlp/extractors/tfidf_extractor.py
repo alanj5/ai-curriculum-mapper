@@ -28,10 +28,6 @@ class TFIDFExtractor:
     """Corpus-level TF-IDF keyphrase extractor."""
 
     def __init__(self) -> None:
-        # Combine NLTK English stop words with domain-specific list
-        list(
-            set(["english"])  # placeholder; vectorizer uses its own list
-        )
         self.vectorizer = TfidfVectorizer(
             ngram_range=TFIDF_NGRAM_RANGE,       # (1, 3)
             max_features=5000,

@@ -198,11 +198,15 @@ def load_from_pdf(path: Path) -> Optional[ModuleDescriptor]:
     return normalise_module(module)
 
 
-# ── Legacy OCW JSON Loader (kept for test coverage) ───────────────────────────
+# ── MIT OpenCourseWare JSON Loader ────────────────────────────────────────────
 
 
 def load_from_ocw_json(path: Path) -> Optional[ModuleDescriptor]:
-    """Legacy loader — no longer used for primary data ingestion."""
+    """Load an MIT OpenCourseWare course JSON into a ``ModuleDescriptor``.
+
+    Used by the combined-corpus build (``scripts/fetch_mit_ocw.py``) to ingest the
+    external comparison cohort; the canonical Imperial ingest does not use this.
+    """
     try:
         with open(path) as f:
             data = json.load(f)

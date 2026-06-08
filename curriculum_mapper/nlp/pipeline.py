@@ -1,4 +1,4 @@
-"""Full NLP pipeline orchestrator — Week 2 version with all five extractors.
+"""Full NLP pipeline orchestrator with all five extractors.
 
 Execution order:
   1. Load modules from DB

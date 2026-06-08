@@ -75,11 +75,11 @@ def main() -> None:
 
     if total < 20:
         logger.warning(
-            f"Only {total} modules in DB — target is 20+. "
+            f"Only {total} modules in DB — expected the full Imperial corpus. "
             "Add more modules to data/raw/modules/ or run scripts/create_imperial_modules.py."
         )
     else:
-        logger.info("Week 1 criterion MET: 20+ modules in DB ✓")
+        logger.info(f"{total} modules ingested ✓")
 
 
 if __name__ == "__main__":

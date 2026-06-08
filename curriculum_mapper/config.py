@@ -61,7 +61,7 @@ TEXTRANK_TOP_N = 20
 KEYBERT_TOP_N = 15
 KEYBERT_DIVERSITY = 0.7  # MMR diversity — balances relevance vs coverage
 
-# Synonym deduplication (canonicalizer, Week 2)
+# Synonym deduplication (canonicaliser)
 SYNONYM_SIM_THRESHOLD = 0.92  # SBERT cosine above which two terms are merged
 WORDNET_SIM_THRESHOLD = 0.85  # WordNet path_similarity threshold
 SBERT_MATCH_THRESHOLD = 0.75  # partial-credit cosine threshold for evaluation metrics

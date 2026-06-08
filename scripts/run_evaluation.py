@@ -12,7 +12,7 @@ Usage:
     --quick: skip per-extractor and aligner comparisons (faster, ensemble only)
 
 Prerequisites:
-    python scripts/run_nlp_pipeline.py --week2
+    python scripts/run_nlp_pipeline.py
     python scripts/run_alignment.py
     python scripts/build_graph.py  (for KA heatmap)
 """
@@ -119,7 +119,7 @@ def main() -> None:
     storage = StorageManager()
 
     if storage.count_concepts() == 0:
-        logger.error("No concepts in DB — run run_nlp_pipeline.py --week2 first.")
+        logger.error("No concepts in DB — run run_nlp_pipeline.py first.")
         sys.exit(1)
     if storage.count_alignments() == 0:
         logger.error("No alignments in DB — run run_alignment.py first.")
