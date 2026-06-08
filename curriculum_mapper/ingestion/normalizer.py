@@ -18,6 +18,29 @@ _HTML_TAG = re.compile(r"<[^>]+>")
 _WHITESPACE = re.compile(r"\s+")
 _BULLET_PREFIX = re.compile(r"^[•‣◦⁃∙\*\-\+•]\s*", re.MULTILINE)
 
+# Pedagogical scaffolding that introduces learning-outcome clauses in Imperial
+# (and generally, any university) module descriptors. These verb phrases carry no
+# technical signal but, in the full official descriptions, dilute concept
+# extraction by wrapping every real concept in boilerplate ("...develop an
+# understanding of the [main operating system abstractions]..."). Stripping them
+# is corpus-independent text hygiene — it removes scaffolding, never content.
+_SCAFFOLD = re.compile(
+    r"\b(?:"
+    r"in this (?:module|course),?\s+you\s+will(?:\s+have\s+the\s+opportunity\s+to|\s+be\s+able\s+to|\s+learn\s+to)?"
+    r"|(?:develop|gain|acquire|obtain|demonstrate|build|broaden)\s+(?:a|an|your)?\s*"
+    r"(?:deep|thorough|critical|good|basic|sound|comprehensive|solid|broad|working)?\s*"
+    r"(?:understanding|knowledge|awareness|appreciation|grasp)\s+of"
+    r"|the\s+opportunity\s+to|the\s+ability\s+to|be\s+able\s+to"
+    # Clause-initial pedagogical verbs that introduce (rather than name) a concept,
+    # stripped only with their following article/qualifier so the concept survives
+    # (e.g. "explore the [trade-offs]", "study the different [sub-systems]").
+    r"|(?:explore|investigate|examine|study|consider|apply|describe|evaluate|"
+    r"appraise|analyse|analyze|assess|recognise|recognize|identify|understand)\s+"
+    r"(?:the|a|an|how|why|different|various|your)"
+    r")\b[:\s]*",
+    re.IGNORECASE,
+)
+
 # Build acronym regex: only match whole words (word boundaries)
 # Sort by length descending so longer matches take priority (e.g. "IPC" before "IP")
 _ACRONYM_PATTERNS: list[tuple[re.Pattern, str]] = [
@@ -51,6 +74,7 @@ def clean_text(text: str, expand_acronyms: bool = True) -> str:
         return ""
     text = _strip_html(text)
     text = _unicode_normalise(text)
+    text = _SCAFFOLD.sub(" ", text)
     if expand_acronyms:
         text = _expand_acronyms(text)
     text = _collapse_whitespace(text)

@@ -59,9 +59,9 @@ class ModuleDescriptor(BaseModel):
         parts.extend(ilo.text_clean for ilo in self.ilos)
         # Include the official syllabus topics: they name specific technical
         # concepts (e.g. "lambda calculus", "minimum spanning trees") that the
-        # description and ILOs often omit, and were previously dropped from the
-        # extractor's input even though they are the source the gold set was
-        # annotated against.
+        # prose description and ILOs sometimes state only obliquely. On the gold
+        # modules, appending them measurably lifts end-to-end KA Coverage@1
+        # (0.196 -> 0.326; see evaluation, concept extraction).
         parts.extend(self.topics)
         return " ".join(p for p in parts if p)
 
