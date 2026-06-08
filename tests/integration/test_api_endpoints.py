@@ -4,7 +4,7 @@ Uses httpx AsyncClient with ASGI transport — no live server needed.
 Tests run against the real SQLite database populated by the pipeline,
 so they require the pipeline to have been run first:
     python scripts/ingest_modules.py
-    python scripts/run_nlp_pipeline.py --week2
+    python scripts/run_nlp_pipeline.py
     python scripts/run_alignment.py
     python scripts/build_graph.py
 """

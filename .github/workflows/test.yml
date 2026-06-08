@@ -64,7 +64,7 @@ jobs:
       - name: Build pipeline (DB + graph artefacts) for integration tests
         run: |
           python scripts/ingest_modules.py
-          python scripts/run_nlp_pipeline.py --week2
+          python scripts/run_nlp_pipeline.py
           python scripts/run_alignment.py
           python scripts/build_graph.py
 
