@@ -11,12 +11,22 @@ setup:
 
 pipeline:
 	.venv/bin/python scripts/ingest_modules.py
-	.venv/bin/python scripts/run_nlp_pipeline.py --week2
+	.venv/bin/python scripts/run_nlp_pipeline.py
 	.venv/bin/python scripts/run_alignment.py
 	.venv/bin/python scripts/build_graph.py
 
 evaluate:
 	.venv/bin/python scripts/run_evaluation.py
+
+# Rebuild BOTH corpora from the current code in one shot: the canonical
+# Imperial-only DB (the report's clean, uncontaminated reference) and the
+# combined Imperial + MIT OCW DB (the UI / cross-programme comparison). The two
+# are deliberately separate because concept extraction is corpus-dependent
+# (TF-IDF/BERTopic/canonicalisation run over the whole corpus), so MIT must not
+# leak into the Imperial reference numbers. Always use this after a pipeline
+# change so the two never drift apart.
+pipeline-all: pipeline pipeline-multi evaluate
+	.venv/bin/python scripts/check_db_consistency.py
 
 serve:
 	.venv/bin/uvicorn curriculum_mapper.api.main:app --reload --host 127.0.0.1 --port 8000
@@ -24,7 +34,7 @@ serve:
 # Build the LLM-augmented pipeline into a separate DB (canonical DB untouched).
 pipeline-llm:
 	CURRICULUM_DB_PATH=data/curriculum_llm.db LLM_EXTRACTOR_ENABLED=1 .venv/bin/python scripts/ingest_modules.py
-	CURRICULUM_DB_PATH=data/curriculum_llm.db LLM_EXTRACTOR_ENABLED=1 .venv/bin/python scripts/run_nlp_pipeline.py --week2 --llm
+	CURRICULUM_DB_PATH=data/curriculum_llm.db LLM_EXTRACTOR_ENABLED=1 .venv/bin/python scripts/run_nlp_pipeline.py --llm
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/run_alignment.py
 	CURRICULUM_DB_PATH=data/curriculum_llm.db .venv/bin/python scripts/build_graph.py
 
