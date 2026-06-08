@@ -8,9 +8,10 @@ make extension straightforward should anyone wish to fork it.
 
 ```bash
 make setup       # Python venv + spaCy + NLTK + npm install
-make pipeline    # End-to-end NLP + alignment + graph build
-make test        # All 463 tests
-make lint        # Ruff + Black checks
+make pipeline    # End-to-end NLP + alignment + graph build (canonical Imperial DB)
+make pipeline-all # Rebuild BOTH the canonical + combined corpora, then a consistency check
+make test        # All 465 tests
+make lint        # Ruff checks (make check also runs mypy)
 ```
 
 ## Code style

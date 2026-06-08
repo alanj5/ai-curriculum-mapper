@@ -14,7 +14,7 @@ Automated extraction, alignment, and visualisation of Computing curriculum conte
 
 ## Overview
 
-The system ingests 69 Imperial College Computing module descriptors (BEng + MEng, Years 1–4), extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield ~1,885 unique concepts, and aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner. It builds a heterogeneous, typed curriculum graph — **modules, concepts, CS2023 standards, and programme-level outcomes** — over four NetworkX graphs (module-module similarity, bipartite module-concept, concept-CS2023 hierarchy, and a directed **concept-prerequisite DAG**, from which module-level prerequisites are in turn inferred), tags each module with its degree programme(s) (BEng/MEng Computing, with an optional MIT OpenCourseWare comparison cohort), and maps modules to the programme-level outcomes they fulfil. Real ECTS credits and programme outcomes come from the official Imperial Programme Specifications. All results are exposed through an interactive web interface with a programme filter, click-a-concept prerequisite neighbourhoods, and one-click prerequisite-chain tracing.
+The system ingests 69 Imperial College Computing module descriptors (BEng + MEng, Years 1–4) — each module's description, learning outcomes **and official syllabus topics** — extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield ~2,449 unique concepts, and aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner. It builds a heterogeneous, typed curriculum graph — **modules, concepts, CS2023 standards, and programme-level outcomes** — over four NetworkX graphs (module-module similarity, bipartite module-concept, concept-CS2023 hierarchy, and a directed **concept-prerequisite DAG**, from which module-level prerequisites are in turn inferred), tags each module with its degree programme(s) (BEng/MEng Computing, with an optional MIT OpenCourseWare comparison cohort), and maps modules to the programme-level outcomes they fulfil. Real ECTS credits and programme outcomes come from the official Imperial Programme Specifications. All results are exposed through an interactive web interface with a programme filter, click-a-concept prerequisite neighbourhoods, and one-click prerequisite-chain tracing.
 
 ### Architecture
 
@@ -30,7 +30,7 @@ flowchart LR
     G --> C
     C --> H[Graph builder<br/>NetworkX + Louvain]
     H --> I[(Graph<br/>pickles)]
-    C --> J[FastAPI<br/>31 endpoints]
+    C --> J[FastAPI<br/>33 endpoints]
     I --> J
     J --> K[Vite + Cytoscape.js<br/>web interface]
 
@@ -39,7 +39,7 @@ flowchart LR
     style K fill:#fff4e1,stroke:#A50000
 ```
 
-**Numbers (canonical `curriculum.db`, BEng + MEng Years 1–4):** 69 modules → 1,885 canonical concepts (after the specificity filter and SBERT canonicalisation) → 2,450 alignment records (28.3% of primary alignments ambiguous) → a module graph of 245 edges (91 shared-concept + 154 inferred prerequisite) across 7 Louvain communities (modularity Q ≈ 0.60). The optional combined `curriculum_multi.db` adds 32 MIT OpenCourseWare CS courses for a 101-module cross-programme comparison. (The pipeline is stochastic — BERTopic UMAP — so these are one committed reference run.)
+**Numbers (canonical `curriculum.db`, BEng + MEng Years 1–4):** 69 modules → 2,449 canonical concepts (after the specificity filter and SBERT canonicalisation) → 3,199 alignment records (26.3% of primary alignments ambiguous) → a module graph of 338 edges (291 concept-overlap + 143 inferred prerequisite, 96 being both) across 7 Louvain communities (modularity Q ≈ 0.54). The optional combined `curriculum_multi.db` adds 32 MIT OpenCourseWare CS courses for a 101-module (3,345-concept) cross-programme comparison — surfaced as a side-by-side cohort comparison and an interactive module×KA matrix in the Coverage page. (The pipeline is stochastic — BERTopic UMAP — so these are one committed reference run.)
 
 ---
 
@@ -58,7 +58,9 @@ flowchart LR
 > - **Explore** — search modules or concepts; open any one for its outcomes,
 >   topics, prerequisites, CS2023 coverage, and where each concept is taught.
 > - **Coverage** — per-KA coverage bar chart, gaps, cross-cutting concepts, and
->   programme-outcome coverage, each drillable to the modules behind it.
+>   programme-outcome coverage, each drillable to the modules behind it; on the
+>   combined corpus it also shows a side-by-side cohort comparison (Imperial vs
+>   MIT OCW) and an interactive module × KA coverage matrix.
 > - **Review** — sortable concept × KA table with inline accept / reject /
 >   reassign controls and ambiguity highlights (educator workflow).
 
@@ -110,8 +112,8 @@ python scripts/fetch_imperial_modules.py
 # Step 1: Ingest module descriptors → populates modules, ilos, prerequisites tables
 python scripts/ingest_modules.py
 
-# Step 2: Run NLP extraction → populates concepts table (~1,885 concepts, ~3–5 min)
-python scripts/run_nlp_pipeline.py --week2
+# Step 2: Run NLP extraction → populates concepts table (~2,449 concepts, ~3–5 min)
+python scripts/run_nlp_pipeline.py
 
 # Step 3: Align concepts to CS2023 KAs → populates alignments table (~1–2 min)
 python scripts/run_alignment.py
@@ -153,7 +155,7 @@ LLM_EXTRACTOR_ENABLED=1 .venv/bin/python scripts/run_evaluation.py --llm-compare
 # 4. (Optional) End-to-end: add the LLM as a 6th extractor into a SEPARATE DB,
 #    leaving the canonical curriculum.db untouched, then evaluate the augmented run
 CURRICULUM_DB_PATH=data/curriculum_llm.db LLM_EXTRACTOR_ENABLED=1 \
-  python scripts/run_nlp_pipeline.py --week2 --llm
+  python scripts/run_nlp_pipeline.py --llm
 CURRICULUM_DB_PATH=data/curriculum_llm.db python scripts/run_alignment.py
 CURRICULUM_DB_PATH=data/curriculum_llm.db python scripts/build_graph.py
 CURRICULUM_DB_PATH=data/curriculum_llm.db python scripts/run_evaluation.py
@@ -177,14 +179,21 @@ make serve-llm           # serves the augmented data at http://127.0.0.1:8000
 A second, separate database (`curriculum_multi.db`) adds a curated subset of **MIT
 OpenCourseWare** Computer Science courses (used under CC BY-NC-SA 4.0, with each
 course's OCW URL recorded) to the 69 Imperial modules. This enables the
-**programme filter** to span institutions and a cross-curriculum comparison (the
-interim's §3.5 stretch goal). The canonical `curriculum.db` is never modified —
-the MIT courses live in `data/raw/modules_mit_ocw/`, which the canonical ingest
-does not scan.
+**programme filter** to span institutions and a **side-by-side cohort comparison** —
+a per-Knowledge-Area Imperial-vs-MIT bar chart and an interactive module×KA matrix
+in the Coverage page (the interim's §3.5 stretch goal and its "compare two
+curricula" interaction).
+
+The two databases are kept deliberately separate: concept extraction is
+*corpus-dependent* (TF-IDF, BERTopic and SBERT canonicalisation all run over the
+whole corpus), so folding MIT into the canonical DB would shift the *Imperial*
+concepts and change the report's reference numbers. The MIT courses live in
+`data/raw/modules_mit_ocw/`, which the canonical ingest does not scan.
 
 ```bash
 make pipeline-multi   # build data/curriculum_multi.db (Imperial + MIT OCW, 101 modules)
 make serve-multi      # serve it; the programme facet now offers an "MIT OpenCourseWare CS" cohort
+make pipeline-all     # rebuild BOTH corpora from the current code, then a consistency check (avoids drift)
 ```
 
 ---
@@ -252,6 +261,8 @@ Interactive docs (Swagger UI): **http://127.0.0.1:8000/docs**
 | `/api/v1/graph/communities` | GET | Louvain community assignments |
 | `/api/v1/graph/centrality` | GET | Degree, betweenness, eigenvector centrality |
 | `/api/v1/reports/coverage` | GET | Per-KA coverage fractions |
+| `/api/v1/reports/programme-comparison` | GET | Per-cohort KA coverage (Imperial vs MIT OCW) for the side-by-side comparison |
+| `/api/v1/reports/coverage-matrix` | GET | Module × KA concept-count grid (the interactive coverage matrix) |
 | `/api/v1/reports/gaps` | GET | KAs below coverage threshold |
 | `/api/v1/reports/redundancies` | GET | Concepts appearing in too many modules |
 | `/api/v1/reports/summary` | GET | Full curriculum health summary |
@@ -262,7 +273,7 @@ Interactive docs (Swagger UI): **http://127.0.0.1:8000/docs**
 ```bash
 # 1. Check the system is up
 curl http://127.0.0.1:8000/health
-# → {"status":"ok","modules":69,"concepts":1885,"alignments":2450}   (canonical curriculum.db)
+# → {"status":"ok","modules":69,"concepts":2449,"alignments":3199}   (canonical curriculum.db)
 
 # 2. List all Year 2 modules
 curl 'http://127.0.0.1:8000/api/v1/modules/?level=2'
@@ -417,7 +428,7 @@ ai-curriculum-mapper/
 │   └── run_evaluation.py
 ├── tests/
 │   ├── unit/                   # 395 unit tests (fast, mock-based)
-│   └── integration/            # 68 integration tests (real DB, ASGI transport)
+│   └── integration/            # 70 integration tests (real DB, ASGI transport)
 ├── data/
 │   ├── raw/modules/            # Imperial College JSON module descriptors
 │   ├── raw/standards/          # cs2023_ka.json (18 KAs, 974 topic strings)
