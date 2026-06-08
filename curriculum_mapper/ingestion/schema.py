@@ -57,6 +57,12 @@ class ModuleDescriptor(BaseModel):
     def full_text_clean(self) -> str:
         parts = [self.description_clean]
         parts.extend(ilo.text_clean for ilo in self.ilos)
+        # Include the official syllabus topics: they name specific technical
+        # concepts (e.g. "lambda calculus", "minimum spanning trees") that the
+        # description and ILOs often omit, and were previously dropped from the
+        # extractor's input even though they are the source the gold set was
+        # annotated against.
+        parts.extend(self.topics)
         return " ".join(p for p in parts if p)
 
 
