@@ -1,4 +1,4 @@
-"""Tests for evaluation metrics (Week 2).
+"""Tests for evaluation metrics.
 
 Uses stub EmbeddingManager so no model loading occurs.
 """

@@ -1,4 +1,4 @@
-"""Tests for graph builder, analytics, gap detector, and prerequisite inference (Week 2)."""
+"""Tests for graph builder, analytics, gap detector, and prerequisite inference."""
 
 from __future__ import annotations
 

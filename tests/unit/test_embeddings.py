@@ -1,4 +1,4 @@
-"""Tests for EmbeddingManager (Week 2).
+"""Tests for EmbeddingManager.
 
 Uses a mock to avoid loading the 80 MB SBERT model in CI.
 """

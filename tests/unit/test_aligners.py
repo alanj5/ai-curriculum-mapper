@@ -1,4 +1,4 @@
-"""Tests for lexical, semantic, and hybrid aligners (Week 2)."""
+"""Tests for lexical, semantic, and hybrid aligners."""
 
 from __future__ import annotations
 

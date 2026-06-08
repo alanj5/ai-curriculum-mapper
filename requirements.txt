@@ -11,7 +11,7 @@ scikit-learn==1.6.0
 multi-rake==0.0.2
 pytextrank==3.3.0
 
-# NLP — advanced (Week 2)
+# NLP — advanced
 sentence-transformers==3.3.1
 keybert==0.8.5
 bertopic==0.16.4
