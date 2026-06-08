@@ -412,6 +412,29 @@ class TestReportsEndpoints:
         coverages = [item["coverage"] for item in r.json()]
         assert coverages == sorted(coverages, reverse=True)
 
+    async def test_programme_comparison_200(self, client):
+        r = await client.get("/api/v1/reports/programme-comparison")
+        assert r.status_code == 200
+        body = r.json()
+        assert len(body["kas"]) == 18
+        assert "comparable" in body
+        assert isinstance(body["cohorts"], list) and body["cohorts"]
+        cohort = body["cohorts"][0]
+        for key in ("key", "label", "n_modules", "n_concepts", "kas_covered", "ka_coverage"):
+            assert key in cohort
+
+    async def test_coverage_matrix_200(self, client):
+        r = await client.get("/api/v1/reports/coverage-matrix")
+        assert r.status_code == 200
+        body = r.json()
+        assert len(body["kas"]) == 18
+        assert body["modules"] and "code" in body["modules"][0] and "cohort" in body["modules"][0]
+        # cell values are per-(module, KA) concept counts
+        assert isinstance(body["cells"], dict)
+        a_module = body["modules"][0]["code"]
+        if a_module in body["cells"]:
+            assert all(isinstance(v, int) for v in body["cells"][a_module].values())
+
     async def test_gaps_200(self, client):
         r = await client.get("/api/v1/reports/gaps")
         assert r.status_code == 200

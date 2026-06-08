@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import defaultdict
 from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends
@@ -15,10 +16,18 @@ from curriculum_mapper.api.schemas import (
     SummaryOut,
 )
 from curriculum_mapper.config import GAP_COVERAGE_THRESHOLD, SBERT_MATCH_THRESHOLD
+from curriculum_mapper.evaluation.graph_validation import compare_programmes
 from curriculum_mapper.graph.gap_detector import detect_gaps, detect_redundancies
 from curriculum_mapper.ingestion.storage import StorageManager
 
 router = APIRouter()
+
+# Display labels for the source cohorts used by the comparison/matrix views.
+_COHORT_LABELS = {"imperial": "Imperial Computing", "mit_ocw": "MIT OpenCourseWare"}
+
+
+def _cohort_of(source: str | None) -> str:
+    return "mit_ocw" if (source or "").startswith("mit") else "imperial"
 
 
 @router.get("/coverage", response_model=list[KACoverageItem])
@@ -61,6 +70,76 @@ def get_coverage(
         )
 
     return sorted(items, key=lambda x: -x.coverage)
+
+
+@router.get("/programme-comparison")
+def get_programme_comparison(
+    storage: StorageManager = Depends(get_storage),
+) -> JSONResponse:
+    """Per-cohort CS2023 KA coverage for the side-by-side comparison view.
+
+    Realises the interim's "browse two curricula side-by-side … to reveal
+    differences in topic coverage" (§2.7) and the §3.5 stretch goal of contrasting
+    an external cohort. Reuses :func:`compare_programmes`. On a single-cohort
+    database (the canonical Imperial DB) this returns one cohort; the combined
+    ``curriculum_multi.db`` returns Imperial vs MIT OCW.
+    """
+    ka_data = get_ka_data()
+    cohorts = compare_programmes(storage)
+    cohort_rows = [
+        {"key": key, "label": _COHORT_LABELS.get(key, key.replace("_", " ").title()), **vals}
+        for key, vals in cohorts.items()
+    ]
+    return JSONResponse(
+        content={
+            "kas": [{"code": k, "name": ka_data[k]["name"]} for k in ka_data],
+            "cohorts": cohort_rows,
+            "comparable": len(cohort_rows) > 1,
+        }
+    )
+
+
+@router.get("/coverage-matrix")
+def get_coverage_matrix(
+    storage: StorageManager = Depends(get_storage),
+) -> JSONResponse:
+    """Module × CS2023 Knowledge-Area grid: for each module, the count of its
+    rank-1-aligned concepts in each KA.
+
+    The interactive form of the report's module×KA coverage heatmap --- the
+    interim's "adjacency matrix … may supplement node-link diagrams … to see
+    coverage across multiple categories at once without crossing edges".
+    """
+    ka_data = get_ka_data()
+    modules = storage.get_all_modules()
+    concepts = storage.get_all_concepts()
+    alignments = storage.get_all_alignments()
+
+    best = {a.concept_id: a for a in alignments if a.rank == 1}
+    cid_modules = {c.id: c.module_codes for c in concepts}
+    cells: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for cid, a in best.items():
+        for mc in cid_modules.get(cid, []):
+            cells[mc][a.ka_code] += 1
+
+    # Imperial first, then by level then code, so the grid groups sensibly.
+    ordered = sorted(modules, key=lambda m: (_cohort_of(m.source) == "mit_ocw", m.level or 0, m.code))
+    module_rows = [
+        {
+            "code": m.code,
+            "title": m.title,
+            "level": m.level,
+            "cohort": _COHORT_LABELS[_cohort_of(m.source)],
+        }
+        for m in ordered
+    ]
+    return JSONResponse(
+        content={
+            "kas": [{"code": k, "name": ka_data[k]["name"]} for k in ka_data],
+            "modules": module_rows,
+            "cells": {m: dict(kas) for m, kas in cells.items()},
+        }
+    )
 
 
 @router.get("/gaps", response_model=list[GapItem])
