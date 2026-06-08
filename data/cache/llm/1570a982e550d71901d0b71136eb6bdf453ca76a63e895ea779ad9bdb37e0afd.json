@@ -1,0 +1,1 @@
+["compiler pipeline", "lexical analysis", "parsing", "semantic analysis", "intermediate representation", "code generation", "register allocation", "optimisation", "abstract syntax trees", "symbol tables", "context-free grammars", "data-flow analysis", "top-down parsing", "bottom-up parsing", "ll parsing", "lr parsing", "type checking", "regular expressions", "finite automata"]
