@@ -5,6 +5,8 @@ import { navigate } from '../router.js';
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 let _coverageChart = null;
+let _comparisonChart = null;
+let _matrix = null;     // last-loaded coverage matrix (for the grid + cohort filter)
 let _allModules = [];   // full module set (for the "not covered" side of a drill-down)
 let _coverage = [];     // last-loaded coverage rows (for KA names in the drill-down)
 
@@ -13,31 +15,71 @@ export async function initGapReport() {
   container.innerHTML = '<p class="placeholder">Loading coverage…</p>';
 
   try {
-    const [summary, coverage, gaps, redundancies, modules, ploCov] = await Promise.all([
+    const [summary, coverage, gaps, redundancies, modules, ploCov, comparison, matrix] = await Promise.all([
       api.summary(),
       api.coverage(),
       api.gaps(),
       api.redundancies(),
       api.modules({ limit: 200 }),
       api.ploCoverage().catch(() => []),
+      api.programmeComparison().catch(() => null),
+      api.coverageMatrix().catch(() => null),
     ]);
     _allModules = modules;
     _coverage = coverage;
+    _matrix = matrix;
 
-    container.innerHTML = buildHTML(summary, coverage, gaps, redundancies, ploCov);
+    container.innerHTML = buildHTML(summary, coverage, gaps, redundancies, ploCov, comparison, matrix);
     renderCoverageChart(coverage, summary.total_modules);
+    if (comparison && comparison.comparable) renderComparisonChart(comparison);
+    if (matrix) renderMatrix('all');
 
     container.querySelectorAll('.gap-item[data-ka]').forEach(el =>
       el.addEventListener('click', () => showDrilldown(el.dataset.ka)));
     container.querySelectorAll('.gap-item[data-plo]').forEach(el =>
       el.addEventListener('click', () => showPloDrilldown(el.dataset.plo, el.dataset.title)));
+    const cohortSel = document.getElementById('matrix-cohort');
+    if (cohortSel) cohortSel.addEventListener('change', () => renderMatrix(cohortSel.value));
   } catch (e) {
     container.innerHTML = `<p class="placeholder error">Failed to load: ${e.message}</p>`;
   }
 }
 
-function buildHTML(summary, coverage, gaps, redundancies, ploCov = []) {
+function buildHTML(summary, coverage, gaps, redundancies, ploCov = [], comparison = null, matrix = null) {
   const pct = (n) => `${(n * 100).toFixed(1)}%`;
+
+  // Side-by-side cohort comparison (interim §2.7 "browse two curricula … to
+  // reveal differences in topic coverage"; realises the §3.5 MIT-OCW stretch
+  // goal as a visible feature). Only meaningful on the combined corpus.
+  const comparisonSection = (comparison && comparison.comparable) ? `
+    <div class="gap-section">
+      <h2>Cohort comparison</h2>
+      <p class="section-sub">CS2023 Knowledge-Area breadth of each cohort, side by side —
+        ${comparison.cohorts.map(c => `<strong>${esc(c.label)}</strong> (${c.n_modules} modules, ${c.kas_covered}/18 KAs)`).join(' vs. ')}.
+        ${comparisonSummary(comparison)}</p>
+      <div class="chart-container" style="max-height:520px; overflow:hidden">
+        <canvas id="comparison-chart" height="500"></canvas>
+      </div>
+    </div>` : ((comparison && !comparison.comparable) ? `
+    <div class="gap-section">
+      <h2>Cohort comparison</h2>
+      <p class="section-sub">A side-by-side comparison against the MIT OpenCourseWare cohort is available when viewing the combined corpus (<code>make serve-multi</code>).</p>
+    </div>` : '');
+
+  // Interactive module × KA grid (interim "adjacency matrix … to see coverage
+  // across categories at once without crossing edges").
+  const cohorts = matrix ? [...new Set(matrix.modules.map(m => m.cohort))] : [];
+  const matrixSection = matrix ? `
+    <div class="gap-section">
+      <h2>Module × Knowledge-Area map</h2>
+      <p class="section-sub">Each module's CS2023 footprint — how many of its concepts fall in each Knowledge Area (darker = more). Click a Knowledge-Area header to drill into it.
+        ${cohorts.length > 1 ? `<select id="matrix-cohort" class="matrix-cohort">
+          <option value="all">All cohorts</option>
+          ${cohorts.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('')}
+        </select>` : ''}
+      </p>
+      <div id="matrix-grid" class="cov-matrix-wrap"><p class="placeholder">Rendering…</p></div>
+    </div>` : '';
 
   const ploSection = (ploCov && ploCov.length) ? `
     <div class="gap-section">
@@ -79,6 +121,9 @@ function buildHTML(summary, coverage, gaps, redundancies, ploCov = []) {
         <p class="section-sub" style="margin:10px 0 0">Click any bar to see which modules cover that area — and which don't.</p>
         <div id="ka-drilldown" class="ka-drilldown hidden"></div>
       </div>
+
+      ${comparisonSection}
+      ${matrixSection}
 
       <div class="gap-section">
         <h2>Coverage gaps <span style="font-weight:400;color:var(--muted);font-size:14px">(${gaps.length})</span></h2>
@@ -161,6 +206,88 @@ function renderCoverageChart(coverage, nModules) {
       },
     },
   });
+}
+
+// One-line summary of where two cohorts diverge most in KA breadth.
+function comparisonSummary(comparison) {
+  const [a, b] = comparison.cohorts;
+  if (!a || !b) return '';
+  const diffs = comparison.kas.map(k => ({
+    code: k.code,
+    d: (a.ka_coverage[k.code] || 0) - (b.ka_coverage[k.code] || 0),
+  }));
+  const aLeads = diffs.filter(x => x.d > 0.15).sort((x, y) => y.d - x.d).slice(0, 3).map(x => x.code);
+  const bLeads = diffs.filter(x => x.d < -0.15).sort((x, y) => x.d - y.d).slice(0, 3).map(x => x.code);
+  const parts = [];
+  if (aLeads.length) parts.push(`${esc(a.label)} leans further into ${aLeads.join(', ')}`);
+  if (bLeads.length) parts.push(`${esc(b.label)} into ${bLeads.join(', ')}`);
+  return parts.length ? parts.join('; ') + '.' : 'Both cohorts cover a similar spread.';
+}
+
+// Grouped horizontal bars: per-cohort KA coverage, one colour per cohort.
+function renderComparisonChart(comparison) {
+  const canvas = document.getElementById('comparison-chart');
+  if (!canvas) return;
+  const kas = comparison.kas.map(k => k.code);
+  const palette = ['#003e74', '#8a1538'];   // Imperial blue, MIT crimson
+  const datasets = comparison.cohorts.map((c, i) => ({
+    label: c.label,
+    data: kas.map(k => Math.round((c.ka_coverage[k] || 0) * 100)),
+    backgroundColor: palette[i % palette.length],
+    borderRadius: 3,
+    borderSkipped: false,
+  }));
+  if (_comparisonChart) _comparisonChart.destroy();
+  _comparisonChart = new Chart(canvas, {
+    type: 'bar',
+    data: { labels: kas, datasets },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      onClick: (_e, els) => { if (els.length) showDrilldown(kas[els[0].index]); },
+      onHover: (e, els) => { if (e.native) e.native.target.style.cursor = els.length ? 'pointer' : 'default'; },
+      plugins: {
+        legend: { display: true, position: 'top' },
+        tooltip: { callbacks: {
+          title: (items) => { const k = comparison.kas.find(x => x.code === items[0].label); return k ? `${k.code} — ${k.name}` : items[0].label; },
+          label: (ctx) => ` ${ctx.dataset.label}: ${ctx.raw}% of its modules`,
+        } },
+      },
+      scales: {
+        x: { min: 0, max: 100, title: { display: true, text: "% of the cohort's modules", color: '#475467', font: { size: 11 } }, ticks: { color: '#475467', callback: v => `${v}%` }, grid: { color: '#e3e8ef' } },
+        y: { ticks: { color: '#1b2430', font: { size: 11 } }, grid: { display: false } },
+      },
+    },
+  });
+}
+
+// Module × KA heatmap grid; cell shade encodes #concepts, header/cell click
+// drills into the KA. Re-rendered when the cohort filter changes.
+function renderMatrix(cohortFilter) {
+  const wrap = document.getElementById('matrix-grid');
+  if (!wrap || !_matrix) return;
+  const kas = _matrix.kas;
+  const cells = _matrix.cells || {};
+  let modules = _matrix.modules;
+  if (cohortFilter && cohortFilter !== 'all') modules = modules.filter(m => m.cohort === cohortFilter);
+
+  let maxC = 1;
+  for (const m of modules) for (const k of kas) maxC = Math.max(maxC, (cells[m.code] || {})[k.code] || 0);
+
+  const cell = (mcode, kcode) => {
+    const v = (cells[mcode] || {})[kcode] || 0;
+    const op = v ? (0.15 + 0.85 * Math.min(1, v / maxC)) : 0;
+    const bg = v ? `rgba(0,62,116,${op.toFixed(2)})` : 'transparent';
+    return `<div class="cm-cell" style="background:${bg}" title="${esc(mcode)} · ${esc(kcode)}: ${v} concept${v === 1 ? '' : 's'}" data-ka="${esc(kcode)}"></div>`;
+  };
+  const header = `<div class="cm-corner"></div>` +
+    kas.map(k => `<div class="cm-kahead" data-ka="${esc(k.code)}" title="${esc(k.name)} — click to drill in">${esc(k.code)}</div>`).join('');
+  const rows = modules.map(m =>
+    `<div class="cm-rowlabel" title="${esc(m.title)} (Level ${m.level ?? '?'}, ${esc(m.cohort)})">${esc(m.code)}</div>` +
+    kas.map(k => cell(m.code, k.code)).join('')).join('');
+
+  wrap.innerHTML = `<div class="cov-matrix" style="grid-template-columns: 88px repeat(${kas.length}, minmax(0,1fr))">${header}${rows}</div>`;
+  wrap.querySelectorAll('.cm-kahead, .cm-cell').forEach(el =>
+    el.addEventListener('click', () => { if (el.dataset.ka) showDrilldown(el.dataset.ka); }));
 }
 
 // Drill-down: for one Knowledge Area, list the modules that cover it vs not —

@@ -315,7 +315,6 @@ a:hover { text-decoration: underline; }
   transition: background .14s, border-color .14s;
 }
 .btn-action:hover { background: var(--accent-soft); border-color: var(--accent); }
-.btn-review { /* legacy alias used by ModulePanel */ }
 
 /* ── Map page ──────────────────────────────────────────────────────────── */
 .map-wrap { display: flex; flex-direction: column; height: calc(100vh - var(--header-h) - var(--notice-h)); }
@@ -428,6 +427,18 @@ a:hover { text-decoration: underline; }
 .sev-dot.sev-warning { background: var(--warning); }
 .sev-dot.sev-critical { background: var(--danger); }
 .chart-container { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; }
+
+/* Cohort comparison + Module×KA coverage matrix (Coverage page) */
+.matrix-cohort { margin-left: 8px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; background: var(--surface); cursor: pointer; }
+.cov-matrix-wrap { margin-top: 12px; max-height: 560px; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.cov-matrix { display: grid; gap: 1px; background: var(--border); padding: 1px; min-width: 680px; }
+.cov-matrix > div { background: var(--surface); min-height: 18px; }
+.cm-corner { position: sticky; top: 0; left: 0; z-index: 4; background: var(--surface-2); }
+.cm-kahead { position: sticky; top: 0; z-index: 3; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text-2); padding: 4px 2px; cursor: pointer; }
+.cm-kahead:hover { background: var(--accent); color: #fff; }
+.cm-rowlabel { position: sticky; left: 0; z-index: 2; background: var(--surface-2); display: flex; align-items: center; font-size: 10.5px; font-weight: 600; color: var(--text); padding: 0 6px; white-space: nowrap; }
+.cm-cell { cursor: pointer; }
+.cm-cell:hover { outline: 2px solid var(--accent); outline-offset: -2px; position: relative; z-index: 1; }
 
 .gap-list { display: flex; flex-direction: column; gap: 8px; }
 .gap-item {

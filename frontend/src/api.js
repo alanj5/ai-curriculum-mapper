@@ -61,6 +61,8 @@ export const api = {
 
   // Reports
   coverage: () => _get('/reports/coverage'),
+  programmeComparison: () => _get('/reports/programme-comparison'),
+  coverageMatrix: () => _get('/reports/coverage-matrix'),
   ploCoverage: () => _get('/modules/plo-coverage'),
   gaps: () => _get('/reports/gaps'),
   redundancies: () => _get('/reports/redundancies'),
