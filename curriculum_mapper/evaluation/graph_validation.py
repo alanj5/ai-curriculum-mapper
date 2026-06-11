@@ -24,7 +24,7 @@ from collections import Counter, defaultdict
 import networkx as nx
 
 from curriculum_mapper.config import SHARED_CONCEPT_EDGE_MIN
-from curriculum_mapper.graph.analytics import detect_communities
+from curriculum_mapper.graph.analytics import concept_overlap_subgraph, detect_communities
 
 logger = logging.getLogger(__name__)
 
@@ -119,7 +119,7 @@ def edge_threshold_sweep(modules, concepts, thresholds: list[int] | None = None)
         sim_edges = sum(1 for _, _, d in G.edges(data=True) if d.get("type") == "similarity")
         partition = detect_communities(G)
         try:
-            mod = round(float(community_louvain.modularity(partition, G.to_undirected(), weight="weight")), 4)
+            mod = round(float(community_louvain.modularity(partition, concept_overlap_subgraph(G), weight="weight")), 4)
         except Exception:
             mod = 0.0
         out[t] = {

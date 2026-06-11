@@ -54,19 +54,32 @@ def compute_centrality(G: nx.Graph) -> dict[str, dict[str, float]]:
     }
 
 
+def concept_overlap_subgraph(G: nx.Graph) -> nx.Graph:
+    """Undirected subgraph of concept-overlap (similarity) edges, Jaccard-weighted.
+
+    A community is defined by *shared concepts*, so prerequisite-only edges (a
+    different, sequencing relation) are excluded. Community detection and its
+    modularity are both computed on this subgraph, so the two always agree.
+    """
+    base = G.to_undirected() if G.is_directed() else G
+    H = nx.Graph()
+    H.add_nodes_from(base.nodes())
+    for a, b, d in base.edges(data=True):
+        if "shared_count" in d or d.get("type") == "similarity" or "similarity" in d:
+            w = d.get("similarity", d.get("weight", 0.0))
+            if w and w > 0:
+                H.add_edge(a, b, weight=w)
+    return H
+
+
 def detect_communities(G: nx.Graph) -> dict[str, int]:
-    """{module_code: community_id} via Louvain algorithm."""
+    """{module_code: community_id} via Louvain on the concept-overlap subgraph."""
     try:
         import community as community_louvain
-        # Louvain requires undirected graph
-        if G.is_directed():
-            G_undir = G.to_undirected()
-        else:
-            G_undir = G
-        if G_undir.number_of_edges() == 0:
-            return {n: 0 for n in G_undir.nodes()}
-        partition = community_louvain.best_partition(G_undir, weight="weight", random_state=42)
-        return partition
+        H = concept_overlap_subgraph(G)
+        if H.number_of_edges() == 0:
+            return {n: 0 for n in H.nodes()}
+        return community_louvain.best_partition(H, weight="weight", random_state=42)
     except Exception as e:
         logger.warning(f"Louvain community detection failed: {e}. Assigning single community.")
         return {n: 0 for n in G.nodes()}
