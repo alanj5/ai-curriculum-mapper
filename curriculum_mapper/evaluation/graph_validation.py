@@ -24,7 +24,10 @@ from collections import Counter, defaultdict
 import networkx as nx
 
 from curriculum_mapper.config import SHARED_CONCEPT_EDGE_MIN
-from curriculum_mapper.graph.analytics import concept_overlap_subgraph, detect_communities
+from curriculum_mapper.graph.analytics import (
+    concept_overlap_subgraph,
+    detect_communities,
+)
 
 logger = logging.getLogger(__name__)
 
