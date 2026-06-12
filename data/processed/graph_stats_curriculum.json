@@ -1,0 +1,483 @@
+{
+  "bipartite": {
+    "nodes": 2604,
+    "edges": 3494
+  },
+  "module_module": {
+    "nodes": 69,
+    "edges": 328,
+    "n_communities": 9,
+    "top_central_modules": [
+      {
+        "module": "IC60007",
+        "degree": 0.3235,
+        "betweenness": 0.3824,
+        "eigenvector": 0.0165
+      },
+      {
+        "module": "IC40005",
+        "degree": 0.2353,
+        "betweenness": 0.0263,
+        "eigenvector": 0.0508
+      },
+      {
+        "module": "IC40007",
+        "degree": 0.2353,
+        "betweenness": 0.1005,
+        "eigenvector": 0.1574
+      },
+      {
+        "module": "IC60023",
+        "degree": 0.2206,
+        "betweenness": 0.0061,
+        "eigenvector": 0.1122
+      },
+      {
+        "module": "IC70020",
+        "degree": 0.2206,
+        "betweenness": 0.0,
+        "eigenvector": 0.1617
+      }
+    ]
+  },
+  "concept_acm": {
+    "nodes": 3060,
+    "edges": 2301
+  },
+  "concept_prerequisites": {
+    "nodes": 800,
+    "edges": 1854,
+    "acyclic": true,
+    "longest_chain": 4
+  },
+  "coverage": {
+    "total_kas": 18,
+    "covered_kas": 18,
+    "coverage_fraction": 1.0,
+    "gap_count": 0,
+    "critical_gaps": [],
+    "warning_gaps": [],
+    "gaps": [],
+    "redundancy_count": 45,
+    "redundancies": [
+      {
+        "concept": "languages",
+        "module_count": 25,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC40018",
+          "IC50003",
+          "IC50009",
+          "IC60005",
+          "IC60006",
+          "IC60007",
+          "IC60013",
+          "IC60023",
+          "IC60034",
+          "IC60035",
+          "IC60036",
+          "IC70001",
+          "IC70010",
+          "IC70014",
+          "IC70016",
+          "IC70020",
+          "IC70023",
+          "IC70031",
+          "IC70090",
+          "IC70105",
+          "IC70112",
+          "IC70113"
+        ],
+        "confidence": 0.3442
+      },
+      {
+        "concept": "programming",
+        "module_count": 22,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC40008",
+          "IC40009",
+          "IC40018",
+          "IC50002",
+          "IC50003",
+          "IC50009",
+          "IC50010",
+          "IC60007",
+          "IC60013",
+          "IC60016",
+          "IC60019",
+          "IC60023",
+          "IC60036",
+          "IC70017",
+          "IC70020",
+          "IC70023",
+          "IC70024",
+          "IC70025",
+          "IC70031"
+        ],
+        "confidence": 0.3751
+      },
+      {
+        "concept": "networks",
+        "module_count": 20,
+        "modules": [
+          "IC50005",
+          "IC50013",
+          "IC60005",
+          "IC60006",
+          "IC60015",
+          "IC60032",
+          "IC60034",
+          "IC60035",
+          "IC70001",
+          "IC70004",
+          "IC70010",
+          "IC70014",
+          "IC70016",
+          "IC70082",
+          "IC70090",
+          "IC70100",
+          "IC70105",
+          "IC70111",
+          "IC70112",
+          "IC70113"
+        ],
+        "confidence": 0.3514
+      },
+      {
+        "concept": "graphs",
+        "module_count": 14,
+        "modules": [
+          "IC40008",
+          "IC60005",
+          "IC60006",
+          "IC60034",
+          "IC60035",
+          "IC70001",
+          "IC70005",
+          "IC70010",
+          "IC70014",
+          "IC70016",
+          "IC70090",
+          "IC70105",
+          "IC70112",
+          "IC70113"
+        ],
+        "confidence": 0.3338
+      },
+      {
+        "concept": "semantics",
+        "module_count": 13,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC40018",
+          "IC50003",
+          "IC50009",
+          "IC60007",
+          "IC60013",
+          "IC60023",
+          "IC60036",
+          "IC70020",
+          "IC70023",
+          "IC70031"
+        ],
+        "confidence": 0.6353
+      },
+      {
+        "concept": "graphics",
+        "module_count": 13,
+        "modules": [
+          "IC50011",
+          "IC60005",
+          "IC60006",
+          "IC60034",
+          "IC60035",
+          "IC70001",
+          "IC70010",
+          "IC70014",
+          "IC70016",
+          "IC70090",
+          "IC70105",
+          "IC70112",
+          "IC70113"
+        ],
+        "confidence": 0.635
+      },
+      {
+        "concept": "temporal",
+        "module_count": 12,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC40018",
+          "IC50003",
+          "IC50009",
+          "IC60013",
+          "IC60023",
+          "IC60036",
+          "IC70020",
+          "IC70023",
+          "IC70031"
+        ],
+        "confidence": 0.6519
+      },
+      {
+        "concept": "reasoning",
+        "module_count": 12,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC40018",
+          "IC50003",
+          "IC50009",
+          "IC60013",
+          "IC60023",
+          "IC60036",
+          "IC70020",
+          "IC70023",
+          "IC70031"
+        ],
+        "confidence": 0.6362
+      },
+      {
+        "concept": "memory",
+        "module_count": 12,
+        "modules": [
+          "IC40005",
+          "IC50004",
+          "IC60001",
+          "IC60007",
+          "IC60008",
+          "IC60017",
+          "IC70022",
+          "IC70024",
+          "IC70070",
+          "IC70075",
+          "IC70086",
+          "IC70114"
+        ],
+        "confidence": 0.6334
+      },
+      {
+        "concept": "generative",
+        "module_count": 12,
+        "modules": [
+          "IC60005",
+          "IC60006",
+          "IC60034",
+          "IC60035",
+          "IC70001",
+          "IC70010",
+          "IC70014",
+          "IC70016",
+          "IC70090",
+          "IC70105",
+          "IC70112",
+          "IC70113"
+        ],
+        "confidence": 0.63
+      }
+    ],
+    "ka_coverage": {
+      "AL": 0.913,
+      "AR": 0.7681,
+      "CN": 0.7971,
+      "DS": 0.7826,
+      "GV": 0.5942,
+      "HCI": 0.8406,
+      "IAS": 0.5217,
+      "IM": 0.8406,
+      "IS": 0.971,
+      "NC": 0.7391,
+      "OS": 0.7246,
+      "PBD": 0.5507,
+      "PD": 0.6957,
+      "PL": 0.9565,
+      "SDF": 0.9855,
+      "SE": 0.8406,
+      "SF": 0.8841,
+      "SP": 0.4928
+    }
+  },
+  "inferred_prerequisites": [
+    {
+      "from": "IC50005",
+      "to": "IC60015",
+      "overlap": 64
+    },
+    {
+      "from": "IC60015",
+      "to": "IC70082",
+      "overlap": 61
+    },
+    {
+      "from": "IC50004",
+      "to": "IC60001",
+      "overlap": 59
+    },
+    {
+      "from": "IC60032",
+      "to": "IC70111",
+      "overlap": 58
+    },
+    {
+      "from": "IC60015",
+      "to": "IC70004",
+      "overlap": 57
+    },
+    {
+      "from": "IC60001",
+      "to": "IC70086",
+      "overlap": 56
+    },
+    {
+      "from": "IC50005",
+      "to": "IC60032",
+      "overlap": 53
+    },
+    {
+      "from": "IC60015",
+      "to": "IC70111",
+      "overlap": 52
+    },
+    {
+      "from": "IC50005",
+      "to": "IC70111",
+      "overlap": 52
+    },
+    {
+      "from": "IC40009",
+      "to": "IC70024",
+      "overlap": 50
+    },
+    {
+      "from": "IC40008",
+      "to": "IC70005",
+      "overlap": 50
+    },
+    {
+      "from": "IC60035",
+      "to": "IC70016",
+      "overlap": 50
+    },
+    {
+      "from": "IC50002",
+      "to": "IC70024",
+      "overlap": 49
+    },
+    {
+      "from": "IC50010",
+      "to": "IC70024",
+      "overlap": 49
+    },
+    {
+      "from": "IC40009",
+      "to": "IC50010",
+      "overlap": 47
+    },
+    {
+      "from": "IC60037",
+      "to": "IC70015",
+      "overlap": 47
+    },
+    {
+      "from": "IC50004",
+      "to": "IC70086",
+      "overlap": 47
+    },
+    {
+      "from": "IC60034",
+      "to": "IC70010",
+      "overlap": 45
+    },
+    {
+      "from": "IC60007",
+      "to": "IC70086",
+      "overlap": 44
+    },
+    {
+      "from": "IC50010",
+      "to": "IC70025",
+      "overlap": 43
+    }
+  ],
+  "communities": {
+    "IC40001": 0,
+    "IC40005": 0,
+    "IC40007": 0,
+    "IC40008": 1,
+    "IC40009": 2,
+    "IC40016": 3,
+    "IC40017": 3,
+    "IC40018": 0,
+    "IC50001": 1,
+    "IC50002": 2,
+    "IC50003": 0,
+    "IC50004": 4,
+    "IC50005": 7,
+    "IC50008": 6,
+    "IC50009": 0,
+    "IC50010": 2,
+    "IC50011": 3,
+    "IC50013": 6,
+    "IC60001": 4,
+    "IC60005": 8,
+    "IC60006": 8,
+    "IC60007": 0,
+    "IC60008": 4,
+    "IC60013": 0,
+    "IC60015": 7,
+    "IC60016": 3,
+    "IC60017": 4,
+    "IC60019": 5,
+    "IC60023": 0,
+    "IC60032": 7,
+    "IC60034": 8,
+    "IC60035": 8,
+    "IC60036": 0,
+    "IC60037": 6,
+    "IC70001": 8,
+    "IC70004": 7,
+    "IC70005": 1,
+    "IC70006": 3,
+    "IC70007": 3,
+    "IC70010": 8,
+    "IC70014": 8,
+    "IC70015": 6,
+    "IC70016": 8,
+    "IC70017": 2,
+    "IC70019": 6,
+    "IC70020": 0,
+    "IC70021": 1,
+    "IC70022": 4,
+    "IC70023": 0,
+    "IC70024": 2,
+    "IC70025": 2,
+    "IC70028": 5,
+    "IC70031": 0,
+    "IC70067": 5,
+    "IC70068": 3,
+    "IC70070": 4,
+    "IC70075": 4,
+    "IC70082": 7,
+    "IC70086": 4,
+    "IC70090": 8,
+    "IC70098": 1,
+    "IC70100": 6,
+    "IC70101": 5,
+    "IC70103": 6,
+    "IC70105": 8,
+    "IC70111": 7,
+    "IC70112": 8,
+    "IC70113": 8,
+    "IC70114": 4
+  }
+}

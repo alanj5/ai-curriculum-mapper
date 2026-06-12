@@ -1,0 +1,111 @@
+======================================================================
+AI CURRICULUM MAPPER — EVALUATION REPORT
+======================================================================
+
+CONCEPT EXTRACTION — ENSEMBLE (SBERT partial credit, threshold=0.75)
+----------------------------------------------------------------------
+  P@5  = 0.2800
+  P@10 = 0.2200
+  P@20 = 0.1900
+  R@5  = 0.0841
+  R@10 = 0.1457
+  R@20 = 0.2723
+  F1@5  = 0.1268
+  F1@10 = 0.1706
+  F1@20 = 0.2183
+  MAP  = 0.2077
+
+  Per-module breakdown:
+    IC50001: P@10=0.200 R@10=0.200 F1@10=0.200 AP=0.112 (pred=50, gold=15)
+    IC50004: P@10=0.200 R@10=0.091 F1@10=0.125 AP=0.119 (pred=55, gold=22)
+    IC40008: P@10=0.400 R@10=0.188 F1@10=0.255 AP=0.402 (pred=40, gold=16)
+    IC40007: P@10=0.100 R@10=0.083 F1@10=0.091 AP=0.173 (pred=45, gold=12)
+    IC50003: P@10=0.200 R@10=0.167 F1@10=0.182 AP=0.233 (pred=52, gold=12)
+
+CONCEPT EXTRACTION — PER-EXTRACTOR (macro F1@10 and MAP)
+----------------------------------------------------------------------
+  Extractor        F1@5    F1@10    F1@20      MAP
+  tfidf          0.0659   0.1278   0.1854   0.0594
+  rake           0.1555   0.2151   0.1928   0.1433
+  textrank       0.0510   0.1564   0.2977   0.0939
+  keybert        0.1678   0.1864   0.1741   0.0986
+  bertopic       0.0148   0.0661   0.0463   0.0117
+  ensemble       0.1268   0.1706   0.2183   0.2077
+
+KA ALIGNMENT ACCURACY (against gold concept→KA annotations)
+----------------------------------------------------------------------
+  Coverage@1 (Top-1 KA accuracy) = 0.3255
+  Coverage@3 (Top-3 KA accuracy) = 0.4343
+  MRR                            = 0.3777
+  Gold match fraction            = 0.4942
+
+  Per-module breakdown:
+    IC50001: cov@1=0.400 cov@3=0.533 MRR=0.456 gold_match=0.533
+    IC50004: cov@1=0.227 cov@3=0.409 MRR=0.318 gold_match=0.500
+    IC40008: cov@1=0.500 cov@3=0.562 MRR=0.531 gold_match=0.688
+    IC40007: cov@1=0.333 cov@3=0.417 MRR=0.375 gold_match=0.417
+    IC50003: cov@1=0.167 cov@3=0.250 MRR=0.208 gold_match=0.333
+
+ALIGNER COMPARISON (lexical vs semantic vs hybrid)
+----------------------------------------------------------------------
+  Aligner       Top-1    Top-3      MRR
+  lexical      0.6364   0.8052   0.7165
+  semantic     0.7273   0.8442   0.7894
+  hybrid       0.6623   0.8312   0.7381
+
+SBERT THRESHOLD SENSITIVITY (F1@10 and MAP at K=10)
+----------------------------------------------------------------------
+     Threshold      F1@10        MAP
+          0.60     0.3541     0.6773
+          0.65     0.2759     0.4736
+          0.70     0.2345     0.3649
+          0.75     0.1706     0.2077
+          0.80     0.1225     0.1160
+          0.85     0.0862     0.0539
+
+ALIGNER WEIGHT SWEEP (semantic/lexical split on gold concept→KA pairs)
+----------------------------------------------------------------------
+    Sem wt   Lex wt    Top-1    Top-3      MRR
+      0.00     1.00   0.6364   0.8052   0.7165
+      0.25     0.75   0.6494   0.7792   0.7143
+      0.35     0.65   0.6623   0.7662   0.7143
+      0.50     0.50   0.6623   0.8052   0.7273
+      0.65     0.35   0.6753   0.8442   0.7511
+      0.75     0.25   0.6883   0.8442   0.7597
+      1.00     0.00   0.7143   0.8442   0.7771
+
+CANONICALISATION ABLATION (with vs without SBERT/WordNet merging)
+----------------------------------------------------------------------
+  Setting                 #Concepts    F1@10      MAP
+  with canonicalisation        2535   0.1706   0.2077
+  without (raw variants)       2694   0.1148   0.1970
+
+LLM-AUGMENTED EXTRACTION (local Ollama models vs ensemble, gold set)
+----------------------------------------------------------------------
+  Extractor            F1@5    F1@10    F1@20      MAP
+  gemma3:12b         0.4488   0.5899   0.5233   0.5199
+  llama3.1:8b        0.3853   0.6163   0.5689   0.5496
+  qwen2.5:7b         0.2722   0.4242   0.4393   0.3274
+  rake (best 1)      0.1555   0.2151   0.1928   0.1433
+  ensemble (5)       0.1268   0.1706   0.2183   0.2077
+
+PERTURBATION ROBUSTNESS (drop lowest-confidence concepts)
+----------------------------------------------------------------------
+   %Rem  Concepts  MMedges  Comm  CoveredKA  Coverage  Redund
+     0%      2535      328     9   18/18        1.000      45
+    10%      2281      328     9   18/18        1.000      45
+    20%      2028      327     9   18/18        1.000      45
+    30%      1775      322     9   18/18        1.000      45
+
+GRAPH ANALYTICS
+----------------------------------------------------------------------
+  Module-module nodes: 69
+  Module-module edges: 328
+  Communities detected: 9
+  KAs with coverage >= 10%: 18 / 18
+  Coverage fraction: 1.0000
+  Critical gaps (0% coverage): 0
+  Warning gaps (1-9% coverage): 0
+
+======================================================================
+END OF REPORT

@@ -1,0 +1,25 @@
+{
+  "n_concepts_aligned": 2535,
+  "n_alignment_records": 3340,
+  "n_ambiguous_concepts": 934,
+  "ka_distribution": {
+    "IS": 258,
+    "PL": 156,
+    "SE": 138,
+    "DS": 126,
+    "AL": 125,
+    "AR": 114,
+    "SDF": 113,
+    "CN": 106,
+    "SF": 104,
+    "NC": 78,
+    "OS": 77,
+    "IM": 75,
+    "HCI": 74,
+    "GV": 67,
+    "IAS": 63,
+    "PD": 49,
+    "PBD": 46,
+    "SP": 25
+  }
+}

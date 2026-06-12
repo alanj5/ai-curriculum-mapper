@@ -1,0 +1,4306 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "IC40001",
+        "type": "module",
+        "level": 1,
+        "title": "Introduction to Computer Systems",
+        "credits": 5,
+        "degree": 0.1912,
+        "betweenness": 0.1383,
+        "eigenvector": 0.0197,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC40005",
+        "type": "module",
+        "level": 1,
+        "title": "Introduction to Computer Architecture",
+        "credits": 5,
+        "degree": 0.2353,
+        "betweenness": 0.0263,
+        "eigenvector": 0.0508,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC40007",
+        "type": "module",
+        "level": 1,
+        "title": "Introduction to Databases",
+        "credits": 5,
+        "degree": 0.2353,
+        "betweenness": 0.1005,
+        "eigenvector": 0.1574,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC40008",
+        "type": "module",
+        "level": 1,
+        "title": "Graphs and Algorithms",
+        "credits": 5,
+        "degree": 0.1324,
+        "betweenness": 0.0,
+        "eigenvector": 0.4049,
+        "community": 1
+      }
+    },
+    {
+      "data": {
+        "id": "IC40009",
+        "type": "module",
+        "level": 1,
+        "title": "Computing Practical 1",
+        "credits": 20,
+        "degree": 0.1324,
+        "betweenness": 0.0386,
+        "eigenvector": 0.1113,
+        "community": 2
+      }
+    },
+    {
+      "data": {
+        "id": "IC40016",
+        "type": "module",
+        "level": 1,
+        "title": "Calculus",
+        "credits": 5,
+        "degree": 0.1176,
+        "betweenness": 0.0,
+        "eigenvector": 0.1042,
+        "community": 3
+      }
+    },
+    {
+      "data": {
+        "id": "IC40017",
+        "type": "module",
+        "level": 1,
+        "title": "Linear Algebra",
+        "credits": 5,
+        "degree": 0.1618,
+        "betweenness": 0.1321,
+        "eigenvector": 0.1454,
+        "community": 3
+      }
+    },
+    {
+      "data": {
+        "id": "IC40018",
+        "type": "module",
+        "level": 1,
+        "title": "Discrete Mathematics, Logic & Reasoning",
+        "credits": 10,
+        "degree": 0.1912,
+        "betweenness": 0.0,
+        "eigenvector": 0.0506,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC50001",
+        "type": "module",
+        "level": 2,
+        "title": "Algorithm Design and Analysis",
+        "credits": 5,
+        "degree": 0.0735,
+        "betweenness": 0.0,
+        "eigenvector": 0.0597,
+        "community": 1
+      }
+    },
+    {
+      "data": {
+        "id": "IC50002",
+        "type": "module",
+        "level": 2,
+        "title": "Software Engineering Design",
+        "credits": 5,
+        "degree": 0.0735,
+        "betweenness": 0.0,
+        "eigenvector": 0.0032,
+        "community": 2
+      }
+    },
+    {
+      "data": {
+        "id": "IC50003",
+        "type": "module",
+        "level": 2,
+        "title": "Models of Computation",
+        "credits": 5,
+        "degree": 0.1765,
+        "betweenness": 0.0,
+        "eigenvector": 0.0212,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC50004",
+        "type": "module",
+        "level": 2,
+        "title": "Operating Systems",
+        "credits": 5,
+        "degree": 0.2059,
+        "betweenness": 0.0263,
+        "eigenvector": 0.097,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC50005",
+        "type": "module",
+        "level": 2,
+        "title": "Networks and Communications",
+        "credits": 5,
+        "degree": 0.1324,
+        "betweenness": 0.068,
+        "eigenvector": 0.2564,
+        "community": 7
+      }
+    },
+    {
+      "data": {
+        "id": "IC50008",
+        "type": "module",
+        "level": 2,
+        "title": "Probability and Statistics",
+        "credits": 5,
+        "degree": 0.1471,
+        "betweenness": 0.0,
+        "eigenvector": 0.17,
+        "community": 6
+      }
+    },
+    {
+      "data": {
+        "id": "IC50009",
+        "type": "module",
+        "level": 2,
+        "title": "Symbolic Reasoning",
+        "credits": 5,
+        "degree": 0.1912,
+        "betweenness": 0.0,
+        "eigenvector": 0.1115,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC50010",
+        "type": "module",
+        "level": 2,
+        "title": "Designing for Real People",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.0,
+        "eigenvector": 0.0217,
+        "community": 2
+      }
+    },
+    {
+      "data": {
+        "id": "IC50011",
+        "type": "module",
+        "level": 2,
+        "title": "Computational Techniques",
+        "credits": 5,
+        "degree": 0.1471,
+        "betweenness": 0.0,
+        "eigenvector": 0.3512,
+        "community": 3
+      }
+    },
+    {
+      "data": {
+        "id": "IC50013",
+        "type": "module",
+        "level": 2,
+        "title": "Machine Learning",
+        "credits": 5,
+        "degree": 0.1912,
+        "betweenness": 0.0685,
+        "eigenvector": 0.1285,
+        "community": 6
+      }
+    },
+    {
+      "data": {
+        "id": "IC60001",
+        "type": "module",
+        "level": 3,
+        "title": "Advanced Computer Architecture",
+        "credits": 5,
+        "degree": 0.1471,
+        "betweenness": 0.0048,
+        "eigenvector": 0.0075,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC60005",
+        "type": "module",
+        "level": 3,
+        "title": "Graphics",
+        "credits": 5,
+        "degree": 0.2059,
+        "betweenness": 0.0176,
+        "eigenvector": 0.372,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC60006",
+        "type": "module",
+        "level": 3,
+        "title": "Computer Vision",
+        "credits": 5,
+        "degree": 0.2059,
+        "betweenness": 0.0461,
+        "eigenvector": 0.1729,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC60007",
+        "type": "module",
+        "level": 3,
+        "title": "The Theory and Practice of Concurrent Programming",
+        "credits": 5,
+        "degree": 0.3235,
+        "betweenness": 0.3824,
+        "eigenvector": 0.0165,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC60008",
+        "type": "module",
+        "level": 3,
+        "title": "Custom Computing",
+        "credits": 5,
+        "degree": 0.1324,
+        "betweenness": 0.0,
+        "eigenvector": 0.0058,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC60013",
+        "type": "module",
+        "level": 3,
+        "title": "Logic-Based Learning",
+        "credits": 5,
+        "degree": 0.1765,
+        "betweenness": 0.0,
+        "eigenvector": 0.0232,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC60015",
+        "type": "module",
+        "level": 3,
+        "title": "Network and Web Security",
+        "credits": 5,
+        "degree": 0.1029,
+        "betweenness": 0.0219,
+        "eigenvector": 0.0957,
+        "community": 7
+      }
+    },
+    {
+      "data": {
+        "id": "IC60016",
+        "type": "module",
+        "level": 3,
+        "title": "Operations Research",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.0,
+        "eigenvector": 0.0138,
+        "community": 3
+      }
+    },
+    {
+      "data": {
+        "id": "IC60017",
+        "type": "module",
+        "level": 3,
+        "title": "System Performance Engineering",
+        "credits": 5,
+        "degree": 0.1765,
+        "betweenness": 0.0,
+        "eigenvector": 0.0613,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC60019",
+        "type": "module",
+        "level": 3,
+        "title": "Robotics",
+        "credits": 5,
+        "degree": 0.0588,
+        "betweenness": 0.0856,
+        "eigenvector": 0.0487,
+        "community": 5
+      }
+    },
+    {
+      "data": {
+        "id": "IC60023",
+        "type": "module",
+        "level": 3,
+        "title": "Type Systems for Programming Languages",
+        "credits": 5,
+        "degree": 0.2206,
+        "betweenness": 0.0061,
+        "eigenvector": 0.1122,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC60032",
+        "type": "module",
+        "level": 3,
+        "title": "Networked Systems",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.0125,
+        "eigenvector": 0.042,
+        "community": 7
+      }
+    },
+    {
+      "data": {
+        "id": "IC60034",
+        "type": "module",
+        "level": 3,
+        "title": "Deep Learning",
+        "credits": 5,
+        "degree": 0.2059,
+        "betweenness": 0.0,
+        "eigenvector": 0.3064,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC60035",
+        "type": "module",
+        "level": 3,
+        "title": "Natural Language Processing",
+        "credits": 5,
+        "degree": 0.2059,
+        "betweenness": 0.0,
+        "eigenvector": 0.3038,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC60036",
+        "type": "module",
+        "level": 3,
+        "title": "Compilers",
+        "credits": 5,
+        "degree": 0.1765,
+        "betweenness": 0.0,
+        "eigenvector": 0.0227,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC60037",
+        "type": "module",
+        "level": 3,
+        "title": "Mathematics for Machine Learning",
+        "credits": 5,
+        "degree": 0.1029,
+        "betweenness": 0.0,
+        "eigenvector": 0.0539,
+        "community": 6
+      }
+    },
+    {
+      "data": {
+        "id": "IC70001",
+        "type": "module",
+        "level": 4,
+        "title": "Advanced Computer Graphics",
+        "credits": 5,
+        "degree": 0.1618,
+        "betweenness": 0.0,
+        "eigenvector": 0.0356,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70004",
+        "type": "module",
+        "level": 4,
+        "title": "Advanced Computer Security",
+        "credits": 5,
+        "degree": 0.0735,
+        "betweenness": 0.0013,
+        "eigenvector": 0.0089,
+        "community": 7
+      }
+    },
+    {
+      "data": {
+        "id": "IC70005",
+        "type": "module",
+        "level": 4,
+        "title": "Complexity",
+        "credits": 5,
+        "degree": 0.0588,
+        "betweenness": 0.0,
+        "eigenvector": 0.0149,
+        "community": 1
+      }
+    },
+    {
+      "data": {
+        "id": "IC70006",
+        "type": "module",
+        "level": 4,
+        "title": "Computational Finance",
+        "credits": 5,
+        "degree": 0.1029,
+        "betweenness": 0.0421,
+        "eigenvector": 0.0155,
+        "community": 3
+      }
+    },
+    {
+      "data": {
+        "id": "IC70007",
+        "type": "module",
+        "level": 4,
+        "title": "Computational Optimisation",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.0,
+        "eigenvector": 0.0133,
+        "community": 3
+      }
+    },
+    {
+      "data": {
+        "id": "IC70010",
+        "type": "module",
+        "level": 4,
+        "title": "Deep Learning",
+        "credits": 5,
+        "degree": 0.1765,
+        "betweenness": 0.0,
+        "eigenvector": 0.1277,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70014",
+        "type": "module",
+        "level": 4,
+        "title": "Machine Learning for Imaging",
+        "credits": 5,
+        "degree": 0.1618,
+        "betweenness": 0.0,
+        "eigenvector": 0.0428,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70015",
+        "type": "module",
+        "level": 4,
+        "title": "Mathematics for Machine Learning",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.0,
+        "eigenvector": 0.0162,
+        "community": 6
+      }
+    },
+    {
+      "data": {
+        "id": "IC70016",
+        "type": "module",
+        "level": 4,
+        "title": "Natural Language Processing",
+        "credits": 5,
+        "degree": 0.1618,
+        "betweenness": 0.0,
+        "eigenvector": 0.054,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70017",
+        "type": "module",
+        "level": 4,
+        "title": "Principles of Distributed Ledgers",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.054,
+        "eigenvector": 0.003,
+        "community": 2
+      }
+    },
+    {
+      "data": {
+        "id": "IC70019",
+        "type": "module",
+        "level": 4,
+        "title": "Probabilistic Inference",
+        "credits": 5,
+        "degree": 0.1029,
+        "betweenness": 0.1198,
+        "eigenvector": 0.0086,
+        "community": 6
+      }
+    },
+    {
+      "data": {
+        "id": "IC70020",
+        "type": "module",
+        "level": 4,
+        "title": "Program Analysis",
+        "credits": 5,
+        "degree": 0.2206,
+        "betweenness": 0.0,
+        "eigenvector": 0.1617,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC70021",
+        "type": "module",
+        "level": 4,
+        "title": "Quantum Computing",
+        "credits": 5,
+        "degree": 0.0588,
+        "betweenness": 0.0,
+        "eigenvector": 0.0105,
+        "community": 1
+      }
+    },
+    {
+      "data": {
+        "id": "IC70022",
+        "type": "module",
+        "level": 4,
+        "title": "Scalable Systems and Data",
+        "credits": 5,
+        "degree": 0.1618,
+        "betweenness": 0.1743,
+        "eigenvector": 0.0077,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC70023",
+        "type": "module",
+        "level": 4,
+        "title": "Scalable Software Verification",
+        "credits": 5,
+        "degree": 0.1912,
+        "betweenness": 0.0,
+        "eigenvector": 0.1265,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC70024",
+        "type": "module",
+        "level": 4,
+        "title": "Software Reliability",
+        "credits": 5,
+        "degree": 0.1029,
+        "betweenness": 0.0878,
+        "eigenvector": 0.0044,
+        "community": 2
+      }
+    },
+    {
+      "data": {
+        "id": "IC70025",
+        "type": "module",
+        "level": 4,
+        "title": "Software Engineering for Industry",
+        "credits": 5,
+        "degree": 0.0735,
+        "betweenness": 0.0,
+        "eigenvector": 0.0029,
+        "community": 2
+      }
+    },
+    {
+      "data": {
+        "id": "IC70028",
+        "type": "module",
+        "level": 4,
+        "title": "Reinforcement Learning",
+        "credits": 5,
+        "degree": 0.0441,
+        "betweenness": 0.0,
+        "eigenvector": 0.0006,
+        "community": 5
+      }
+    },
+    {
+      "data": {
+        "id": "IC70031",
+        "type": "module",
+        "level": 4,
+        "title": "Formal Methods for Safe AI",
+        "credits": 5,
+        "degree": 0.2059,
+        "betweenness": 0.1124,
+        "eigenvector": 0.1574,
+        "community": 0
+      }
+    },
+    {
+      "data": {
+        "id": "IC70067",
+        "type": "module",
+        "level": 4,
+        "title": "Robot Learning",
+        "credits": 5,
+        "degree": 0.0441,
+        "betweenness": 0.0,
+        "eigenvector": 0.0006,
+        "community": 5
+      }
+    },
+    {
+      "data": {
+        "id": "IC70068",
+        "type": "module",
+        "level": 4,
+        "title": "Scheduling and Resource Allocation",
+        "credits": 5,
+        "degree": 0.1471,
+        "betweenness": 0.1787,
+        "eigenvector": 0.0153,
+        "community": 3
+      }
+    },
+    {
+      "data": {
+        "id": "IC70070",
+        "type": "module",
+        "level": 4,
+        "title": "Custom Computing",
+        "credits": 5,
+        "degree": 0.1324,
+        "betweenness": 0.0,
+        "eigenvector": 0.006,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC70075",
+        "type": "module",
+        "level": 4,
+        "title": "System Performance Engineering",
+        "credits": 5,
+        "degree": 0.1471,
+        "betweenness": 0.0,
+        "eigenvector": 0.02,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC70082",
+        "type": "module",
+        "level": 4,
+        "title": "Network and Web Security",
+        "credits": 5,
+        "degree": 0.0735,
+        "betweenness": 0.0,
+        "eigenvector": 0.0257,
+        "community": 7
+      }
+    },
+    {
+      "data": {
+        "id": "IC70086",
+        "type": "module",
+        "level": 4,
+        "title": "Advanced Computer Architecture",
+        "credits": 5,
+        "degree": 0.1471,
+        "betweenness": 0.0048,
+        "eigenvector": 0.0075,
+        "community": 4
+      }
+    },
+    {
+      "data": {
+        "id": "IC70090",
+        "type": "module",
+        "level": 4,
+        "title": "Graphics",
+        "credits": 5,
+        "degree": 0.1618,
+        "betweenness": 0.0,
+        "eigenvector": 0.124,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70098",
+        "type": "module",
+        "level": 4,
+        "title": "Introduction to Concrete Complexity",
+        "credits": 5,
+        "degree": 0.0735,
+        "betweenness": 0.1124,
+        "eigenvector": 0.0105,
+        "community": 1
+      }
+    },
+    {
+      "data": {
+        "id": "IC70100",
+        "type": "module",
+        "level": 4,
+        "title": "Computational Neurodynamics",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.0004,
+        "eigenvector": 0.0058,
+        "community": 6
+      }
+    },
+    {
+      "data": {
+        "id": "IC70101",
+        "type": "module",
+        "level": 4,
+        "title": "Human-Robot Interaction",
+        "credits": 5,
+        "degree": 0.0441,
+        "betweenness": 0.0,
+        "eigenvector": 0.0008,
+        "community": 5
+      }
+    },
+    {
+      "data": {
+        "id": "IC70103",
+        "type": "module",
+        "level": 4,
+        "title": "Statistical Information Theory",
+        "credits": 5,
+        "degree": 0.0882,
+        "betweenness": 0.0,
+        "eigenvector": 0.006,
+        "community": 6
+      }
+    },
+    {
+      "data": {
+        "id": "IC70105",
+        "type": "module",
+        "level": 4,
+        "title": "Deep Graph-Based Learning",
+        "credits": 5,
+        "degree": 0.1765,
+        "betweenness": 0.025,
+        "eigenvector": 0.0441,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70111",
+        "type": "module",
+        "level": 4,
+        "title": "Networked Systems",
+        "credits": 5,
+        "degree": 0.0735,
+        "betweenness": 0.0002,
+        "eigenvector": 0.0175,
+        "community": 7
+      }
+    },
+    {
+      "data": {
+        "id": "IC70112",
+        "type": "module",
+        "level": 4,
+        "title": "Non-Euclidean Methods in Machine Learning",
+        "credits": 5,
+        "degree": 0.1618,
+        "betweenness": 0.0004,
+        "eigenvector": 0.0343,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70113",
+        "type": "module",
+        "level": 4,
+        "title": "Generative AI",
+        "credits": 5,
+        "degree": 0.1765,
+        "betweenness": 0.209,
+        "eigenvector": 0.0318,
+        "community": 8
+      }
+    },
+    {
+      "data": {
+        "id": "IC70114",
+        "type": "module",
+        "level": 4,
+        "title": "Machine Learning Systems and Hardware",
+        "credits": 5,
+        "degree": 0.1471,
+        "betweenness": 0.2208,
+        "eigenvector": 0.0048,
+        "community": 4
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "e0",
+        "source": "IC40001",
+        "target": "IC40005",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e1",
+        "source": "IC40001",
+        "target": "IC40007",
+        "type": "similarity",
+        "weight": 0.0761,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e2",
+        "source": "IC40001",
+        "target": "IC40018",
+        "type": "similarity",
+        "weight": 0.0556,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e3",
+        "source": "IC40001",
+        "target": "IC50003",
+        "type": "prerequisite",
+        "weight": 0.0707,
+        "shared_count": 7,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e4",
+        "source": "IC40001",
+        "target": "IC50009",
+        "type": "prerequisite",
+        "weight": 0.0594,
+        "shared_count": 6,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e5",
+        "source": "IC40001",
+        "target": "IC60007",
+        "type": "prerequisite",
+        "weight": 0.0283,
+        "shared_count": 3,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e6",
+        "source": "IC40001",
+        "target": "IC60013",
+        "type": "prerequisite",
+        "weight": 0.0674,
+        "shared_count": 6,
+        "prereq_votes": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e7",
+        "source": "IC40001",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.0594,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e8",
+        "source": "IC40001",
+        "target": "IC60036",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e9",
+        "source": "IC40001",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0612,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e10",
+        "source": "IC40001",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0654,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e11",
+        "source": "IC40001",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0561,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e12",
+        "source": "IC40001",
+        "target": "IC70098",
+        "type": "similarity",
+        "weight": 0.0283,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e13",
+        "source": "IC40005",
+        "target": "IC40007",
+        "type": "similarity",
+        "weight": 0.0698,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e14",
+        "source": "IC40005",
+        "target": "IC40009",
+        "type": "similarity",
+        "weight": 0.0306,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e15",
+        "source": "IC40005",
+        "target": "IC40018",
+        "type": "similarity",
+        "weight": 0.0594,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e16",
+        "source": "IC40005",
+        "target": "IC50003",
+        "type": "prerequisite",
+        "weight": 0.0645,
+        "shared_count": 6,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e17",
+        "source": "IC40005",
+        "target": "IC50009",
+        "type": "prerequisite",
+        "weight": 0.0638,
+        "shared_count": 6,
+        "prereq_votes": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e18",
+        "source": "IC40005",
+        "target": "IC60001",
+        "type": "similarity",
+        "weight": 0.0396,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e19",
+        "source": "IC40005",
+        "target": "IC60007",
+        "type": "similarity",
+        "weight": 0.0408,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e20",
+        "source": "IC40005",
+        "target": "IC60013",
+        "type": "similarity",
+        "weight": 0.0732,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e21",
+        "source": "IC40005",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.0638,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e22",
+        "source": "IC40005",
+        "target": "IC60036",
+        "type": "prerequisite",
+        "weight": 0.0805,
+        "shared_count": 7,
+        "prereq_votes": 11
+      }
+    },
+    {
+      "data": {
+        "id": "e23",
+        "source": "IC40005",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0659,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e24",
+        "source": "IC40005",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0594,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e25",
+        "source": "IC40005",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.06,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e26",
+        "source": "IC40005",
+        "target": "IC70086",
+        "type": "similarity",
+        "weight": 0.0396,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e27",
+        "source": "IC40005",
+        "target": "IC50004",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e28",
+        "source": "IC40007",
+        "target": "IC40018",
+        "type": "similarity",
+        "weight": 0.0714,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e29",
+        "source": "IC40007",
+        "target": "IC50003",
+        "type": "similarity",
+        "weight": 0.0659,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e30",
+        "source": "IC40007",
+        "target": "IC50009",
+        "type": "similarity",
+        "weight": 0.0652,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e31",
+        "source": "IC40007",
+        "target": "IC60007",
+        "type": "prerequisite",
+        "weight": 0.0417,
+        "shared_count": 4,
+        "prereq_votes": 11
+      }
+    },
+    {
+      "data": {
+        "id": "e32",
+        "source": "IC40007",
+        "target": "IC60013",
+        "type": "similarity",
+        "weight": 0.075,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e33",
+        "source": "IC40007",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.0769,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e34",
+        "source": "IC40007",
+        "target": "IC60036",
+        "type": "prerequisite",
+        "weight": 0.0824,
+        "shared_count": 7,
+        "prereq_votes": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e35",
+        "source": "IC40007",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0674,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e36",
+        "source": "IC40007",
+        "target": "IC70022",
+        "type": "similarity",
+        "weight": 0.0333,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e37",
+        "source": "IC40007",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0606,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e38",
+        "source": "IC40007",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0612,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e39",
+        "source": "IC40007",
+        "target": "IC50005",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e40",
+        "source": "IC40007",
+        "target": "IC50004",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e41",
+        "source": "IC40007",
+        "target": "IC60015",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e42",
+        "source": "IC40008",
+        "target": "IC50001",
+        "type": "prerequisite",
+        "weight": 0.0714,
+        "shared_count": 6,
+        "prereq_votes": 43
+      }
+    },
+    {
+      "data": {
+        "id": "e43",
+        "source": "IC40008",
+        "target": "IC70005",
+        "type": "prerequisite",
+        "weight": 0.1039,
+        "shared_count": 8,
+        "prereq_votes": 50
+      }
+    },
+    {
+      "data": {
+        "id": "e44",
+        "source": "IC40008",
+        "target": "IC70021",
+        "type": "prerequisite",
+        "weight": 0.0706,
+        "shared_count": 6,
+        "prereq_votes": 30
+      }
+    },
+    {
+      "data": {
+        "id": "e45",
+        "source": "IC40008",
+        "target": "IC70098",
+        "type": "prerequisite",
+        "weight": 0.0674,
+        "shared_count": 6,
+        "prereq_votes": 41
+      }
+    },
+    {
+      "data": {
+        "id": "e46",
+        "source": "IC40008",
+        "target": "IC60034",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 16
+      }
+    },
+    {
+      "data": {
+        "id": "e47",
+        "source": "IC40008",
+        "target": "IC70020",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 15
+      }
+    },
+    {
+      "data": {
+        "id": "e48",
+        "source": "IC40008",
+        "target": "IC60005",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 13
+      }
+    },
+    {
+      "data": {
+        "id": "e49",
+        "source": "IC40008",
+        "target": "IC60035",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 11
+      }
+    },
+    {
+      "data": {
+        "id": "e50",
+        "source": "IC40008",
+        "target": "IC70031",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 10
+      }
+    },
+    {
+      "data": {
+        "id": "e51",
+        "source": "IC40009",
+        "target": "IC50002",
+        "type": "prerequisite",
+        "weight": 0.0722,
+        "shared_count": 7,
+        "prereq_votes": 39
+      }
+    },
+    {
+      "data": {
+        "id": "e52",
+        "source": "IC40009",
+        "target": "IC50010",
+        "type": "prerequisite",
+        "weight": 0.0659,
+        "shared_count": 6,
+        "prereq_votes": 47
+      }
+    },
+    {
+      "data": {
+        "id": "e53",
+        "source": "IC40009",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.0288,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e54",
+        "source": "IC40009",
+        "target": "IC70017",
+        "type": "prerequisite",
+        "weight": 0.0638,
+        "shared_count": 6,
+        "prereq_votes": 27
+      }
+    },
+    {
+      "data": {
+        "id": "e55",
+        "source": "IC40009",
+        "target": "IC70024",
+        "type": "prerequisite",
+        "weight": 0.0536,
+        "shared_count": 6,
+        "prereq_votes": 50
+      }
+    },
+    {
+      "data": {
+        "id": "e56",
+        "source": "IC40009",
+        "target": "IC70025",
+        "type": "prerequisite",
+        "weight": 0.0577,
+        "shared_count": 6,
+        "prereq_votes": 39
+      }
+    },
+    {
+      "data": {
+        "id": "e57",
+        "source": "IC40009",
+        "target": "IC50005",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 23
+      }
+    },
+    {
+      "data": {
+        "id": "e58",
+        "source": "IC40009",
+        "target": "IC60015",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e59",
+        "source": "IC40016",
+        "target": "IC40017",
+        "type": "similarity",
+        "weight": 0.0893,
+        "shared_count": 10
+      }
+    },
+    {
+      "data": {
+        "id": "e60",
+        "source": "IC40016",
+        "target": "IC50011",
+        "type": "prerequisite",
+        "weight": 0.0565,
+        "shared_count": 7,
+        "prereq_votes": 37
+      }
+    },
+    {
+      "data": {
+        "id": "e61",
+        "source": "IC40016",
+        "target": "IC60016",
+        "type": "prerequisite",
+        "weight": 0.0625,
+        "shared_count": 7,
+        "prereq_votes": 34
+      }
+    },
+    {
+      "data": {
+        "id": "e62",
+        "source": "IC40016",
+        "target": "IC70006",
+        "type": "prerequisite",
+        "weight": 0.0603,
+        "shared_count": 7,
+        "prereq_votes": 26
+      }
+    },
+    {
+      "data": {
+        "id": "e63",
+        "source": "IC40016",
+        "target": "IC70007",
+        "type": "prerequisite",
+        "weight": 0.0625,
+        "shared_count": 7,
+        "prereq_votes": 29
+      }
+    },
+    {
+      "data": {
+        "id": "e64",
+        "source": "IC40016",
+        "target": "IC70068",
+        "type": "similarity",
+        "weight": 0.0609,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e65",
+        "source": "IC40016",
+        "target": "IC50008",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e66",
+        "source": "IC40016",
+        "target": "IC50013",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e67",
+        "source": "IC40017",
+        "target": "IC50011",
+        "type": "prerequisite",
+        "weight": 0.1121,
+        "shared_count": 12,
+        "prereq_votes": 37
+      }
+    },
+    {
+      "data": {
+        "id": "e68",
+        "source": "IC40017",
+        "target": "IC60016",
+        "type": "prerequisite",
+        "weight": 0.0808,
+        "shared_count": 8,
+        "prereq_votes": 34
+      }
+    },
+    {
+      "data": {
+        "id": "e69",
+        "source": "IC40017",
+        "target": "IC70006",
+        "type": "similarity",
+        "weight": 0.0777,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e70",
+        "source": "IC40017",
+        "target": "IC70007",
+        "type": "prerequisite",
+        "weight": 0.07,
+        "shared_count": 7,
+        "prereq_votes": 29
+      }
+    },
+    {
+      "data": {
+        "id": "e71",
+        "source": "IC40017",
+        "target": "IC70019",
+        "type": "similarity",
+        "weight": 0.03,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e72",
+        "source": "IC40017",
+        "target": "IC70068",
+        "type": "prerequisite",
+        "weight": 0.068,
+        "shared_count": 7,
+        "prereq_votes": 41
+      }
+    },
+    {
+      "data": {
+        "id": "e73",
+        "source": "IC40017",
+        "target": "IC60017",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 12
+      }
+    },
+    {
+      "data": {
+        "id": "e74",
+        "source": "IC40017",
+        "target": "IC60037",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e75",
+        "source": "IC40017",
+        "target": "IC50008",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e76",
+        "source": "IC40017",
+        "target": "IC50013",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e77",
+        "source": "IC40018",
+        "target": "IC50003",
+        "type": "prerequisite",
+        "weight": 0.0566,
+        "shared_count": 6,
+        "prereq_votes": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e78",
+        "source": "IC40018",
+        "target": "IC50009",
+        "type": "prerequisite",
+        "weight": 0.066,
+        "shared_count": 7,
+        "prereq_votes": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e79",
+        "source": "IC40018",
+        "target": "IC60007",
+        "type": "similarity",
+        "weight": 0.036,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e80",
+        "source": "IC40018",
+        "target": "IC60013",
+        "type": "prerequisite",
+        "weight": 0.0632,
+        "shared_count": 6,
+        "prereq_votes": 10
+      }
+    },
+    {
+      "data": {
+        "id": "e81",
+        "source": "IC40018",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.066,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e82",
+        "source": "IC40018",
+        "target": "IC60036",
+        "type": "similarity",
+        "weight": 0.0594,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e83",
+        "source": "IC40018",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0784,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e84",
+        "source": "IC40018",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0714,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e85",
+        "source": "IC40018",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0625,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e86",
+        "source": "IC40018",
+        "target": "IC50004",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e87",
+        "source": "IC50001",
+        "target": "IC70005",
+        "type": "prerequisite",
+        "weight": 0.0674,
+        "shared_count": 6,
+        "prereq_votes": 40
+      }
+    },
+    {
+      "data": {
+        "id": "e88",
+        "source": "IC50001",
+        "target": "IC70021",
+        "type": "prerequisite",
+        "weight": 0.0632,
+        "shared_count": 6,
+        "prereq_votes": 30
+      }
+    },
+    {
+      "data": {
+        "id": "e89",
+        "source": "IC50001",
+        "target": "IC70098",
+        "type": "prerequisite",
+        "weight": 0.0606,
+        "shared_count": 6,
+        "prereq_votes": 41
+      }
+    },
+    {
+      "data": {
+        "id": "e90",
+        "source": "IC50001",
+        "target": "IC70020",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 17
+      }
+    },
+    {
+      "data": {
+        "id": "e91",
+        "source": "IC50002",
+        "target": "IC50010",
+        "type": "similarity",
+        "weight": 0.069,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e92",
+        "source": "IC50002",
+        "target": "IC70017",
+        "type": "prerequisite",
+        "weight": 0.0667,
+        "shared_count": 6,
+        "prereq_votes": 27
+      }
+    },
+    {
+      "data": {
+        "id": "e93",
+        "source": "IC50002",
+        "target": "IC70024",
+        "type": "prerequisite",
+        "weight": 0.0556,
+        "shared_count": 6,
+        "prereq_votes": 49
+      }
+    },
+    {
+      "data": {
+        "id": "e94",
+        "source": "IC50002",
+        "target": "IC70025",
+        "type": "prerequisite",
+        "weight": 0.0707,
+        "shared_count": 7,
+        "prereq_votes": 35
+      }
+    },
+    {
+      "data": {
+        "id": "e95",
+        "source": "IC50003",
+        "target": "IC50009",
+        "type": "similarity",
+        "weight": 0.0606,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e96",
+        "source": "IC50003",
+        "target": "IC60007",
+        "type": "similarity",
+        "weight": 0.049,
+        "shared_count": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e97",
+        "source": "IC50003",
+        "target": "IC60013",
+        "type": "similarity",
+        "weight": 0.069,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e98",
+        "source": "IC50003",
+        "target": "IC60023",
+        "type": "prerequisite",
+        "weight": 0.0825,
+        "shared_count": 8,
+        "prereq_votes": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e99",
+        "source": "IC50003",
+        "target": "IC60036",
+        "type": "prerequisite",
+        "weight": 0.0761,
+        "shared_count": 7,
+        "prereq_votes": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e100",
+        "source": "IC50003",
+        "target": "IC70020",
+        "type": "prerequisite",
+        "weight": 0.0625,
+        "shared_count": 6,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e101",
+        "source": "IC50003",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0769,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e102",
+        "source": "IC50003",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0673,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e103",
+        "source": "IC50004",
+        "target": "IC60001",
+        "type": "prerequisite",
+        "weight": 0.0865,
+        "shared_count": 9,
+        "prereq_votes": 59
+      }
+    },
+    {
+      "data": {
+        "id": "e104",
+        "source": "IC50004",
+        "target": "IC60007",
+        "type": "prerequisite",
+        "weight": 0.068,
+        "shared_count": 7,
+        "prereq_votes": 35
+      }
+    },
+    {
+      "data": {
+        "id": "e105",
+        "source": "IC50004",
+        "target": "IC60008",
+        "type": "prerequisite",
+        "weight": 0.0652,
+        "shared_count": 6,
+        "prereq_votes": 33
+      }
+    },
+    {
+      "data": {
+        "id": "e106",
+        "source": "IC50004",
+        "target": "IC60017",
+        "type": "prerequisite",
+        "weight": 0.0889,
+        "shared_count": 8,
+        "prereq_votes": 31
+      }
+    },
+    {
+      "data": {
+        "id": "e107",
+        "source": "IC50004",
+        "target": "IC70022",
+        "type": "prerequisite",
+        "weight": 0.0842,
+        "shared_count": 8,
+        "prereq_votes": 25
+      }
+    },
+    {
+      "data": {
+        "id": "e108",
+        "source": "IC50004",
+        "target": "IC70068",
+        "type": "similarity",
+        "weight": 0.0377,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e109",
+        "source": "IC50004",
+        "target": "IC70070",
+        "type": "prerequisite",
+        "weight": 0.0745,
+        "shared_count": 7,
+        "prereq_votes": 22
+      }
+    },
+    {
+      "data": {
+        "id": "e110",
+        "source": "IC50004",
+        "target": "IC70075",
+        "type": "prerequisite",
+        "weight": 0.0889,
+        "shared_count": 8,
+        "prereq_votes": 31
+      }
+    },
+    {
+      "data": {
+        "id": "e111",
+        "source": "IC50004",
+        "target": "IC70086",
+        "type": "prerequisite",
+        "weight": 0.0865,
+        "shared_count": 9,
+        "prereq_votes": 47
+      }
+    },
+    {
+      "data": {
+        "id": "e112",
+        "source": "IC50004",
+        "target": "IC70114",
+        "type": "prerequisite",
+        "weight": 0.0636,
+        "shared_count": 7,
+        "prereq_votes": 36
+      }
+    },
+    {
+      "data": {
+        "id": "e113",
+        "source": "IC50004",
+        "target": "IC60032",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e114",
+        "source": "IC50005",
+        "target": "IC60015",
+        "type": "prerequisite",
+        "weight": 0.0759,
+        "shared_count": 6,
+        "prereq_votes": 64
+      }
+    },
+    {
+      "data": {
+        "id": "e115",
+        "source": "IC50005",
+        "target": "IC60032",
+        "type": "prerequisite",
+        "weight": 0.0659,
+        "shared_count": 6,
+        "prereq_votes": 53
+      }
+    },
+    {
+      "data": {
+        "id": "e116",
+        "source": "IC50005",
+        "target": "IC70004",
+        "type": "prerequisite",
+        "weight": 0.0583,
+        "shared_count": 6,
+        "prereq_votes": 32
+      }
+    },
+    {
+      "data": {
+        "id": "e117",
+        "source": "IC50005",
+        "target": "IC70082",
+        "type": "prerequisite",
+        "weight": 0.075,
+        "shared_count": 6,
+        "prereq_votes": 37
+      }
+    },
+    {
+      "data": {
+        "id": "e118",
+        "source": "IC50005",
+        "target": "IC70111",
+        "type": "prerequisite",
+        "weight": 0.0659,
+        "shared_count": 6,
+        "prereq_votes": 52
+      }
+    },
+    {
+      "data": {
+        "id": "e119",
+        "source": "IC50005",
+        "target": "IC60005",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e120",
+        "source": "IC50005",
+        "target": "IC60006",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e121",
+        "source": "IC50008",
+        "target": "IC50013",
+        "type": "similarity",
+        "weight": 0.0581,
+        "shared_count": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e122",
+        "source": "IC50008",
+        "target": "IC60037",
+        "type": "prerequisite",
+        "weight": 0.046,
+        "shared_count": 4,
+        "prereq_votes": 21
+      }
+    },
+    {
+      "data": {
+        "id": "e123",
+        "source": "IC50008",
+        "target": "IC70015",
+        "type": "prerequisite",
+        "weight": 0.044,
+        "shared_count": 4,
+        "prereq_votes": 15
+      }
+    },
+    {
+      "data": {
+        "id": "e124",
+        "source": "IC50008",
+        "target": "IC70019",
+        "type": "prerequisite",
+        "weight": 0.0674,
+        "shared_count": 6,
+        "prereq_votes": 29
+      }
+    },
+    {
+      "data": {
+        "id": "e125",
+        "source": "IC50008",
+        "target": "IC70100",
+        "type": "prerequisite",
+        "weight": 0.0435,
+        "shared_count": 4,
+        "prereq_votes": 21
+      }
+    },
+    {
+      "data": {
+        "id": "e126",
+        "source": "IC50008",
+        "target": "IC70103",
+        "type": "prerequisite",
+        "weight": 0.0556,
+        "shared_count": 5,
+        "prereq_votes": 30
+      }
+    },
+    {
+      "data": {
+        "id": "e127",
+        "source": "IC50008",
+        "target": "IC60023",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 14
+      }
+    },
+    {
+      "data": {
+        "id": "e128",
+        "source": "IC50008",
+        "target": "IC60006",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e129",
+        "source": "IC50009",
+        "target": "IC60007",
+        "type": "similarity",
+        "weight": 0.0286,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e130",
+        "source": "IC50009",
+        "target": "IC60013",
+        "type": "prerequisite",
+        "weight": 0.1059,
+        "shared_count": 9,
+        "prereq_votes": 35
+      }
+    },
+    {
+      "data": {
+        "id": "e131",
+        "source": "IC50009",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.06,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e132",
+        "source": "IC50009",
+        "target": "IC60036",
+        "type": "similarity",
+        "weight": 0.0638,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e133",
+        "source": "IC50009",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0619,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e134",
+        "source": "IC50009",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0561,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e135",
+        "source": "IC50009",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0566,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e136",
+        "source": "IC50009",
+        "target": "IC60035",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e137",
+        "source": "IC50010",
+        "target": "IC70017",
+        "type": "prerequisite",
+        "weight": 0.0723,
+        "shared_count": 6,
+        "prereq_votes": 27
+      }
+    },
+    {
+      "data": {
+        "id": "e138",
+        "source": "IC50010",
+        "target": "IC70024",
+        "type": "prerequisite",
+        "weight": 0.0594,
+        "shared_count": 6,
+        "prereq_votes": 49
+      }
+    },
+    {
+      "data": {
+        "id": "e139",
+        "source": "IC50010",
+        "target": "IC70025",
+        "type": "prerequisite",
+        "weight": 0.1,
+        "shared_count": 9,
+        "prereq_votes": 43
+      }
+    },
+    {
+      "data": {
+        "id": "e140",
+        "source": "IC50010",
+        "target": "IC60017",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 12
+      }
+    },
+    {
+      "data": {
+        "id": "e141",
+        "source": "IC50011",
+        "target": "IC60016",
+        "type": "prerequisite",
+        "weight": 0.0642,
+        "shared_count": 7,
+        "prereq_votes": 34
+      }
+    },
+    {
+      "data": {
+        "id": "e142",
+        "source": "IC50011",
+        "target": "IC70006",
+        "type": "prerequisite",
+        "weight": 0.0811,
+        "shared_count": 9,
+        "prereq_votes": 39
+      }
+    },
+    {
+      "data": {
+        "id": "e143",
+        "source": "IC50011",
+        "target": "IC70007",
+        "type": "prerequisite",
+        "weight": 0.0642,
+        "shared_count": 7,
+        "prereq_votes": 36
+      }
+    },
+    {
+      "data": {
+        "id": "e144",
+        "source": "IC50011",
+        "target": "IC70068",
+        "type": "prerequisite",
+        "weight": 0.0625,
+        "shared_count": 7,
+        "prereq_votes": 42
+      }
+    },
+    {
+      "data": {
+        "id": "e145",
+        "source": "IC50011",
+        "target": "IC60005",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 18
+      }
+    },
+    {
+      "data": {
+        "id": "e146",
+        "source": "IC50011",
+        "target": "IC70023",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 17
+      }
+    },
+    {
+      "data": {
+        "id": "e147",
+        "source": "IC50011",
+        "target": "IC60034",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 12
+      }
+    },
+    {
+      "data": {
+        "id": "e148",
+        "source": "IC50011",
+        "target": "IC60035",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e149",
+        "source": "IC50013",
+        "target": "IC60006",
+        "type": "prerequisite",
+        "weight": 0.0476,
+        "shared_count": 4,
+        "prereq_votes": 12
+      }
+    },
+    {
+      "data": {
+        "id": "e150",
+        "source": "IC50013",
+        "target": "IC60034",
+        "type": "prerequisite",
+        "weight": 0.0602,
+        "shared_count": 5,
+        "prereq_votes": 15
+      }
+    },
+    {
+      "data": {
+        "id": "e151",
+        "source": "IC50013",
+        "target": "IC60037",
+        "type": "prerequisite",
+        "weight": 0.0602,
+        "shared_count": 5,
+        "prereq_votes": 33
+      }
+    },
+    {
+      "data": {
+        "id": "e152",
+        "source": "IC50013",
+        "target": "IC70010",
+        "type": "similarity",
+        "weight": 0.0602,
+        "shared_count": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e153",
+        "source": "IC50013",
+        "target": "IC70015",
+        "type": "prerequisite",
+        "weight": 0.0575,
+        "shared_count": 5,
+        "prereq_votes": 24
+      }
+    },
+    {
+      "data": {
+        "id": "e154",
+        "source": "IC50013",
+        "target": "IC70019",
+        "type": "prerequisite",
+        "weight": 0.0575,
+        "shared_count": 5,
+        "prereq_votes": 15
+      }
+    },
+    {
+      "data": {
+        "id": "e155",
+        "source": "IC50013",
+        "target": "IC70100",
+        "type": "prerequisite",
+        "weight": 0.0568,
+        "shared_count": 5,
+        "prereq_votes": 21
+      }
+    },
+    {
+      "data": {
+        "id": "e156",
+        "source": "IC50013",
+        "target": "IC70103",
+        "type": "prerequisite",
+        "weight": 0.0455,
+        "shared_count": 4,
+        "prereq_votes": 30
+      }
+    },
+    {
+      "data": {
+        "id": "e157",
+        "source": "IC50013",
+        "target": "IC70105",
+        "type": "similarity",
+        "weight": 0.0349,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e158",
+        "source": "IC50013",
+        "target": "IC60023",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 14
+      }
+    },
+    {
+      "data": {
+        "id": "e159",
+        "source": "IC60001",
+        "target": "IC60007",
+        "type": "similarity",
+        "weight": 0.0561,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e160",
+        "source": "IC60001",
+        "target": "IC60008",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e161",
+        "source": "IC60001",
+        "target": "IC60017",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e162",
+        "source": "IC60001",
+        "target": "IC70022",
+        "type": "prerequisite",
+        "weight": 0.06,
+        "shared_count": 6,
+        "prereq_votes": 25
+      }
+    },
+    {
+      "data": {
+        "id": "e163",
+        "source": "IC60001",
+        "target": "IC70070",
+        "type": "prerequisite",
+        "weight": 0.0612,
+        "shared_count": 6,
+        "prereq_votes": 22
+      }
+    },
+    {
+      "data": {
+        "id": "e164",
+        "source": "IC60001",
+        "target": "IC70075",
+        "type": "prerequisite",
+        "weight": 0.0632,
+        "shared_count": 6,
+        "prereq_votes": 28
+      }
+    },
+    {
+      "data": {
+        "id": "e165",
+        "source": "IC60001",
+        "target": "IC70086",
+        "type": "prerequisite",
+        "weight": 0.8125,
+        "shared_count": 52,
+        "prereq_votes": 56
+      }
+    },
+    {
+      "data": {
+        "id": "e166",
+        "source": "IC60001",
+        "target": "IC70114",
+        "type": "prerequisite",
+        "weight": 0.0714,
+        "shared_count": 8,
+        "prereq_votes": 36
+      }
+    },
+    {
+      "data": {
+        "id": "e167",
+        "source": "IC60005",
+        "target": "IC60006",
+        "type": "similarity",
+        "weight": 0.0723,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e168",
+        "source": "IC60005",
+        "target": "IC60034",
+        "type": "similarity",
+        "weight": 0.0723,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e169",
+        "source": "IC60005",
+        "target": "IC60035",
+        "type": "similarity",
+        "weight": 0.0706,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e170",
+        "source": "IC60005",
+        "target": "IC70001",
+        "type": "prerequisite",
+        "weight": 0.0795,
+        "shared_count": 7,
+        "prereq_votes": 34
+      }
+    },
+    {
+      "data": {
+        "id": "e171",
+        "source": "IC60005",
+        "target": "IC70010",
+        "type": "prerequisite",
+        "weight": 0.0723,
+        "shared_count": 6,
+        "prereq_votes": 33
+      }
+    },
+    {
+      "data": {
+        "id": "e172",
+        "source": "IC60005",
+        "target": "IC70014",
+        "type": "similarity",
+        "weight": 0.0759,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e173",
+        "source": "IC60005",
+        "target": "IC70016",
+        "type": "prerequisite",
+        "weight": 0.0674,
+        "shared_count": 6,
+        "prereq_votes": 30
+      }
+    },
+    {
+      "data": {
+        "id": "e174",
+        "source": "IC60005",
+        "target": "IC70090",
+        "type": "prerequisite",
+        "weight": 0.8571,
+        "shared_count": 42,
+        "prereq_votes": 42
+      }
+    },
+    {
+      "data": {
+        "id": "e175",
+        "source": "IC60005",
+        "target": "IC70105",
+        "type": "prerequisite",
+        "weight": 0.0714,
+        "shared_count": 6,
+        "prereq_votes": 14
+      }
+    },
+    {
+      "data": {
+        "id": "e176",
+        "source": "IC60005",
+        "target": "IC70112",
+        "type": "prerequisite",
+        "weight": 0.0761,
+        "shared_count": 7,
+        "prereq_votes": 10
+      }
+    },
+    {
+      "data": {
+        "id": "e177",
+        "source": "IC60005",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.0606,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e178",
+        "source": "IC60006",
+        "target": "IC60034",
+        "type": "similarity",
+        "weight": 0.1,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e179",
+        "source": "IC60006",
+        "target": "IC60035",
+        "type": "similarity",
+        "weight": 0.0843,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e180",
+        "source": "IC60006",
+        "target": "IC70001",
+        "type": "similarity",
+        "weight": 0.0682,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e181",
+        "source": "IC60006",
+        "target": "IC70010",
+        "type": "similarity",
+        "weight": 0.1,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e182",
+        "source": "IC60006",
+        "target": "IC70014",
+        "type": "prerequisite",
+        "weight": 0.1053,
+        "shared_count": 8,
+        "prereq_votes": 28
+      }
+    },
+    {
+      "data": {
+        "id": "e183",
+        "source": "IC60006",
+        "target": "IC70016",
+        "type": "similarity",
+        "weight": 0.0805,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e184",
+        "source": "IC60006",
+        "target": "IC70090",
+        "type": "similarity",
+        "weight": 0.0714,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e185",
+        "source": "IC60006",
+        "target": "IC70105",
+        "type": "similarity",
+        "weight": 0.0988,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e186",
+        "source": "IC60006",
+        "target": "IC70112",
+        "type": "similarity",
+        "weight": 0.0652,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e187",
+        "source": "IC60006",
+        "target": "IC70113",
+        "type": "prerequisite",
+        "weight": 0.0722,
+        "shared_count": 7,
+        "prereq_votes": 14
+      }
+    },
+    {
+      "data": {
+        "id": "e188",
+        "source": "IC60007",
+        "target": "IC60008",
+        "type": "similarity",
+        "weight": 0.0652,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e189",
+        "source": "IC60007",
+        "target": "IC60013",
+        "type": "similarity",
+        "weight": 0.0323,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e190",
+        "source": "IC60007",
+        "target": "IC60017",
+        "type": "similarity",
+        "weight": 0.0652,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e191",
+        "source": "IC60007",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.0485,
+        "shared_count": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e192",
+        "source": "IC60007",
+        "target": "IC60036",
+        "type": "similarity",
+        "weight": 0.0408,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e193",
+        "source": "IC60007",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0294,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e194",
+        "source": "IC60007",
+        "target": "IC70022",
+        "type": "prerequisite",
+        "weight": 0.0619,
+        "shared_count": 6,
+        "prereq_votes": 21
+      }
+    },
+    {
+      "data": {
+        "id": "e195",
+        "source": "IC60007",
+        "target": "IC70023",
+        "type": "prerequisite",
+        "weight": 0.036,
+        "shared_count": 4,
+        "prereq_votes": 15
+      }
+    },
+    {
+      "data": {
+        "id": "e196",
+        "source": "IC60007",
+        "target": "IC70024",
+        "type": "similarity",
+        "weight": 0.0259,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e197",
+        "source": "IC60007",
+        "target": "IC70031",
+        "type": "prerequisite",
+        "weight": 0.0459,
+        "shared_count": 5,
+        "prereq_votes": 17
+      }
+    },
+    {
+      "data": {
+        "id": "e198",
+        "source": "IC60007",
+        "target": "IC70070",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e199",
+        "source": "IC60007",
+        "target": "IC70075",
+        "type": "similarity",
+        "weight": 0.0652,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e200",
+        "source": "IC60007",
+        "target": "IC70086",
+        "type": "prerequisite",
+        "weight": 0.0561,
+        "shared_count": 6,
+        "prereq_votes": 44
+      }
+    },
+    {
+      "data": {
+        "id": "e201",
+        "source": "IC60007",
+        "target": "IC70114",
+        "type": "prerequisite",
+        "weight": 0.0541,
+        "shared_count": 6,
+        "prereq_votes": 34
+      }
+    },
+    {
+      "data": {
+        "id": "e202",
+        "source": "IC60008",
+        "target": "IC60017",
+        "type": "similarity",
+        "weight": 0.075,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e203",
+        "source": "IC60008",
+        "target": "IC70022",
+        "type": "similarity",
+        "weight": 0.0706,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e204",
+        "source": "IC60008",
+        "target": "IC70070",
+        "type": "prerequisite",
+        "weight": 0.5614,
+        "shared_count": 32,
+        "prereq_votes": 31
+      }
+    },
+    {
+      "data": {
+        "id": "e205",
+        "source": "IC60008",
+        "target": "IC70075",
+        "type": "similarity",
+        "weight": 0.075,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e206",
+        "source": "IC60008",
+        "target": "IC70086",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e207",
+        "source": "IC60008",
+        "target": "IC70114",
+        "type": "similarity",
+        "weight": 0.0606,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e208",
+        "source": "IC60013",
+        "target": "IC60023",
+        "type": "similarity",
+        "weight": 0.0682,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e209",
+        "source": "IC60013",
+        "target": "IC60036",
+        "type": "similarity",
+        "weight": 0.0864,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e210",
+        "source": "IC60013",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0833,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e211",
+        "source": "IC60013",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e212",
+        "source": "IC60013",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0638,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e213",
+        "source": "IC60015",
+        "target": "IC60032",
+        "type": "similarity",
+        "weight": 0.0638,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e214",
+        "source": "IC60015",
+        "target": "IC70004",
+        "type": "prerequisite",
+        "weight": 0.0874,
+        "shared_count": 9,
+        "prereq_votes": 57
+      }
+    },
+    {
+      "data": {
+        "id": "e215",
+        "source": "IC60015",
+        "target": "IC70082",
+        "type": "prerequisite",
+        "weight": 0.6182,
+        "shared_count": 34,
+        "prereq_votes": 61
+      }
+    },
+    {
+      "data": {
+        "id": "e216",
+        "source": "IC60015",
+        "target": "IC70111",
+        "type": "prerequisite",
+        "weight": 0.0638,
+        "shared_count": 6,
+        "prereq_votes": 52
+      }
+    },
+    {
+      "data": {
+        "id": "e217",
+        "source": "IC60016",
+        "target": "IC70006",
+        "type": "prerequisite",
+        "weight": 0.08,
+        "shared_count": 8,
+        "prereq_votes": 26
+      }
+    },
+    {
+      "data": {
+        "id": "e218",
+        "source": "IC60016",
+        "target": "IC70007",
+        "type": "similarity",
+        "weight": 0.0722,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e219",
+        "source": "IC60016",
+        "target": "IC70068",
+        "type": "prerequisite",
+        "weight": 0.1031,
+        "shared_count": 10,
+        "prereq_votes": 43
+      }
+    },
+    {
+      "data": {
+        "id": "e220",
+        "source": "IC60017",
+        "target": "IC70022",
+        "type": "similarity",
+        "weight": 0.0964,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e221",
+        "source": "IC60017",
+        "target": "IC70068",
+        "type": "similarity",
+        "weight": 0.0426,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e222",
+        "source": "IC60017",
+        "target": "IC70070",
+        "type": "similarity",
+        "weight": 0.0723,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e223",
+        "source": "IC60017",
+        "target": "IC70075",
+        "type": "prerequisite",
+        "weight": 0.8298,
+        "shared_count": 39,
+        "prereq_votes": 36
+      }
+    },
+    {
+      "data": {
+        "id": "e224",
+        "source": "IC60017",
+        "target": "IC70086",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e225",
+        "source": "IC60017",
+        "target": "IC70114",
+        "type": "similarity",
+        "weight": 0.0606,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e226",
+        "source": "IC60019",
+        "target": "IC70028",
+        "type": "prerequisite",
+        "weight": 0.04,
+        "shared_count": 4,
+        "prereq_votes": 29
+      }
+    },
+    {
+      "data": {
+        "id": "e227",
+        "source": "IC60019",
+        "target": "IC70067",
+        "type": "prerequisite",
+        "weight": 0.04,
+        "shared_count": 4,
+        "prereq_votes": 24
+      }
+    },
+    {
+      "data": {
+        "id": "e228",
+        "source": "IC60019",
+        "target": "IC70101",
+        "type": "prerequisite",
+        "weight": 0.0521,
+        "shared_count": 5,
+        "prereq_votes": 39
+      }
+    },
+    {
+      "data": {
+        "id": "e229",
+        "source": "IC60019",
+        "target": "IC70031",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "prereq_votes": 12
+      }
+    },
+    {
+      "data": {
+        "id": "e230",
+        "source": "IC60023",
+        "target": "IC60036",
+        "type": "similarity",
+        "weight": 0.0989,
+        "shared_count": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e231",
+        "source": "IC60023",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0619,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e232",
+        "source": "IC60023",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0561,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e233",
+        "source": "IC60023",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0566,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e234",
+        "source": "IC60032",
+        "target": "IC70004",
+        "type": "prerequisite",
+        "weight": 0.0508,
+        "shared_count": 6,
+        "prereq_votes": 32
+      }
+    },
+    {
+      "data": {
+        "id": "e235",
+        "source": "IC60032",
+        "target": "IC70082",
+        "type": "prerequisite",
+        "weight": 0.0632,
+        "shared_count": 6,
+        "prereq_votes": 34
+      }
+    },
+    {
+      "data": {
+        "id": "e236",
+        "source": "IC60032",
+        "target": "IC70111",
+        "type": "prerequisite",
+        "weight": 0.75,
+        "shared_count": 48,
+        "prereq_votes": 58
+      }
+    },
+    {
+      "data": {
+        "id": "e237",
+        "source": "IC60034",
+        "target": "IC60035",
+        "type": "similarity",
+        "weight": 0.0843,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e238",
+        "source": "IC60034",
+        "target": "IC70001",
+        "type": "prerequisite",
+        "weight": 0.0682,
+        "shared_count": 6,
+        "prereq_votes": 13
+      }
+    },
+    {
+      "data": {
+        "id": "e239",
+        "source": "IC60034",
+        "target": "IC70010",
+        "type": "prerequisite",
+        "weight": 1.0,
+        "shared_count": 44,
+        "prereq_votes": 45
+      }
+    },
+    {
+      "data": {
+        "id": "e240",
+        "source": "IC60034",
+        "target": "IC70014",
+        "type": "prerequisite",
+        "weight": 0.1053,
+        "shared_count": 8,
+        "prereq_votes": 16
+      }
+    },
+    {
+      "data": {
+        "id": "e241",
+        "source": "IC60034",
+        "target": "IC70016",
+        "type": "prerequisite",
+        "weight": 0.0682,
+        "shared_count": 6,
+        "prereq_votes": 30
+      }
+    },
+    {
+      "data": {
+        "id": "e242",
+        "source": "IC60034",
+        "target": "IC70090",
+        "type": "prerequisite",
+        "weight": 0.0714,
+        "shared_count": 6,
+        "prereq_votes": 36
+      }
+    },
+    {
+      "data": {
+        "id": "e243",
+        "source": "IC60034",
+        "target": "IC70105",
+        "type": "prerequisite",
+        "weight": 0.1125,
+        "shared_count": 9,
+        "prereq_votes": 27
+      }
+    },
+    {
+      "data": {
+        "id": "e244",
+        "source": "IC60034",
+        "target": "IC70112",
+        "type": "prerequisite",
+        "weight": 0.0652,
+        "shared_count": 6,
+        "prereq_votes": 10
+      }
+    },
+    {
+      "data": {
+        "id": "e245",
+        "source": "IC60034",
+        "target": "IC70113",
+        "type": "prerequisite",
+        "weight": 0.0612,
+        "shared_count": 6,
+        "prereq_votes": 15
+      }
+    },
+    {
+      "data": {
+        "id": "e246",
+        "source": "IC60035",
+        "target": "IC70001",
+        "type": "prerequisite",
+        "weight": 0.0667,
+        "shared_count": 6,
+        "prereq_votes": 13
+      }
+    },
+    {
+      "data": {
+        "id": "e247",
+        "source": "IC60035",
+        "target": "IC70010",
+        "type": "prerequisite",
+        "weight": 0.0843,
+        "shared_count": 7,
+        "prereq_votes": 33
+      }
+    },
+    {
+      "data": {
+        "id": "e248",
+        "source": "IC60035",
+        "target": "IC70014",
+        "type": "prerequisite",
+        "weight": 0.075,
+        "shared_count": 6,
+        "prereq_votes": 14
+      }
+    },
+    {
+      "data": {
+        "id": "e249",
+        "source": "IC60035",
+        "target": "IC70016",
+        "type": "prerequisite",
+        "weight": 0.28,
+        "shared_count": 21,
+        "prereq_votes": 50
+      }
+    },
+    {
+      "data": {
+        "id": "e250",
+        "source": "IC60035",
+        "target": "IC70090",
+        "type": "prerequisite",
+        "weight": 0.0698,
+        "shared_count": 6,
+        "prereq_votes": 36
+      }
+    },
+    {
+      "data": {
+        "id": "e251",
+        "source": "IC60035",
+        "target": "IC70105",
+        "type": "prerequisite",
+        "weight": 0.0706,
+        "shared_count": 6,
+        "prereq_votes": 14
+      }
+    },
+    {
+      "data": {
+        "id": "e252",
+        "source": "IC60035",
+        "target": "IC70112",
+        "type": "prerequisite",
+        "weight": 0.0638,
+        "shared_count": 6,
+        "prereq_votes": 10
+      }
+    },
+    {
+      "data": {
+        "id": "e253",
+        "source": "IC60035",
+        "target": "IC70113",
+        "type": "prerequisite",
+        "weight": 0.06,
+        "shared_count": 6,
+        "prereq_votes": 13
+      }
+    },
+    {
+      "data": {
+        "id": "e254",
+        "source": "IC60036",
+        "target": "IC70020",
+        "type": "similarity",
+        "weight": 0.0659,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e255",
+        "source": "IC60036",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.0594,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e256",
+        "source": "IC60036",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0707,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e257",
+        "source": "IC60037",
+        "target": "IC70015",
+        "type": "prerequisite",
+        "weight": 0.6727,
+        "shared_count": 37,
+        "prereq_votes": 47
+      }
+    },
+    {
+      "data": {
+        "id": "e258",
+        "source": "IC60037",
+        "target": "IC70019",
+        "type": "prerequisite",
+        "weight": 0.0575,
+        "shared_count": 5,
+        "prereq_votes": 18
+      }
+    },
+    {
+      "data": {
+        "id": "e259",
+        "source": "IC60037",
+        "target": "IC70100",
+        "type": "prerequisite",
+        "weight": 0.0449,
+        "shared_count": 4,
+        "prereq_votes": 25
+      }
+    },
+    {
+      "data": {
+        "id": "e260",
+        "source": "IC60037",
+        "target": "IC70103",
+        "type": "prerequisite",
+        "weight": 0.0455,
+        "shared_count": 4,
+        "prereq_votes": 34
+      }
+    },
+    {
+      "data": {
+        "id": "e261",
+        "source": "IC70001",
+        "target": "IC70010",
+        "type": "similarity",
+        "weight": 0.0682,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e262",
+        "source": "IC70001",
+        "target": "IC70014",
+        "type": "similarity",
+        "weight": 0.0714,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e263",
+        "source": "IC70001",
+        "target": "IC70016",
+        "type": "similarity",
+        "weight": 0.0638,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e264",
+        "source": "IC70001",
+        "target": "IC70090",
+        "type": "similarity",
+        "weight": 0.0787,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e265",
+        "source": "IC70001",
+        "target": "IC70105",
+        "type": "similarity",
+        "weight": 0.0674,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e266",
+        "source": "IC70001",
+        "target": "IC70112",
+        "type": "similarity",
+        "weight": 0.0612,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e267",
+        "source": "IC70001",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.0784,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e268",
+        "source": "IC70004",
+        "target": "IC70082",
+        "type": "similarity",
+        "weight": 0.0865,
+        "shared_count": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e269",
+        "source": "IC70004",
+        "target": "IC70111",
+        "type": "similarity",
+        "weight": 0.0508,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e270",
+        "source": "IC70005",
+        "target": "IC70021",
+        "type": "similarity",
+        "weight": 0.0667,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e271",
+        "source": "IC70005",
+        "target": "IC70098",
+        "type": "similarity",
+        "weight": 0.1236,
+        "shared_count": 11
+      }
+    },
+    {
+      "data": {
+        "id": "e272",
+        "source": "IC70006",
+        "target": "IC70007",
+        "type": "similarity",
+        "weight": 0.102,
+        "shared_count": 10
+      }
+    },
+    {
+      "data": {
+        "id": "e273",
+        "source": "IC70006",
+        "target": "IC70017",
+        "type": "similarity",
+        "weight": 0.0303,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e274",
+        "source": "IC70006",
+        "target": "IC70068",
+        "type": "similarity",
+        "weight": 0.0882,
+        "shared_count": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e275",
+        "source": "IC70007",
+        "target": "IC70068",
+        "type": "similarity",
+        "weight": 0.07,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e276",
+        "source": "IC70010",
+        "target": "IC70014",
+        "type": "similarity",
+        "weight": 0.1053,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e277",
+        "source": "IC70010",
+        "target": "IC70016",
+        "type": "similarity",
+        "weight": 0.0682,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e278",
+        "source": "IC70010",
+        "target": "IC70090",
+        "type": "similarity",
+        "weight": 0.0714,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e279",
+        "source": "IC70010",
+        "target": "IC70105",
+        "type": "similarity",
+        "weight": 0.1125,
+        "shared_count": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e280",
+        "source": "IC70010",
+        "target": "IC70112",
+        "type": "similarity",
+        "weight": 0.0652,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e281",
+        "source": "IC70010",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.0612,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e282",
+        "source": "IC70014",
+        "target": "IC70016",
+        "type": "similarity",
+        "weight": 0.0714,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e283",
+        "source": "IC70014",
+        "target": "IC70090",
+        "type": "similarity",
+        "weight": 0.075,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e284",
+        "source": "IC70014",
+        "target": "IC70105",
+        "type": "similarity",
+        "weight": 0.0759,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e285",
+        "source": "IC70014",
+        "target": "IC70112",
+        "type": "similarity",
+        "weight": 0.0682,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e286",
+        "source": "IC70014",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.0638,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e287",
+        "source": "IC70015",
+        "target": "IC70019",
+        "type": "similarity",
+        "weight": 0.0549,
+        "shared_count": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e288",
+        "source": "IC70015",
+        "target": "IC70100",
+        "type": "similarity",
+        "weight": 0.043,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e289",
+        "source": "IC70015",
+        "target": "IC70103",
+        "type": "similarity",
+        "weight": 0.0435,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e290",
+        "source": "IC70016",
+        "target": "IC70090",
+        "type": "similarity",
+        "weight": 0.0667,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e291",
+        "source": "IC70016",
+        "target": "IC70105",
+        "type": "similarity",
+        "weight": 0.0674,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e292",
+        "source": "IC70016",
+        "target": "IC70112",
+        "type": "similarity",
+        "weight": 0.0612,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e293",
+        "source": "IC70016",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.068,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e294",
+        "source": "IC70017",
+        "target": "IC70024",
+        "type": "similarity",
+        "weight": 0.0577,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e295",
+        "source": "IC70017",
+        "target": "IC70025",
+        "type": "similarity",
+        "weight": 0.0625,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e296",
+        "source": "IC70019",
+        "target": "IC70100",
+        "type": "similarity",
+        "weight": 0.043,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e297",
+        "source": "IC70019",
+        "target": "IC70103",
+        "type": "similarity",
+        "weight": 0.0435,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e298",
+        "source": "IC70020",
+        "target": "IC70023",
+        "type": "similarity",
+        "weight": 0.068,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e299",
+        "source": "IC70020",
+        "target": "IC70024",
+        "type": "similarity",
+        "weight": 0.0364,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e300",
+        "source": "IC70020",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0686,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e301",
+        "source": "IC70021",
+        "target": "IC70098",
+        "type": "similarity",
+        "weight": 0.0707,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e302",
+        "source": "IC70022",
+        "target": "IC70068",
+        "type": "similarity",
+        "weight": 0.03,
+        "shared_count": 3
+      }
+    },
+    {
+      "data": {
+        "id": "e303",
+        "source": "IC70022",
+        "target": "IC70070",
+        "type": "similarity",
+        "weight": 0.0682,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e304",
+        "source": "IC70022",
+        "target": "IC70075",
+        "type": "similarity",
+        "weight": 0.0964,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e305",
+        "source": "IC70022",
+        "target": "IC70086",
+        "type": "similarity",
+        "weight": 0.06,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e306",
+        "source": "IC70022",
+        "target": "IC70114",
+        "type": "similarity",
+        "weight": 0.0577,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e307",
+        "source": "IC70023",
+        "target": "IC70031",
+        "type": "similarity",
+        "weight": 0.0721,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e308",
+        "source": "IC70024",
+        "target": "IC70025",
+        "type": "similarity",
+        "weight": 0.0526,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e309",
+        "source": "IC70028",
+        "target": "IC70067",
+        "type": "similarity",
+        "weight": 0.0753,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e310",
+        "source": "IC70028",
+        "target": "IC70101",
+        "type": "similarity",
+        "weight": 0.043,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e311",
+        "source": "IC70067",
+        "target": "IC70101",
+        "type": "similarity",
+        "weight": 0.0543,
+        "shared_count": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e312",
+        "source": "IC70068",
+        "target": "IC70075",
+        "type": "similarity",
+        "weight": 0.0426,
+        "shared_count": 4
+      }
+    },
+    {
+      "data": {
+        "id": "e313",
+        "source": "IC70070",
+        "target": "IC70075",
+        "type": "similarity",
+        "weight": 0.0723,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e314",
+        "source": "IC70070",
+        "target": "IC70086",
+        "type": "similarity",
+        "weight": 0.0612,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e315",
+        "source": "IC70070",
+        "target": "IC70114",
+        "type": "similarity",
+        "weight": 0.0693,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e316",
+        "source": "IC70075",
+        "target": "IC70086",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e317",
+        "source": "IC70075",
+        "target": "IC70114",
+        "type": "similarity",
+        "weight": 0.0606,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e318",
+        "source": "IC70082",
+        "target": "IC70111",
+        "type": "similarity",
+        "weight": 0.0632,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e319",
+        "source": "IC70086",
+        "target": "IC70114",
+        "type": "similarity",
+        "weight": 0.0714,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e320",
+        "source": "IC70090",
+        "target": "IC70105",
+        "type": "similarity",
+        "weight": 0.0706,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e321",
+        "source": "IC70090",
+        "target": "IC70112",
+        "type": "similarity",
+        "weight": 0.0753,
+        "shared_count": 7
+      }
+    },
+    {
+      "data": {
+        "id": "e322",
+        "source": "IC70090",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.06,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e323",
+        "source": "IC70100",
+        "target": "IC70103",
+        "type": "similarity",
+        "weight": 0.0543,
+        "shared_count": 5
+      }
+    },
+    {
+      "data": {
+        "id": "e324",
+        "source": "IC70105",
+        "target": "IC70112",
+        "type": "similarity",
+        "weight": 0.0879,
+        "shared_count": 8
+      }
+    },
+    {
+      "data": {
+        "id": "e325",
+        "source": "IC70105",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.0938,
+        "shared_count": 9
+      }
+    },
+    {
+      "data": {
+        "id": "e326",
+        "source": "IC70112",
+        "target": "IC70113",
+        "type": "similarity",
+        "weight": 0.0556,
+        "shared_count": 6
+      }
+    },
+    {
+      "data": {
+        "id": "e327",
+        "source": "IC70113",
+        "target": "IC70114",
+        "type": "similarity",
+        "weight": 0.0339,
+        "shared_count": 4
+      }
+    }
+  ]
+}

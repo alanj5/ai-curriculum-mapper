@@ -1,0 +1,283 @@
+{
+  "bipartite": {
+    "nodes": 683,
+    "edges": 874
+  },
+  "module_module": {
+    "nodes": 21,
+    "edges": 106,
+    "n_communities": 4,
+    "top_central_modules": [
+      {
+        "module": "IC40005",
+        "degree": 0.85,
+        "betweenness": 0.3053,
+        "eigenvector": 0.3356
+      },
+      {
+        "module": "IC50003",
+        "degree": 0.75,
+        "betweenness": 0.1316,
+        "eigenvector": 0.2142
+      },
+      {
+        "module": "IC60007",
+        "degree": 0.7,
+        "betweenness": 0.0474,
+        "eigenvector": 0.3425
+      },
+      {
+        "module": "IC50001",
+        "degree": 0.65,
+        "betweenness": 0.0105,
+        "eigenvector": 0.0896
+      },
+      {
+        "module": "IC50009",
+        "degree": 0.65,
+        "betweenness": 0.1895,
+        "eigenvector": 0.0927
+      }
+    ]
+  },
+  "concept_acm": {
+    "nodes": 924,
+    "edges": 748
+  },
+  "coverage": {
+    "total_kas": 18,
+    "covered_kas": 18,
+    "coverage_fraction": 1.0,
+    "gap_count": 0,
+    "critical_gaps": [],
+    "warning_gaps": [],
+    "gaps": [],
+    "redundancy_count": 14,
+    "redundancies": [
+      {
+        "concept": "problems",
+        "module_count": 13,
+        "modules": [
+          "IC40005",
+          "IC40008",
+          "IC40009",
+          "IC50001",
+          "IC50002",
+          "IC50003",
+          "IC50004",
+          "IC50005",
+          "IC50009",
+          "IC50010",
+          "IC50011",
+          "IC50013",
+          "IC60001"
+        ],
+        "confidence": 0.3305
+      },
+      {
+        "concept": "programming",
+        "module_count": 11,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC40008",
+          "IC40009",
+          "IC40012",
+          "IC40018",
+          "IC50001",
+          "IC50003",
+          "IC50009",
+          "IC60007"
+        ],
+        "confidence": 0.3904
+      },
+      {
+        "concept": "formal",
+        "module_count": 9,
+        "modules": [
+          "IC40001",
+          "IC40007",
+          "IC40008",
+          "IC40012",
+          "IC40018",
+          "IC50001",
+          "IC50003",
+          "IC50009",
+          "IC60007"
+        ],
+        "confidence": 0.4956
+      },
+      {
+        "concept": "logical",
+        "module_count": 9,
+        "modules": [
+          "IC40001",
+          "IC40007",
+          "IC40008",
+          "IC40012",
+          "IC40018",
+          "IC50001",
+          "IC50003",
+          "IC50009",
+          "IC60007"
+        ],
+        "confidence": 0.4727
+      },
+      {
+        "concept": "logic",
+        "module_count": 9,
+        "modules": [
+          "IC40001",
+          "IC40007",
+          "IC40008",
+          "IC40012",
+          "IC40018",
+          "IC50001",
+          "IC50003",
+          "IC50009",
+          "IC60007"
+        ],
+        "confidence": 0.3539
+      },
+      {
+        "concept": "properties",
+        "module_count": 9,
+        "modules": [
+          "IC40001",
+          "IC40007",
+          "IC40008",
+          "IC40012",
+          "IC40018",
+          "IC50001",
+          "IC50003",
+          "IC50009",
+          "IC60007"
+        ],
+        "confidence": 0.2877
+      },
+      {
+        "concept": "architectural",
+        "module_count": 8,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40009",
+          "IC50002",
+          "IC50004",
+          "IC50005",
+          "IC50010",
+          "IC60001"
+        ],
+        "confidence": 0.4674
+      },
+      {
+        "concept": "security",
+        "module_count": 7,
+        "modules": [
+          "IC40005",
+          "IC40009",
+          "IC50002",
+          "IC50004",
+          "IC50005",
+          "IC50010",
+          "IC60001"
+        ],
+        "confidence": 0.7032
+      },
+      {
+        "concept": "computer",
+        "module_count": 7,
+        "modules": [
+          "IC40005",
+          "IC40009",
+          "IC50002",
+          "IC50004",
+          "IC50005",
+          "IC50010",
+          "IC60001"
+        ],
+        "confidence": 0.4862
+      },
+      {
+        "concept": "software",
+        "module_count": 7,
+        "modules": [
+          "IC40005",
+          "IC40009",
+          "IC50002",
+          "IC50004",
+          "IC50005",
+          "IC50010",
+          "IC60001"
+        ],
+        "confidence": 0.4656
+      }
+    ],
+    "ka_coverage": {
+      "AL": 0.9048,
+      "AR": 0.9048,
+      "CN": 0.8571,
+      "DS": 0.9048,
+      "GV": 0.381,
+      "HCI": 0.7619,
+      "IAS": 0.5238,
+      "IM": 0.8095,
+      "IS": 0.9524,
+      "NC": 0.6667,
+      "OS": 0.4762,
+      "PBD": 0.4762,
+      "PD": 0.5238,
+      "PL": 0.7619,
+      "SDF": 1.0,
+      "SE": 0.9524,
+      "SF": 0.9048,
+      "SP": 0.6667
+    }
+  },
+  "inferred_prerequisites": [
+    {
+      "from": "IC50005",
+      "to": "IC50002",
+      "overlap": 1.0
+    },
+    {
+      "from": "IC50005",
+      "to": "IC50004",
+      "overlap": 1.0
+    },
+    {
+      "from": "IC50005",
+      "to": "IC50010",
+      "overlap": 1.0
+    },
+    {
+      "from": "IC50005",
+      "to": "IC60001",
+      "overlap": 1.0
+    }
+  ],
+  "communities": {
+    "IC40001": 0,
+    "IC40005": 0,
+    "IC40007": 1,
+    "IC40008": 1,
+    "IC40009": 3,
+    "IC40012": 1,
+    "IC40016": 2,
+    "IC40017": 2,
+    "IC40018": 1,
+    "IC50001": 1,
+    "IC50002": 3,
+    "IC50003": 1,
+    "IC50004": 0,
+    "IC50005": 3,
+    "IC50008": 2,
+    "IC50009": 1,
+    "IC50010": 3,
+    "IC50013": 2,
+    "IC50011": 2,
+    "IC60001": 0,
+    "IC60007": 1
+  }
+}

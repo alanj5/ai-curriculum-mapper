@@ -1,0 +1,549 @@
+{
+  "bipartite": {
+    "nodes": 3477,
+    "edges": 4846
+  },
+  "module_module": {
+    "nodes": 101,
+    "edges": 599,
+    "n_communities": 7,
+    "top_central_modules": [
+      {
+        "module": "MIT60006",
+        "degree": 0.25,
+        "betweenness": 0.0124,
+        "eigenvector": 0.4739
+      },
+      {
+        "module": "IC50001",
+        "degree": 0.23,
+        "betweenness": 0.0,
+        "eigenvector": 0.2138
+      },
+      {
+        "module": "MIT60001",
+        "degree": 0.22,
+        "betweenness": 0.0678,
+        "eigenvector": 0.3349
+      },
+      {
+        "module": "MIT60004",
+        "degree": 0.21,
+        "betweenness": 0.0191,
+        "eigenvector": 0.3285
+      },
+      {
+        "module": "MIT60042",
+        "degree": 0.2,
+        "betweenness": 0.1237,
+        "eigenvector": 0.0483
+      }
+    ]
+  },
+  "concept_acm": {
+    "nodes": 3943,
+    "edges": 2937
+  },
+  "concept_prerequisites": {
+    "nodes": 1219,
+    "edges": 2683,
+    "acyclic": true,
+    "longest_chain": 4
+  },
+  "coverage": {
+    "total_kas": 18,
+    "covered_kas": 18,
+    "coverage_fraction": 1.0,
+    "gap_count": 0,
+    "critical_gaps": [],
+    "warning_gaps": [],
+    "gaps": [],
+    "redundancy_count": 58,
+    "redundancies": [
+      {
+        "concept": "programming",
+        "module_count": 25,
+        "modules": [
+          "IC40005",
+          "IC40008",
+          "IC40009",
+          "IC40018",
+          "IC50002",
+          "IC50003",
+          "IC50009",
+          "IC50010",
+          "IC60007",
+          "IC60013",
+          "IC60016",
+          "IC60019",
+          "IC60023",
+          "IC60036",
+          "IC70017",
+          "IC70020",
+          "IC70023",
+          "IC70024",
+          "IC70025",
+          "IC70031",
+          "MIT60001",
+          "MIT60002",
+          "MIT60006",
+          "MIT60035",
+          "MIT60821"
+        ],
+        "confidence": 0.3205
+      },
+      {
+        "concept": "networks",
+        "module_count": 24,
+        "modules": [
+          "IC50004",
+          "IC50005",
+          "IC60006",
+          "IC60007",
+          "IC60015",
+          "IC60032",
+          "IC60034",
+          "IC70004",
+          "IC70010",
+          "IC70014",
+          "IC70016",
+          "IC70082",
+          "IC70100",
+          "IC70105",
+          "IC70111",
+          "IC70112",
+          "IC70113",
+          "MIT60005",
+          "MIT60033",
+          "MIT60824",
+          "MIT60828",
+          "MIT60852",
+          "MIT60857",
+          "MIT60858"
+        ],
+        "confidence": 0.3437
+      },
+      {
+        "concept": "science computer science",
+        "module_count": 23,
+        "modules": [
+          "IC40008",
+          "IC50001",
+          "IC60017",
+          "IC70005",
+          "IC70006",
+          "IC70021",
+          "IC70068",
+          "IC70075",
+          "IC70098",
+          "MIT60001",
+          "MIT60002",
+          "MIT60006",
+          "MIT60042",
+          "MIT60045",
+          "MIT60046",
+          "MIT60828",
+          "MIT60837",
+          "MIT60840",
+          "MIT60851",
+          "MIT60854",
+          "MIT60864",
+          "MIT60875",
+          "MIT60890"
+        ],
+        "confidence": 0.3787
+      },
+      {
+        "concept": "science",
+        "module_count": 17,
+        "modules": [
+          "IC40008",
+          "IC50001",
+          "IC70005",
+          "IC70021",
+          "IC70098",
+          "MIT60001",
+          "MIT60002",
+          "MIT60006",
+          "MIT60042",
+          "MIT60045",
+          "MIT60046",
+          "MIT60840",
+          "MIT60851",
+          "MIT60854",
+          "MIT60857",
+          "MIT60875",
+          "MIT60890"
+        ],
+        "confidence": 0.5348
+      },
+      {
+        "concept": "classes",
+        "module_count": 17,
+        "modules": [
+          "IC40008",
+          "IC50001",
+          "IC70005",
+          "IC70021",
+          "IC70098",
+          "MIT60001",
+          "MIT60002",
+          "MIT60006",
+          "MIT60042",
+          "MIT60045",
+          "MIT60046",
+          "MIT60840",
+          "MIT60851",
+          "MIT60854",
+          "MIT60858",
+          "MIT60875",
+          "MIT60890"
+        ],
+        "confidence": 0.4609
+      },
+      {
+        "concept": "architectural",
+        "module_count": 17,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC60001",
+          "IC60008",
+          "IC60017",
+          "IC60032",
+          "IC70022",
+          "IC70070",
+          "IC70075",
+          "IC70086",
+          "IC70111",
+          "IC70114",
+          "MIT60004",
+          "MIT60172",
+          "MIT60823",
+          "MIT60830"
+        ],
+        "confidence": 0.3409
+      },
+      {
+        "concept": "complexity",
+        "module_count": 17,
+        "modules": [
+          "IC40008",
+          "IC50001",
+          "IC70005",
+          "IC70020",
+          "IC70021",
+          "IC70098",
+          "MIT60001",
+          "MIT60002",
+          "MIT60006",
+          "MIT60042",
+          "MIT60045",
+          "MIT60046",
+          "MIT60840",
+          "MIT60851",
+          "MIT60854",
+          "MIT60875",
+          "MIT60890"
+        ],
+        "confidence": 0.3381
+      },
+      {
+        "concept": "computer hardware",
+        "module_count": 17,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC40018",
+          "IC60001",
+          "IC60008",
+          "IC60017",
+          "IC70022",
+          "IC70070",
+          "IC70075",
+          "IC70086",
+          "IC70114",
+          "MIT60004",
+          "MIT60172",
+          "MIT60823",
+          "MIT60830",
+          "MIT60837"
+        ],
+        "confidence": 0.3313
+      },
+      {
+        "concept": "quantum",
+        "module_count": 16,
+        "modules": [
+          "IC40008",
+          "IC50001",
+          "IC70005",
+          "IC70021",
+          "IC70098",
+          "MIT60001",
+          "MIT60002",
+          "MIT60006",
+          "MIT60042",
+          "MIT60045",
+          "MIT60046",
+          "MIT60840",
+          "MIT60851",
+          "MIT60854",
+          "MIT60875",
+          "MIT60890"
+        ],
+        "confidence": 0.4534
+      },
+      {
+        "concept": "designs",
+        "module_count": 16,
+        "modules": [
+          "IC40001",
+          "IC40005",
+          "IC40007",
+          "IC60001",
+          "IC60008",
+          "IC60017",
+          "IC70022",
+          "IC70070",
+          "IC70075",
+          "IC70086",
+          "IC70114",
+          "MIT60004",
+          "MIT60172",
+          "MIT60823",
+          "MIT60824",
+          "MIT60830"
+        ],
+        "confidence": 0.4514
+      }
+    ],
+    "ka_coverage": {
+      "AL": 0.8911,
+      "AR": 0.7822,
+      "CN": 0.8119,
+      "DS": 0.7723,
+      "GV": 0.5149,
+      "HCI": 0.8218,
+      "IAS": 0.5248,
+      "IM": 0.7228,
+      "IS": 0.9703,
+      "NC": 0.6535,
+      "OS": 0.7327,
+      "PBD": 0.4356,
+      "PD": 0.6931,
+      "PL": 0.9109,
+      "SDF": 0.9703,
+      "SE": 0.9307,
+      "SF": 0.8812,
+      "SP": 0.5743
+    }
+  },
+  "inferred_prerequisites": [
+    {
+      "from": "IC60032",
+      "to": "IC70111",
+      "overlap": 48
+    },
+    {
+      "from": "IC50005",
+      "to": "IC70004",
+      "overlap": 47
+    },
+    {
+      "from": "IC60015",
+      "to": "IC70004",
+      "overlap": 46
+    },
+    {
+      "from": "IC50004",
+      "to": "IC60032",
+      "overlap": 45
+    },
+    {
+      "from": "IC60001",
+      "to": "IC70086",
+      "overlap": 45
+    },
+    {
+      "from": "IC60034",
+      "to": "IC70105",
+      "overlap": 42
+    },
+    {
+      "from": "IC60037",
+      "to": "IC70015",
+      "overlap": 41
+    },
+    {
+      "from": "IC40018",
+      "to": "IC50003",
+      "overlap": 41
+    },
+    {
+      "from": "IC60034",
+      "to": "IC70010",
+      "overlap": 40
+    },
+    {
+      "from": "IC40018",
+      "to": "IC50009",
+      "overlap": 38
+    },
+    {
+      "from": "IC50005",
+      "to": "IC60015",
+      "overlap": 37
+    },
+    {
+      "from": "IC40017",
+      "to": "IC50011",
+      "overlap": 36
+    },
+    {
+      "from": "IC60007",
+      "to": "IC70111",
+      "overlap": 35
+    },
+    {
+      "from": "IC50004",
+      "to": "IC70111",
+      "overlap": 35
+    },
+    {
+      "from": "IC40016",
+      "to": "IC50011",
+      "overlap": 34
+    },
+    {
+      "from": "IC60034",
+      "to": "IC70113",
+      "overlap": 34
+    },
+    {
+      "from": "IC50008",
+      "to": "IC70019",
+      "overlap": 32
+    },
+    {
+      "from": "IC40017",
+      "to": "IC60016",
+      "overlap": 32
+    },
+    {
+      "from": "IC50011",
+      "to": "IC60016",
+      "overlap": 32
+    },
+    {
+      "from": "IC40016",
+      "to": "IC60016",
+      "overlap": 32
+    }
+  ],
+  "communities": {
+    "IC40001": 0,
+    "IC40005": 0,
+    "IC40007": 0,
+    "IC40008": 3,
+    "IC40009": 2,
+    "IC40016": 3,
+    "IC40017": 4,
+    "IC40018": 5,
+    "MIT60001": 6,
+    "MIT60002": 6,
+    "MIT60042": 1,
+    "IC50001": 3,
+    "IC50002": 2,
+    "IC50003": 5,
+    "IC50004": 0,
+    "IC50005": 2,
+    "IC50008": 3,
+    "IC50009": 5,
+    "IC50010": 2,
+    "IC50011": 4,
+    "IC50013": 3,
+    "MIT60004": 6,
+    "MIT60005": 6,
+    "MIT60006": 6,
+    "MIT60041": 3,
+    "MIT60046": 6,
+    "IC60001": 0,
+    "IC60005": 4,
+    "IC60006": 3,
+    "IC60007": 5,
+    "IC60008": 0,
+    "IC60013": 5,
+    "IC60015": 2,
+    "IC60016": 4,
+    "IC60017": 0,
+    "IC60019": 4,
+    "IC60023": 2,
+    "IC60032": 0,
+    "IC60034": 3,
+    "IC60035": 3,
+    "IC60036": 2,
+    "IC60037": 3,
+    "MIT60033": 6,
+    "MIT60034": 6,
+    "MIT60035": 2,
+    "MIT60036": 6,
+    "MIT60045": 6,
+    "MIT60172": 6,
+    "MIT60801": 1,
+    "MIT60821": 6,
+    "MIT60823": 0,
+    "MIT60824": 6,
+    "MIT60828": 6,
+    "MIT60830": 6,
+    "MIT60832": 1,
+    "MIT60837": 6,
+    "MIT60840": 6,
+    "MIT60851": 6,
+    "MIT60852": 6,
+    "MIT60854": 6,
+    "MIT60857": 2,
+    "MIT60858": 6,
+    "MIT60864": 3,
+    "MIT60867": 3,
+    "MIT60875": 6,
+    "MIT60890": 6,
+    "IC70001": 4,
+    "IC70004": 2,
+    "IC70005": 6,
+    "IC70006": 4,
+    "IC70007": 4,
+    "IC70010": 3,
+    "IC70014": 3,
+    "IC70015": 3,
+    "IC70016": 3,
+    "IC70017": 4,
+    "IC70019": 3,
+    "IC70020": 5,
+    "IC70021": 6,
+    "IC70022": 0,
+    "IC70023": 5,
+    "IC70024": 2,
+    "IC70025": 2,
+    "IC70028": 1,
+    "IC70031": 5,
+    "IC70067": 1,
+    "IC70068": 2,
+    "IC70070": 0,
+    "IC70075": 0,
+    "IC70082": 2,
+    "IC70086": 0,
+    "IC70090": 4,
+    "IC70098": 6,
+    "IC70100": 3,
+    "IC70101": 1,
+    "IC70103": 3,
+    "IC70105": 3,
+    "IC70111": 0,
+    "IC70112": 4,
+    "IC70113": 3,
+    "IC70114": 3
+  }
+}
