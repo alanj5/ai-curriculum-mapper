@@ -14,7 +14,7 @@ Automated extraction, alignment, and visualisation of Computing curriculum conte
 
 ## Overview
 
-The system ingests 69 Imperial College Computing module descriptors (BEng + MEng, Years 1–4) — each module's description, learning outcomes **and official syllabus topics** — extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield ~2,449 unique concepts, and aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner. It builds a heterogeneous, typed curriculum graph — **modules, concepts, CS2023 standards, and programme-level outcomes** — over four NetworkX graphs (module-module similarity, bipartite module-concept, concept-CS2023 hierarchy, and a directed **concept-prerequisite DAG**, from which module-level prerequisites are in turn inferred), tags each module with its degree programme(s) (BEng/MEng Computing, with an optional MIT OpenCourseWare comparison cohort), and maps modules to the programme-level outcomes they fulfil. Real ECTS credits and programme outcomes come from the official Imperial Programme Specifications. All results are exposed through an interactive web interface with a programme filter, click-a-concept prerequisite neighbourhoods, and one-click prerequisite-chain tracing.
+The system ingests 69 Imperial College Computing module descriptors (BEng + MEng, Years 1–4) — each module's description, learning outcomes **and official syllabus topics** — extracts key concepts using five NLP methods (TF-IDF, RAKE, TextRank, KeyBERT, BERTopic), applies a concept-specificity filter and SBERT canonicalisation to yield ~2,535 unique concepts, and aligns each concept to the 18 ACM/IEEE CS2023 Knowledge Areas using a hybrid lexical+semantic aligner. It builds a heterogeneous, typed curriculum graph — **modules, concepts, CS2023 standards, and programme-level outcomes** — over four NetworkX graphs (module-module similarity, bipartite module-concept, concept-CS2023 hierarchy, and a directed **concept-prerequisite DAG**, from which module-level prerequisites are in turn inferred), tags each module with its degree programme(s) (BEng/MEng Computing, with an optional MIT OpenCourseWare comparison cohort), and maps modules to the programme-level outcomes they fulfil. Real ECTS credits and programme outcomes come from the official Imperial Programme Specifications. All results are exposed through an interactive web interface with a programme filter, click-a-concept prerequisite neighbourhoods, and one-click prerequisite-chain tracing.
 
 ### Architecture
 
@@ -39,7 +39,7 @@ flowchart LR
     style K fill:#fff4e1,stroke:#A50000
 ```
 
-**Numbers (canonical `curriculum.db`, BEng + MEng Years 1–4):** 69 modules → 2,449 canonical concepts (after the specificity filter and SBERT canonicalisation) → 3,199 alignment records (26.3% of primary alignments ambiguous) → a module graph of 338 edges (291 concept-overlap + 143 inferred prerequisite, 96 being both) across 7 Louvain communities (modularity Q ≈ 0.54). The optional combined `curriculum_multi.db` adds 32 MIT OpenCourseWare CS courses for a 101-module (3,345-concept) cross-programme comparison — surfaced as a side-by-side cohort comparison and an interactive module×KA matrix in the Coverage page. (The pipeline is stochastic — BERTopic UMAP — so these are one committed reference run.)
+**Numbers (canonical `curriculum.db`, BEng + MEng Years 1–4):** 69 modules → 2,535 canonical concepts (after the specificity filter and SBERT canonicalisation) → 3,340 alignment records (26.0% of rank-1 alignments ambiguous) → a module graph of 328 edges (296 concept-overlap + 155 inferred prerequisite, 123 being both) across 9 Louvain communities (modularity Q ≈ 0.77). The optional combined `curriculum_multi.db` adds 32 MIT OpenCourseWare CS courses for a 101-module (3,376-concept) cross-programme comparison — surfaced as a side-by-side cohort comparison and an interactive module×KA matrix in the Coverage page. (Every stochastic stage is seeded — BERTopic UMAP, HDBSCAN, Louvain — so a clean rebuild reproduces this committed reference run exactly.)
 
 ---
 
@@ -112,7 +112,7 @@ python scripts/fetch_imperial_modules.py
 # Step 1: Ingest module descriptors → populates modules, ilos, prerequisites tables
 python scripts/ingest_modules.py
 
-# Step 2: Run NLP extraction → populates concepts table (~2,449 concepts, ~3–5 min)
+# Step 2: Run NLP extraction → populates concepts table (~2,535 concepts, ~3–5 min)
 python scripts/run_nlp_pipeline.py
 
 # Step 3: Align concepts to CS2023 KAs → populates alignments table (~1–2 min)
@@ -138,6 +138,13 @@ An optional sixth concept extractor uses a **local** LLM via [Ollama](https://ol
 (no external API; preserves the project's privacy-local design). It is **off by
 default**, so the standard pipeline, the reported figures, and CI are unchanged and
 require no Ollama.
+
+> **Note:** the committed LLM benchmark run (`evaluation_results.json` →
+> `llm_model_comparison`, replayable from `data/cache/llm/` without Ollama)
+> post-dates the dissertation's frozen table; local model versions drifted, so
+> values differ in the last decimals (e.g. llama3.1 F1@10 0.616 vs 0.606) — see
+> the dissertation §5.6 for exactly this caveat. All qualitative findings are
+> unchanged.
 
 ```bash
 # 1. Install Ollama and a model (≈5 GB). qwen2.5:7b / llama3.1:8b suit a 16 GB Mac.
@@ -347,7 +354,7 @@ python -m pytest tests/unit/ -q
 
 ```bash
 python -m pytest tests/integration/ -v
-# 68 tests against real SQLite DB via ASGI transport
+# 70 tests against real SQLite DB via ASGI transport
 ```
 
 ### By test module

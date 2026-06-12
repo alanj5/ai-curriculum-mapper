@@ -15,7 +15,7 @@ authors:
     affiliation: "Department of Computing, Imperial College London"
 type: software
 version: "1.0.0"
-date-released: 2026-05-28
+date-released: 2026-06-12
 license: MIT
 repository-code: "https://github.com/alanj5/ai-curriculum-mapper"
 url: "https://github.com/alanj5/ai-curriculum-mapper"
@@ -39,4 +39,4 @@ preferred-citation:
     name: "Imperial College London"
     address: "London, United Kingdom"
   year: 2026
-  month: 5
+  month: 6
